@@ -1,0 +1,21 @@
+<preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- These settings headers are only used on tablets. -->
+
+    <header
+        android:fragment="org.ibagi.app.SettingsActivity$GeneralPreferenceFragment"
+        android:title="Akun Bank" />
+
+    <header
+        android:fragment="org.ibagi.app.SettingsActivity$NotificationPreferenceFragment"
+        android:title="Ubah Profile" />
+
+    <header
+        android:fragment="org.ibagi.app.SettingsActivity$DataSyncPreferenceFragment"
+        android:title="Jadi Peminjam" />
+
+    <header
+        android:fragment="org.ibagi.app.SettingsActivity$DataSyncPreferenceFragment"
+        android:title="Jadi Peminjam" />
+
+</preference-headers>

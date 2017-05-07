@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_bg">
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|top"
+        android:src="@drawable/bg_att"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:layout_gravity="center">
+
+        <com.lesgood.guru.util.TypefacedTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:typeface="Roboto-Medium.ttf"
+            android:text="Lesgood Guru"
+            android:textColor="@color/colorWhite"
+            android:gravity="center"
+            android:textSize="24sp"/>
+
+        <com.lesgood.guru.util.TypefacedTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:typeface="Roboto-Light.ttf"
+            android:textSize="16sp"
+            android:text="Dapatkan pesanan mengajar
+dimanapun kapanpun"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/colorWhite"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:textColor="@color/colorAccent"
+        android:drawableLeft="@drawable/facebook"
+        android:text="Masuk Dengan Facbook"
+        android:id="@+id/btn_login_with_facebook"
+        android:layout_marginBottom="100dp"
+        android:background="@drawable/button_radius_white_selector"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_wave_white"/>
+
+    <include layout="@layout/view_progress"/>
+
+
+</android.support.design.widget.CoordinatorLayout>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/activity_horizontal_margin">
+
+    <com.lesgood.guru.util.TypefacedTextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:typeface="Roboto-Regular.ttf"
+        android:text="Pilih foto untuk diunggah"
+        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Base.Widget.AppCompat.Button.Borderless"
+        android:textSize="18sp"
+        android:id="@+id/btn_gallery"
+        android:drawableLeft="@drawable/ic_stack_of_photos_24_dark"
+        android:text="Galeri Foto"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:alpha=".5"
+        android:background="@color/colorSoft"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Base.Widget.AppCompat.Button.Borderless"
+        android:textSize="18sp"
+        android:id="@+id/btn_take_a_photo"
+        android:drawableLeft="@drawable/ic_add_camera_24_dark"
+        android:text="Ambil Foto"/>
+
+</LinearLayout>

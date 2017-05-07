@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/toolbar_basic"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="?actionBarSize"
+        android:padding="@dimen/activity_horizontal_margin">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:background="@drawable/soft_color_selector"
+                android:padding="8dp"
+                android:id="@+id/lin_category"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/circle_blue"
+                    android:src="@drawable/courses"
+                    android:padding="5dp"
+                    android:scaleType="centerInside"/>
+
+                <com.lesgood.guru.util.TypefacedTextView
+                    android:layout_width="wrap_content"
+                    android:text="Materi Skolah"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="10dp"
+                    android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/angle_down"/>
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:background="@drawable/soft_color_selector"
+                android:padding="8dp"
+                android:id="@+id/lin_class"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_student_male_24_primary"
+                    android:padding="5dp"
+                    android:scaleType="centerInside"/>
+
+                <com.lesgood.guru.util.TypefacedTextView
+                    android:layout_width="wrap_content"
+                    android:text="Pilih Kelas"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="10dp"
+                    android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/angle_down"/>
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:background="@drawable/soft_color_selector"
+                android:padding="8dp"
+                android:id="@+id/lin_subcategory"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_book_24_dark"
+                    android:padding="5dp"
+                    android:scaleType="centerInside"/>
+
+                <com.lesgood.guru.util.TypefacedTextView
+                    android:layout_width="wrap_content"
+                    android:text="Pilih Materi"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="10dp"
+                    android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/angle_down"/>
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:textColor="@color/colorPrimaryDark"
+        android:text="Cari Pengajar"
+        style="@style/Base.Widget.AppCompat.Button.Borderless"/>
+
+</android.support.design.widget.CoordinatorLayout>

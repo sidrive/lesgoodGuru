@@ -1,0 +1,151 @@
+<resources>
+    <string name="app_name">Guru</string>
+    <string name="facebook_app_id">124660361423084</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <string name="rationale_camera">Membutuhkan ijin untuk mengakses kamera</string>
+    <string name="error_field_required">Harus diisi</string>
+
+
+    <string-array name="list_gender">
+        <item>Laki laki</item>
+        <item>Perempuan</item>
+    </string-array>
+
+    <string-array name="list_pre_language">
+        <item>Bahasa Indonesia</item>
+    </string-array>
+
+    <string-array name="list_pre_language_values">
+        <item>1</item>
+    </string-array>
+
+
+    <string-array name="list_parent_category">
+        <item>Materi Sekolah</item>
+        <item>Music</item>
+        <item>Bahasa Asing</item>
+        <item>Bela Diri</item>
+        <item>Komputerisasi</item>
+        <item>Keterampilan</item>
+        <item>Mengaji</item>
+        <item>Olahraga</item>
+    </string-array>
+
+    <string-array name="list_class_course">
+        <item>SD 1</item>
+        <item>SD 2</item>
+        <item>SD 3</item>
+        <item>SD 4</item>
+        <item>SD 5</item>
+        <item>SD 6</item>
+        <item>SMP 7</item>
+        <item>SMP 8</item>
+        <item>SMP 9</item>
+        <item>SMA 10</item>
+        <item>SMA 11</item>
+        <item>SMA 13</item>
+    </string-array>
+
+    <string-array name="list_class_common">
+        <item>Pemula</item>
+        <item>Menengah</item>
+        <item>Lanjutan</item>
+    </string-array>
+
+    <string-array name="list_sub_category_course">
+        <item>Basaha Indonesia</item>
+        <item>Bahasa Inggris</item>
+        <item>Biologi</item>
+        <item>Ekonomi</item>
+        <item>IPA</item>
+        <item>IPS</item>
+        <item>Kimia</item>
+        <item>Matematika</item>
+        <item>Sosiologi</item>
+    </string-array>
+
+    <string-array name="list_sub_category_music">
+        <item>Angklung</item>
+        <item>Beatbox</item>
+        <item>Biola</item>
+        <item>Drum</item>
+        <item>Gamelan</item>
+        <item>Gitar</item>
+        <item>Piano</item>
+        <item>Rebana</item>
+        <item>Saxophone</item>
+        <item>Vokal</item>
+    </string-array>
+
+    <string-array name="list_sub_category_languages">
+        <item>Arab</item>
+        <item>Belanda</item>
+        <item>Inggris</item>
+        <item>Jerman</item>
+        <item>Jepang</item>
+        <item>Korea</item>
+        <item>Mandarin</item>
+        <item>Prancis</item>
+        <item>Sepanyol</item>
+    </string-array>
+
+    <string-array name="list_sub_category_fight">
+        <item>Karate</item>
+        <item>Krav Maga</item>
+        <item>Kunfu</item>
+        <item>Muay Thai</item>
+        <item>Silat</item>
+        <item>Tinju</item>
+        <item>Taekwondo</item>
+        <item>Wushu</item>
+    </string-array>
+
+    <string-array name="list_sub_category_computer">
+        <item>Analisa Algoritma</item>
+        <item>AutoCAD</item>
+        <item>Android Programming</item>
+        <item>Animasi</item>
+        <item>Desain Grafis</item>
+        <item>IOS Programming</item>
+        <item>Web Design</item>
+        <item>Web Programming</item>
+        <item>Jaringan Komputer</item>
+        <item>Teknik Komputer</item>
+    </string-array>
+
+
+    <string-array name="list_sub_category_skill">
+        <item>Manajemen Bisnis</item>
+        <item>Fotografi</item>
+        <item>HRD</item>
+        <item>Hipnotheraphy</item>
+        <item>Menjahit</item>
+        <item>Melukis</item>
+        <item>Menulis Kreatif</item>
+        <item>Memasak</item>
+        <item>Public Speaking</item>
+        <item>Sulap</item>
+        <item>Menari</item>
+        <item>Trading Saham</item>
+    </string-array>
+
+    <string-array name="list_sub_category_koran">
+        <item>Al-Quran dan Penidikan Islam</item>
+    </string-array>
+
+    <string-array name="list_sub_category_sport">
+        <item>Basket</item>
+        <item>Bulu Tangkis</item>
+        <item>Catur</item>
+        <item>Fitnes</item>
+        <item>Renang</item>
+        <item>Sepak Bola</item>
+        <item>Voli</item>
+        <item>Membentuk Badan</item>
+        <item>Yoga</item>
+    </string-array>
+
+</resources>

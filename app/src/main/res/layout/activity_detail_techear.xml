@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="250dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/img_bg_avatar"
+                    android:scaleType="centerCrop"
+                    android:src="@color/colorSoft"/>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:alpha=".8"
+                    android:src="@color/colorShadow5"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="@dimen/activity_horizontal_margin">
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:id="@+id/img_avatar"
+                        android:src="@color/colorWhite"/>
+
+                    <com.lesgood.guru.util.TypefacedTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        app:typeface="Roboto-Medium.ttf"
+                        android:text="Agus Setiawan"
+                        android:id="@+id/txt_name"
+                        android:textColor="@color/colorWhite"
+                        android:layout_marginTop="10dp"/>
+
+                    <RatingBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/ratingBar"
+                        android:layout_marginTop="10dp"/>
+
+                    <com.lesgood.guru.util.TypefacedTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:typeface="Roboto-Regular.ttf"
+                        android:text="Rp.65.000/per Jam"
+                        android:id="@+id/txt_price_rating"
+                        android:textColor="@color/colorWhite"
+                        android:layout_marginTop="10dp"/>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:alpha=".5"
+                android:background="@color/colorSoft"
+                />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

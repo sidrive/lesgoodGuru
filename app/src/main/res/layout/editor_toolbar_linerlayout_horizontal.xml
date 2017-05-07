@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:layout_gravity="bottom"
+    android:background="@drawable/gradient_bg"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <TextView
+        android:text="H1"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:background="@android:color/transparent"
+        android:textColor="@color/colorWhite"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:id="@+id/action_h1"
+        />
+    <TextView
+        android:text="H2"
+        android:id="@+id/action_h2"
+        android:textStyle="bold"
+        android:textColor="@color/colorWhite"
+        android:background="@android:color/transparent"
+        android:textSize="18sp"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_weight="1"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_bold_24_white"
+        android:id="@+id/action_bold" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_italic_24_white"
+        android:id="@+id/action_Italic" />
+
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_bulleted_list_24_white"
+        android:id="@+id/action_bulleted" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_numbered_list_24_white"
+        android:id="@+id/action_unordered_numbered" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_add_link_24_white"
+        android:id="@+id/action_insert_link" />
+
+</LinearLayout>

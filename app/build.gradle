@@ -1,0 +1,102 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+
+android {
+    signingConfigs {
+        release {
+            keyAlias 'lesgood'
+            keyPassword 'Doremi456'
+            storeFile file('/Users/Agus/Documents/Lesgood/keystores/lesgood-relase-keystore.jks')
+            storePassword 'Doremi456'
+        }
+    }
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+    defaultConfig {
+        applicationId "com.lesgood.guru"
+        minSdkVersion 17
+        targetSdkVersion 25
+        multiDexEnabled true
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            debuggable true
+            signingConfig signingConfigs.release
+        }
+    }
+    configurations.all {
+        resolutionStrategy {
+            force rootProject.ext.supportAnnotations
+        }
+    }
+    productFlavors {
+        releaseConfig {
+            minSdkVersion 17
+            applicationId 'com.lesgood.guru'
+            signingConfig signingConfigs.release
+            targetSdkVersion 25
+            versionCode 1
+            versionName '1.0.0'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile rootProject.ext.supportV7
+    compile rootProject.ext.supportDesign
+    compile rootProject.ext.supportRecycler
+    compile rootProject.ext.supportAnnotations
+    compile rootProject.ext.supprtCardView
+    compile rootProject.ext.supportV4
+    compile rootProject.ext.supportVectorDrawable
+
+    apt rootProject.ext.daggerCompiler
+    provided rootProject.ext.javax
+
+    compile rootProject.ext.dagger
+    compile rootProject.ext.timber
+    compile rootProject.ext.guava
+    compile rootProject.ext.butterKnife
+    compile rootProject.ext.retrofit
+    compile rootProject.ext.gson
+    compile rootProject.ext.logging
+    // Data dependencies
+    compile rootProject.ext.fbuistorage
+    // gms dependencies
+    compile rootProject.ext.gplus
+    compile rootProject.ext.gauth
+    compile rootProject.ext.gaware
+    compile rootProject.ext.glocation
+    compile rootProject.ext.gmap
+    // Firebase dependencies
+    compile rootProject.ext.fbcore
+    compile rootProject.ext.fbauth
+    compile rootProject.ext.fbdb
+    compile rootProject.ext.fbmsg
+    compile rootProject.ext.fbstorage
+    compile rootProject.ext.fbcrash
+    // Test dependencies
+    testCompile rootProject.ext.junit
+    testCompile rootProject.ext.supportAnnotations
+    // Android Testing Support Library's runner and rules
+    androidTestCompile rootProject.ext.runner
+    androidTestCompile rootProject.ext.rules
+
+    compile 'de.hdodenhof:circleimageview:2.1.0'
+    compile 'com.facebook.android:facebook-android-sdk:4.21.1'
+    compile 'com.wdullaer:materialdatetimepicker:3.1.3'
+    compile 'com.theartofdev.edmodo:android-image-cropper:2.3.0'
+    compile 'pub.devrel:easypermissions:0.3.0'
+    compile 'com.android.support:multidex:1.0.1'
+    compile 'jp.wasabeef:richeditor-android:1.2.2'
+    compile 'com.github.alamkanak:android-week-view:1.2.6'
+}
+
+apply plugin: 'com.google.gms.google-services'

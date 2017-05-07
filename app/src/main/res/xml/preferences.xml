@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="Akun"
+        android:key="account">
+
+
+        <PreferenceScreen
+            android:key="edit_profile"
+            android:title="Ubah Akun">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:targetPackage="org.ibagi.app.ui.edit_profile.EditProfileActivity"
+                android:targetClass="my.notifier.ui.EditCoursesNamesActivity" />
+        </PreferenceScreen>
+
+        <PreferenceScreen
+            android:key="be_borrower"
+            android:title="Menjadi Pengajar">
+        </PreferenceScreen>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Pengaturan"
+        android:key="personal_category">
+
+
+        <ListPreference
+            android:key="language"
+            android:title="Bahasa"
+            android:defaultValue="1000"
+            android:entries="@array/list_pre_language"
+            android:entryValues="@array/list_pre_language_values" />
+
+
+        <PreferenceScreen
+            android:key="help"
+            android:title="Bantuan"
+            />
+
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory
+        android:title="Tentang"
+        android:key="other">
+
+
+        <PreferenceScreen
+            android:key="versi"
+            android:title="Lesgood Guru"
+            android:summary="Versi 1.0.0-alpha"
+            />
+
+        <PreferenceScreen
+            android:key="review"
+            android:title="Beri Ulasan"
+            />
+
+        <PreferenceScreen
+            android:key="review"
+            android:title="Laporkan Masalah"
+            />
+
+        <Preference
+            android:key="logout"
+            android:title="Keluar"
+            />
+
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

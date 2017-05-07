@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FCC840</color>
+    <color name="colorPrimaryDark">#FF4E50</color>
+    <color name="colorAccent">#2196F3</color>
+
+    <color name="colorBlueDark">#4A90E2</color>
+    <color name="colorRed">#F02D45</color>
+    <color name="colorPink">#F50057</color>
+
+    <color name="colorAccentDark">#7ED321</color>
+    <color name="colorSoft">#BFB9B9</color>
+
+    <color name="colorWhite">#fff</color>
+    <color name="colorBlack">#000</color>
+    <color name="colorGrey400">#BDBDBD</color>
+    <color name="colorGrey800">#424242</color>
+    <color name="colorShadow5">#5E000000</color>
+    <color name="colorShadow2">#2E000000</color>
+    <color name="colorShadowWhite">#5Effffff</color>
+    <color name="colorTransparent">#00000000</color>
+
+    <color name="percentageFillColor">#FCC840</color>
+    <color name="percentageUnfilledColor">#E4E6EA</color>
+    <color name="percentageTextBackground">#fff</color>
+    <color name="percentageTextColor">#424242</color>
+</resources>
