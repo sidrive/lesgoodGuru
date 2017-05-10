@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">]
+    <include layout="@layout/toolbar_basic"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?actionBarSize">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/activity_horizontal_margin">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:background="@drawable/soft_color_selector"
+                    android:padding="8dp"
+                    android:id="@+id/lin_category"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/circle_blue"
+                        android:src="@drawable/courses"
+                        android:padding="5dp"
+                        android:scaleType="centerInside"/>
+
+                    <com.lesgood.guru.util.TypefacedTextView
+                        android:layout_width="wrap_content"
+                        android:text="Materi Skolah"
+                        app:typeface="Roboto-Regular.ttf"
+                        android:layout_weight="1"
+                        android:id="@+id/txt_category"
+                        android:layout_marginLeft="10dp"
+                        android:layout_height="wrap_content"
+                        android:drawableRight="@drawable/angle_down"/>
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:background="@drawable/soft_color_selector"
+                    android:padding="8dp"
+                    android:id="@+id/lin_subcategory"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_book_24_dark"
+                        android:padding="5dp"
+                        android:scaleType="centerInside"/>
+
+                    <com.lesgood.guru.util.TypefacedTextView
+                        android:layout_width="wrap_content"
+                        android:text="Pilih Materi"
+                        app:typeface="Roboto-Regular.ttf"
+                        android:layout_weight="1"
+                        android:id="@+id/txt_skill"
+                        android:layout_marginLeft="10dp"
+                        android:layout_height="wrap_content"
+                        android:drawableRight="@drawable/angle_down"/>
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:background="@drawable/soft_color_selector"
+                    android:padding="8dp"
+                    android:id="@+id/lin_level"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_student_male_24_primary"
+                        android:padding="5dp"
+                        android:scaleType="centerInside"/>
+
+                    <com.lesgood.guru.util.TypefacedTextView
+                        android:layout_width="wrap_content"
+                        android:text="Pilih Kelas"
+                        android:id="@+id/txt_level"
+                        app:typeface="Roboto-Regular.ttf"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="10dp"
+                        android:layout_height="wrap_content"
+                        android:drawableRight="@drawable/angle_down"/>
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_horizontal_margin"
+                    android:orientation="horizontal">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Rp."
+                        android:enabled="false"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_horizontal_margin"
+                    android:orientation="horizontal">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/input_price"
+                        android:inputType="number"
+                        android:hint="Harga Per 100 menit"/>
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+    <include layout="@layout/view_progress"/>
+</android.support.design.widget.CoordinatorLayout>

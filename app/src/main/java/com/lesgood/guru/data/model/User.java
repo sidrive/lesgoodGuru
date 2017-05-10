@@ -20,9 +20,6 @@ public class User implements Serializable {
     String phone;
     @Nullable
     String email;
-    @VisibleForTesting
-    @Nullable
-    String password;
     @Nullable
     String provider;
     @Nullable
@@ -35,6 +32,14 @@ public class User implements Serializable {
     long birthday;
     @Nullable
     boolean verified;
+    @Nullable
+    double latitude;
+    @Nullable
+    double longitude;
+    @Nullable
+    String fullAddress;
+    @Nullable
+    int totalSkill;
 
     public static User newInstance(FirebaseUser firebaseUser, UserInfo provider) {
         User user = new User(firebaseUser.getUid());
@@ -145,5 +150,41 @@ public class User implements Serializable {
 
     public void setVerified(@Nullable boolean verified) {
         this.verified = verified;
+    }
+
+    @Nullable
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(@Nullable double latitude) {
+        this.latitude = latitude;
+    }
+
+    @Nullable
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(@Nullable double longitude) {
+        this.longitude = longitude;
+    }
+
+    @Nullable
+    public String getFullAddress() {
+        return fullAddress;
+    }
+
+    public void setFullAddress(@Nullable String fullAddress) {
+        this.fullAddress = fullAddress;
+    }
+
+    @Nullable
+    public int getTotalSkill() {
+        return totalSkill;
+    }
+
+    public void setTotalSkill(@Nullable int totalSkill) {
+        this.totalSkill = totalSkill;
     }
 }

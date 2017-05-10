@@ -1,13 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_order"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/rv_items"></android.support.v7.widget.RecyclerView>
+        android:layout_height="wrap_content"
+        ></android.support.v7.widget.RecyclerView>
 
-    <include layout="@layout/view_empty_state"/>
-
-</android.support.design.widget.CoordinatorLayout>
+</RelativeLayout>

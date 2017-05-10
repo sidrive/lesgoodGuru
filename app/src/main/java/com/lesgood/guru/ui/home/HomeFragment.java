@@ -1,6 +1,7 @@
 package com.lesgood.guru.ui.home;
 
 import android.content.res.Resources;
+import android.graphics.RectF;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -31,6 +32,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.Bind;
+import butterknife.BindColor;
 import butterknife.ButterKnife;
 
 /**
@@ -38,6 +40,10 @@ import butterknife.ButterKnife;
  */
 
 public class HomeFragment extends BaseFragment {
+
+
+    @BindColor(R.color.colorAccentDark)
+    int colorGreen;
 
     @Bind(R.id.weekView)
     WeekView weekView;
@@ -101,6 +107,8 @@ public class HomeFragment extends BaseFragment {
         getActivity().setTitle("Lesgood Guru");
 
         weekView.setMonthChangeListener(mMonthChangeListener);
+        weekView.setOnEventClickListener(eventClickListener);
+
         return view;
     }
 
@@ -111,6 +119,13 @@ public class HomeFragment extends BaseFragment {
             // Populate the week view with some events.
             List<WeekViewEvent> events = new ArrayList<>();
             return events;
+        }
+    };
+
+    WeekView.EventClickListener eventClickListener = new WeekView.EventClickListener() {
+        @Override
+        public void onEventClick(WeekViewEvent event, RectF eventRect) {
+            event.setColor(colorGreen);
         }
     };
 

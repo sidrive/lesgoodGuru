@@ -65,12 +65,6 @@ public class BriefActivity extends BaseActivity {
 
     String brief;
 
-    public static void startWithContent(BaseActivity activity, String brief) {
-        Intent intent = new Intent(activity, BriefActivity.class);
-        intent.putExtra("brief", brief);
-        activity.startActivityForResult(intent, REQUEST_CODE_ADD_BRIEF);
-    }
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

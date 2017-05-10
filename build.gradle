@@ -86,6 +86,7 @@ ext {
     gaware = "com.google.android.gms:play-services-awareness:${FIREBASE_VERSION}"
     glocation = "com.google.android.gms:play-services-location:${FIREBASE_VERSION}"
     gmap = "com.google.android.gms:play-services-maps:${FIREBASE_VERSION}"
+    gcore = "com.google.android.gms:play-services:${FIREBASE_VERSION}"
 
     // Common Test dependencies
     final MOCKITO_VERSION = '1.10.19'

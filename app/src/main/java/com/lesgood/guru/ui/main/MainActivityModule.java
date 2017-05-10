@@ -2,6 +2,7 @@ package com.lesgood.guru.ui.main;
 
 
 import com.lesgood.guru.base.annotation.ActivityScope;
+import com.lesgood.guru.data.model.User;
 import com.lesgood.guru.data.remote.UserService;
 
 import dagger.Module;
@@ -27,7 +28,7 @@ public class MainActivityModule {
 
     @ActivityScope
     @Provides
-    MainPresenter provideMainPresenter(UserService userService){
-        return new MainPresenter(activity, userService);
+    MainPresenter provideMainPresenter(UserService userService, User user){
+        return new MainPresenter(activity, userService, user);
     }
 }

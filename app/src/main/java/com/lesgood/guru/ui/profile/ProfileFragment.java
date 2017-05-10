@@ -1,8 +1,11 @@
 package com.lesgood.guru.ui.profile;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,10 +23,14 @@ import com.bumptech.glide.request.target.Target;
 import com.lesgood.guru.R;
 import com.lesgood.guru.base.BaseApplication;
 import com.lesgood.guru.base.BaseFragment;
+import com.lesgood.guru.data.model.Location;
 import com.lesgood.guru.data.model.User;
+import com.lesgood.guru.ui.add_location.AddLocationActivity;
+import com.lesgood.guru.ui.brief.BriefActivity;
 import com.lesgood.guru.ui.edit_profile.EditProfileActivity;
 import com.lesgood.guru.ui.main.MainActivity;
 import com.lesgood.guru.ui.setting.SettingActivity;
+import com.lesgood.guru.ui.skill.SkillActivity;
 
 
 import javax.inject.Inject;
@@ -33,6 +40,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static android.app.Activity.RESULT_OK;
+
 /**
  * Created by Agus on 2/22/17.
  */
@@ -40,9 +49,20 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ProfileFragment extends BaseFragment {
 
     private static String TAG = "ProfileFragment";
+    private static int REQUEST_CODE_ADD_BRIEF = 1054;
+    private static int REQUEST_CODE_SKIL = 1059;
 
     @Bind(R.id.txt_name)
     TextView txtName;
+
+    @Bind(R.id.txt_about)
+    TextView txtAbout;
+
+    @Bind(R.id.txt_skills)
+    TextView txtSkills;
+
+    @Bind(R.id.txt_location)
+    TextView txtLocation;
 
     @Bind(R.id.img_avatar)
     CircleImageView imgAvatar;
@@ -59,6 +79,9 @@ public class ProfileFragment extends BaseFragment {
     @Inject
     MainActivity activity;
 
+    String userAbout = "";
+
+    Location location;
 
     public static ProfileFragment newInstance() {
         return new ProfileFragment();
@@ -115,10 +138,35 @@ public class ProfileFragment extends BaseFragment {
 
         getActivity().setTitle("Profil");
 
+        location = new Location(user.getUid());
+
         return view;
     }
 
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_ADD_BRIEF) {
+            if (resultCode == RESULT_OK) {
+                String brief = data.getStringExtra("brief");
+                if (brief != null){
+                    initAbout(brief);
+                    presenter.updateUserAbout(user.getUid(),brief);
+                }
+            }
+        }
+
+        if (requestCode == REQUEST_CODE_SKIL){
+            if (resultCode == RESULT_OK){
+                int total = data.getIntExtra("totalSkill", 0);
+                user.setTotalSkill(total);
+                presenter.updateUserTotalSkill(user.getUid(), total);
+                txtSkills.setText(user.getTotalSkill()+" Kemampuan mangajar");
+                BaseApplication.get(activity).createUserComponent(user);
+            }
+        }
+    }
 
 
     @Override
@@ -158,6 +206,23 @@ public class ProfileFragment extends BaseFragment {
                         .into(imgAvatar);
             }
         }
+
+        if (user.getTotalSkill() > 0){
+            txtSkills.setText(user.getTotalSkill()+" Kemampuan mangajar");
+        }
+
+        if (user.getFullAddress() != null){
+            txtLocation.setText(user.getFullAddress());
+        }
+    }
+
+    public void initAbout(String content){
+        this.userAbout = content;
+        txtAbout.setText(Html.fromHtml(content));
+    }
+
+    public void initLocation(Location location){
+        this.location = location;
     }
 
     @OnClick(R.id.btn_edit_profile)
@@ -165,8 +230,20 @@ public class ProfileFragment extends BaseFragment {
         EditProfileActivity.startWithUser(activity, user, false);
     }
 
+    @OnClick(R.id.btn_edit_about)
+    void showEditAbout(){
+        Intent intent = new Intent(activity, BriefActivity.class);
+        intent.putExtra("brief", userAbout);
+        startActivityForResult(intent, REQUEST_CODE_ADD_BRIEF);
+    }
 
+    @OnClick(R.id.lin_skill)
+    void showSkills(){
+        startActivityForResult(new Intent(activity, SkillActivity.class), REQUEST_CODE_SKIL);
+    }
 
-
-
+    @OnClick(R.id.lin_location)
+    void showSetLocation(){
+        AddLocationActivity.startWithUser(activity);
+    }
 }

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/soft_color_selector">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="@dimen/activity_horizontal_margin">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="10dp"
+            android:background="@drawable/gradient_bg"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            android:orientation="vertical">
+
+            <com.lesgood.guru.util.TypefacedTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:id="@+id/txt_day"
+                android:textColor="@color/colorWhite"
+                app:typeface="Roboto-Medium.ttf"
+                android:text="25"/>
+
+            <com.lesgood.guru.util.TypefacedTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:id="@+id/txt_month"
+                android:textColor="@color/colorWhite"
+                app:typeface="Roboto-Light.ttf"
+                android:text="FEB"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <com.lesgood.guru.util.TypefacedTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:typeface="Roboto-Medium.ttf"
+                android:id="@+id/txt_title"
+                android:text="Matematika SMP"/>
+
+            <com.lesgood.guru.util.TypefacedTextView
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:layout_height="wrap_content"
+                app:typeface="Roboto-Regular.ttf"
+                android:textSize="16sp"
+                android:id="@+id/txt_price"
+                android:text="$800"/>
+
+            <com.lesgood.guru.util.TypefacedTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:typeface="Roboto-Regular.ttf"
+                android:textSize="12sp"
+                android:id="@+id/txt_meets"
+                android:text="2 pertemuan"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center|right">
+
+            <com.lesgood.guru.util.TypefacedTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:typeface="Roboto-Medium.ttf"
+                android:id="@+id/txt_status"
+                android:text="Pending"/>
+
+            <com.lesgood.guru.util.TypefacedTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:typeface="Roboto-Medium.ttf"
+                android:id="@+id/txt_order_at"
+                android:text="Kamis, 12"/>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorShadow2"/>
+
+</LinearLayout>

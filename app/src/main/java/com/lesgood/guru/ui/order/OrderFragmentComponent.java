@@ -1,15 +1,16 @@
 package com.lesgood.guru.ui.order;
 
 
-import com.lesgood.guru.base.annotation.ActivityScope;
+
+import com.lesgood.guru.base.annotation.FragmentScope;
 
 import dagger.Subcomponent;
 
 /**
- * Created by Agus on 4/27/17.
+ * Created by Agus on 3/2/17.
  */
 
-@ActivityScope
+@FragmentScope
 @Subcomponent(
         modules = {
                 OrderFragmentModule.class

@@ -13,16 +13,16 @@ public class Category {
     @Nullable
     String name;
     @NonNull
-    int icon;
+    String level;
 
     public Category(){
 
     }
 
-    public Category(String id, String name, int icon){
+    public Category(String id, String name, String level){
         this.id = id;
         this.name = name;
-        this.icon = icon;
+        this.level = level;
     }
 
     @NonNull
@@ -44,11 +44,11 @@ public class Category {
     }
 
     @NonNull
-    public int getIcon() {
-        return icon;
+    public String getLevel() {
+        return level;
     }
 
-    public void setIcon(@NonNull int icon) {
-        this.icon = icon;
+    public void setLevel(@NonNull String level) {
+        this.level = level;
     }
 }
