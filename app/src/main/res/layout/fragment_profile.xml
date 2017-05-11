@@ -13,7 +13,7 @@
             android:orientation="vertical">
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="300dp">
+                android:layout_height="250dp">
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -55,6 +55,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/ratingBar"
+                        android:visibility="gone"
                         android:clickable="false"
                         android:layout_marginTop="10dp"/>
 
@@ -62,8 +63,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:typeface="Roboto-Regular.ttf"
-                        android:text="Rp.65.000/per Jam"
-                        android:id="@+id/txt_price_rating"
+                        android:text="Rp.0/per Jam"
+                        android:id="@+id/txt_price"
                         android:textColor="@color/colorWhite"
                         android:layout_marginTop="10dp"/>
 

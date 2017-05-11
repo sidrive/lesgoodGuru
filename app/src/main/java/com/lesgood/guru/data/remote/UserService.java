@@ -53,7 +53,7 @@ public class UserService {
     //users
 
     public void updateUserToken(String uid, String token){
-        databaseRef.child("users").child(uid).child("notificationTokens").child(token).setValue(true);
+        databaseRef.child("users").child(uid).child("guruTokens").child(token).setValue(true);
     }
 
     public void sendEmailConfirmation(EmailConfirmation emailConfirmation){
@@ -89,11 +89,11 @@ public class UserService {
     }
 
     public Task<Void> updateSkill(String uid, Skill skill){
-        return databaseRef.child("user-skills").child(uid).child(skill.getSid()).setValue(skill);
+        return databaseRef.child("user-skills").child(uid).child(skill.getCode()).setValue(skill);
     }
 
     public Task<Void> removeSkill(String uid, Skill skill){
-        return databaseRef.child("user-skills").child(uid).child(skill.getSid()).removeValue();
+        return databaseRef.child("user-skills").child(uid).child(skill.getCode()).removeValue();
     }
 
     //userskill
@@ -115,5 +115,13 @@ public class UserService {
     public DatabaseReference getUserLocation(String uid){
         return databaseRef.child("user-location").child(uid);
     }
+
+
+    //update price
+    public  void updateUserPrice(String uid, int price){
+        databaseRef.child("users").child(uid).child("startFrom").setValue(price);
+    }
+
+    //update price
 
 }

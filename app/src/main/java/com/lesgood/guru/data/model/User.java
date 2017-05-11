@@ -40,6 +40,10 @@ public class User implements Serializable {
     String fullAddress;
     @Nullable
     int totalSkill;
+    @Nullable
+    float review;
+    @Nullable
+    int startFrom;
 
     public static User newInstance(FirebaseUser firebaseUser, UserInfo provider) {
         User user = new User(firebaseUser.getUid());
@@ -186,5 +190,23 @@ public class User implements Serializable {
 
     public void setTotalSkill(@Nullable int totalSkill) {
         this.totalSkill = totalSkill;
+    }
+
+    @Nullable
+    public float getReview() {
+        return review;
+    }
+
+    public void setReview(@Nullable float review) {
+        this.review = review;
+    }
+
+    @Nullable
+    public int getStartFrom() {
+        return startFrom;
+    }
+
+    public void setStartFrom(@Nullable int startFrom) {
+        this.startFrom = startFrom;
     }
 }

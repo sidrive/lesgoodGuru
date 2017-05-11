@@ -162,7 +162,7 @@
             android:id="@+id/img_marker"
             android:layout_centerInParent="true"
             android:paddingBottom="32dp"
-            android:src="@drawable/marker"/>
+            android:src="@drawable/ic_map_pin_primary_32_dp"/>
 
     </RelativeLayout>
 

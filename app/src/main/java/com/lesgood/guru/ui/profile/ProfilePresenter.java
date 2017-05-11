@@ -60,5 +60,7 @@ public class ProfilePresenter implements BasePresenter {
         userService.updateTotalSkill(uid,total);
     }
 
-
+    public void updateUserPrice(String uid, int price){
+        userService.updateUserPrice(uid, price);
+    }
 }

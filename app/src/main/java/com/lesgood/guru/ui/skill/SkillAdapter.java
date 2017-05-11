@@ -57,7 +57,7 @@ public class SkillAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.menu_delete:
-                                onItemRemoved(items.get(position));
+                                onItemDeleteClicked(items.get(position));
                                 break;
                         }
                         return false;
@@ -73,7 +73,7 @@ public class SkillAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     private void onItemDeleteClicked(Skill item){
-
+        activity.showDeleteItem(item);
     }
 
     @Override
@@ -81,9 +81,23 @@ public class SkillAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         return items.size();
     }
 
+    public int getMinRate(){
+        int rate = 0;
+        if (items.size()>0){
+            rate = items.get(0).getPrice();
+            for (int i=0;i<items.size();i++){
+                int rateNew = items.get(i).getPrice();
+                if (rateNew < rate){
+                    rate = rateNew;
+                }
+            }
+        }
+        return rate;
+    }
+
     public void onItemAdded(Skill item) {
         items.add(item);
-        notifyItemChanged(items.size()-1);
+        notifyDataSetChanged();
     }
 
     public void onItemChanged(Skill item) {

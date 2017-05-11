@@ -9,7 +9,7 @@ import android.support.annotation.Nullable;
 
 public class Skill {
     @NonNull
-    String sid;
+    String code;
     @NonNull
     String uid;
     @Nullable
@@ -25,8 +25,8 @@ public class Skill {
 
     }
 
-    public Skill(String sid, String uid, String skill, String level, int price, String desc){
-        this.sid = sid;
+    public Skill(String code, String uid, String skill, String level, int price, String desc){
+        this.code = code;
         this.uid = uid;
         this.skill = skill;
         this.level = level;
@@ -35,12 +35,12 @@ public class Skill {
     }
 
     @NonNull
-    public String getSid() {
-        return sid;
+    public String getCode() {
+        return code;
     }
 
-    public void setSid(@NonNull String sid) {
-        this.sid = sid;
+    public void setCode(@NonNull String code) {
+        this.code = code;
     }
 
     @NonNull

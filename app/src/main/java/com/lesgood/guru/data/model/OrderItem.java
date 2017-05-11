@@ -9,6 +9,8 @@ import android.support.annotation.Nullable;
 
 public class OrderItem {
     @NonNull
+    String key;
+    @NonNull
     String oid;
     @NonNull
     String product_name;
@@ -16,6 +18,18 @@ public class OrderItem {
     String price;
     @Nullable
     int qty;
+    @Nullable
+    long time;
+    String customer_name;
+
+    @NonNull
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(@NonNull String key) {
+        this.key = key;
+    }
 
     @NonNull
     public String getOid() {
@@ -51,5 +65,22 @@ public class OrderItem {
 
     public void setQty(@Nullable int qty) {
         this.qty = qty;
+    }
+
+    @Nullable
+    public long getTime() {
+        return time;
+    }
+
+    public void setTime(@Nullable long time) {
+        this.time = time;
+    }
+
+    public String getCustomer_name() {
+        return customer_name;
+    }
+
+    public void setCustomer_name(String customer_name) {
+        this.customer_name = customer_name;
     }
 }

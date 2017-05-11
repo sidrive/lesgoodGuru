@@ -88,6 +88,7 @@ public class SkillActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        adapter.clearList();
         presenter.subscribe();
     }
 
@@ -131,7 +132,9 @@ public class SkillActivity extends BaseActivity {
     private void setResultF(){
         Intent intent = new Intent(this, MainActivity.class);
         int totalSkill = adapter.getItemCount();
+        int startForm = adapter.getMinRate();
         intent.putExtra("totalSkill", totalSkill);
+        intent.putExtra("startForm", startForm);
         setResult(RESULT_OK, intent);
         finish();
     }
@@ -154,10 +157,6 @@ public class SkillActivity extends BaseActivity {
         rvItems.setLayoutManager(linearLayoutManager);
     }
 
-    public void showDetailSkill(Skill skill){
-
-    }
-
     public void showDeleteItem(Skill skill){
         showLoading(true);
         presenter.deleteSkill(skill);
@@ -166,7 +165,6 @@ public class SkillActivity extends BaseActivity {
     @OnClick(R.id.fab_add_skill)
     void showAddSkill(){
         Skill skill = new Skill();
-        skill.setSid(UUID.randomUUID().toString());
         skill.setPrice(0);
 
         AddSkillActivity.startWithData(this, skill);

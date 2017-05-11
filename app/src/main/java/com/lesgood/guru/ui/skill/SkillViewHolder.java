@@ -25,7 +25,7 @@ public class SkillViewHolder extends RecyclerView.ViewHolder {
     @Bind(R.id.txt_level)
     TextView txtLevel;
 
-    @Bind(R.id.txt_product)
+    @Bind(R.id.txt_price)
     TextView txtPrice;
 
     @Bind(R.id.btn_more)

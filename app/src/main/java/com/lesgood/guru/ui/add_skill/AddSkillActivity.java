@@ -216,7 +216,7 @@ public class AddSkillActivity extends BaseActivity {
 
     private void showDialogSelectCategory() {
         final AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Select Province");
+        alert.setTitle("Pilih Kategori");
         alert.setSingleChoiceItems(categories, categoryVal, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -238,7 +238,7 @@ public class AddSkillActivity extends BaseActivity {
 
     private void showDialogSelectSubCategory() {
         final AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Select Province");
+        alert.setTitle("Pilih Materi");
         alert.setSingleChoiceItems(subcategories, subcategoryVal, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -260,7 +260,7 @@ public class AddSkillActivity extends BaseActivity {
 
     private void showDialogSelectLevel() {
         final AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Select Province");
+        alert.setTitle("Pilih Tingkat");
         alert.setSingleChoiceItems(levels, levelVal, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -306,6 +306,10 @@ public class AddSkillActivity extends BaseActivity {
             focusView.requestFocus();
         }else{
             showLoading(true);
+            String idSkill = listSubcategories.get(subcategoryVal).getId();
+            String idLevel = listLevels.get(levelVal).getId();
+            String code = idSkill+idLevel;
+            skill.setCode(code);
             presenter.updateSkill(user.getUid(), skill);
         }
 

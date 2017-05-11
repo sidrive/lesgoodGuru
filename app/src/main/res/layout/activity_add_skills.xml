@@ -37,7 +37,7 @@
 
                     <com.lesgood.guru.util.TypefacedTextView
                         android:layout_width="wrap_content"
-                        android:text="Materi Skolah"
+                        android:text="Pilih Kategori"
                         app:typeface="Roboto-Regular.ttf"
                         android:layout_weight="1"
                         android:id="@+id/txt_category"
@@ -142,7 +142,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/input_price"
                         android:inputType="number"
-                        android:hint="Harga Per 100 menit"/>
+                        android:hint="Harga per jam"/>
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
 

@@ -243,7 +243,7 @@ public class AddLocationActivity extends BaseActivity implements OnMapReadyCallb
         Log.d("initmap", "url = "+url);
         Glide.with(this)
                 .load(url)
-                .placeholder(R.color.colorAccentDark)
+                .placeholder(R.color.colorShadow2)
                 .centerCrop()
                 .dontAnimate()
                 .into(imgMap);

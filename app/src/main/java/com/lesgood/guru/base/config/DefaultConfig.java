@@ -25,10 +25,6 @@ public class DefaultConfig {
     private static final String KEY_USER_ID = "user_id";
     private static final String KEY_NEW_JOB_RETRY_COUNT = "new_post_retry_count";
     private static final String KEY_API_URL = "api_url";
-    private static final String KEY_API_KEY = "api_key";
-    private static final String KEY_API_SECRET = "secret_key";
-    private static final String KEY_USER_KEY = "user_key";
-    private static final String KEY_PASS_KEY = "pass_key";
 
 
     private final SharedPreferences mSharedPreferences;
@@ -53,43 +49,11 @@ public class DefaultConfig {
     }
 
     public String getApiUrl() {
-        return mSharedPreferences.getString(KEY_API_URL, "https://api.nexmo.com/");
+        return mSharedPreferences.getString(KEY_API_URL, "https://lokal101.com/api/v1/");
     }
 
     public void setApiUrl(String url) {
         mSharedPreferences.edit().putString(KEY_API_URL, url).apply();
-    }
-
-    public String getApiKey() {
-        return mSharedPreferences.getString(KEY_API_KEY, "26401283");
-    }
-
-    public void setApiKey(String url) {
-        mSharedPreferences.edit().putString(KEY_API_KEY, url).apply();
-    }
-
-    public String getApiSecret() {
-        return mSharedPreferences.getString(KEY_API_SECRET, "075f9a8f51c1d5ae");
-    }
-
-    public void setApiSecret(String apiSecret) {
-        mSharedPreferences.edit().putString(KEY_API_SECRET, apiSecret).apply();
-    }
-
-    public String getUserKey() {
-        return mSharedPreferences.getString(KEY_USER_KEY, "jd9kyl");
-    }
-
-    public void setUserKey(String url) {
-        mSharedPreferences.edit().putString(KEY_USER_KEY, url).apply();
-    }
-
-    public String getPassKey() {
-        return mSharedPreferences.getString(KEY_PASS_KEY, "doremi");
-    }
-
-    public void setPassKet(String url) {
-        mSharedPreferences.edit().putString(KEY_PASS_KEY, url).apply();
     }
 
 }

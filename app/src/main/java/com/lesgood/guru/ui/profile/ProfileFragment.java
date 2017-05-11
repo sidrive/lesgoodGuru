@@ -31,6 +31,7 @@ import com.lesgood.guru.ui.edit_profile.EditProfileActivity;
 import com.lesgood.guru.ui.main.MainActivity;
 import com.lesgood.guru.ui.setting.SettingActivity;
 import com.lesgood.guru.ui.skill.SkillActivity;
+import com.lesgood.guru.util.Utils;
 
 
 import javax.inject.Inject;
@@ -70,6 +71,9 @@ public class ProfileFragment extends BaseFragment {
     @Bind(R.id.img_bg_avatar)
     ImageView imgBgAvatar;
 
+    @Bind(R.id.txt_price)
+    TextView txtPrice;
+
     @Inject
     ProfilePresenter presenter;
 
@@ -108,7 +112,19 @@ public class ProfileFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+        presenter.subscribe();
         init();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        presenter.unsubscribe();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
     }
 
     @Override
@@ -160,8 +176,13 @@ public class ProfileFragment extends BaseFragment {
         if (requestCode == REQUEST_CODE_SKIL){
             if (resultCode == RESULT_OK){
                 int total = data.getIntExtra("totalSkill", 0);
+                int startForm = data.getIntExtra("startForm",0);
+                if (startForm > 0){
+                    BaseApplication.get(activity).createUserComponent(user);
+                    initPrice(startForm);
+                    presenter.updateUserPrice(user.getUid(), startForm);
+                }
                 user.setTotalSkill(total);
-                presenter.updateUserTotalSkill(user.getUid(), total);
                 txtSkills.setText(user.getTotalSkill()+" Kemampuan mangajar");
                 BaseApplication.get(activity).createUserComponent(user);
             }
@@ -223,6 +244,11 @@ public class ProfileFragment extends BaseFragment {
 
     public void initLocation(Location location){
         this.location = location;
+    }
+
+    public void initPrice(int price){
+        this.user.setStartFrom(price);
+        txtPrice.setText(Utils.getRupiah(price)+" /jam");
     }
 
     @OnClick(R.id.btn_edit_profile)
