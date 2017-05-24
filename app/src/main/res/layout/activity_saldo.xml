@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/toolbar_basic"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="?actionBarSize">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/activity_margin"
+            android:orientation="vertical"
+            android:background="@drawable/gradient_bg">
+
+            <com.lesgood.guru.util.TypefacedTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Total Saldo Tersedia"
+                app:typeface="Roboto-Light.ttf"
+                android:textColor="@color/colorWhite"/>
+
+            <com.lesgood.guru.util.TypefacedTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="35dp"
+                android:textColor="@color/colorWhite"
+                app:typeface="Roboto-Medium.ttf"
+                android:text="Rp.500.000"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/activity_margin"
+                android:layout_marginBottom="@dimen/activity_margin"/>
+
+        </LinearLayout>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:clickable="true"
+                android:background="@drawable/soft_color_selector"
+                android:id="@+id/lin_skill"
+                android:gravity="center"
+                android:orientation="vertical">
+                <com.lesgood.guru.util.TypefacedTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Tarik Dana"
+                    android:gravity="center_vertical"
+                    android:drawablePadding="5dp"
+                    android:id="@+id/txt_skills"
+                    android:drawableRight="@drawable/angle_right"
+                    android:drawableLeft="@drawable/ic_card_in_use_black_24dp"
+                    app:typeface="Roboto-Regular.ttf"/>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:clickable="true"
+                android:background="@drawable/soft_color_selector"
+                android:id="@+id/lin_verified"
+                android:gravity="center"
+                android:orientation="vertical">
+                <com.lesgood.guru.util.TypefacedTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Riwayat Transaksi"
+                    android:id="@+id/txt_verified"
+                    android:gravity="center_vertical"
+                    android:drawablePadding="5dp"
+                    android:drawableRight="@drawable/angle_right"
+                    android:drawableLeft="@drawable/ic_check_black_24dp"
+                    app:typeface="Roboto-Regular.ttf"/>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

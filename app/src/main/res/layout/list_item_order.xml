@@ -61,7 +61,7 @@
                 app:typeface="Roboto-Regular.ttf"
                 android:textSize="16sp"
                 android:id="@+id/txt_price"
-                android:text="$800"/>
+                android:text="Rp.300.000"/>
 
             <com.lesgood.guru.util.TypefacedTextView
                 android:layout_width="wrap_content"

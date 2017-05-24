@@ -94,6 +94,35 @@
 
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
+                    android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:clickable="true"
+                        android:background="@drawable/soft_color_selector"
+                        android:id="@+id/lin_saldo"
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        <com.lesgood.guru.util.TypefacedTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Saldo : Rp.1.300.000"
+                            android:gravity="center_vertical"
+                            android:drawablePadding="5dp"
+                            android:id="@+id/txt_saldo"
+                            android:drawableRight="@drawable/angle_right"
+                            android:drawableLeft="@drawable/wallet"
+                            app:typeface="Roboto-Regular.ttf"/>
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <LinearLayout
@@ -154,6 +183,35 @@ bareng aku! Dijamin seru, nggak bosenin .."
                             android:id="@+id/txt_skills"
                             android:drawableRight="@drawable/angle_right"
                             android:drawableLeft="@drawable/ic_book_24_dark"
+                            app:typeface="Roboto-Regular.ttf"/>
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/activity_horizontal_margin"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:clickable="true"
+                        android:background="@drawable/soft_color_selector"
+                        android:id="@+id/lin_verified"
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        <com.lesgood.guru.util.TypefacedTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Status : Belum Terverifikasi"
+                            android:id="@+id/txt_verified"
+                            android:gravity="center_vertical"
+                            android:drawablePadding="5dp"
+                            android:drawableRight="@drawable/angle_right"
+                            android:drawableLeft="@drawable/id_verified"
                             app:typeface="Roboto-Regular.ttf"/>
 
                     </LinearLayout>

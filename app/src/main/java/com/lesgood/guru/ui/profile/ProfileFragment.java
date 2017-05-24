@@ -31,6 +31,7 @@ import com.lesgood.guru.ui.edit_profile.EditProfileActivity;
 import com.lesgood.guru.ui.main.MainActivity;
 import com.lesgood.guru.ui.setting.SettingActivity;
 import com.lesgood.guru.ui.skill.SkillActivity;
+import com.lesgood.guru.ui.wallet.WalletActivity;
 import com.lesgood.guru.util.Utils;
 
 
@@ -271,5 +272,10 @@ public class ProfileFragment extends BaseFragment {
     @OnClick(R.id.lin_location)
     void showSetLocation(){
         AddLocationActivity.startWithUser(activity);
+    }
+
+    @OnClick(R.id.lin_saldo)
+    void showSaldo(){
+        startActivity(new Intent(activity,WalletActivity.class));
     }
 }
