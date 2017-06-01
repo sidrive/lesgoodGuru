@@ -142,9 +142,33 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/input_price"
                         android:inputType="number"
-                        android:hint="Harga per jam"/>
+                        android:hint="Harga per 100 menit"/>
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <android.support.design.widget.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/input_how"
+                    android:hint="Bagaimana cara anda mengajar"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <android.support.design.widget.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/input_fasilitas"
+                    android:hint="Fasilitas yang anda berikan pada murid"/>
+            </android.support.design.widget.TextInputLayout>
 
         </LinearLayout>
     </ScrollView>

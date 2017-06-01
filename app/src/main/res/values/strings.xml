@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Guru</string>
+    <string name="app_name">Pengajar</string>
     <string name="facebook_app_id">124660361423084</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
@@ -146,6 +146,24 @@
         <item>Voli</item>
         <item>Membentuk Badan</item>
         <item>Yoga</item>
+    </string-array>
+
+    <string-array name="banks_array" translatable="false">
+        <item>Bank BNI</item>
+        <item>Bank Mandiri</item>
+        <item>Bank BRI</item>
+        <item>Bank BCA</item>
+        <item>Bank Muamalat</item>
+        <item>Bank BTN</item>
+    </string-array>
+
+    <string-array name="banks_id_array" translatable="false">
+        <item>25</item>
+        <item>56</item>
+        <item>92</item>
+        <item>62</item>
+        <item>98</item>
+        <item>88</item>
     </string-array>
 
 </resources>

@@ -12,9 +12,11 @@ import android.view.ViewGroup;
 
 import com.lesgood.guru.AppCompatPreferenceActivity;
 import com.lesgood.guru.R;
+import com.lesgood.guru.base.BaseActivity;
 import com.lesgood.guru.base.BaseApplication;
 import com.lesgood.guru.data.model.User;
 import com.lesgood.guru.ui.login.LoginActivity;
+import com.lesgood.guru.ui.payment_detail.PaymentDetailActivity;
 
 import javax.inject.Inject;
 
@@ -47,7 +49,20 @@ public class SettingActivity extends AppCompatPreferenceActivity {
             }
         });
 
+        Preference paymentPref = (Preference) findPreference("payment_information");
+        paymentPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                startBankAccount();
+                return true;
+            }
+        });
 
+
+    }
+
+    private void startBankAccount(){
+        startActivity(new Intent(this, PaymentDetailActivity.class));
     }
 
     private void setupActionBar() {

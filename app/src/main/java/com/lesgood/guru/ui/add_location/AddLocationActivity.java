@@ -58,23 +58,11 @@ public class AddLocationActivity extends BaseActivity implements OnMapReadyCallb
     @Bind(R.id.toolbar)
     Toolbar toolbar;
 
-    @Bind(R.id.input_name)
-    EditText inputName;
-
-    @Bind(R.id.input_address)
-    EditText inputAddress;
-
-    @Bind(R.id.input_address_2)
-    EditText inputAddress2;
-
     @Bind(R.id.txt_province)
     TextView inputProvince;
 
     @Bind(R.id.txt_kabupaten)
     TextView inputKabupaten;
-
-    @Bind(R.id.input_zip_code)
-    EditText inputZipCode;
 
     @Bind(R.id.rel_map)
     RelativeLayout relMap;
@@ -153,10 +141,7 @@ public class AddLocationActivity extends BaseActivity implements OnMapReadyCallb
             inputKabupaten.setText(location.getKabupaten_name());
             kabupatenId = Integer.valueOf(location.getKabupaten_id());
         }
-        if (location.getName() != null) inputName.setText(location.getName());
-        if (location.getAddress() != null) inputAddress.setText(location.getAddress());
-        if (location.getAddress_2() != null) inputAddress2.setText(location.getAddress_2());
-        if (location.getZip_code() != null) inputZipCode.setText(location.getZip_code());
+
     }
 
     @Override
@@ -328,33 +313,12 @@ public class AddLocationActivity extends BaseActivity implements OnMapReadyCallb
 
 
     private void validate() {
-        inputName.setError(null);
-        inputAddress.setError(null);
-        inputAddress2.setError(null);
         inputProvince.setError(null);
         inputKabupaten.setError(null);
-        inputZipCode.setError(null);
 
         boolean cancel = false;
         View focusView = null;
 
-        String name = inputName.getText().toString();
-        String address = inputAddress.getText().toString();
-        String address2 = inputAddress2.getText().toString();
-        String zipCode = inputZipCode.getText().toString();
-
-
-        if (TextUtils.isEmpty(name)) {
-            inputName.setError(strErrReuqired);
-            focusView = inputName;
-            cancel = true;
-        }
-
-        if (TextUtils.isEmpty(address)) {
-            inputAddress.setError(strErrReuqired);
-            focusView = inputAddress;
-            cancel = true;
-        }
 
         if (provinceId == 0) {
             inputProvince.setError(strErrReuqired);
@@ -367,15 +331,11 @@ public class AddLocationActivity extends BaseActivity implements OnMapReadyCallb
             focusView.requestFocus();
         } else {
             setLoadingProgress(true);
-            location.setName(name);
-            location.setAddress(address);
-            if (!TextUtils.isEmpty(address2)) location.setAddress_2(address2);
             if (kabupatenId>0) {
                 location.setKabupaten_id(String.valueOf(kabupatenId));
                 location.setKabupaten_name(inputKabupaten.getText().toString());
             }
 
-            if (!TextUtils.isEmpty(zipCode)) location.setZip_code(zipCode);
 
             location.setProvince_id(String.valueOf(provinceId));
             location.setProvince_name(inputProvince.getText().toString());

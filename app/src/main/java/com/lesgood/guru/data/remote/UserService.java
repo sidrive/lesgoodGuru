@@ -8,6 +8,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.lesgood.guru.data.model.EmailConfirmation;
 import com.lesgood.guru.data.model.OTPdata;
+import com.lesgood.guru.data.model.PartnerPayment;
+import com.lesgood.guru.data.model.Prestasi;
 import com.lesgood.guru.data.model.Skill;
 import com.lesgood.guru.data.model.User;
 
@@ -98,6 +100,22 @@ public class UserService {
 
     //userskill
 
+    //userprestasi
+
+    public DatabaseReference getUserPrestasi(String uid){
+        return databaseRef.child("user-prestasi").child(uid);
+    }
+
+    public Task<Void> updatePrestasi(String uid, Prestasi prestasi){
+        return databaseRef.child("user-prestasi").child(uid).child(prestasi.getId()).setValue(prestasi);
+    }
+
+    public Task<Void> removePrestasi(String uid, Prestasi prestasi){
+        return databaseRef.child("user-prestasi").child(uid).child(prestasi.getId()).removeValue();
+    }
+
+    //userprestasi
+
 
     //userschedule
 
@@ -123,5 +141,17 @@ public class UserService {
     }
 
     //update price
+
+    public DatabaseReference getUserPayment(String uid){
+        return databaseRef.child("partner-payment").child(uid);
+    }
+
+    public void updateUserPayment(PartnerPayment partnerPayment){
+        databaseRef.child("partner-payment").child(partnerPayment.getUid()).setValue(partnerPayment);
+    }
+
+    public void updateStatus(String uid, boolean status){
+        databaseRef.child("users").child(uid).child("active").setValue(status);
+    }
 
 }

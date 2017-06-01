@@ -28,6 +28,7 @@ import com.lesgood.guru.ui.skill.SkillActivityModule;
 import com.lesgood.guru.ui.skill.SkillAdapter;
 import com.lesgood.guru.ui.skill.SkillPresenter;
 import com.lesgood.guru.util.InputFilterMinMax;
+import com.lesgood.guru.util.Utils;
 
 import java.util.List;
 import java.util.logging.Level;
@@ -70,6 +71,12 @@ public class AddSkillActivity extends BaseActivity {
     @Bind(R.id.input_price)
     EditText inputPrice;
 
+    @Bind(R.id.input_how)
+    EditText inputHow;
+
+    @Bind(R.id.input_fasilitas)
+    EditText inputFasility;
+
     @Inject
     User user;
 
@@ -110,6 +117,34 @@ public class AddSkillActivity extends BaseActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        init();
+
+    }
+
+    public void init(){
+        if (skill.getPrice() != 0) inputPrice.setText(Utils.getRupiah(skill.getPrice()));
+        if (skill.getHow() != null) inputHow.setText(skill.getHow());
+        if (skill.getFasility() != null) inputFasility.setText(skill.getFasility());
+        if (skill.getSkill() != null) initSubcategory();
+        if (skill.getLevel() != null) initLevel();
+    }
+
+    public void initSubcategory(){
+        txtSkill.setText(skill.getSkill());
+        for (int i=0;i<listSubcategories.size();i++){
+            if (listSubcategories.get(i).getName().equalsIgnoreCase(skill.getSkill())){
+                subcategoryVal = i;
+            }
+        }
+    }
+
+    public void initLevel(){
+        txtLevel.setText(skill.getLevel());
+        for (int i=0;i<listLevels.size();i++){
+            if (listLevels.get(i).getName().equalsIgnoreCase(skill.getLevel())){
+                levelVal = i;
+            }
+        }
     }
 
     @Override
@@ -286,6 +321,9 @@ public class AddSkillActivity extends BaseActivity {
 
         skill.setPrice(Integer.valueOf(inputPrice.getText().toString()));
 
+        String how = inputHow.getText().toString();
+        String fasility = inputHow.getText().toString();
+
         if (TextUtils.isEmpty(skill.getSkill())){
             cancel = true;
             Toast.makeText(this, "Pilih Pelajaran", Toast.LENGTH_SHORT).show();
@@ -309,6 +347,10 @@ public class AddSkillActivity extends BaseActivity {
             String idSkill = listSubcategories.get(subcategoryVal).getId();
             String idLevel = listLevels.get(levelVal).getId();
             String code = idSkill+idLevel;
+
+            if (!TextUtils.isEmpty(how)) skill.setHow(how);
+            if (!TextUtils.isEmpty(fasility)) skill.setFasility(fasility);
+
             skill.setCode(code);
             presenter.updateSkill(user.getUid(), skill);
         }

@@ -50,7 +50,7 @@ public class SkillAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 //creating a popup menu
                 PopupMenu popup = new PopupMenu(activity, ((SkillViewHolder) holder).btnMore);
                 //inflating menu from xml resource
-                popup.inflate(R.menu.delete);
+                popup.inflate(R.menu.edit_delete);
                 //adding click listener
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
@@ -58,6 +58,18 @@ public class SkillAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                         switch (item.getItemId()) {
                             case R.id.menu_delete:
                                 onItemDeleteClicked(items.get(position));
+                                break;
+                        }
+                        return false;
+                    }
+                });
+
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.menu_edit:
+                                activity.startAddSkill(items.get(position));
                                 break;
                         }
                         return false;

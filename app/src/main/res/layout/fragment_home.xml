@@ -9,11 +9,32 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/activity_horizontal_margin"
         android:orientation="vertical">
+
         <com.lesgood.guru.util.TypefacedTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:typeface="Roboto-Regular.ttf"
-            android:textSize="20sp"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:background="@drawable/gradient_bg"
+            android:padding="@dimen/activity_margin"
+            android:textColor="@color/colorWhite"
+            app:typeface="Roboto-Light.ttf"
+            android:text="Selamat Mengajar"/>
+
+        <android.support.v7.widget.SwitchCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Status : Aktif"
+            android:id="@+id/s_active"
+            android:gravity="center_vertical"
+            android:layout_marginTop="@dimen/activity_half_margin"
+            android:layout_marginBottom="@dimen/activity_half_margin"/>
+
+        <com.lesgood.guru.util.TypefacedTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:typeface="Roboto-Light.ttf"
+            android:textSize="16sp"
             android:layout_marginBottom="10dp"
             android:text="Jadwal Mengajar Anda"/>
 

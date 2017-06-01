@@ -167,6 +167,10 @@ public class SkillActivity extends BaseActivity {
         Skill skill = new Skill();
         skill.setPrice(0);
 
+        startAddSkill(skill);
+    }
+
+    public void startAddSkill(Skill skill){
         AddSkillActivity.startWithData(this, skill);
     }
 

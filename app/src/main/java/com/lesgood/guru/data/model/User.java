@@ -44,6 +44,12 @@ public class User implements Serializable {
     float review;
     @Nullable
     int startFrom;
+    @Nullable
+    String religion;
+    @Nullable
+    String pendidikan;
+    @Nullable
+    boolean active;
 
     public static User newInstance(FirebaseUser firebaseUser, UserInfo provider) {
         User user = new User(firebaseUser.getUid());
@@ -208,5 +214,32 @@ public class User implements Serializable {
 
     public void setStartFrom(@Nullable int startFrom) {
         this.startFrom = startFrom;
+    }
+
+    @Nullable
+    public String getReligion() {
+        return religion;
+    }
+
+    public void setReligion(@Nullable String religion) {
+        this.religion = religion;
+    }
+
+    @Nullable
+    public String getPendidikan() {
+        return pendidikan;
+    }
+
+    public void setPendidikan(@Nullable String pendidikan) {
+        this.pendidikan = pendidikan;
+    }
+
+    public void setActive(@Nullable boolean active) {
+        this.active = active;
+    }
+
+    @Nullable
+    public boolean isActive() {
+        return active;
     }
 }

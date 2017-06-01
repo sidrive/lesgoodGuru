@@ -15,8 +15,8 @@
         </PreferenceScreen>
 
         <PreferenceScreen
-            android:key="be_borrower"
-            android:title="Menjadi Pengajar">
+            android:key="payment_information"
+            android:title="Informasi Rekening">
         </PreferenceScreen>
 
     </PreferenceCategory>

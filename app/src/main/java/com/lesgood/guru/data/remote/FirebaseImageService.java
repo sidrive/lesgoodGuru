@@ -32,14 +32,37 @@ public class FirebaseImageService {
     }
 
     public StorageReference getUserProofKtp(String uid){
-        StorageReference imgRef = storageReference.child("users/ktp/"+uid+"/profile.jpg");
+        StorageReference imgRef = storageReference.child("users/"+uid+"/ktp.jpg");
         return imgRef;
     }
 
     public StorageReference getUserProofKtpThumb(String uid){
-        StorageReference imgRef = storageReference.child("users/ktp/"+uid+"/thumb_profile.jpg");
+        StorageReference imgRef = storageReference.child("users/"+uid+"/thumb_ktp.jpg");
         return imgRef;
     }
+
+    public StorageReference getUserProofSertifikat(String uid){
+        StorageReference imgRef = storageReference.child("users/"+uid+"/sertifikat.jpg");
+        return imgRef;
+    }
+
+    public StorageReference getUserProofSertifikatThumb(String uid){
+        StorageReference imgRef = storageReference.child("users/"+uid+"/thumb_sertifikat.jpg");
+        return imgRef;
+    }
+
+
+    public StorageReference getUserProofIjazah(String uid){
+        StorageReference imgRef = storageReference.child("users/"+uid+"/ijazah.jpg");
+        return imgRef;
+    }
+
+    public StorageReference getUserProofIjazahThumb(String uid){
+        StorageReference imgRef = storageReference.child("users/"+uid+"/thumb_ijazah.jpg");
+        return imgRef;
+    }
+
+
 
     public StorageReference getCampaignCover(String cid){
         StorageReference imgRef = storageReference.child("campaigns/"+cid+"/cover.jpg");
@@ -50,4 +73,5 @@ public class FirebaseImageService {
         StorageReference imgRef = storageReference.child("campaigns/"+cid+"/thumb_cover.jpg");
         return imgRef;
     }
+
 }

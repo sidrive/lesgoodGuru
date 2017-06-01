@@ -1,6 +1,7 @@
 package com.lesgood.guru.ui.home;
 
 import com.lesgood.guru.base.annotation.ActivityScope;
+import com.lesgood.guru.data.remote.UserService;
 
 import dagger.Module;
 import dagger.Provides;
@@ -25,8 +26,8 @@ public class HomeFragmentModule {
 
     @ActivityScope
     @Provides
-    HomePresenter provideHomePresenter(){
-        return new HomePresenter(fragment);
+    HomePresenter provideHomePresenter(UserService userService){
+        return new HomePresenter(fragment, userService);
     }
 
 }

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?actionBarSize">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:layout_marginBottom="@dimen/activity_margin"
+                android:background="@color/colorShadow2"
+                >
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/img_ktp"/>
+
+                <com.lesgood.guru.util.TypefacedTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:background="@color/colorShadow2"
+                    android:text="Klik untuk update foto KTP"
+                    android:id="@+id/txt_foto_ktp"
+                    android:textColor="@color/colorWhite"
+                    app:typeface="Roboto-Regular.ttf"
+                    android:layout_centerInParent="true"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:layout_marginBottom="@dimen/activity_margin"
+                android:background="@color/colorShadow2"
+                >
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/img_foto_keahlian"/>
+
+                <com.lesgood.guru.util.TypefacedTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:background="@color/colorShadow2"
+                    android:text="Klik untuk update foto Sertifikat Keahlian"
+                    android:id="@+id/txt_foto_keahlian"
+                    android:textColor="@color/colorWhite"
+                    app:typeface="Roboto-Regular.ttf"
+                    android:layout_centerInParent="true"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:layout_marginBottom="@dimen/activity_margin"
+                android:background="@color/colorShadow2"
+                >
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/img_foto_ijazah"/>
+
+                <com.lesgood.guru.util.TypefacedTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:background="@color/colorShadow2"
+                    android:text="Klik untuk update foto KTP"
+                    android:id="@+id/txt_foto_ijazah"
+                    android:textColor="@color/colorWhite"
+                    app:typeface="Roboto-Regular.ttf"
+                    android:layout_centerInParent="true"/>
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <include layout="@layout/toolbar_basic"/>
+    <include layout="@layout/view_progress"/>
+
+</android.support.design.widget.CoordinatorLayout>

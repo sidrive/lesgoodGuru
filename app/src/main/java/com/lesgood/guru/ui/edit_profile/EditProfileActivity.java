@@ -97,6 +97,12 @@ public class EditProfileActivity extends BaseActivity implements com.wdullaer.ma
     @Bind(R.id.input_phone)
     EditText inputPhone;
 
+    @Bind(R.id.input_religion)
+    EditText inputReligion;
+
+    @Bind(R.id.input_pendidikan)
+    EditText inputPendidikan;
+
     @Bind(R.id.img_avatar)
     CircleImageView imgAvatar;
 
@@ -267,6 +273,17 @@ public class EditProfileActivity extends BaseActivity implements com.wdullaer.ma
                         .into(imgAvatar);
             }
         }
+
+        if (user.getReligion() != null) inputReligion.setText(user.getReligion());
+        if (user.getPendidikan() != null) inputPendidikan.setText(user.getPendidikan());
+
+        if (!register){
+            inputBirthDay.setEnabled(false);
+            inputName.setEnabled(false);
+            inputEmail.setEnabled(false);
+            inputPhone.setEnabled(false);
+            inputReligion.setEnabled(false);
+        }
     }
 
     private void initGender(String i){
@@ -350,7 +367,7 @@ public class EditProfileActivity extends BaseActivity implements com.wdullaer.ma
 
     @Override
     public void onGalleryClicked(Dialog dialog) {
-        onLaunchGallery();
+        galeryTask();
         dialog.dismiss();
     }
 
@@ -434,6 +451,8 @@ public class EditProfileActivity extends BaseActivity implements com.wdullaer.ma
         if (genderVal == 0) gender = "M";
         if (genderVal == 1) gender = "F";
         String phone = inputPhone.getText().toString();
+        String religion = inputReligion.getText().toString();
+        String pendidikan = inputPendidikan.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
@@ -457,6 +476,18 @@ public class EditProfileActivity extends BaseActivity implements com.wdullaer.ma
             }
         }
 
+        if (TextUtils.isEmpty(religion)){
+            inputReligion.setError(strErrRequired);
+            focusView = inputReligion;
+            cancel = true;
+        }
+
+        if (TextUtils.isEmpty(pendidikan)){
+            inputPendidikan.setError(strErrRequired);
+            focusView = inputPendidikan;
+            cancel = true;
+        }
+
         if (!TextUtils.isEmpty(phone)){
             if (!isValidPhoneNumber(phone)){
                 inputPhone.setError("Phone number not valid");
@@ -470,6 +501,8 @@ public class EditProfileActivity extends BaseActivity implements com.wdullaer.ma
         }else{
             user.setFull_name(name);
             user.setEmail(email);
+            user.setReligion(religion);
+            user.setPendidikan(pendidikan);
             if (!TextUtils.isEmpty(phone)) user.setPhone(phone);
             if (genderVal != 3) user.setGender(gender);
             if (dateBirthDay != 0) user.setBirthday(dateBirthDay);
@@ -500,6 +533,20 @@ public class EditProfileActivity extends BaseActivity implements com.wdullaer.ma
                     RC_CAMERA_PERM, perms);
         }
     }
+
+    @AfterPermissionGranted(RC_CAMERA_PERM)
+    public void galeryTask(){
+        String[] perms = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
+        if (EasyPermissions.hasPermissions(this, Manifest.permission.CAMERA)) {
+            // Have permission, do the thing!
+            onLaunchGallery();
+        } else {
+            // Ask for one permission
+            EasyPermissions.requestPermissions(this, getString(R.string.rationale_camera),
+                    RC_CAMERA_PERM, perms);
+        }
+    }
+
 
 
 

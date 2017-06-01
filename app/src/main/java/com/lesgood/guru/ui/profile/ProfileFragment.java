@@ -25,10 +25,13 @@ import com.lesgood.guru.base.BaseApplication;
 import com.lesgood.guru.base.BaseFragment;
 import com.lesgood.guru.data.model.Location;
 import com.lesgood.guru.data.model.User;
+import com.lesgood.guru.data.verification.VerificationActivity;
 import com.lesgood.guru.ui.add_location.AddLocationActivity;
 import com.lesgood.guru.ui.brief.BriefActivity;
 import com.lesgood.guru.ui.edit_profile.EditProfileActivity;
 import com.lesgood.guru.ui.main.MainActivity;
+import com.lesgood.guru.ui.prestasi.PrestasiActivity;
+import com.lesgood.guru.ui.reviews.ReviewsActivity;
 import com.lesgood.guru.ui.setting.SettingActivity;
 import com.lesgood.guru.ui.skill.SkillActivity;
 import com.lesgood.guru.ui.wallet.WalletActivity;
@@ -74,6 +77,9 @@ public class ProfileFragment extends BaseFragment {
 
     @Bind(R.id.txt_price)
     TextView txtPrice;
+
+    @Bind(R.id.txt_pendidikan)
+    TextView txtPendidikan;
 
     @Inject
     ProfilePresenter presenter;
@@ -236,6 +242,12 @@ public class ProfileFragment extends BaseFragment {
         if (user.getFullAddress() != null){
             txtLocation.setText(user.getFullAddress());
         }
+
+        if (user.getPendidikan() != null){
+            txtPendidikan.setText(user.getPendidikan());
+        }
+
+        txtPrice.setText(Utils.getRupiah(user.getStartFrom())+"/per 100 menit");
     }
 
     public void initAbout(String content){
@@ -249,7 +261,7 @@ public class ProfileFragment extends BaseFragment {
 
     public void initPrice(int price){
         this.user.setStartFrom(price);
-        txtPrice.setText(Utils.getRupiah(price)+" /jam");
+        txtPrice.setText(Utils.getRupiah(price)+" /100 menit");
     }
 
     @OnClick(R.id.btn_edit_profile)
@@ -277,5 +289,20 @@ public class ProfileFragment extends BaseFragment {
     @OnClick(R.id.lin_saldo)
     void showSaldo(){
         startActivity(new Intent(activity,WalletActivity.class));
+    }
+
+    @OnClick(R.id.lin_verified)
+    void showVerify(){
+        VerificationActivity.startWithUser(activity, user);
+    }
+
+    @OnClick(R.id.lin_prestasi)
+    void showPrestasi(){
+        startActivity(new Intent(activity, PrestasiActivity.class));
+    }
+
+    @OnClick(R.id.lin_review)
+    void showReviews(){
+        startActivity(new Intent(activity, ReviewsActivity.class));
     }
 }

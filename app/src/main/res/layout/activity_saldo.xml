@@ -33,7 +33,7 @@
                 android:textSize="35dp"
                 android:textColor="@color/colorWhite"
                 app:typeface="Roboto-Medium.ttf"
-                android:text="Rp.500.000"
+                android:text="Rp.0"
                 android:gravity="center"
                 android:layout_marginTop="@dimen/activity_margin"
                 android:layout_marginBottom="@dimen/activity_margin"/>

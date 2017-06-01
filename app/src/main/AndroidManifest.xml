@@ -76,6 +76,18 @@
         <activity android:name=".ui.wallet.WalletActivity"
             android:theme="@style/AppTheme"/>
 
+        <activity android:name=".ui.payment_detail.PaymentDetailActivity"
+            android:theme="@style/AppTheme"/>
+
+        <activity android:name=".data.verification.VerificationActivity"
+            android:theme="@style/AppTheme"/>
+
+        <activity android:name=".ui.prestasi.PrestasiActivity"
+            android:theme="@style/AppTheme"/>
+
+        <activity android:name=".ui.reviews.ReviewsActivity"
+            android:theme="@style/AppTheme"/>
+
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />

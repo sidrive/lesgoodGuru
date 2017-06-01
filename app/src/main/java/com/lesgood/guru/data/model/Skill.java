@@ -20,6 +20,10 @@ public class Skill {
     int price;
     @Nullable
     String desc;
+    @Nullable
+    String how;
+    @Nullable
+    String fasility;
 
     public Skill(){
 
@@ -86,5 +90,23 @@ public class Skill {
 
     public void setDesc(@Nullable String desc) {
         this.desc = desc;
+    }
+
+    @Nullable
+    public String getHow() {
+        return how;
+    }
+
+    public void setHow(@Nullable String how) {
+        this.how = how;
+    }
+
+    @Nullable
+    public String getFasility() {
+        return fasility;
+    }
+
+    public void setFasility(@Nullable String fasility) {
+        this.fasility = fasility;
     }
 }

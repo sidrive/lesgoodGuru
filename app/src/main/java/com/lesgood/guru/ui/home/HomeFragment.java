@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SwitchCompat;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -39,6 +40,7 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.BindColor;
 import butterknife.ButterKnife;
+import butterknife.OnCheckedChanged;
 
 /**
  * Created by Agus on 4/27/17.
@@ -54,6 +56,9 @@ public class HomeFragment extends BaseFragment implements WeekView.EventClickLis
 
     @Bind(R.id.weekView)
     WeekView weekView;
+
+    @Bind(R.id.s_active)
+    SwitchCompat sStatus;
 
     @Inject
     HomePresenter presenter;
@@ -117,7 +122,7 @@ public class HomeFragment extends BaseFragment implements WeekView.EventClickLis
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, view);
 
-        getActivity().setTitle("Lesgood Guru");
+        getActivity().setTitle("Lesgood Pengajar");
 
         eventList = new ArrayList<>();
         events = new ArrayList<WeekViewEvent>();
@@ -140,7 +145,19 @@ public class HomeFragment extends BaseFragment implements WeekView.EventClickLis
 
         setupDateTimeInterpreter(true);
 
+        init();
+
         return view;
+    }
+
+    public void init(){
+        sStatus.setChecked(user.isActive());
+
+        if (user.isActive()){
+            sStatus.setText("Status : Aktif");
+        }else{
+            sStatus.setText("Status : Tidak Aktif");
+        }
     }
 
 
@@ -203,6 +220,16 @@ public class HomeFragment extends BaseFragment implements WeekView.EventClickLis
 
 
         });
+    }
+
+    @OnCheckedChanged(R.id.s_active)
+    void onStatusChanged(boolean status){
+        presenter.updaeStatus(user.getUid(), status);
+        if (status){
+            sStatus.setText("Status : Aktif");
+        }else{
+            sStatus.setText("Status : Tidak Aktif");
+        }
     }
 
 }
