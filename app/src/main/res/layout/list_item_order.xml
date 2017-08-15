@@ -46,54 +46,80 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical">
-            <com.lesgood.guru.util.TypefacedTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:typeface="Roboto-Medium.ttf"
-                android:id="@+id/txt_title"
-                android:text="Matematika SMP"/>
 
-            <com.lesgood.guru.util.TypefacedTextView
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:gravity="left"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:typeface="Roboto-Regular.ttf"
-                android:textSize="16sp"
-                android:id="@+id/txt_price"
-                android:text="Rp.300.000"/>
+                android:orientation="horizontal">
 
-            <com.lesgood.guru.util.TypefacedTextView
-                android:layout_width="wrap_content"
+                <com.lesgood.guru.util.TypefacedTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:typeface="Roboto-Medium.ttf"
+                    android:id="@+id/txt_title"
+                    android:text="Matematika SMP"/>
+
+                <com.lesgood.guru.util.TypefacedTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:typeface="Roboto-Medium.ttf"
+                    android:id="@+id/txt_status"
+                    android:text="Pending"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:typeface="Roboto-Regular.ttf"
-                android:textSize="12sp"
-                android:id="@+id/txt_meets"
-                android:text="2 pertemuan"/>
+                android:orientation="horizontal">
+
+                <com.lesgood.guru.util.TypefacedTextView
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:layout_height="wrap_content"
+                    app:typeface="Roboto-Regular.ttf"
+                    android:textSize="16sp"
+                    android:id="@+id/txt_price"
+                    android:text="Rp.300.000"/>
+
+                <com.lesgood.guru.util.TypefacedTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:typeface="Roboto-Medium.ttf"
+                    android:id="@+id/txt_order_at"
+                    android:text="Kamis, 12"/>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.lesgood.guru.util.TypefacedTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:typeface="Roboto-Regular.ttf"
+                    android:textSize="12sp"
+                    android:layout_weight="1"
+                    android:id="@+id/txt_pertemuan"
+                    android:text="2 pertemuan"/>
+
+                <com.lesgood.guru.util.TypefacedTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:typeface="Roboto-Medium.ttf"
+                    android:id="@+id/txt_siswa"
+                    android:text="2 Siswa"/>
+
+
+            </LinearLayout>
+
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center|right">
-
-            <com.lesgood.guru.util.TypefacedTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:typeface="Roboto-Medium.ttf"
-                android:id="@+id/txt_status"
-                android:text="Pending"/>
-
-            <com.lesgood.guru.util.TypefacedTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:typeface="Roboto-Medium.ttf"
-                android:id="@+id/txt_order_at"
-                android:text="Kamis, 12"/>
-
-
-        </LinearLayout>
     </LinearLayout>
 
     <View

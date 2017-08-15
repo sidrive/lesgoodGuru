@@ -73,6 +73,31 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/img_foto_ktm"/>
+
+                <com.lesgood.guru.util.TypefacedTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:background="@color/colorShadow2"
+                    android:text="Klik untuk update foto KTM"
+                    android:id="@+id/txt_foto_ktm"
+                    android:textColor="@color/colorWhite"
+                    app:typeface="Roboto-Regular.ttf"
+                    android:layout_centerInParent="true"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:layout_marginBottom="@dimen/activity_margin"
+                android:background="@color/colorShadow2"
+                >
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:id="@+id/img_foto_ijazah"/>
 
                 <com.lesgood.guru.util.TypefacedTextView
@@ -80,7 +105,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:background="@color/colorShadow2"
-                    android:text="Klik untuk update foto KTP"
+                    android:text="Klik untuk update foto Ijazah"
                     android:id="@+id/txt_foto_ijazah"
                     android:textColor="@color/colorWhite"
                     app:typeface="Roboto-Regular.ttf"

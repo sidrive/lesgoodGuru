@@ -88,6 +88,12 @@
         <activity android:name=".ui.reviews.ReviewsActivity"
             android:theme="@style/AppTheme"/>
 
+        <activity android:name=".ui.update_information.UpdateInformationActivity"
+            android:theme="@style/AppTheme"/>
+
+        <activity android:name=".ui.pengalaman.PengalamanActivity"
+            android:theme="@style/AppTheme"/>
+
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />

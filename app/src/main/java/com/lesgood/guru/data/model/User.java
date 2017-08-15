@@ -15,41 +15,55 @@ import java.io.Serializable;
 
 public class User implements Serializable {
     @NonNull
-    String uid;
+    public String uid;
     @Nullable
-    String phone;
+    public String phone;
     @Nullable
-    String email;
+    public String email;
     @Nullable
-    String provider;
+    public String provider;
     @Nullable
-    String photo_url;
+    public String photo_url;
     @Nullable
-    String full_name;
+    public String full_name;
     @Nullable
-    String gender;
+    public String gender;
     @Nullable
-    long birthday;
+    public long birthday;
     @Nullable
-    boolean verified;
+    public boolean verified;
     @Nullable
-    double latitude;
+    public double latitude;
     @Nullable
-    double longitude;
+    public double longitude;
     @Nullable
-    String fullAddress;
+    public String fullAddress;
     @Nullable
-    int totalSkill;
+    public int totalSkill;
     @Nullable
-    float review;
+    public float review;
     @Nullable
-    int startFrom;
+    public int startFrom;
     @Nullable
-    String religion;
+    public String religion;
     @Nullable
-    String pendidikan;
+    public String pendidikan;
     @Nullable
-    boolean active;
+    public String prodi;
+    @Nullable
+    public boolean active;
+    @Nullable
+    public String instagram;
+    @Nullable
+    public String facebook;
+    @Nullable
+    public long createdAt;
+    @Nullable
+    public long updateAt;
+    @Nullable
+    public String location;
+    @Nullable
+    public String about;
 
     public static User newInstance(FirebaseUser firebaseUser, UserInfo provider) {
         User user = new User(firebaseUser.getUid());
@@ -234,6 +248,15 @@ public class User implements Serializable {
         this.pendidikan = pendidikan;
     }
 
+    @Nullable
+    public String getProdi() {
+        return prodi;
+    }
+
+    public void setProdi(@Nullable String prodi) {
+        this.prodi = prodi;
+    }
+
     public void setActive(@Nullable boolean active) {
         this.active = active;
     }
@@ -241,5 +264,59 @@ public class User implements Serializable {
     @Nullable
     public boolean isActive() {
         return active;
+    }
+
+    @Nullable
+    public String getInstagram() {
+        return instagram;
+    }
+
+    public void setInstagram(@Nullable String instagram) {
+        this.instagram = instagram;
+    }
+
+    @Nullable
+    public String getFacebook() {
+        return facebook;
+    }
+
+    public void setFacebook(@Nullable String facebook) {
+        this.facebook = facebook;
+    }
+
+    @Nullable
+    public long getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(@Nullable long createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    @Nullable
+    public long getUpdateAt() {
+        return updateAt;
+    }
+
+    public void setUpdateAt(@Nullable long updateAt) {
+        this.updateAt = updateAt;
+    }
+
+    @Nullable
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(@Nullable String location) {
+        this.location = location;
+    }
+
+    @Nullable
+    public String getAbout() {
+        return about;
+    }
+
+    public void setAbout(@Nullable String about) {
+        this.about = about;
     }
 }

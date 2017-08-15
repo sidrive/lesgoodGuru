@@ -6,14 +6,18 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.bumptech.glide.Glide;
 import com.lesgood.guru.R;
 import com.lesgood.guru.base.BaseActivity;
 import com.lesgood.guru.base.BaseApplication;
 import com.lesgood.guru.data.model.Order;
 import com.lesgood.guru.util.DateFormatter;
+
+import org.w3c.dom.Text;
 
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -31,11 +35,17 @@ public class OrderDetailActivity extends BaseActivity {
     @Bind(R.id.toolbar)
     Toolbar toolbar;
 
-    @Bind(R.id.rv_items)
-    RecyclerView rvItems;
-
     @Bind(R.id.txt_customer_name)
     TextView txtCustomerName;
+
+    @Bind(R.id.txt_product)
+    TextView txtProduct;
+
+    @Bind(R.id.txt_tota_person)
+    TextView txtSiswa;
+
+    @Bind(R.id.txt_pertemuan)
+    TextView txtPertemuan;
 
     @Bind(R.id.txt_date)
     TextView txtDate;
@@ -48,6 +58,21 @@ public class OrderDetailActivity extends BaseActivity {
 
     @Bind(R.id.txt_amount)
     TextView txtAmount;
+
+    @Bind(R.id.txt_fee)
+    TextView txtFee;
+
+    @Bind(R.id.txt_total)
+    TextView txtTotal;
+
+    @Bind(R.id.img_map)
+    ImageView imgMap;
+
+    @Bind(R.id.txt_detail_lokasi)
+    TextView txtDetailLokasi;
+
+    @Bind(R.id.txt_distance)
+    TextView txtDistance;
 
     @Inject
     Order order;
@@ -119,14 +144,37 @@ public class OrderDetailActivity extends BaseActivity {
     public void init(){
         txtOrderId.setText("#"+order.getOid());
         txtStatus.setText(order.getStatus().toUpperCase());
-        txtDate.setText(DateFormatter.getDate(order.getMeettime(), "EEE, dd MMM yyyy, HH:mm"));
+        txtDate.setText(DateFormatter.getDate(order.getPertemuanTime(), "EEE, dd MMM yyyy, HH:mm"));
+        txtProduct.setText(order.getTitle());
+        txtSiswa.setText(String.valueOf(order.getTotalSiswa()));
+        txtPertemuan.setText(String.valueOf(order.getTotalPertemuan())+" kali");
+        txtDetailLokasi.setText(order.getDetailLocation());
 
-        String angka = Integer.toString(order.getAmount());
+        String url = "http://maps.googleapis.com/maps/api/staticmap?zoom=16&size=800x400&maptype=roadmap%20&markers=color:red%7Clabel:S%7C" + order.getLatitude() + "," + order.getLongitude() + "+&sensor=false";
+
+        Glide.with(this)
+                .load(url)
+                .placeholder(R.color.colorGrey400)
+                .centerCrop()
+                .dontAnimate()
+                .into(imgMap);
+
+
+
+        int fee = (int)(order.getFee()+0.5d);
+        int total = (int)(order.getTotal()+0.5d);
+
+        txtAmount.setText("Rp."+toRupiah(order.getAmount()));
+        txtFee.setText("Rp."+toRupiah(fee));
+        txtTotal.setText("Rp."+toRupiah(total));
+
+    }
+
+    private String toRupiah(int amount){
+        String angka = Integer.toString(amount);
         NumberFormat rupiahFormat = NumberFormat.getInstance(Locale.GERMANY);
         String rupiah = rupiahFormat.format(Double.parseDouble(angka));
-
-        txtAmount.setText("Rp."+rupiah);
-
+        return rupiah;
     }
 
 }

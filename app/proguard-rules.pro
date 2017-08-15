@@ -23,3 +23,17 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+-dontwarn butterknife.internal.**
+-keep class **$$ViewBinder { *; }
+-keep class **$$ViewInjector { *; }
+-keepnames class * { @butterknife.InjectView *;}
+
+-dontwarn javax.annotation.**
+
+-dontwarn com.google.**
+-keep class com.google.**
+
+
+-dontwarn okio.**
+-dontwarn retrofit2.Platform$Java8

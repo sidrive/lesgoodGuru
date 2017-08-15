@@ -165,7 +165,11 @@ public class SkillActivity extends BaseActivity {
     @OnClick(R.id.fab_add_skill)
     void showAddSkill(){
         Skill skill = new Skill();
-        skill.setPrice(0);
+        skill.setPrice1(0);
+        skill.setPrice2(0);
+        skill.setPrice3(0);
+        skill.setPrice4(0);
+        skill.setPrice5(0);
 
         startAddSkill(skill);
     }

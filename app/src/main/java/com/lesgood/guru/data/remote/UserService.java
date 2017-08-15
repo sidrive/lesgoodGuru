@@ -9,6 +9,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.lesgood.guru.data.model.EmailConfirmation;
 import com.lesgood.guru.data.model.OTPdata;
 import com.lesgood.guru.data.model.PartnerPayment;
+import com.lesgood.guru.data.model.Pengalaman;
 import com.lesgood.guru.data.model.Prestasi;
 import com.lesgood.guru.data.model.Skill;
 import com.lesgood.guru.data.model.User;
@@ -75,6 +76,7 @@ public class UserService {
 
     public void updateAbout(String uid, String content){
         databaseRef.child("users-about").child(uid).setValue(content);
+        databaseRef.child("users").child(uid).child("about").setValue(content);
     }
 
     //userabout
@@ -112,6 +114,22 @@ public class UserService {
 
     public Task<Void> removePrestasi(String uid, Prestasi prestasi){
         return databaseRef.child("user-prestasi").child(uid).child(prestasi.getId()).removeValue();
+    }
+
+    //userprestasi
+
+    //userpengalaman
+
+    public DatabaseReference getUserPengalaman(String uid){
+        return databaseRef.child("user-pengalaman").child(uid);
+    }
+
+    public Task<Void> updatePengalaman(String uid, Pengalaman pengalaman){
+        return databaseRef.child("user-pengalaman").child(uid).child(pengalaman.getId()).setValue(pengalaman);
+    }
+
+    public Task<Void> removePengalaman(String uid, Pengalaman pengalaman){
+        return databaseRef.child("user-pengalaman").child(uid).child(pengalaman.getId()).removeValue();
     }
 
     //userprestasi

@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -68,14 +69,32 @@ public class AddSkillActivity extends BaseActivity {
     @Bind(R.id.txt_level)
     TextView txtLevel;
 
-    @Bind(R.id.input_price)
-    EditText inputPrice;
+    @Bind(R.id.input_price_1)
+    EditText inputPrice1;
+
+    @Bind(R.id.input_price_2)
+    EditText inputPrice2;
+
+    @Bind(R.id.input_price_3)
+    EditText inputPrice3;
+
+    @Bind(R.id.input_price_4)
+    EditText inputPrice4;
+
+    @Bind(R.id.input_price_5)
+    EditText inputPrice5;
 
     @Bind(R.id.input_how)
     EditText inputHow;
 
     @Bind(R.id.input_fasilitas)
     EditText inputFasility;
+
+    @Bind(R.id.paket20)
+    CheckBox paket20;
+
+    @Bind(R.id.paket30)
+    CheckBox paket30;
 
     @Inject
     User user;
@@ -122,27 +141,38 @@ public class AddSkillActivity extends BaseActivity {
     }
 
     public void init(){
-        if (skill.getPrice() != 0) inputPrice.setText(Utils.getRupiah(skill.getPrice()));
+        if (skill.getPrice1() != 0) inputPrice1.setText(Integer.toString(skill.getPrice1()));
+        if (skill.getPrice2() != 0) inputPrice2.setText(Integer.toString(skill.getPrice2()));
+        if (skill.getPrice3() != 0) inputPrice3.setText(Integer.toString(skill.getPrice3()));
+        if (skill.getPrice4() != 0) inputPrice4.setText(Integer.toString(skill.getPrice4()));
+        if (skill.getPrice5() != 0) inputPrice5.setText(Integer.toString(skill.getPrice5()));
         if (skill.getHow() != null) inputHow.setText(skill.getHow());
         if (skill.getFasility() != null) inputFasility.setText(skill.getFasility());
         if (skill.getSkill() != null) initSubcategory();
         if (skill.getLevel() != null) initLevel();
+
+        paket20.setChecked(skill.isHave20());
+        paket30.setChecked(skill.isHave30());
     }
 
     public void initSubcategory(){
         txtSkill.setText(skill.getSkill());
-        for (int i=0;i<listSubcategories.size();i++){
-            if (listSubcategories.get(i).getName().equalsIgnoreCase(skill.getSkill())){
-                subcategoryVal = i;
+        if (listSubcategories != null){
+            for (int i=0;i<listSubcategories.size();i++){
+                if (listSubcategories.get(i).getName().equalsIgnoreCase(skill.getSkill())){
+                    subcategoryVal = i;
+                }
             }
         }
     }
 
     public void initLevel(){
         txtLevel.setText(skill.getLevel());
-        for (int i=0;i<listLevels.size();i++){
-            if (listLevels.get(i).getName().equalsIgnoreCase(skill.getLevel())){
-                levelVal = i;
+        if (listLevels != null){
+            for (int i=0;i<listLevels.size();i++){
+                if (listLevels.get(i).getName().equalsIgnoreCase(skill.getLevel())){
+                    levelVal = i;
+                }
             }
         }
     }
@@ -315,14 +345,27 @@ public class AddSkillActivity extends BaseActivity {
     }
 
     public void validate(){
-        inputPrice.setError(null);
+        inputPrice1.setError(null);
+        inputPrice2.setError(null);
+        inputPrice3.setError(null);
+        inputPrice4.setError(null);
+        inputPrice5.setError(null);
         boolean cancel = false;
         View focusView = null;
 
-        skill.setPrice(Integer.valueOf(inputPrice.getText().toString()));
+        skill.setPrice1(Integer.valueOf(inputPrice1.getText().toString()));
+        skill.setPrice2(Integer.valueOf(inputPrice2.getText().toString()));
+        skill.setPrice3(Integer.valueOf(inputPrice3.getText().toString()));
+        skill.setPrice4(Integer.valueOf(inputPrice4.getText().toString()));
+        skill.setPrice5(Integer.valueOf(inputPrice5.getText().toString()));
 
         String how = inputHow.getText().toString();
         String fasility = inputHow.getText().toString();
+        boolean havepaket20 = paket20.isChecked();
+        boolean havepaket30 = paket30.isChecked();
+
+        skill.setHave20(havepaket20);
+        skill.setHave30(havepaket30);
 
         if (TextUtils.isEmpty(skill.getSkill())){
             cancel = true;
@@ -334,10 +377,34 @@ public class AddSkillActivity extends BaseActivity {
             Toast.makeText(this, "Pilih Tingkat Mengajar", Toast.LENGTH_SHORT).show();
         }
 
-        if (skill.getPrice() == 0){
-            inputPrice.setError(errRequired);
+        if (skill.getPrice1() == 0){
+            inputPrice1.setError(errRequired);
             cancel = true;
-            focusView = inputPrice;
+            focusView = inputPrice1;
+        }
+
+        if (skill.getPrice2() == 0){
+            inputPrice2.setError(errRequired);
+            cancel = true;
+            focusView = inputPrice2;
+        }
+
+        if (skill.getPrice3() == 0){
+            inputPrice3.setError(errRequired);
+            cancel = true;
+            focusView = inputPrice3;
+        }
+
+        if (skill.getPrice3() == 0){
+            inputPrice3.setError(errRequired);
+            cancel = true;
+            focusView = inputPrice3;
+        }
+
+        if (skill.getPrice4() == 0){
+            inputPrice4.setError(errRequired);
+            cancel = true;
+            focusView = inputPrice4;
         }
 
         if (cancel){

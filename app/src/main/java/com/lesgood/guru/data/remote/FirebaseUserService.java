@@ -99,29 +99,31 @@ public class FirebaseUserService {
             FacebookSdk.sdkInitialize(application);
             LoginManager.getInstance().logOut();
         } else if(provider.equals("google.com")) {
-            googleApiClient.connect();
-            googleApiClient.registerConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
-                @Override
-                public void onConnected(@Nullable Bundle bundle) {
+            if (googleApiClient != null){
+                googleApiClient.connect();
+                googleApiClient.registerConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
+                    @Override
+                    public void onConnected(@Nullable Bundle bundle) {
 
-                    FirebaseAuth.getInstance().signOut();
-                    if(googleApiClient.isConnected()) {
-                        Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
-                            @Override
-                            public void onResult(@NonNull Status status) {
-                                if (status.isSuccess()) {
-                                    Log.d("googlesignout", "user logout");
+                        FirebaseAuth.getInstance().signOut();
+                        if(googleApiClient.isConnected()) {
+                            Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
+                                @Override
+                                public void onResult(@NonNull Status status) {
+                                    if (status.isSuccess()) {
+                                        Log.d("googlesignout", "user logout");
+                                    }
                                 }
-                            }
-                        });
+                            });
+                        }
                     }
-                }
 
-                @Override
-                public void onConnectionSuspended(int i) {
-                    Log.d("googlesignout", "Google API Client Connection Suspended");
-                }
-            });
+                    @Override
+                    public void onConnectionSuspended(int i) {
+                        Log.d("googlesignout", "Google API Client Connection Suspended");
+                    }
+                });
+            }
         }
     }
 

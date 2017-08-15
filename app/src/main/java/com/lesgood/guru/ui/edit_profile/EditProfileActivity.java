@@ -97,11 +97,20 @@ public class EditProfileActivity extends BaseActivity implements com.wdullaer.ma
     @Bind(R.id.input_phone)
     EditText inputPhone;
 
+    @Bind(R.id.input_instagram)
+    EditText inputInstagram;
+
+    @Bind(R.id.input_facebook)
+    EditText inputFacebook;
+
     @Bind(R.id.input_religion)
     EditText inputReligion;
 
     @Bind(R.id.input_pendidikan)
     EditText inputPendidikan;
+
+    @Bind(R.id.input_prodi)
+    EditText inputProdi;
 
     @Bind(R.id.img_avatar)
     CircleImageView imgAvatar;
@@ -264,6 +273,8 @@ public class EditProfileActivity extends BaseActivity implements com.wdullaer.ma
         if (user.getGender() != null) initGender(user.getGender());
         if (user.getEmail() != null) inputEmail.setText(user.getEmail());
         if (user.getPhone() != null) inputPhone.setText(user.getPhone());
+        if (user.getInstagram() != null) inputInstagram.setText(user.getInstagram());
+        if (user.getFacebook() != null) inputFacebook.setText(user.getFacebook());
         if (user.getPhoto_url() != null){
             if (!user.getPhoto_url().equals("NOT")) {
                 Glide.with(this)
@@ -276,6 +287,7 @@ public class EditProfileActivity extends BaseActivity implements com.wdullaer.ma
 
         if (user.getReligion() != null) inputReligion.setText(user.getReligion());
         if (user.getPendidikan() != null) inputPendidikan.setText(user.getPendidikan());
+        if (user.getProdi() != null) inputProdi.setText(user.getProdi());
 
         if (!register){
             inputBirthDay.setEnabled(false);
@@ -453,6 +465,9 @@ public class EditProfileActivity extends BaseActivity implements com.wdullaer.ma
         String phone = inputPhone.getText().toString();
         String religion = inputReligion.getText().toString();
         String pendidikan = inputPendidikan.getText().toString();
+        String prodi = inputProdi.getText().toString();
+        String instagram = inputInstagram.getText().toString();
+        String facebook = inputFacebook.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
@@ -488,6 +503,12 @@ public class EditProfileActivity extends BaseActivity implements com.wdullaer.ma
             cancel = true;
         }
 
+        if (TextUtils.isEmpty(prodi)){
+            inputProdi.setError(strErrRequired);
+            focusView = inputProdi;
+            cancel = true;
+        }
+
         if (!TextUtils.isEmpty(phone)){
             if (!isValidPhoneNumber(phone)){
                 inputPhone.setError("Phone number not valid");
@@ -503,9 +524,14 @@ public class EditProfileActivity extends BaseActivity implements com.wdullaer.ma
             user.setEmail(email);
             user.setReligion(religion);
             user.setPendidikan(pendidikan);
+            user.setProdi(prodi);
             if (!TextUtils.isEmpty(phone)) user.setPhone(phone);
+            if (!TextUtils.isEmpty(instagram)) user.setInstagram(instagram);
+            if (!TextUtils.isEmpty(facebook)) user.setFacebook(facebook);
             if (genderVal != 3) user.setGender(gender);
             if (dateBirthDay != 0) user.setBirthday(dateBirthDay);
+            if (register) user.setCreatedAt(System.currentTimeMillis());
+            if (!register) user.setUpdateAt(System.currentTimeMillis());
 
             if (imgOriginal != null) {
                 presenter.uploadAvatar(user, imgSmall, imgOriginal);

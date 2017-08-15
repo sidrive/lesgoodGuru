@@ -4,16 +4,6 @@
         android:title="Akun"
         android:key="account">
 
-
-        <PreferenceScreen
-            android:key="edit_profile"
-            android:title="Ubah Akun">
-            <intent
-                android:action="android.intent.action.VIEW"
-                android:targetPackage="org.ibagi.app.ui.edit_profile.EditProfileActivity"
-                android:targetClass="my.notifier.ui.EditCoursesNamesActivity" />
-        </PreferenceScreen>
-
         <PreferenceScreen
             android:key="payment_information"
             android:title="Informasi Rekening">
@@ -62,6 +52,11 @@
         <PreferenceScreen
             android:key="review"
             android:title="Laporkan Masalah"
+            />
+
+        <PreferenceScreen
+            android:key="kebijakan"
+            android:title="Kebijakan Privasi"
             />
 
         <Preference

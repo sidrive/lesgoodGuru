@@ -49,6 +49,17 @@ dimanapun kapanpun"
         android:drawableLeft="@drawable/facebook"
         android:text="Masuk Dengan Facbook"
         android:id="@+id/btn_login_with_facebook"
+        android:layout_marginBottom="160dp"
+        android:background="@drawable/button_radius_white_selector"/>
+
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:textColor="@color/colorPrimaryDark"
+        android:drawableLeft="@drawable/google_logo"
+        android:text="Masuk Dengan Google"
+        android:id="@+id/btn_login_with_google"
         android:layout_marginBottom="100dp"
         android:background="@drawable/button_radius_white_selector"/>
 

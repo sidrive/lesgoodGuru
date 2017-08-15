@@ -42,7 +42,7 @@ public class SkillViewHolder extends RecyclerView.ViewHolder {
     public void bind(Skill item) {
         txtSkill.setText(item.getSkill());
         txtLevel.setText(item.getLevel());
-        txtPrice.setText(Utils.getRupiah(item.getPrice()));
+        txtPrice.setText(Utils.getRupiah(item.getPrice1()));
     }
 }
 

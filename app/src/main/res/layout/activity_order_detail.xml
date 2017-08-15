@@ -23,18 +23,19 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/activity_margin"
-        android:paddingTop="@dimen/activity_margin"
-        android:paddingRight="@dimen/activity_margin">
+        android:layout_marginBottom="50dp"
+        android:layout_marginTop="?actionBarSize">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/activity_margin"
+            android:paddingTop="@dimen/activity_margin"
+            android:paddingRight="@dimen/activity_margin">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginTop="?actionBarSize"
                 android:background="@color/colorWhite"
                 android:padding="@dimen/activity_margin">
 
@@ -88,9 +89,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="14sp"
-                            android:id="@+id/txt_meet"
+                            android:id="@+id/txt_pertemuan"
                             app:typeface="Roboto-Medium.ttf"
-                            android:text="2 kali/100jam"/>
+                            android:text="20 kali"/>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -192,6 +193,75 @@
                     </LinearLayout>
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/activity_half_margin">
+                    <com.lesgood.guru.util.TypefacedTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Gross"
+                        app:typeface="Roboto-Regular.ttf"
+                        android:textSize="16sp"/>
+
+                    <com.lesgood.guru.util.TypefacedTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Rp.400.000"
+                        android:id="@+id/txt_amount"
+                        app:typeface="Roboto-Medium.ttf"
+                        android:textSize="16sp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/activity_half_margin">
+                    <com.lesgood.guru.util.TypefacedTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Fee"
+                        app:typeface="Roboto-Regular.ttf"
+                        android:textSize="16sp"/>
+
+                    <com.lesgood.guru.util.TypefacedTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Rp.200.000"
+                        android:id="@+id/txt_fee"
+                        app:typeface="Roboto-Medium.ttf"
+                        android:textSize="16sp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/activity_half_margin">
+                    <com.lesgood.guru.util.TypefacedTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Total"
+                        app:typeface="Roboto-Regular.ttf"
+                        android:textSize="16sp"/>
+
+                    <com.lesgood.guru.util.TypefacedTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Rp.600.000"
+                        android:id="@+id/txt_total"
+                        app:typeface="Roboto-Medium.ttf"
+                        android:textSize="16sp"/>
+                </LinearLayout>
+
             </LinearLayout>
 
             <LinearLayout
@@ -207,41 +277,35 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:text="Detail Order"/>
+                    app:typeface="Roboto-Medium.ttf"
+                    android:text="Detail Lokasi"/>
 
-                <android.support.v7.widget.RecyclerView
+                <com.lesgood.guru.util.TypefacedTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/rv_items"></android.support.v7.widget.RecyclerView>
+                    android:layout_weight="1"
+                    android:text="Jarak 13 km"
+                    android:id="@+id/txt_distance"
+                    app:typeface="Roboto-Regular.ttf"
+                    android:textSize="16sp"/>
 
-                <LinearLayout
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:scaleType="centerCrop"
+                    android:src="@color/colorGrey400"
+                    android:id="@+id/img_map"/>
+
+                <com.lesgood.guru.util.TypefacedTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/activity_margin"
-                    android:orientation="vertical">
+                    android:layout_weight="1"
+                    android:text="Detail lokasi"
+                    android:id="@+id/txt_detail_lokasi"
+                    app:typeface="Roboto-Light.ttf"
+                    android:textSize="16sp"
+                    android:layout_marginTop="@dimen/activity_half_margin"/>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="@dimen/activity_half_margin">
-                        <com.lesgood.guru.util.TypefacedTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Total"
-                            app:typeface="Roboto-Regular.ttf"
-                            android:textSize="16sp"/>
-
-                        <com.lesgood.guru.util.TypefacedTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Rp.400.000"
-                            android:id="@+id/txt_amount"
-                            app:typeface="Roboto-Medium.ttf"
-                            android:textSize="16sp"/>
-                    </LinearLayout>
-                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

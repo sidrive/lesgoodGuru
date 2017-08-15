@@ -62,16 +62,15 @@ public class FirebaseImageService {
         return imgRef;
     }
 
-
-
-    public StorageReference getCampaignCover(String cid){
-        StorageReference imgRef = storageReference.child("campaigns/"+cid+"/cover.jpg");
+    public StorageReference getUserProofKTM(String uid){
+        StorageReference imgRef = storageReference.child("users/"+uid+"/ktm.jpg");
         return imgRef;
     }
 
-    public StorageReference getCampaignCoverThumb(String cid){
-        StorageReference imgRef = storageReference.child("campaigns/"+cid+"/thumb_cover.jpg");
+    public StorageReference getUserProofKTMThumb(String uid){
+        StorageReference imgRef = storageReference.child("users/"+uid+"/thumb_ktm.jpg");
         return imgRef;
     }
+
 
 }

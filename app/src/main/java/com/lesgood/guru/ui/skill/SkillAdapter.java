@@ -96,9 +96,9 @@ public class SkillAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public int getMinRate(){
         int rate = 0;
         if (items.size()>0){
-            rate = items.get(0).getPrice();
+            rate = items.get(0).getPrice1();
             for (int i=0;i<items.size();i++){
-                int rateNew = items.get(i).getPrice();
+                int rateNew = items.get(i).getPrice1();
                 if (rateNew < rate){
                     rate = rateNew;
                 }

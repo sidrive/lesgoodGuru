@@ -17,7 +17,19 @@ public class Skill {
     @Nullable
     String level;
     @Nullable
-    int price;
+    int price1;
+    @Nullable
+    int price2;
+    @Nullable
+    int price3;
+    @Nullable
+    int price4;
+    @Nullable
+    int price5;
+    @Nullable
+    boolean have20;
+    @Nullable
+    boolean have30;
     @Nullable
     String desc;
     @Nullable
@@ -29,12 +41,11 @@ public class Skill {
 
     }
 
-    public Skill(String code, String uid, String skill, String level, int price, String desc){
+    public Skill(String code, String uid, String skill, String level, String desc){
         this.code = code;
         this.uid = uid;
         this.skill = skill;
         this.level = level;
-        this.price = price;
         this.desc = desc;
     }
 
@@ -75,12 +86,66 @@ public class Skill {
     }
 
     @Nullable
-    public int getPrice() {
-        return price;
+    public int getPrice1() {
+        return price1;
     }
 
-    public void setPrice(@Nullable int price) {
-        this.price = price;
+    public void setPrice1(@Nullable int price1) {
+        this.price1 = price1;
+    }
+
+    @Nullable
+    public int getPrice2() {
+        return price2;
+    }
+
+    public void setPrice2(@Nullable int price2) {
+        this.price2 = price2;
+    }
+
+    @Nullable
+    public int getPrice3() {
+        return price3;
+    }
+
+    public void setPrice3(@Nullable int price3) {
+        this.price3 = price3;
+    }
+
+    @Nullable
+    public int getPrice4() {
+        return price4;
+    }
+
+    public void setPrice4(@Nullable int price4) {
+        this.price4 = price4;
+    }
+
+    @Nullable
+    public int getPrice5() {
+        return price5;
+    }
+
+    public void setPrice5(@Nullable int price5) {
+        this.price5 = price5;
+    }
+
+    @Nullable
+    public boolean isHave20() {
+        return have20;
+    }
+
+    public void setHave20(@Nullable boolean have20) {
+        this.have20 = have20;
+    }
+
+    @Nullable
+    public boolean isHave30() {
+        return have30;
+    }
+
+    public void setHave30(@Nullable boolean have30) {
+        this.have30 = have30;
     }
 
     @Nullable

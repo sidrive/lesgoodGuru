@@ -39,15 +39,19 @@ public class VerificationPresenter implements BasePresenter {
     }
 
     public StorageReference getKtpRef(String uid){
-        return firebaseImageService.getUserProofKtp(uid);
+        return firebaseImageService.getUserProofKtpThumb(uid);
     }
 
     public StorageReference getSertifikatRef(String uid){
-        return firebaseImageService.getUserProofSertifikat(uid);
+        return firebaseImageService.getUserProofSertifikatThumb(uid);
     }
 
     public StorageReference getIjazah(String uid){
-        return firebaseImageService.getUserProofIjazah(uid);
+        return firebaseImageService.getUserProofIjazahThumb(uid);
+    }
+
+    public StorageReference getKTMRef(String uid){
+        return firebaseImageService.getUserProofKTMThumb(uid);
     }
 
     public void uploadKtp(final User user, byte[] data, final Uri uri){
@@ -65,6 +69,10 @@ public class VerificationPresenter implements BasePresenter {
         uploadimg(user, data, uri, ref);
     }
 
+    public void uploadKtm(final User user, byte[] data, final Uri uri){
+        StorageReference ref = firebaseImageService.getUserProofKTM(user.getUid());
+        uploadimg(user, data, uri, ref);
+    }
 
     public void uploadimg(final User user, byte[] data, final Uri uri, StorageReference ref){
 

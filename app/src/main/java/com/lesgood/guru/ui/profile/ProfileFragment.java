@@ -30,6 +30,7 @@ import com.lesgood.guru.ui.add_location.AddLocationActivity;
 import com.lesgood.guru.ui.brief.BriefActivity;
 import com.lesgood.guru.ui.edit_profile.EditProfileActivity;
 import com.lesgood.guru.ui.main.MainActivity;
+import com.lesgood.guru.ui.pengalaman.PengalamanActivity;
 import com.lesgood.guru.ui.prestasi.PrestasiActivity;
 import com.lesgood.guru.ui.reviews.ReviewsActivity;
 import com.lesgood.guru.ui.setting.SettingActivity;
@@ -77,6 +78,9 @@ public class ProfileFragment extends BaseFragment {
 
     @Bind(R.id.txt_price)
     TextView txtPrice;
+
+    @Bind(R.id.txt_verified)
+    TextView txtVerified;
 
     @Bind(R.id.txt_pendidikan)
     TextView txtPendidikan;
@@ -247,6 +251,10 @@ public class ProfileFragment extends BaseFragment {
             txtPendidikan.setText(user.getPendidikan());
         }
 
+        if (user.isVerified()){
+            txtVerified.setText("Status : Terverifikasi");
+        }
+
         txtPrice.setText(Utils.getRupiah(user.getStartFrom())+"/per 100 menit");
     }
 
@@ -304,5 +312,10 @@ public class ProfileFragment extends BaseFragment {
     @OnClick(R.id.lin_review)
     void showReviews(){
         startActivity(new Intent(activity, ReviewsActivity.class));
+    }
+
+    @OnClick(R.id.lin_pengalaman)
+    void showPengalaman(){
+        startActivity(new Intent(activity, PengalamanActivity.class));
     }
 }

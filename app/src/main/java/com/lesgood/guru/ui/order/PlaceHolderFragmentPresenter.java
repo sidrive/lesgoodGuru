@@ -37,17 +37,17 @@ public class PlaceHolderFragmentPresenter implements BasePresenter {
 
     @Override
     public void unsubscribe() {
-
+        if (orderEventListener != null) databaseRef.removeEventListener(orderEventListener);
     }
 
     public void getOrders(final String status){
-        orderEventListener = orderService.getOrders().orderByChild("pid").equalTo(user.getUid()).addChildEventListener(new ChildEventListener() {
+        orderEventListener = orderService.getOrders().orderByChild("gid").equalTo(user.getUid()).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Order order =dataSnapshot.getValue(Order.class);
                 if (order != null) {
                     if (status.equalsIgnoreCase("waiting")){
-                        if (order.getStatus().equalsIgnoreCase("pending")){
+                        if (order.getStatus().equalsIgnoreCase("waiting") || order.getStatus().equalsIgnoreCase("pending")){
                             fragment.showAddedOrder(order);
                         }
                     }

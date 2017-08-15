@@ -21,6 +21,8 @@ import com.lesgood.guru.ui.main.MainActivityComponent;
 import com.lesgood.guru.ui.main.MainActivityModule;
 import com.lesgood.guru.ui.payment_detail.PaymentDetailActivityComponent;
 import com.lesgood.guru.ui.payment_detail.PaymentDetailActivityModule;
+import com.lesgood.guru.ui.pengalaman.PengalamanActivityComponent;
+import com.lesgood.guru.ui.pengalaman.PengalamanActivityModule;
 import com.lesgood.guru.ui.prestasi.PrestasiActivityComponent;
 import com.lesgood.guru.ui.prestasi.PrestasiActivityModule;
 import com.lesgood.guru.ui.reviews.ReviewsActivityComponent;
@@ -53,6 +55,8 @@ public interface UserComponent {
         SkillActivityComponent plus(SkillActivityModule activityModule);
 
         PrestasiActivityComponent plus(PrestasiActivityModule activityModule);
+
+        PengalamanActivityComponent plus(PengalamanActivityModule activityModule);
 
         SkillComponent plus(SkillModule module);
 

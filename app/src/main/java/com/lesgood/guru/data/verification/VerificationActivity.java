@@ -78,6 +78,9 @@ public class VerificationActivity extends BaseActivity implements DialogUploadOp
     @Bind(R.id.img_ktp)
     ImageView imgKtp;
 
+    @Bind(R.id.img_foto_ktm)
+    ImageView imgKtm;
+
     @Bind(R.id.txt_foto_keahlian)
     TextView txtKeahlian;
 
@@ -157,6 +160,11 @@ public class VerificationActivity extends BaseActivity implements DialogUploadOp
                 .using(new FirebaseImageLoader())
                 .load(presenter.getIjazah(user.getUid()))
                 .into(imgIjazah);
+
+        Glide.with(this /* context */)
+                .using(new FirebaseImageLoader())
+                .load(presenter.getKTMRef(user.getUid()))
+                .into(imgKtm);
     }
 
     @Override
@@ -252,9 +260,12 @@ public class VerificationActivity extends BaseActivity implements DialogUploadOp
         }else if (type.equalsIgnoreCase("keahlian")){
             imgKeahlian.setImageBitmap(bitmap);
             presenter.uploadSertifikat(user, imgSmall, imgOriginal);
-        }else{
+        }else if (type.equalsIgnoreCase("ktm")){
             imgIjazah.setImageBitmap(bitmap);
             presenter.uploadIjazah(user, imgSmall, imgOriginal);
+        }else{
+            imgKtm.setImageBitmap(bitmap);
+            presenter.uploadKtm(user, imgSmall, imgOriginal);
         }
     }
 
@@ -277,6 +288,12 @@ public class VerificationActivity extends BaseActivity implements DialogUploadOp
     void uploadijazah(){
         showDialog();
         type = "ijazah";
+    }
+
+    @OnClick(R.id.txt_foto_ktm)
+    void uploadKTM(){
+        showDialog();
+        type = "ktm";
     }
 
     public void showDialog(){

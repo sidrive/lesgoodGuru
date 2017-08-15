@@ -366,6 +366,7 @@ public class AddLocationActivity extends BaseActivity implements OnMapReadyCallb
 
         user.setLatitude(location.getLat());
         user.setLongitude(location.getLng());
+        user.setLocation(location.getProvince_name());
         user.setFullAddress(fullAddress);
         presenter.updateUserLocation(user);
         BaseApplication.get(this).createUserComponent(user);

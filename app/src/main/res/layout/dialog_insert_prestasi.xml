@@ -18,7 +18,7 @@
             android:layout_centerInParent="true"
             android:id="@+id/txt_desc"
             android:textColor="@color/colorWhite"
-            android:text="Masukan prestasi yang pernah anda capai"
+            android:text="Masukan prestasi"
             android:drawablePadding="5dp"
             android:layout_height="wrap_content"
             android:padding="30dp"

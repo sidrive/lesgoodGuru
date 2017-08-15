@@ -5,9 +5,9 @@ android {
     signingConfigs {
         release {
             keyAlias 'lesgood'
-            keyPassword 'Doremi456'
-            storeFile file('/Users/Agus/Documents/Lesgood/keystores/lesgood-relase-keystore.jks')
-            storePassword 'Doremi456'
+            keyPassword 'doremi456'
+            storeFile file('/Users/Agus/Documents/Lesgood/keystores/lesgood-release-key.jks')
+            storePassword 'doremi456'
         }
     }
     compileSdkVersion 25
@@ -17,17 +17,17 @@ android {
         minSdkVersion 17
         targetSdkVersion 25
         multiDexEnabled true
-        versionCode 1
+        versionCode 2
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            debuggable true
             signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            zipAlignEnabled true
+            debuggable false
         }
     }
     configurations.all {
@@ -41,7 +41,7 @@ android {
             applicationId 'com.lesgood.guru'
             signingConfig signingConfigs.release
             targetSdkVersion 25
-            versionCode 1
+            versionCode 2
             versionName '1.0.0'
         }
     }
@@ -82,6 +82,7 @@ dependencies {
     compile rootProject.ext.fbmsg
     compile rootProject.ext.fbstorage
     compile rootProject.ext.fbcrash
+    compile rootProject.ext.fbconfig
     // Test dependencies
     testCompile rootProject.ext.junit
     testCompile rootProject.ext.supportAnnotations

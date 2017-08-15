@@ -28,6 +28,14 @@ public class OrderViewHolder extends RecyclerView.ViewHolder {
     @Bind(R.id.txt_status)
     TextView txtStatus;
 
+    @Bind(R.id.txt_order_at)
+    TextView txtOrderat;
+
+    @Bind(R.id.txt_siswa)
+    TextView txtSiswa;
+
+    @Bind(R.id.txt_pertemuan)
+    TextView txtPertemuan;
 
     @Bind(R.id.txt_price)
     TextView txtPrice;
@@ -44,13 +52,23 @@ public class OrderViewHolder extends RecyclerView.ViewHolder {
     public void bind(Order order) {
 
         txtTitle.setText(order.getTitle());
-        String angka = Integer.toString(order.getAmount());
+
+        int total = (int)(order.getTotal()+0.5d);
+
+        txtPertemuan.setText(String.valueOf(order.getTotalPertemuan())+" Pertemuan");
+        txtSiswa.setText(String.valueOf(order.getTotalSiswa())+" Siswa");
+        txtStatus.setText(order.getStatus());
+        txtPrice.setText("Rp."+toRupiah(total));
+        txtDay.setText(DateFormatter.getDate(order.getPertemuanTime(), "dd"));
+        txtMonth.setText(DateFormatter.getDate(order.getPertemuanTime(), "MMM"));
+        txtOrderat.setText("ordered at "+DateFormatter.getDate(order.getOrdertime(), "dd-mm-yy, HH:mm"));
+    }
+
+    private String toRupiah(int amount){
+        String angka = Integer.toString(amount);
         NumberFormat rupiahFormat = NumberFormat.getInstance(Locale.GERMANY);
         String rupiah = rupiahFormat.format(Double.parseDouble(angka));
-
-        txtStatus.setText(order.getStatus());
-        txtDay.setText(DateFormatter.getDate(order.getMeettime(), "dd"));
-        txtMonth.setText(DateFormatter.getDate(order.getMeettime(), "MMM"));
+        return rupiah;
     }
 }
 

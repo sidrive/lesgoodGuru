@@ -103,8 +103,18 @@
                     <android.support.design.widget.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Pendidikan Terakhir"
+                        android:hint="Nama Almamater"
                         android:id="@+id/input_pendidikan"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <android.support.design.widget.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Program Studi"
+                        android:id="@+id/input_prodi"/>
                 </android.support.design.widget.TextInputLayout>
 
                 <com.lesgood.guru.util.TypefacedTextView
@@ -135,6 +145,26 @@
                         android:layout_height="wrap_content"
                         android:hint="Nomer HP"
                         android:id="@+id/input_phone"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <android.support.design.widget.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Instagram"
+                        android:id="@+id/input_instagram"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <android.support.design.widget.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Facebook"
+                        android:id="@+id/input_facebook"/>
                 </android.support.design.widget.TextInputLayout>
 
 
