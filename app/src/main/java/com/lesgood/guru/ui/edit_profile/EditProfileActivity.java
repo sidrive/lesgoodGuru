@@ -27,8 +27,10 @@ import com.bumptech.glide.Glide;
 import com.lesgood.guru.R;
 import com.lesgood.guru.base.BaseActivity;
 import com.lesgood.guru.base.BaseApplication;
+import com.lesgood.guru.data.model.PartnerPayment;
 import com.lesgood.guru.data.model.User;
 import com.lesgood.guru.ui.dialog.DialogUploadOption;
+import com.lesgood.guru.ui.intro.IntroActivity;
 import com.lesgood.guru.ui.main.MainActivity;
 import com.lesgood.guru.util.DateFormatter;
 import com.theartofdev.edmodo.cropper.CropImage;
@@ -39,7 +41,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.security.SecureRandom;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -112,6 +117,15 @@ public class EditProfileActivity extends BaseActivity implements com.wdullaer.ma
     @Bind(R.id.input_prodi)
     EditText inputProdi;
 
+    @Bind(R.id.input_select_bank)
+    EditText inputSelectBank;
+
+    @Bind(R.id.input_account_number)
+    EditText inputAccNumber;
+
+    @Bind(R.id.input_account_name)
+    EditText inputAccName;
+
     @Bind(R.id.img_avatar)
     CircleImageView imgAvatar;
 
@@ -130,6 +144,8 @@ public class EditProfileActivity extends BaseActivity implements com.wdullaer.ma
     Uri imgOriginal;
 
     boolean register = false;
+
+    private int bankVal = 0;
 
     public static void startWithUser(BaseActivity activity, final User user, boolean register) {
         Intent intent = new Intent(activity, EditProfileActivity.class);
@@ -268,6 +284,8 @@ public class EditProfileActivity extends BaseActivity implements com.wdullaer.ma
 
     private void init(){
 
+        if (user.getUid() != null) presenter.getPayment(user.getUid());
+
         if (user.getFull_name() != null) inputName.setText(user.getFull_name());
         if (user.getBirthday() != 0) initBirthDay(user.getBirthday());
         if (user.getGender() != null) initGender(user.getGender());
@@ -296,6 +314,13 @@ public class EditProfileActivity extends BaseActivity implements com.wdullaer.ma
             inputPhone.setEnabled(false);
             inputReligion.setEnabled(false);
         }
+    }
+
+    public void initPayment(PartnerPayment partnerPayment){
+        bankVal = partnerPayment.getBankCode();
+        inputSelectBank.setText(partnerPayment.getBank());
+        inputAccName.setText(partnerPayment.getName());
+        inputAccNumber.setText(partnerPayment.getAccount());
     }
 
     private void initGender(String i){
@@ -443,7 +468,8 @@ public class EditProfileActivity extends BaseActivity implements com.wdullaer.ma
     public void successUpdateProfile(User user){
         showLoading(false);
         if (register){
-            MainActivity.startWithUser(this, user);
+            if (user.isAcceptTOS()) MainActivity.startWithUser(this, user);
+            else IntroActivity.startWithUser(this, user);
         }else{
             Toast.makeText(this, "Data Tersimpan", Toast.LENGTH_SHORT).show();
             BaseApplication.get(this).createUserComponent(user);
@@ -468,6 +494,10 @@ public class EditProfileActivity extends BaseActivity implements com.wdullaer.ma
         String prodi = inputProdi.getText().toString();
         String instagram = inputInstagram.getText().toString();
         String facebook = inputFacebook.getText().toString();
+
+        String selectBank = inputSelectBank.getText().toString();
+        String accName = inputAccName.getText().toString();
+        String accNumber = inputAccNumber.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
@@ -520,6 +550,8 @@ public class EditProfileActivity extends BaseActivity implements com.wdullaer.ma
         if (cancel){
             focusView.requestFocus();
         }else{
+
+
             user.setFull_name(name);
             user.setEmail(email);
             user.setReligion(religion);
@@ -532,6 +564,15 @@ public class EditProfileActivity extends BaseActivity implements com.wdullaer.ma
             if (dateBirthDay != 0) user.setBirthday(dateBirthDay);
             if (register) user.setCreatedAt(System.currentTimeMillis());
             if (!register) user.setUpdateAt(System.currentTimeMillis());
+
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            Date date = new Date();
+            String updateAt = dateFormat.format(date);
+
+            if (!TextUtils.isEmpty(selectBank) || bankVal != 0 || !TextUtils.isEmpty(accNumber) || !TextUtils.isEmpty(accName)){
+                PartnerPayment partnerPayment = new PartnerPayment(user.getUid(), selectBank, bankVal, accNumber, accName, updateAt);
+                presenter.updatePayment(partnerPayment);
+            }
 
             if (imgOriginal != null) {
                 presenter.uploadAvatar(user, imgSmall, imgOriginal);

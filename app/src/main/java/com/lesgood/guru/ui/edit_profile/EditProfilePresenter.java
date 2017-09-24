@@ -7,9 +7,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.lesgood.guru.base.BasePresenter;
+import com.lesgood.guru.data.model.PartnerPayment;
 import com.lesgood.guru.data.model.User;
 import com.lesgood.guru.data.remote.FirebaseImageService;
 import com.lesgood.guru.data.remote.UserService;
@@ -48,6 +52,26 @@ public class EditProfilePresenter implements BasePresenter {
                 activity.successUpdateProfile(user);
             }
         });
+    }
+
+
+    public void getPayment(String uid){
+        userService.getUserPayment(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                PartnerPayment partnerPayment = dataSnapshot.getValue(PartnerPayment.class);
+                if (partnerPayment != null) activity.initPayment(partnerPayment);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+
+    public void updatePayment(PartnerPayment partnerPayment){
+        userService.updateUserPayment(partnerPayment);
     }
 
     public void uploadAvatar(final User user, byte[] data, final Uri uri){

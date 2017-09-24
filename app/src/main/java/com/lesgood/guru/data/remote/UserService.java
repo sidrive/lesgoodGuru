@@ -172,4 +172,13 @@ public class UserService {
         databaseRef.child("users").child(uid).child("active").setValue(status);
     }
 
+
+    public DatabaseReference getAcceptTOS(String uid){
+        return databaseRef.child("user").child(uid).child("acceptTOS");
+    }
+
+    public void updateAcceptTOS(String uid, boolean status){
+        databaseRef.child("users").child(uid).child("acceptTOS").setValue(status);
+    }
+
 }

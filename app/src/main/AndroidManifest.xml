@@ -98,6 +98,10 @@
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
 
+        <activity
+            android:name=".ui.intro.IntroActivity"
+            android:theme="@style/Theme.Intro" />
+
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_appointment_24dp_primary" />

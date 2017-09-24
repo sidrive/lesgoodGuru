@@ -17,6 +17,8 @@ import com.lesgood.guru.ui.brief.BriefActivityComponent;
 import com.lesgood.guru.ui.brief.BriefActivityModule;
 import com.lesgood.guru.ui.edit_profile.EditProfileActivityComponent;
 import com.lesgood.guru.ui.edit_profile.EditProfileActivityModule;
+import com.lesgood.guru.ui.intro.IntroActivityComponent;
+import com.lesgood.guru.ui.intro.IntroActivityModule;
 import com.lesgood.guru.ui.main.MainActivityComponent;
 import com.lesgood.guru.ui.main.MainActivityModule;
 import com.lesgood.guru.ui.payment_detail.PaymentDetailActivityComponent;
@@ -41,6 +43,8 @@ import dagger.Subcomponent;
         }
 )
 public interface UserComponent {
+
+        IntroActivityComponent plus(IntroActivityModule activityModule);
 
         MainActivityComponent plus(MainActivityModule activityModule);
 

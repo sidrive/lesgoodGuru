@@ -310,11 +310,11 @@
         </LinearLayout>
     </ScrollView>
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:id="@+id/lin_action"
         android:background="@color/colorWhite"
         android:orientation="vertical">
 
@@ -333,7 +333,7 @@
                 android:layout_height="wrap_content"
                 style="@style/Base.Widget.AppCompat.Button.Borderless"
                 android:layout_weight="1"
-                android:text="Accept"
+                android:text="TERIMA"
                 android:textAllCaps="true"
                 android:id="@+id/btn_positif"
                 android:textColor="@color/colorAccent"/>
@@ -343,12 +343,14 @@
                 android:layout_height="wrap_content"
                 style="@style/Base.Widget.AppCompat.Button.Borderless"
                 android:layout_weight="1"
-                android:text="Decline"
+                android:text="BATALKAN"
                 android:id="@+id/btn_negatif"
                 android:textAllCaps="true"
                 android:textColor="@color/colorRed"/>
         </LinearLayout>
 
     </LinearLayout>
+
+    <include layout="@layout/view_progress"/>
 
 </android.support.design.widget.CoordinatorLayout>

@@ -47,7 +47,7 @@ public class PlaceHolderFragmentPresenter implements BasePresenter {
                 Order order =dataSnapshot.getValue(Order.class);
                 if (order != null) {
                     if (status.equalsIgnoreCase("waiting")){
-                        if (order.getStatus().equalsIgnoreCase("waiting") || order.getStatus().equalsIgnoreCase("pending")){
+                        if (order.getStatus().equalsIgnoreCase("pending_guru") || order.getStatus().equalsIgnoreCase("pending_murid") || order.getStatus().equalsIgnoreCase("pending")){
                             fragment.showAddedOrder(order);
                         }
                     }

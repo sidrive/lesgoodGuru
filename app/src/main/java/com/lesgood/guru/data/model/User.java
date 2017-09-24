@@ -64,6 +64,8 @@ public class User implements Serializable {
     public String location;
     @Nullable
     public String about;
+    @Nullable
+    public boolean acceptTOS;
 
     public static User newInstance(FirebaseUser firebaseUser, UserInfo provider) {
         User user = new User(firebaseUser.getUid());
@@ -318,5 +320,14 @@ public class User implements Serializable {
 
     public void setAbout(@Nullable String about) {
         this.about = about;
+    }
+
+    @Nullable
+    public boolean isAcceptTOS() {
+        return acceptTOS;
+    }
+
+    public void setAcceptTOS(@Nullable boolean acceptTOS) {
+        this.acceptTOS = acceptTOS;
     }
 }

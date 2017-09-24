@@ -165,5 +165,6 @@
         <item>98</item>
         <item>88</item>
     </string-array>
+    <string name="err_cant_move">Mohon centang mengerti dan setuju</string>
 
 </resources>

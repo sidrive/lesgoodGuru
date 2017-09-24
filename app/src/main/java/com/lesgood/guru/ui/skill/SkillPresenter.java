@@ -85,11 +85,12 @@ public class SkillPresenter implements BasePresenter {
         });
     }
 
-    public void deleteSkill(Skill skill){
+    public void deleteSkill(final Skill skill){
         userService.removeSkill(user.getUid(), skill).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 activity.showLoading(false);
+                activity.showRemovedItem(skill);
             }
         });
     }

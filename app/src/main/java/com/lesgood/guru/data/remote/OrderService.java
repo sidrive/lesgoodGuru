@@ -25,10 +25,10 @@ public class OrderService {
     }
 
     public Task<Void> approveOrder(String oid){
-        return databaseRef.child("orders").child(oid).child("status").setValue("pending");
+        return databaseRef.child("orders").child(oid).child("status").setValue("pending_murid");
     }
 
     public Task<Void> declineOrder(String oid){
-        return databaseRef.child("orders").child(oid).child("status").setValue("cancel");
+        return databaseRef.child("orders").child(oid).child("status").setValue("cancel_guru");
     }
 }

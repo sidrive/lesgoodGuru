@@ -1,5 +1,6 @@
 package com.lesgood.guru.ui.main;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -85,7 +86,7 @@ public class MainActivity extends BaseActivity {
     };
 
 
-    public static void startWithUser(BaseActivity activity, final User user) {
+    public static void startWithUser(Activity activity, final User user) {
         Intent intent = new Intent(activity, MainActivity.class);
         BaseApplication.get(activity).createUserComponent(user);
         activity.startActivity(intent);

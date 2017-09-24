@@ -1,13 +1,18 @@
 package com.lesgood.guru.ui.order_detail;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.bumptech.glide.Glide;
@@ -15,6 +20,7 @@ import com.lesgood.guru.R;
 import com.lesgood.guru.base.BaseActivity;
 import com.lesgood.guru.base.BaseApplication;
 import com.lesgood.guru.data.model.Order;
+import com.lesgood.guru.ui.main.MainActivity;
 import com.lesgood.guru.util.DateFormatter;
 
 import org.w3c.dom.Text;
@@ -26,6 +32,7 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Agus on 2/23/17.
@@ -34,6 +41,9 @@ import butterknife.ButterKnife;
 public class OrderDetailActivity extends BaseActivity {
     @Bind(R.id.toolbar)
     Toolbar toolbar;
+
+    @Bind(R.id.view_progress)
+    LinearLayout viewProgress;
 
     @Bind(R.id.txt_customer_name)
     TextView txtCustomerName;
@@ -73,6 +83,9 @@ public class OrderDetailActivity extends BaseActivity {
 
     @Bind(R.id.txt_distance)
     TextView txtDistance;
+
+    @Bind(R.id.lin_action)
+    LinearLayout linAction;
 
     @Inject
     Order order;
@@ -168,6 +181,31 @@ public class OrderDetailActivity extends BaseActivity {
         txtFee.setText("Rp."+toRupiah(fee));
         txtTotal.setText("Rp."+toRupiah(total));
 
+        handleStatus(order.getStatus());
+
+    }
+
+    public void handleStatus(String status){
+        if (status.equalsIgnoreCase("pending_guru")){
+            linAction.setVisibility(View.VISIBLE);
+        }else {
+            linAction.setVisibility(View.GONE);
+        }
+
+        if (status.equalsIgnoreCase("cancel_murid")){
+            String title = "Pesanan Dibatalkan";
+            String desc = "Pesanan telah dibatalkan oleh murid";
+            int icon = R.drawable.ic_appointment_24dp_primary;
+            showAlertDialog(title, desc, icon);
+        }
+    }
+
+    public void showProgress(boolean show){
+        if (show){
+            viewProgress.setVisibility(View.VISIBLE);
+        }else {
+            viewProgress.setVisibility(View.GONE);
+        }
     }
 
     private String toRupiah(int amount){
@@ -176,5 +214,55 @@ public class OrderDetailActivity extends BaseActivity {
         String rupiah = rupiahFormat.format(Double.parseDouble(angka));
         return rupiah;
     }
+
+
+    @OnClick(R.id.btn_positif)
+    void accept(){
+        showProgress(true);
+        presenter.acceptOrder(order);
+    }
+
+    @OnClick(R.id.btn_negatif)
+    void decline(){
+        showProgress(true);
+        presenter.declineOrder(order);
+    }
+
+    public void successAction(Order order){
+        showProgress(false);
+        if (order.getStatus().equalsIgnoreCase("pending_murid")){
+            String title = "Terima Kasih";
+            String desc = "Menunggu Pembayaran Murid";
+            int icon = R.drawable.ic_appointment_24dp_primary;
+            showAlertDialog(title, desc, icon);
+        }else if (order.getStatus().equalsIgnoreCase("cancel_guru")){
+            String title = "Pembatalan pesanan";
+            String desc = "Pesanan telah dibatalkan";
+            int icon = R.drawable.ic_appointment_24dp_primary;
+            showAlertDialog(title, desc, icon);
+        }else{
+            showProgress(false);
+            Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void showAlertDialog(String title, String desc, int icon){
+        final Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        new AlertDialog.Builder(this)
+                .setTitle(title)
+                .setMessage(desc)
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue with delete
+                        dialog.dismiss();
+                        startActivity(intent);
+                    }
+                })
+                .setIcon(icon)
+                .show();
+    }
+
 
 }
