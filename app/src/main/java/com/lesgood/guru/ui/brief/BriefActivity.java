@@ -173,16 +173,16 @@ public class BriefActivity extends BaseActivity {
     public void validate(){
         brief = editor.getHtml();
 
-        if (brief.length() <= 225){
-            showLoading(false);
-            String title = "Terlalu Pendek";
-            String desc = "Ceritamu terlalu pendek, ceritakan dengan jelas dan lengkap (min 225 karakter)";
-            int icon = R.drawable.ic_attention_24_red;
-
-            showAlertDialog(title, desc, icon);
-        }else{
+//        if (brief.length() <= 225){
+//            showLoading(false);
+//            String title = "Terlalu Pendek";
+//            String desc = "Ceritamu terlalu pendek, ceritakan dengan jelas dan lengkap (min 225 karakter)";
+//            int icon = R.drawable.ic_attention_24_red;
+//
+//            showAlertDialog(title, desc, icon);
+//        }else{
             setResultF();
-        }
+//        }
     }
 
     private void showAlertDialog(String title, String desc, int icon){

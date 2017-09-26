@@ -17,7 +17,7 @@ android {
         minSdkVersion 17
         targetSdkVersion 25
         multiDexEnabled true
-        versionCode 3
+        versionCode 4
         versionName "1.0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
@@ -41,7 +41,7 @@ android {
             applicationId 'com.lesgood.guru'
             signingConfig signingConfigs.release
             targetSdkVersion 25
-            versionCode 3
+            versionCode 4
             versionName '1.0.1'
         }
     }
