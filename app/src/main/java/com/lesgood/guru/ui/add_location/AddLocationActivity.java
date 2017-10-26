@@ -134,6 +134,11 @@ public class AddLocationActivity extends BaseActivity implements OnMapReadyCallb
             provinceId = Integer.valueOf(location.getProvince_id());
             presenter.getChildren(location.getProvince_id());
 
+            latitude = location.getLat();
+            longitude = location.getLng();
+            LatLng latLng = new LatLng(latitude, longitude);
+            initMap(latLng);
+
 
         }
         if (location.getKabupaten_name() != null) {
@@ -429,6 +434,10 @@ public class AddLocationActivity extends BaseActivity implements OnMapReadyCallb
 
                 LatLng latLng = provinceLatLng.get(which);
                 handleNewLatLng(latLng);
+                initMap(latLng);
+
+                latitude = latLng.latitude;
+                longitude = latLng.longitude;
 
                 handleSelectProvince(whiISId);
 
