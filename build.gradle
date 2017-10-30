@@ -41,26 +41,26 @@ ext {
     supportVectorDrawable = "com.android.support:support-vector-drawable:$BUILD_VERSION"
 
     final DAGGER_VERSION = '2.2'
-    final RXJAVA_VERSION = '1.1.3'
-    final RXANDROID_VERSION = '1.1.0'
-    final RXBINDING_VERSION = '0.2.0'
+    final RXJAVA_VERSION = '2.1.6'
+    final RXANDROID_VERSION = '2.0.1'
+    final RXBINDING_VERSION = '2.0.0'
     final GUAVA_VERSION = '18.0'
     final BUTTERKNIFE_VERSION = '7.0.1'
 
     dagger = "com.google.dagger:dagger:${DAGGER_VERSION}"
     daggerCompiler = "com.google.dagger:dagger-compiler:${DAGGER_VERSION}"
-    rxjava = "io.reactivex:rxjava:${RXJAVA_VERSION}"
-    rxandroid = "io.reactivex:rxandroid:${RXANDROID_VERSION}"
+    rxjava = "io.reactivex.rxjava2:rxjava:${RXJAVA_VERSION}"
+    rxandroid = "io.reactivex.rxjava2:rxandroid:${RXANDROID_VERSION}"
     javax = "org.glassfish:javax.annotation:10.0-b28"
     guava = "com.google.guava:guava:${GUAVA_VERSION}"
     butterKnife = "com.jakewharton:butterknife:${BUTTERKNIFE_VERSION}"
-    rxbinding = "com.jakewharton.rxbinding:rxbinding:${RXBINDING_VERSION}"
+    rxbinding = "com.jakewharton.rxbinding2:rxbinding:${RXBINDING_VERSION}"
 
     // Data dependencies
     final SQLBRITE_VERSION = '0.6.3'
     final PICASSO_VERSION = '2.5.2'
     final GLIDE_VERSION = '3.7.0'
-    final RETROFIT_VERSION = '2.1.0'
+    final RETROFIT_VERSION = '2.3.0'
     final LOGGING_VERSION = '3.3.1'
     final FIREBASE_VERSION = '10.2.0'
     final FIREBASE_UI_VERSION = '1.2.0'
@@ -68,7 +68,7 @@ ext {
     sqlbrite = "com.squareup.sqlbrite:sqlbrite:${SQLBRITE_VERSION}"
     picasso = "com.squareup.picasso:picasso:${PICASSO_VERSION}"
     retrofit = "com.squareup.retrofit2:retrofit:${RETROFIT_VERSION}"
-    adapterrx = "com.squareup.retrofit2:adapter-rxjava:${RETROFIT_VERSION}"
+    adapterrx = "com.squareup.retrofit2:adapter-rxjava2:${RETROFIT_VERSION}"
     gson = "com.squareup.retrofit2:converter-gson:${RETROFIT_VERSION}"
     logging = "com.squareup.okhttp3:logging-interceptor:${LOGGING_VERSION}"
 
