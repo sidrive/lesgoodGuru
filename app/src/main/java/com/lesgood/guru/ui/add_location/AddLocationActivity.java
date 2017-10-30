@@ -1,6 +1,7 @@
 package com.lesgood.guru.ui.add_location;
 
 import android.Manifest;
+import android.Manifest.permission;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -47,7 +48,8 @@ import butterknife.OnClick;
  * Created by Agus on 3/3/17.
  */
 
-public class AddLocationActivity extends BaseActivity implements OnMapReadyCallback, GoogleMap.OnCameraIdleListener {
+public class AddLocationActivity extends BaseActivity implements OnMapReadyCallback,
+    GoogleMap.OnCameraIdleListener {
 
     @BindString(R.string.error_field_required)
     String strErrReuqired;
@@ -116,7 +118,7 @@ public class AddLocationActivity extends BaseActivity implements OnMapReadyCallb
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+            .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
         location = new Location(user.getUid());
@@ -157,10 +159,10 @@ public class AddLocationActivity extends BaseActivity implements OnMapReadyCallb
     }
 
 
-    public String getProvinceName(int id, List<Province> list){
-        for (int i=0;i<list.size();i++){
+    public String getProvinceName(int id, List<Province> list) {
+        for (int i = 0; i < list.size(); i++) {
             Province item = list.get(i);
-            if (item.getId() == id){
+            if (item.getId() == id) {
                 return item.getName();
             }
         }
@@ -171,17 +173,17 @@ public class AddLocationActivity extends BaseActivity implements OnMapReadyCallb
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            if (mapMode){
+            if (mapMode) {
                 hideMap();
-            }else {
+            } else {
                 finish();
             }
         }
 
         if (id == R.id.action_save) {
-            if (mapMode){
+            if (mapMode) {
                 saveMap();
-            }else{
+            } else {
                 validate();
             }
 
@@ -194,7 +196,19 @@ public class AddLocationActivity extends BaseActivity implements OnMapReadyCallb
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
+        if (ActivityCompat.checkSelfPermission(this, permission.ACCESS_FINE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED
+            && ActivityCompat.checkSelfPermission(this, permission.ACCESS_COARSE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
 
         LatLng indonesia = new LatLng(-0.789275, 113.921327);
 
@@ -215,13 +229,13 @@ public class AddLocationActivity extends BaseActivity implements OnMapReadyCallb
 
         mMap.setMyLocationEnabled(true);
 
-        mMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
+        /*mMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
             @Override
             public boolean onMyLocationButtonClick() {
                 LatLng latLng = new LatLng(mMap.getMyLocation().getLatitude(), mMap.getMyLocation().getLongitude());
                 return false;
             }
-        });
+        });*/
     }
 
     private void handleNewLatLng(LatLng pos){
@@ -229,7 +243,8 @@ public class AddLocationActivity extends BaseActivity implements OnMapReadyCallb
     }
 
     public void initMap(LatLng latLng){
-        String url = "http://maps.googleapis.com/maps/api/staticmap?zoom=16&size=800x400&maptype=roadmap%20&markers=color:red%7Clabel:S%7C" + latLng.latitude + "," + latLng.longitude + "+&sensor=false";
+        String url = "http://maps.googleapis.com/maps/api/staticmap?zoom=16&size=800x400&maptype=roadmap%20&markers=color:red%7Clabel:S%7C"
+            + latLng.latitude + "," + latLng.longitude + "+&sensor=false";
         Log.d("initmap", "url = "+url);
         Glide.with(this)
                 .load(url)

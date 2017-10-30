@@ -8,6 +8,7 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.concurrent.TimeUnit;
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -15,6 +16,7 @@ import dagger.Provides;
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
+import okhttp3.logging.HttpLoggingInterceptor.Level;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -58,22 +60,21 @@ public class NetworkModule {
     @Singleton
     OkHttpClient provideOkhttpClient(Cache cache) {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
-        OkHttpClient.Builder client = new OkHttpClient.Builder();
-        client.addInterceptor(interceptor);
-        client.cache(cache);
-        return client.build();
+        interceptor.setLevel(Level.BODY);
+        return new OkHttpClient.Builder().cache(cache).addInterceptor(interceptor)
+            .connectTimeout(5, TimeUnit.MINUTES)
+            .writeTimeout(5, TimeUnit.MINUTES)
+            .cache(cache).build();
     }
 
     @Provides
     @Singleton
     Retrofit provideRetrofit(Gson gson, OkHttpClient okHttpClient) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .baseUrl(mBaseUrl)
-                .client(okHttpClient)
-                .build();
-        return retrofit;
+        return new Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .baseUrl(mBaseUrl)
+            .client(okHttpClient)
+            .build();
     }
 
 }

@@ -53,6 +53,7 @@ public class AddLocationPresenter implements BasePresenter {
     }
 
     public void getUserLocation(){
+        activity.setLoadingProgress(true);
         locationService.getLocation(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -65,12 +66,13 @@ public class AddLocationPresenter implements BasePresenter {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                activity.setLoadingProgress(false);
             }
         });
     }
 
     public void createLocation(final Location location){
+        activity.setLoadingProgress(true);
         locationService.createLocation(location).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -83,6 +85,7 @@ public class AddLocationPresenter implements BasePresenter {
             @Override
             public void onFailure(@NonNull Exception e) {
                 e.printStackTrace();
+                activity.setLoadingProgress(false);
             }
         });
     }
