@@ -93,26 +93,25 @@ public class LoginPresenter implements BasePresenter {
         if(result.isSuccess()) {
             final GoogleSignInAccount acct = result.getSignInAccount();
             firebaseUserService.getAuthWithGoogle(activity, acct)
-                    .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                activity.showLoading(false);
-                                for(UserInfo profile : task.getResult().getUser().getProviderData()) {
-                                    String providerId = profile.getProviderId();
-                                    String uid = profile.getUid();
-                                    String name = profile.getDisplayName();
-                                    String email = profile.getEmail();
-                                    Uri photoUri = profile.getPhotoUrl();
-                                    Log.d("fisache", providerId + " " + uid + " " + name + " " + email + " " + photoUri);
-                                }
-                                processLogin(task.getResult().getUser(), task.getResult().getUser().getProviderData().get(1));
-                            } else {
-                                activity.showLoading(false);
-                                activity.showLoginFail("Gagal Masuk");
+                    .addOnCompleteListener(activity, task -> {
+                        if (task.isSuccessful()) {
+                            activity.showLoading(false);
+                            for(UserInfo profile : task.getResult().getUser().getProviderData()) {
+                                String providerId = profile.getProviderId();
+                                String uid = profile.getUid();
+                                String name = profile.getDisplayName();
+                                String email = profile.getEmail();
+                                Uri photoUri = profile.getPhotoUrl();
+                                Log.d("fisache", providerId + " " + uid + " " + name + " " + email + " " + photoUri);
                             }
+                            processLogin(task.getResult().getUser(), task.getResult().getUser().getProviderData().get(1));
+                        } else {
+                            activity.showLoading(false);
+                            activity.showLoginFail("Gagal Masuk");
                         }
-                    });
+                    }).addOnFailureListener(e -> {
+                activity.showLoginFail(e.getMessage());
+            });
         } else {
             activity.showLoginFail("Gagal Masuk");
         }
@@ -144,24 +143,21 @@ public class LoginPresenter implements BasePresenter {
     protected void getAuthWithFacebook(final AccessToken accessToken) {
         activity.showLoading(true);
         firebaseUserService.getAuthWithFacebook(accessToken)
-                .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()) {
-                            activity.showLoading(false);
-                            for(UserInfo profile : task.getResult().getUser().getProviderData()) {
-                                String providerId = profile.getProviderId();
-                                String uid = profile.getUid();
-                                String name = profile.getDisplayName();
-                                String email = profile.getEmail();
-                                Uri photoUri = profile.getPhotoUrl();
-                                Log.d("fisache", providerId + " " + uid + " " + name + " " + email + " " + photoUri);
-                            }
-                            processLogin(task.getResult().getUser(), task.getResult().getUser().getProviderData().get(1));
-                        } else {
-                            activity.showLoading(false);
-                            activity.showLoginFail("Oops, email sudah digunakan");
+                .addOnCompleteListener(activity, task -> {
+                    if(task.isSuccessful()) {
+                        activity.showLoading(false);
+                        for(UserInfo profile : task.getResult().getUser().getProviderData()) {
+                            String providerId = profile.getProviderId();
+                            String uid = profile.getUid();
+                            String name = profile.getDisplayName();
+                            String email = profile.getEmail();
+                            Uri photoUri = profile.getPhotoUrl();
+                            Log.d("fisache", providerId + " " + uid + " " + name + " " + email + " " + photoUri);
                         }
+                        processLogin(task.getResult().getUser(), task.getResult().getUser().getProviderData().get(1));
+                    } else {
+                        activity.showLoading(false);
+                        activity.showLoginFail("Oops, email sudah digunakan");
                     }
                 });
     }
@@ -195,24 +191,21 @@ public class LoginPresenter implements BasePresenter {
     }
 
     public void emailIsRegistered(final String email) {
-        firebaseUserService.checkEmail(email).addOnCompleteListener(new OnCompleteListener<ProviderQueryResult>() {
-            @Override
-            public void onComplete(@NonNull Task<ProviderQueryResult> task) {
-                if (task.getResult().getProviders().size() > 0) {
-                    if (!task.getResult().getProviders().get(0).equals("password")){
-                        activity.showLoginFail("Email sudah digunakan oleh provider lain (Facebook atau Google)");
-                    }else{
-                        activity.showLoginMode();
-                    }
+        firebaseUserService.checkEmail(email).addOnCompleteListener(task -> {
+            if (task.getResult().getProviders().size() > 0) {
+                if (!task.getResult().getProviders().get(0).equals("password")){
+                    activity.showLoginFail("Email sudah digunakan oleh provider lain (Facebook atau Google)");
                 }else{
-                    User user = new User();
-                    user.setEmail(email);
-                    user.setProvider("password");
-
-                    activity.showRegisterUser(user);
+                    activity.showLoginMode();
                 }
+            }else{
+                User user = new User();
+                user.setEmail(email);
+                user.setProvider("password");
 
+                activity.showRegisterUser(user);
             }
+
         });
     }
 
