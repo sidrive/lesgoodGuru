@@ -2,6 +2,7 @@ package com.lesgood.guru.ui.add_location;
 
 
 import com.lesgood.guru.base.annotation.ActivityScope;
+import com.lesgood.guru.data.model.Location;
 import com.lesgood.guru.data.model.User;
 import com.lesgood.guru.data.remote.LocationService;
 

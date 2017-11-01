@@ -8,6 +8,7 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import com.lesgood.guru.data.remote.APIService;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Singleton;
 
@@ -77,6 +78,11 @@ public class NetworkModule {
             .baseUrl(mBaseUrl)
             .client(okHttpClient)
             .build();
+    }
+    @Provides
+    @Singleton
+    APIService provideApiservice(Retrofit retrofit){
+        return retrofit.create(APIService.class);
     }
 
 }

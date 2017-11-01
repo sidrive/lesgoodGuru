@@ -330,4 +330,36 @@ public class User implements Serializable {
     public void setAcceptTOS(@Nullable boolean acceptTOS) {
         this.acceptTOS = acceptTOS;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+            "uid='" + uid + '\'' +
+            ", phone='" + phone + '\'' +
+            ", email='" + email + '\'' +
+            ", provider='" + provider + '\'' +
+            ", photo_url='" + photo_url + '\'' +
+            ", full_name='" + full_name + '\'' +
+            ", gender='" + gender + '\'' +
+            ", birthday=" + birthday +
+            ", verified=" + verified +
+            ", latitude=" + latitude +
+            ", longitude=" + longitude +
+            ", fullAddress='" + fullAddress + '\'' +
+            ", totalSkill=" + totalSkill +
+            ", review=" + review +
+            ", startFrom=" + startFrom +
+            ", religion='" + religion + '\'' +
+            ", pendidikan='" + pendidikan + '\'' +
+            ", prodi='" + prodi + '\'' +
+            ", active=" + active +
+            ", instagram='" + instagram + '\'' +
+            ", facebook='" + facebook + '\'' +
+            ", createdAt=" + createdAt +
+            ", updateAt=" + updateAt +
+            ", location='" + location + '\'' +
+            ", about='" + about + '\'' +
+            ", acceptTOS=" + acceptTOS +
+            '}';
+    }
 }
