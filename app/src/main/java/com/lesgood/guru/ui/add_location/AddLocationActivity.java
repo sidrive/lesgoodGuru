@@ -2,9 +2,11 @@ package com.lesgood.guru.ui.add_location;
 
 import static com.google.android.gms.maps.GoogleMap.MAP_TYPE_NORMAL;
 
+import android.Manifest;
 import android.Manifest.permission;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -24,6 +26,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.Builder;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
+
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
@@ -43,7 +46,6 @@ import com.lesgood.guru.base.BaseActivity;
 import com.lesgood.guru.base.BaseApplication;
 import com.lesgood.guru.data.model.Location;
 import com.lesgood.guru.data.model.User;
-import com.lesgood.guru.util.TypefacedTextView;
 import javax.inject.Inject;
 
 /**
@@ -51,7 +53,7 @@ import javax.inject.Inject;
  */
 
 public class AddLocationActivity extends BaseActivity implements OnMapReadyCallback,
-    OnCameraIdleListener, ConnectionCallbacks, OnConnectionFailedListener, LocationListener {
+    OnCameraIdleListener, ConnectionCallbacks, OnConnectionFailedListener,LocationListener {
 
   @BindString(R.string.error_field_required)
   String strErrReuqired;
@@ -85,7 +87,7 @@ public class AddLocationActivity extends BaseActivity implements OnMapReadyCallb
   private android.location.Location mlocation;
   private IconGenerator iconGenerator;
   private Marker markerNewLocation;
-
+  private LocationManager lm;
   public static void startWithUser(BaseActivity activity) {
     Intent intent = new Intent(activity, AddLocationActivity.class);
     activity.startActivity(intent);
@@ -106,14 +108,21 @@ public class AddLocationActivity extends BaseActivity implements OnMapReadyCallb
         .addOnConnectionFailedListener(this)
         .addApi(LocationServices.API)
         .build();
+    mGoogleApiClient.connect();
+    locationRequest = new LocationRequest();
+    locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+    locationRequest.setInterval(UPDATE_INTERVAL);
+    locationRequest.setFastestInterval(FASTEST_INTERVAL);
     mapFragment = (SupportMapFragment) getSupportFragmentManager()
         .findFragmentById(R.id.map);
     mapFragment.getMapAsync(this);
-    startLocationUpdate();
-    Log.e("onCreate", "AddLocationActivity" + mlocation);
-    /*location = new Location(user.getUid());
+    getCurrentLocationUser();
+
+    location = new Location(user.getUid());
     location.setLat(0);
-    location.setLng(0);*/
+    location.setLng(0);
+    Log.e("onCreate", "AddLocationActivity" + location.getLng());
+    Log.e("onCreate", "AddLocationActivity" + location.getLat());
   }
 
   public void mapConnect() {
@@ -122,17 +131,25 @@ public class AddLocationActivity extends BaseActivity implements OnMapReadyCallb
 
   public void mapDisconnect() {
     if (mGoogleApiClient.isConnected()) {
-      LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+      LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient,this);
       mGoogleApiClient.disconnect();
     }
   }
 
-  private void startLocationUpdate() {
-    locationRequest = new LocationRequest();
-    locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-    locationRequest.setInterval(UPDATE_INTERVAL);
-    locationRequest.setFastestInterval(FASTEST_INTERVAL);
-
+  private void getCurrentLocationUser() {
+    lm = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
+    boolean isGPSEnabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+    boolean isNetworkEnabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+    if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+        && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+      if (isNetworkEnabled) {
+        lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 0, locationListener);
+        mlocation = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+      } else if (isGPSEnabled) {
+        lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 0, locationListener);
+        mlocation = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+      }
+    }
   }
 
 
@@ -166,7 +183,6 @@ public class AddLocationActivity extends BaseActivity implements OnMapReadyCallb
     return super.onOptionsItemSelected(item);
   }
 
-
   @Override
   public void onMapReady(GoogleMap googleMap) {
     mMap = googleMap;
@@ -176,11 +192,11 @@ public class AddLocationActivity extends BaseActivity implements OnMapReadyCallb
         != PackageManager.PERMISSION_GRANTED) {
       return;
     }
-
-    LatLng indonesia = new LatLng(-7.742429, 110.398466);
-
+    Log.e("onMapReady", "AddLocationActivity" + mlocation.getLatitude());
+    Log.e("onMapReady", "AddLocationActivity" + mlocation.getLongitude());
+    LatLng userCurrentLocation = new LatLng(mlocation.getLatitude(),mlocation.getLongitude());
     /*if (location.getLat() != 0 && location.getLng() != 0) {
-      indonesia = new LatLng(location.getLat(), location.getLng());
+      userCurrentLocation = new LatLng(location.getLat(), location.getLng());
       latitude = location.getLat();
       longitude = location.getLng();
       Log.e("onMapReady", "AddLocationActivity" + location.getLat());
@@ -190,20 +206,16 @@ public class AddLocationActivity extends BaseActivity implements OnMapReadyCallb
     }
 */
     mMap.setMapType(MAP_TYPE_NORMAL);
-    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(indonesia, 16));
-    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(indonesia, 16));
+    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userCurrentLocation, 16));
+    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userCurrentLocation, 16));
     mMap.setOnCameraIdleListener(this);
     mMap.setMyLocationEnabled(true);
     mMap.setOnMapClickListener(onMapClickListener);
-
   }
-
   private void handleNewLatLng(LatLng pos) {
     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(pos,16));
     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(pos,16));
   }
-
-
 
   public void markUserLocation(LatLng maplocation, String title) {
     markerNewLocation = mMap.addMarker(new MarkerOptions()
@@ -261,7 +273,7 @@ public class AddLocationActivity extends BaseActivity implements OnMapReadyCallb
     mapConnect();
     setLoadingProgress(true);
     presenter.subscribe();
-    startLocationUpdate();
+    getCurrentLocationUser();
   }
 
   @Override
@@ -290,19 +302,13 @@ public class AddLocationActivity extends BaseActivity implements OnMapReadyCallb
         != PackageManager.PERMISSION_GRANTED
         && ActivityCompat.checkSelfPermission(this, permission.ACCESS_COARSE_LOCATION)
         != PackageManager.PERMISSION_GRANTED) {
-      // TODO: Consider calling
-      //    ActivityCompat#requestPermissions
-      // here to request the missing permissions, and then overriding
-      //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-      //                                          int[] grantResults)
-      // to handle the case where the user grants the permission. See the documentation
-      // for ActivityCompat#requestPermissions for more details.
       return;
     }
     mlocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
     if (mlocation == null) {
       LocationServices.FusedLocationApi
-          .requestLocationUpdates(mGoogleApiClient, locationRequest, this);
+          .requestLocationUpdates(mGoogleApiClient, locationRequest,
+              this);
     } else {
       LatLng latLng = new LatLng(mlocation.getLatitude(), mlocation.getLongitude());
       handleNewLatLng(latLng);
@@ -319,15 +325,38 @@ public class AddLocationActivity extends BaseActivity implements OnMapReadyCallb
 
   }
 
-  @Override
-  public void onLocationChanged(android.location.Location location) {
 
-  }
   public void setAddressMap(String address){
-    if (markerNewLocation != null) {
+    /*if (markerNewLocation != null) {
       markerNewLocation.remove();
     }
     markerNewLocation.setSnippet("here");
-    markerNewLocation.showInfoWindow();
+    markerNewLocation.showInfoWindow();*/
+  }
+  private android.location.LocationListener locationListener = new android.location.LocationListener() {
+    @Override
+    public void onLocationChanged(android.location.Location location) {
+
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
+    }
+  };
+
+  @Override
+  public void onLocationChanged(android.location.Location location) {
+
   }
 }

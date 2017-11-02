@@ -1,8 +1,14 @@
 package com.lesgood.guru.ui.add_location;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.support.annotation.NonNull;
 
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
+import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -126,10 +132,9 @@ public class AddLocationPresenter implements BasePresenter {
                     activity.setLoadingProgress(false);
                 }
         );
-
-
     }
-    public void updateUserLocation(User user){
+        public void updateUserLocation(User user){
         locationService.updateUserLocation(user);
     }
+
 }
