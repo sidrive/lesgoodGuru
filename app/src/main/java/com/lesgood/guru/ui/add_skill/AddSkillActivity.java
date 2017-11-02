@@ -51,6 +51,9 @@ public class AddSkillActivity extends BaseActivity {
     @BindString(R.string.error_field_required)
     String errRequired;
 
+    @BindString(R.string.error_field_pengisian)
+    String errRequiredMinimal;
+
     @BindColor(R.color.colorGrey800)
     int colorGrey800;
 
@@ -377,34 +380,39 @@ public class AddSkillActivity extends BaseActivity {
             Toast.makeText(this, "Pilih Tingkat Mengajar", Toast.LENGTH_SHORT).show();
         }
 
-        if (skill.getPrice1() == 0){
-            inputPrice1.setError(errRequired);
+        if (skill.getPrice1() <= 40000){
+            inputPrice1.setError(errRequiredMinimal);
             cancel = true;
             focusView = inputPrice1;
+            showLoading(false);
         }
 
-        if (skill.getPrice2() == 0){
-            inputPrice2.setError(errRequired);
+        if (skill.getPrice2() <= 40000){
+            inputPrice2.setError(errRequiredMinimal);
             cancel = true;
             focusView = inputPrice2;
+            showLoading(false);
         }
 
-        if (skill.getPrice3() == 0){
-            inputPrice3.setError(errRequired);
+        if (skill.getPrice3() <= 40000){
+            inputPrice3.setError(errRequiredMinimal);
             cancel = true;
             focusView = inputPrice3;
+            showLoading(false);
         }
 
-        if (skill.getPrice3() == 0){
-            inputPrice3.setError(errRequired);
+        if (skill.getPrice3() <= 40000){
+            inputPrice3.setError(errRequiredMinimal);
             cancel = true;
             focusView = inputPrice3;
+            showLoading(false);
         }
 
-        if (skill.getPrice4() == 0){
-            inputPrice4.setError(errRequired);
+        if (skill.getPrice4() <= 40000){
+            inputPrice4.setError(errRequiredMinimal);
             cancel = true;
             focusView = inputPrice4;
+            showLoading(false);
         }
 
         if (cancel){

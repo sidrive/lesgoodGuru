@@ -20,6 +20,7 @@ import com.lesgood.guru.R;
 import com.lesgood.guru.base.BaseActivity;
 import com.lesgood.guru.base.BaseApplication;
 import com.lesgood.guru.data.model.Order;
+import com.lesgood.guru.data.model.User;
 import com.lesgood.guru.ui.main.MainActivity;
 import com.lesgood.guru.util.DateFormatter;
 
@@ -66,7 +67,10 @@ public class OrderDetailActivity extends BaseActivity {
     @Bind(R.id.txt_status)
     TextView txtStatus;
 
-    @Bind(R.id.txt_amount)
+    @Bind(R.id.txt_tarif)
+    TextView txtTarif;
+
+   /* @Bind(R.id.txt_amount)
     TextView txtAmount;
 
     @Bind(R.id.txt_fee)
@@ -74,7 +78,7 @@ public class OrderDetailActivity extends BaseActivity {
 
     @Bind(R.id.txt_total)
     TextView txtTotal;
-
+*/
     @Bind(R.id.img_map)
     ImageView imgMap;
 
@@ -89,6 +93,9 @@ public class OrderDetailActivity extends BaseActivity {
 
     @Inject
     Order order;
+
+    @Inject
+    User user;
 
     @Inject
     OrderDetailPresenter presenter;
@@ -156,7 +163,14 @@ public class OrderDetailActivity extends BaseActivity {
 
     public void init(){
         txtOrderId.setText("#"+order.getOid());
-        txtStatus.setText(order.getStatus().toUpperCase());
+        String status = order.getStatus();
+        if (status.equalsIgnoreCase("pending_murid")){
+          txtStatus.setText("Menunggu Pembayaran Murid");
+        }else{
+          txtStatus.setText("Menunggu Konfirmasi Pengajar");
+        }
+
+        txtCustomerName.setText(order.getCustomerName());
         txtDate.setText(DateFormatter.getDate(order.getPertemuanTime(), "EEE, dd MMM yyyy, HH:mm"));
         txtProduct.setText(order.getTitle());
         txtSiswa.setText(String.valueOf(order.getTotalSiswa()));
@@ -177,10 +191,11 @@ public class OrderDetailActivity extends BaseActivity {
         int fee = (int)(order.getFee()+0.5d);
         int total = (int)(order.getTotal()+0.5d);
 
-        txtAmount.setText("Rp."+toRupiah(order.getAmount()));
+        txtTarif.setText("Rp."+toRupiah(user.getStartFrom()));
+        /*txtAmount.setText("Rp."+toRupiah(order.getAmount()));
         txtFee.setText("Rp."+toRupiah(fee));
         txtTotal.setText("Rp."+toRupiah(total));
-
+        */
         handleStatus(order.getStatus());
 
     }

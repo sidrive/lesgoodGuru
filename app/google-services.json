@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "587589507868-eic2o8vi1d5s5nmpcav82cjof9iqeks7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lesgood.guru",
+            "certificate_hash": "db5e86dafadbee9406537fa93a8edd245cc6aa07"
+          }
+        },
+        {
+          "client_id": "587589507868-2tl2f0um1gst4hlte5fer8pqdojds7ch.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lesgood.guru",
+            "certificate_hash": "d7d430dead94fdcfeb225b9d443f4bfd547ab65f"
+          }
+        },
+        {
           "client_id": "587589507868-bal3v06uc9rc72q6mvimvfi0rd037oj7.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

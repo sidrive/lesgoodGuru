@@ -202,7 +202,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Gross"
+                        android:text="Tarif Pengajar"
                         app:typeface="Roboto-Regular.ttf"
                         android:textSize="16sp"/>
 
@@ -211,56 +211,14 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Rp.400.000"
-                        android:id="@+id/txt_amount"
+                        android:id="@+id/txt_tarif"
                         app:typeface="Roboto-Medium.ttf"
                         android:textSize="16sp"/>
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="@dimen/activity_half_margin">
-                    <com.lesgood.guru.util.TypefacedTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Fee"
-                        app:typeface="Roboto-Regular.ttf"
-                        android:textSize="16sp"/>
 
-                    <com.lesgood.guru.util.TypefacedTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Rp.200.000"
-                        android:id="@+id/txt_fee"
-                        app:typeface="Roboto-Medium.ttf"
-                        android:textSize="16sp"/>
-                </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="@dimen/activity_half_margin">
-                    <com.lesgood.guru.util.TypefacedTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Total"
-                        app:typeface="Roboto-Regular.ttf"
-                        android:textSize="16sp"/>
 
-                    <com.lesgood.guru.util.TypefacedTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Rp.600.000"
-                        android:id="@+id/txt_total"
-                        app:typeface="Roboto-Medium.ttf"
-                        android:textSize="16sp"/>
-                </LinearLayout>
 
             </LinearLayout>
 
