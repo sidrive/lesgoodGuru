@@ -1,494 +1,333 @@
 package com.lesgood.guru.ui.add_location;
 
-import android.Manifest;
+import static com.google.android.gms.maps.GoogleMap.MAP_TYPE_NORMAL;
+
 import android.Manifest.permission;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
+import butterknife.Bind;
+import butterknife.BindString;
+import butterknife.ButterKnife;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.GoogleApiClient.Builder;
+import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
+import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnCameraIdleListener;
+import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.ui.IconGenerator;
 import com.lesgood.guru.R;
 import com.lesgood.guru.base.BaseActivity;
 import com.lesgood.guru.base.BaseApplication;
 import com.lesgood.guru.data.model.Location;
-import com.lesgood.guru.data.model.Province;
 import com.lesgood.guru.data.model.User;
-
-import java.util.ArrayList;
-import java.util.List;
-
+import com.lesgood.guru.util.TypefacedTextView;
 import javax.inject.Inject;
-
-import butterknife.Bind;
-import butterknife.BindString;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * Created by Agus on 3/3/17.
  */
 
 public class AddLocationActivity extends BaseActivity implements OnMapReadyCallback,
-    GoogleMap.OnCameraIdleListener {
+    OnCameraIdleListener, ConnectionCallbacks, OnConnectionFailedListener, LocationListener {
 
-    @BindString(R.string.error_field_required)
-    String strErrReuqired;
+  @BindString(R.string.error_field_required)
+  String strErrReuqired;
 
-    @Bind(R.id.view_progress)
-    LinearLayout progressBar;
+  @Bind(R.id.view_progress)
+  LinearLayout progressBar;
 
-    @Bind(R.id.toolbar)
-    Toolbar toolbar;
+  @Bind(R.id.toolbar)
+  Toolbar toolbar;
 
-    @Bind(R.id.txt_province)
-    TextView inputProvince;
+  @Bind(R.id.rel_map)
+  RelativeLayout relMap;
 
-    @Bind(R.id.txt_kabupaten)
-    TextView inputKabupaten;
 
-    @Bind(R.id.rel_map)
-    RelativeLayout relMap;
+  @Inject
+  User user;
 
-    @Bind(R.id.img_map)
-    ImageView imgMap;
+  @Inject
+  AddLocationPresenter presenter;
+  private GoogleMap mMap;
 
-    @Inject
-    User user;
+  Location location;//this is user location model
 
-    @Inject
-    AddLocationPresenter presenter;
+  private double latitude = 0;
+  private double longitude = 0;
+  private SupportMapFragment mapFragment;
+  private LocationRequest locationRequest;
+  private long UPDATE_INTERVAL = 10 * 1000;  /* 10 secs */
+  private long FASTEST_INTERVAL = 2000; /* 2 sec */
+  private GoogleApiClient mGoogleApiClient;
+  private android.location.Location mlocation;
+  private IconGenerator iconGenerator;
+  private Marker markerNewLocation;
 
-    private GoogleMap mMap;
+  public static void startWithUser(BaseActivity activity) {
+    Intent intent = new Intent(activity, AddLocationActivity.class);
+    activity.startActivity(intent);
+  }
 
-    Location location;
+  @Override
+  protected void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_add_location);
+    ButterKnife.bind(this);
+    setSupportActionBar(toolbar);
+    getSupportActionBar().setDisplayShowHomeEnabled(true);
+    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    iconGenerator = new IconGenerator(this);
+    iconGenerator.setStyle(IconGenerator.STYLE_BLUE);
+    mGoogleApiClient = new Builder(getApplicationContext())
+        .addConnectionCallbacks(this)
+        .addOnConnectionFailedListener(this)
+        .addApi(LocationServices.API)
+        .build();
+    mapFragment = (SupportMapFragment) getSupportFragmentManager()
+        .findFragmentById(R.id.map);
+    mapFragment.getMapAsync(this);
+    startLocationUpdate();
+    Log.e("onCreate", "AddLocationActivity" + mlocation);
+    /*location = new Location(user.getUid());
+    location.setLat(0);
+    location.setLng(0);*/
+  }
 
-    private boolean mapMode = false;
+  public void mapConnect() {
+    mGoogleApiClient.connect();
+  }
 
-    private int provinceId = 0;
-    private int kabupatenId = 0;
+  public void mapDisconnect() {
+    if (mGoogleApiClient.isConnected()) {
+      LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+      mGoogleApiClient.disconnect();
+    }
+  }
 
-    private List<Province> provinces;
-    private CharSequence[] charProvinces;
-    private CharSequence[] charProvincesId;
-    private List<LatLng> provinceLatLng;
-    private int provinceVal;
+  private void startLocationUpdate() {
+    locationRequest = new LocationRequest();
+    locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+    locationRequest.setInterval(UPDATE_INTERVAL);
+    locationRequest.setFastestInterval(FASTEST_INTERVAL);
 
-    private List<Province> kabupatens;
-    private CharSequence[] charKabupatens;
-    private CharSequence[] charKabupatensId;
-    private List<LatLng> kabupatenLatLng;
-    private int kabupatenVal;
+  }
 
-    private double latitude = 0;
-    private double longitude = 0;
 
-    public static void startWithUser(BaseActivity activity) {
-        Intent intent = new Intent(activity, AddLocationActivity.class);
-        activity.startActivity(intent);
+  public void init(Location location) {
+    this.location = location;
+    mapConnect();
+    if (location.getProvince_name() != null) {
+      latitude = location.getLat();
+      longitude = location.getLng();
+      LatLng latLng = new LatLng(latitude, longitude);
+      handleNewLatLng(latLng);
+    }
+  }
+
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    // Inflate the menu; this adds items to the action bar if it is present.
+    getMenuInflater().inflate(R.menu.menu_activity_brief, menu);
+    return true;
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    int id = item.getItemId();
+    if (id == android.R.id.home) {
+      finish();
+    }
+    if (id == R.id.action_save) {
+      saveMap();
+    }
+    return super.onOptionsItemSelected(item);
+  }
+
+
+  @Override
+  public void onMapReady(GoogleMap googleMap) {
+    mMap = googleMap;
+    if (ActivityCompat.checkSelfPermission(this, permission.ACCESS_FINE_LOCATION)
+        != PackageManager.PERMISSION_GRANTED
+        && ActivityCompat.checkSelfPermission(this, permission.ACCESS_COARSE_LOCATION)
+        != PackageManager.PERMISSION_GRANTED) {
+      return;
     }
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_location);
-        ButterKnife.bind(this);
+    LatLng indonesia = new LatLng(-7.742429, 110.398466);
 
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-            .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-
-        location = new Location(user.getUid());
-        location.setLat(0);
-        location.setLng(0);
+    /*if (location.getLat() != 0 && location.getLng() != 0) {
+      indonesia = new LatLng(location.getLat(), location.getLng());
+      latitude = location.getLat();
+      longitude = location.getLng();
+      Log.e("onMapReady", "AddLocationActivity" + location.getLat());
+      Log.e("onMapReady", "AddLocationActivity" + location.getLng());
+      Log.e("onMapReady", "AddLocationActivity" + location.getAddress());
 
     }
+*/
+    mMap.setMapType(MAP_TYPE_NORMAL);
+    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(indonesia, 16));
+    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(indonesia, 16));
+    mMap.setOnCameraIdleListener(this);
+    mMap.setMyLocationEnabled(true);
+    mMap.setOnMapClickListener(onMapClickListener);
+
+  }
+
+  private void handleNewLatLng(LatLng pos) {
+    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(pos,16));
+    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(pos,16));
+  }
 
 
-    public void init(Location location) {
-        this.location = location;
 
-        if (location.getProvince_name() != null) {
-            inputProvince.setText(location.getProvince_name());
-            provinceId = Integer.valueOf(location.getProvince_id());
-            presenter.getChildren(location.getProvince_id());
+  public void markUserLocation(LatLng maplocation, String title) {
+    markerNewLocation = mMap.addMarker(new MarkerOptions()
+        .position(maplocation)
+        .icon(BitmapDescriptorFactory.fromBitmap(iconGenerator.makeIcon(title))));
+    markerNewLocation.showInfoWindow();
 
-            latitude = location.getLat();
-            longitude = location.getLng();
-            LatLng latLng = new LatLng(latitude, longitude);
-            initMap(latLng);
+  }
 
-
-        }
-        if (location.getKabupaten_name() != null) {
-
-            inputKabupaten.setText(location.getKabupaten_name());
-            kabupatenId = Integer.valueOf(location.getKabupaten_id());
-        }
-
+  private OnMapClickListener onMapClickListener = latLng -> {
+    if (markerNewLocation != null) {
+      markerNewLocation.remove();
     }
+    markUserLocation(latLng, "Here");
+    presenter.getAddressLocation(latLng);
+  };
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_activity_brief, menu);
-        return true;
+  private void saveMap() {
+    LatLng latLng = mMap.getCameraPosition().target;
+    latitude = latLng.latitude;
+    longitude = latLng.longitude;
+    finish();
+  }
+
+  @Override
+  public void onCameraIdle() {
+    LatLng latLng = mMap.getCameraPosition().target;
+  }
+
+  @Override
+  protected void setupActivityComponent() {
+    BaseApplication.get(this)
+        .getUserComponent()
+        .plus(new AddLocationActivityModule(this))
+        .inject(this);
+  }
+
+  @Override
+  public void onBackPressed() {
+    super.onBackPressed();
+    finish();
+  }
+
+  @Override
+  protected void onStart() {
+    super.onStart();
+    mapConnect();
+    setLoadingProgress(true);
+    presenter.subscribe();
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    mapConnect();
+    setLoadingProgress(true);
+    presenter.subscribe();
+    startLocationUpdate();
+  }
+
+  @Override
+  protected void onPause() {
+    super.onPause();
+    mapDisconnect();
+  }
+
+  @Override
+  protected void onStop() {
+    super.onStop();
+    mapDisconnect();
+  }
+
+  public void setLoadingProgress(boolean show) {
+    if (show) {
+      progressBar.setVisibility(View.VISIBLE);
+    } else {
+      progressBar.setVisibility(View.GONE);
     }
+  }
 
-
-    public String getProvinceName(int id, List<Province> list) {
-        for (int i = 0; i < list.size(); i++) {
-            Province item = list.get(i);
-            if (item.getId() == id) {
-                return item.getName();
-            }
-        }
-        return null;
+  @Override
+  public void onConnected(@Nullable Bundle bundle) {
+    if (ActivityCompat.checkSelfPermission(this, permission.ACCESS_FINE_LOCATION)
+        != PackageManager.PERMISSION_GRANTED
+        && ActivityCompat.checkSelfPermission(this, permission.ACCESS_COARSE_LOCATION)
+        != PackageManager.PERMISSION_GRANTED) {
+      // TODO: Consider calling
+      //    ActivityCompat#requestPermissions
+      // here to request the missing permissions, and then overriding
+      //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+      //                                          int[] grantResults)
+      // to handle the case where the user grants the permission. See the documentation
+      // for ActivityCompat#requestPermissions for more details.
+      return;
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            if (mapMode) {
-                hideMap();
-            } else {
-                finish();
-            }
-        }
-
-        if (id == R.id.action_save) {
-            if (mapMode) {
-                saveMap();
-            } else {
-                validate();
-            }
-
-        }
-
-        return super.onOptionsItemSelected(item);
+    mlocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+    if (mlocation == null) {
+      LocationServices.FusedLocationApi
+          .requestLocationUpdates(mGoogleApiClient, locationRequest, this);
+    } else {
+      LatLng latLng = new LatLng(mlocation.getLatitude(), mlocation.getLongitude());
+      handleNewLatLng(latLng);
     }
+  }
 
+  @Override
+  public void onConnectionSuspended(int i) {
 
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-        if (ActivityCompat.checkSelfPermission(this, permission.ACCESS_FINE_LOCATION)
-            != PackageManager.PERMISSION_GRANTED
-            && ActivityCompat.checkSelfPermission(this, permission.ACCESS_COARSE_LOCATION)
-            != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
+  }
 
-        LatLng indonesia = new LatLng(-0.789275, 113.921327);
+  @Override
+  public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
-        if (location.getLat() != 0 && location.getLng() != 0) {
-            indonesia = new LatLng(location.getLat(), location.getLng());
-            latitude = location.getLat();
-            longitude = location.getLng();
-        }
+  }
 
-        initMap(indonesia);
+  @Override
+  public void onLocationChanged(android.location.Location location) {
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(indonesia, 16));
-        mMap.setOnCameraIdleListener(this);
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-
-        mMap.setMyLocationEnabled(true);
-
-        /*mMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
-            @Override
-            public boolean onMyLocationButtonClick() {
-                LatLng latLng = new LatLng(mMap.getMyLocation().getLatitude(), mMap.getMyLocation().getLongitude());
-                return false;
-            }
-        });*/
+  }
+  public void setAddressMap(String address){
+    if (markerNewLocation != null) {
+      markerNewLocation.remove();
     }
-
-    private void handleNewLatLng(LatLng pos){
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(pos, 16));
-    }
-
-    public void initMap(LatLng latLng){
-        String url = "http://maps.googleapis.com/maps/api/staticmap?zoom=16&size=800x400&maptype=roadmap%20&markers=color:red%7Clabel:S%7C"
-            + latLng.latitude + "," + latLng.longitude + "+&sensor=false";
-        Log.d("initmap", "url = "+url);
-        Glide.with(this)
-                .load(url)
-                .placeholder(R.color.colorShadow2)
-                .centerCrop()
-                .dontAnimate()
-                .into(imgMap);
-
-    }
-
-    @OnClick(R.id.img_map)
-    void showMap(){
-        relMap.setVisibility(View.VISIBLE);
-        mapMode = true;
-    }
-
-    private void hideMap(){
-        relMap.setVisibility(View.GONE);
-        mapMode = false;
-    }
-
-    private void saveMap(){
-        LatLng latLng = mMap.getCameraPosition().target;
-        latitude = latLng.latitude;
-        longitude = latLng.longitude;
-        initMap(latLng);
-        hideMap();
-    }
-
-    @Override
-    public void onCameraIdle() {
-        LatLng latLng = mMap.getCameraPosition().target;
-    }
-
-    @Override
-    protected void setupActivityComponent() {
-        BaseApplication.get(this)
-                .getUserComponent()
-                .plus(new AddLocationActivityModule(this))
-                .inject(this);
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        finish();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        setLoadingProgress(true);
-        presenter.subscribe();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        presenter.unsubscribe();
-    }
-
-    public void setLoadingProgress(boolean show) {
-        if (show){
-            progressBar.setVisibility(View.VISIBLE);
-        }else{
-            progressBar.setVisibility(View.GONE);
-        }
-    }
-
-
-
-    @OnClick(R.id.input_province)
-    void showProvinces(){
-        showDialogSelectProvince();
-    }
-
-    @OnClick(R.id.input_kabupaten)
-    void showKabupatens(){
-        showDialogSelectKabupaten();
-    }
-
-
-    private void validate() {
-        inputProvince.setError(null);
-        inputKabupaten.setError(null);
-
-        boolean cancel = false;
-        View focusView = null;
-
-
-        if (provinceId == 0) {
-            inputProvince.setError(strErrReuqired);
-            focusView = inputProvince;
-            cancel = true;
-        }
-
-
-        if (cancel) {
-            focusView.requestFocus();
-        } else {
-            setLoadingProgress(true);
-            if (kabupatenId>0) {
-                location.setKabupaten_id(String.valueOf(kabupatenId));
-                location.setKabupaten_name(inputKabupaten.getText().toString());
-            }
-
-
-            location.setProvince_id(String.valueOf(provinceId));
-            location.setProvince_name(inputProvince.getText().toString());
-            location.setLat(latitude);
-            location.setLng(longitude);
-
-            presenter.createLocation(location);
-
-        }
-
-    }
-
-    public void successAddLocation(Location location){
-        String fullAddress = "";
-        String address = "";
-        String address2 = "";
-        String kabupaten = "";
-        String province = "";
-        String zipCode = "";
-
-        if (location.getAddress() != null) address = location.getAddress();
-        if (location.getAddress_2() != null) address2 = " "+location.getAddress_2();
-        if (location.getKabupaten_name() != null) kabupaten = ", "+location.getKabupaten_name();
-        if (location.getProvince_name() != null) province = " "+location.getProvince_name();
-        if (location.getZip_code() != null) zipCode = " "+location.getZip_code();
-
-        fullAddress = address+address2+kabupaten+province+zipCode;
-
-        user.setLatitude(location.getLat());
-        user.setLongitude(location.getLng());
-        user.setLocation(location.getProvince_name());
-        user.setFullAddress(fullAddress);
-        presenter.updateUserLocation(user);
-        BaseApplication.get(this).createUserComponent(user);
-        finish();
-    }
-
-    public void setProvinces(List<Province> list){
-        setLoadingProgress(false);
-        this.provinces = list;
-        charProvinces = new CharSequence[list.size()];
-        charProvincesId = new CharSequence[list.size()];
-        provinceLatLng = new ArrayList<>();
-
-
-        for (int i=0;i<list.size();i++){
-            Province item = list.get(i);
-            charProvinces[i] = item.getName();
-            charProvincesId[i] = String.valueOf(item.getId());
-            if (location.getProvince_name() != null){
-                if (item.getName().equals(location.getProvince_name())){
-                    provinceVal = i;
-                }
-            }
-            provinceLatLng.add(new LatLng(item.getLatitude(), item.getLongitude()));
-        }
-
-    }
-
-    public void setKabupaten(List<Province> list){
-        this.kabupatens = list;
-        charKabupatens = new CharSequence[list.size()];
-        charKabupatensId = new CharSequence[list.size()];
-        kabupatenLatLng = new ArrayList<>();
-
-        for (int i=0;i<list.size();i++){
-            Province item = list.get(i);
-            charKabupatens[i] = item.getName();
-            charKabupatensId[i] = String.valueOf(item.getId());
-            if (location.getKabupaten_name() != null){
-                if (item.getName().equals(location.getKabupaten_name())){
-                    kabupatenVal = i;
-                }
-            }
-//            kabupatenLatLng.add(new LatLng(item.getLatitude(), item.getLongitude()));
-        }
-    }
-
-    private void showDialogSelectProvince() {
-        final AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Select Province");
-        alert.setSingleChoiceItems(charProvinces, provinceVal, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String whichIs = charProvinces[which].toString();
-                String whiISId = charProvincesId[which].toString();
-
-                inputProvince.setText(whichIs);
-                provinceVal = which;
-                provinceId = Integer.valueOf(whiISId);
-
-                LatLng latLng = provinceLatLng.get(which);
-                handleNewLatLng(latLng);
-                initMap(latLng);
-
-                latitude = latLng.latitude;
-                longitude = latLng.longitude;
-
-                handleSelectProvince(whiISId);
-
-                dialog.dismiss();
-
-            }
-        });
-        alert.show();
-    }
-
-    public void handleSelectProvince(String id){
-        presenter.getChildren(id);
-    }
-
-    private void showDialogSelectKabupaten() {
-        final AlertDialog.Builder alert2 = new AlertDialog.Builder(this);
-        alert2.setTitle("Select Kabupaten");
-        alert2.setSingleChoiceItems(charKabupatens, kabupatenVal, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String whichIs = charKabupatens[which].toString();
-                String whiISId = charKabupatensId[which].toString();
-
-                inputKabupaten.setText(whichIs);
-                kabupatenVal = which;
-                kabupatenId = Integer.valueOf(whiISId);
-
-//                LatLng latLng = kabupatenLatLng.get(which);
-//                handleNewLatLng(latLng);
-
-
-                dialog.dismiss();
-
-            }
-        });
-        alert2.show();
-    }
-
+    markerNewLocation.setSnippet("here");
+    markerNewLocation.showInfoWindow();
+  }
 }

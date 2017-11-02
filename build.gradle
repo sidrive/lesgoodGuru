@@ -67,9 +67,10 @@ ext {
     final PICASSO_VERSION = '2.5.2'
     final GLIDE_VERSION = '3.7.0'
     final RETROFIT_VERSION = '2.3.0'
-    final LOGGING_VERSION = '3.3.1'
+    final LOGGING_VERSION = '3.4.1'
     final FIREBASE_VERSION = '10.2.0'
     final FIREBASE_UI_VERSION = '1.2.0'
+    final MAP_UTILS_VERSION = '0.5+'
 
     sqlbrite = "com.squareup.sqlbrite:sqlbrite:${SQLBRITE_VERSION}"
     picasso = "com.squareup.picasso:picasso:${PICASSO_VERSION}"
@@ -77,6 +78,7 @@ ext {
     adapterrx = "com.squareup.retrofit2:adapter-rxjava2:${RETROFIT_VERSION}"
     gson = "com.squareup.retrofit2:converter-gson:${RETROFIT_VERSION}"
     logging = "com.squareup.okhttp3:logging-interceptor:${LOGGING_VERSION}"
+    okhttp = "com.squareup.okhttp3:okhttp:${LOGGING_VERSION}"
 
     fbuistorage = "com.firebaseui:firebase-ui-storage:${FIREBASE_UI_VERSION}"
 
@@ -94,6 +96,7 @@ ext {
     glocation = "com.google.android.gms:play-services-location:${FIREBASE_VERSION}"
     gmap = "com.google.android.gms:play-services-maps:${FIREBASE_VERSION}"
     gcore = "com.google.android.gms:play-services:${FIREBASE_VERSION}"
+    gmapUtil = "com.google.maps.android:android-maps-utils:${MAP_UTILS_VERSION}"
 
     // Common Test dependencies
     final MOCKITO_VERSION = '1.10.19'

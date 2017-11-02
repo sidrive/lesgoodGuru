@@ -80,7 +80,9 @@ dependencies {
     compile rootProject.ext.retrofit
     compile rootProject.ext.gson
     compile rootProject.ext.logging
+    compile rootProject.ext.okhttp
     compile rootProject.ext.adapterrx
+    compile rootProject.ext.rxandroid
     // Data dependencies
     compile rootProject.ext.fbuistorage
     // gms dependencies
@@ -89,6 +91,7 @@ dependencies {
     compile rootProject.ext.gaware
     compile rootProject.ext.glocation
     compile rootProject.ext.gmap
+    compile rootProject.ext.gmapUtil
     // Firebase dependencies
     compile rootProject.ext.fbcore
     compile rootProject.ext.fbauth

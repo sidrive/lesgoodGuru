@@ -1,6 +1,7 @@
 package com.lesgood.guru.data.remote;
 
 
+import android.util.Log;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -32,6 +33,7 @@ public class LocationService {
     }
 
     public void updateUserLocation(User user){
+        Log.e("updateUserLocation", "LocationService" + user.toString());
         databaseRef.child("users").child(user.getUid()).setValue(user);
     }
 }

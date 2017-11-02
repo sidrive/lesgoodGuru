@@ -5,6 +5,9 @@ import com.lesgood.guru.data.firebase.FirebaseModule;
 import com.lesgood.guru.data.network.NetworkModule;
 import com.lesgood.guru.data.user.UserComponent;
 import com.lesgood.guru.data.user.UserModule;
+import com.lesgood.guru.ui.add_location.AddLocationActivity;
+import com.lesgood.guru.ui.add_location.AddLocationActivityComponent;
+import com.lesgood.guru.ui.add_location.AddLocationActivityModule;
 import com.lesgood.guru.ui.login.LoginActivityComponent;
 import com.lesgood.guru.ui.login.LoginActivityModule;
 import com.lesgood.guru.ui.splash.SplashActivityComponent;
@@ -36,5 +39,4 @@ public interface AppComponent {
     UserComponent plus(UserModule userModule);
 
     Retrofit retrofit();
-
 }
