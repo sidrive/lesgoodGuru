@@ -78,9 +78,9 @@ public class AddLocationPresenter implements BasePresenter {
                 Location location = dataSnapshot.getValue(Location.class);
                 Log.e("onDataChange", "AddLocationPresenter" + dataSnapshot);
                 if (location != null){
-                    //activity.init(location);
-                    LatLng latLng = new LatLng(location.getLat(),location.getLng());
-                    activity.markUserLocation(latLng,location.getAddress());
+                    activity.init(location);
+                   /* LatLng latLng = new LatLng(location.getLat(),location.getLng());
+                    activity.markUserLocation(latLng,location.getAddress());*/
                 }
             }
 

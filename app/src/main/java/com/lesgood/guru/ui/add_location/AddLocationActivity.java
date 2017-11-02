@@ -156,11 +156,14 @@ public class AddLocationActivity extends BaseActivity implements OnMapReadyCallb
   public void init(Location location) {
     this.location = location;
     mapConnect();
-    if (location.getProvince_name() != null) {
+    Log.e("init", "AddLocationActivity" + location.getAddress());
+    if (location.getAddress().length() != 0) {
       latitude = location.getLat();
       longitude = location.getLng();
       LatLng latLng = new LatLng(latitude, longitude);
+      Log.e("init", "AddLocationActivity" + latLng);
       handleNewLatLng(latLng);
+      markUserLocation(latLng,"Here");
     }
   }
 
@@ -192,8 +195,6 @@ public class AddLocationActivity extends BaseActivity implements OnMapReadyCallb
         != PackageManager.PERMISSION_GRANTED) {
       return;
     }
-    Log.e("onMapReady", "AddLocationActivity" + mlocation.getLatitude());
-    Log.e("onMapReady", "AddLocationActivity" + mlocation.getLongitude());
     LatLng userCurrentLocation = new LatLng(mlocation.getLatitude(),mlocation.getLongitude());
     /*if (location.getLat() != 0 && location.getLng() != 0) {
       userCurrentLocation = new LatLng(location.getLat(), location.getLng());
@@ -229,7 +230,7 @@ public class AddLocationActivity extends BaseActivity implements OnMapReadyCallb
     if (markerNewLocation != null) {
       markerNewLocation.remove();
     }
-    markUserLocation(latLng, "Here");
+    markUserLocation(latLng, "New Location");
     presenter.getAddressLocation(latLng);
   };
 
