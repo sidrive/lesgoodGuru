@@ -36,7 +36,18 @@ public class PanduanSlide extends SlideFragment {
         final View view = inflater.inflate(R.layout.fragment_custom_slide, container, false);
         ButterKnife.bind(this, view);
 
-        String htmlString = "<p style=\"text-align: center;\"><strong>PANDUAN MENGAJAR LESGOOD</strong></p> <p> </p> <ol> <li>Pengajar wajib menginstal aplikasi Lesgood mobile pada smasrtphone pengajar.</li> <li>Apablia ada murid memesan jasa les pengajar maka pengajar akan menerima notifikasi penawaran mengajar.</li> <li>Setelah murid melakukan pembayaran maka anda siap untuk mengajar.</li> <li>Isilah jadwal waktu luang anda untuk mengajar. Murid hanya dapat memesan Les anda pada jadwal waktu luang anda.</li> <li>Anda dapat mengaktifkan atau menonaktifkan akun pengajar anda. Apabila anda menonaktifkan akun pengajar anda maka anda tidak akan dapat menerima pesanan mengajar.</li> <li>Setelah mengajar mintalah murid untuk menekan tombol selesai belajar. Apabila murid memesan Les anda melalui aplikasi mobile murid maka mintalah murid menekan tombol selesai belajar pada aplikasi. Jika murid memesan melalui website maka mintalah murid menekan tombol selesai belajar pada website Lesgood.com.</li> <li>Apabila anda terpaksa tidak dapat melanjutkan kontrak belajar dengan murid maka anda dapat mencari pengajar pengganti anda.</li> <li>Setelah murid melakukan pembayaran silahkan menghubungi murid baik melalui telepon atau pesan text untuk memperkenalkan diri.</li> <li>Mintalah murid memberikan penilaian pada anda berupa bintang dan review. Penilaian ini akan sangat membantu reputasi mengajar anda.</li> <li>Sebelum pertemuan persiapkan materi ajar anda. Anda dapat mempelajari materi ajar anda dengan mendownload buku ajar di pustaka Lesgood.</li> <li>Saat mengajar bawalah fasilitas mengajar yang telah anda janjikan untuk diberikan pada murid.</li> </ol>";
+        String htmlString = "<p style=\"text-align: center;\"><strong>PANDUAN MENGAJAR LESGOOD</strong></p> <p> </p> "
+            + "<ol> <li>Pengajar wajib menginstal aplikasi Lesgood mobile pada smartphone pengajar.</li>"
+            + " <li>Apablia ada murid memesan jasa les pengajar maka pengajar akan menerima notifikasi penawaran mengajar.</li> "
+            + "<li>Setelah murid melakukan pembayaran maka anda siap untuk mengajar.</li> "
+            + "<li>Isilah jadwal waktu luang anda untuk mengajar. Murid hanya dapat memesan Les anda pada jadwal waktu luang anda.</li> "
+            + "<li>Anda dapat mengaktifkan atau menonaktifkan akun pengajar anda. Apabila anda menonaktifkan akun pengajar anda maka anda tidak akan dapat menerima pesanan mengajar.</li> "
+            + "<li>Setelah mengajar mintalah murid untuk menekan tombol selesai belajar.</li>"
+            + "<li>Apabila anda terpaksa tidak dapat melanjutkan kontrak belajar dengan murid maka anda harus mencari pengajar pengganti anda.</li> "
+            + "<li>Setelah murid melakukan pembayaran silahkan menghubungi murid baik melalui telepon atau pesan text untuk memperkenalkan diri.</li> "
+            + "<li>Mintalah murid memberikan penilaian pada anda berupa bintang dan review. Penilaian ini akan sangat membantu reputasi mengajar anda.</li> "
+            + "<li>Sebelum pertemuan persiapkan materi ajar anda. Anda dapat mempelajari materi ajar anda dengan mendownload buku ajar di pustaka Lesgood.</li> "
+            + "<li>11. Saat mengajar bawalah fasilitas mengajar yang telah anda janjikan untuk diberikan pada murid.</li> </ol>";
 
         WebSettings settings = webView.getSettings();
         settings.setDefaultTextEncodingName("utf-8");

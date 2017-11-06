@@ -34,7 +34,19 @@ public class KebijakanSlide extends SlideFragment {
         final View view = inflater.inflate(R.layout.fragment_custom_slide, container, false);
         ButterKnife.bind(this, view);
 
-        String htmlString = "<p style=\"text-align: center;\"><strong>KEBIJAKAN PRIVASI</strong></p> <p style=\"text-align: center;\"> </p> <p>Dengan mengakses dan menggunakan seluruh atau sebagian layanan lesgood, baik website, aplikasi mobile maupun pelatihan, maka anda telah setuju dan mematui segala syarat, ketentuan, kebijakan serta peraturan lesgood baik yang telah dibuat saat ini maupun yang akan datang.</p> <ol> <li>Data anda</li> </ol> <p>Ketika anda melakukan pendaftaran akun lesgood, sebagai pengajar maupun sebagai murid, berarti anda telah menyerahkan data pribadi anda kepada kami. Data tersebut adalah seluruh data yang anda isi di formulir pendaftaran yaitu meliputi KTP, Lokasi, Nomor telepon, email, Profil pendidikan, dan lainnya termasuk alamat IP anda.</p> <ol start=\"2\"> <li>Perlindungan data anda</li> </ol> <p>Data yang anda berikan pada lesgood disimpan pada sebuah server dengan keamanan khusus. Kami juga melakukan enkripsi data anda untuk menghindari penggunaan data anda oleh pihak yang tidak berwenang.</p> <ol start=\"3\"> <li>Penggunaan data anda</li> </ol> <p>Kami menggunakan beberapa data pribadi anda untuk ditampilkan melalui website lesgood maupun aplikasi mobile lesgood dengan tujuan memberi informasi pada masyarakat tentang jasa les yang anda berikan. Kami juga akan menggunakan beberapa data anda untuk menjalin kerjasama dengan pihak ketiga dalam rangka penggunaan jasa anda dalam skala yang lebih luas.</p> <ol start=\"4\"> <li>Lesgood berhak unutk menghapus akun anda apabila kami menemukan kecurangan yang dilakukan oleh anda.</li> </ol> <p>Kebijakan privasi ini akan terus kami kembangkan. Oleh karena itu kami berharap pada konsumen Lesgood untuk selalu mengikuti perkembangan kebijakan ini.</p>";
+        String htmlString = "<p style=\"text-align: center;\"><strong>KEBIJAKAN PRIVASI</strong></p>"
+            + " <p style=\"text-align: center;\"> </p> "
+            + "<p>Dengan mengakses dan menggunakan seluruh atau sebagian layanan lesgood, baik website, aplikasi mobile maupun pelatihan, maka anda telah setuju dan mematui segala syarat, "
+            + "ketentuan, kebijakan serta peraturan lesgood baik yang telah dibuat saat ini maupun yang akan datang.</p> "
+            + "<ol> <li>Data anda</li> </ol> <p>Ketika anda melakukan pendaftaran akun lesgood, sebagai pengajar maupun sebagai murid, berarti anda telah menyerahkan data pribadi anda kepada kami. "
+            + "Data tersebut adalah seluruh data yang anda isi di formulir pendaftaran yaitu meliputi KTP, Lokasi, Nomor telepon, email, Profil pendidikan, dan lainnya termasuk alamat IP anda.</p> "
+            + "<ol start=\"2\"> <li>Perlindungan data anda</li> </ol> "
+            + "<p>Data yang anda berikan pada lesgood disimpan pada sebuah server dengan keamanan khusus. Kami juga melakukan enkripsi data anda untuk menghindari penggunaan data anda oleh pihak yang tidak berwenang.</p>"
+            + " <ol start=\"3\"> <li>Penggunaan data anda</li> </ol> "
+            + "<p>Kami menggunakan beberapa data pribadi anda untuk ditampilkan melalui website lesgood maupun aplikasi mobile lesgood dengan tujuan memberi informasi pada masyarakat tentang jasa les yang anda berikan. "
+            + "Kami juga akan menggunakan beberapa data anda untuk menjalin kerjasama dengan pihak ketiga dalam rangka penggunaan jasa anda dalam skala yang lebih luas.</p> "
+            + "<ol start=\"4\"> <li>Lesgood berhak unutk menghapus akun anda apabila kami menemukan kecurangan penyalahgunaan yang dilakukan oleh anda.</li> </ol> "
+            + "<p>Kebijakan privasi ini akan terus kami kembangkan. Oleh karena itu kami berharap pada konsumen Lesgood untuk selalu mengikuti perkembangan kebijakan ini.</p>";
 
         WebSettings settings = webView.getSettings();
         settings.setDefaultTextEncodingName("utf-8");

@@ -165,10 +165,11 @@
                             app:typeface="Roboto-Regular.ttf"/>
 
                         <RatingBar
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            style="@style/ratingBar"
-                            android:isIndicator="true"/>
+                          android:id="@+id/rating_bar"
+                          style="@style/ratingBar"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:isIndicator="true"/>
 
                         <ImageView
                             android:layout_width="wrap_content"

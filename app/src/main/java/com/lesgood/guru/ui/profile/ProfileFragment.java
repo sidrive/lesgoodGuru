@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -84,6 +85,12 @@ public class ProfileFragment extends BaseFragment {
 
     @Bind(R.id.txt_pendidikan)
     TextView txtPendidikan;
+
+    @Bind(R.id.rating_bar)
+    RatingBar rating;
+
+    @Bind(R.id.txt_rating)
+    TextView totalrating;
 
     @Inject
     ProfilePresenter presenter;
@@ -211,6 +218,10 @@ public class ProfileFragment extends BaseFragment {
 
     private void init(){
         txtName.setText(user.getFull_name());
+        float ratings = user.getReview() / 2;
+        totalrating.setText(String.valueOf(ratings));
+        rating.setRating(ratings);
+
         if (user.getPhoto_url() != null) {
             if (!user.getPhoto_url().equalsIgnoreCase("NOT")){
                 Glide.with(this)
