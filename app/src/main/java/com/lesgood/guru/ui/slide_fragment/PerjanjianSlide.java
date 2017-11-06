@@ -35,8 +35,7 @@ public class PerjanjianSlide extends SlideFragment {
         ButterKnife.bind(this, view);
 
         String htmlString = "<p><strong>PERJANJIAN PENGAJAR</strong></p> "
-            + "<p>Lesgood adalah platfom yang menghubungkan pengajar Les dengan murid Les. Dengan mendaftar sebagai pengajar Lesgood Indonesia "
-            + "maka pengajar telah setuju untuk mematuhi segala syarat, ketentuan, "
+            + "<p>Lesgood adalah platfom yang menghubungkan pengajar Les dengan murid Les. Dengan mendaftar sebagai pengajar Lesgood Indonesia maka pengajar telah setuju untuk mematuhi segala syarat, ketentuan, "
             + "kebijakan serta peraturan Lesgood Indonesia baik yang telah dibuat saat ini maupun yang akan datang yaitu:</p> "
             + "<ol> <li>Pengajar setuju untuk mengisi formulir pendaftaran pengajar dengan data yang sebenar-benarnya. "
             + "Lesgood akan melakukan verifikasi data pengajar melalui berbagai sumber dan Lesgood berhak untuk menolak formulir pengajar jika ditemukan ketidaksesuaian.</li> "
