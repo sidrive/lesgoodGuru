@@ -1,5 +1,7 @@
 package com.lesgood.guru.ui.add_skill;
 
+import static java.util.Objects.isNull;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -356,20 +358,47 @@ public class AddSkillActivity extends BaseActivity {
         boolean cancel = false;
         View focusView = null;
 
-        skill.setPrice1(Integer.valueOf(inputPrice1.getText().toString()));
-        skill.setPrice2(Integer.valueOf(inputPrice2.getText().toString()));
-        skill.setPrice3(Integer.valueOf(inputPrice3.getText().toString()));
-        skill.setPrice4(Integer.valueOf(inputPrice4.getText().toString()));
-        skill.setPrice5(Integer.valueOf(inputPrice5.getText().toString()));
+      skill.setPrice1(Integer.valueOf(inputPrice1.getText().toString()));
+      skill.setPrice2(Integer.valueOf(inputPrice2.getText().toString()));
+      skill.setPrice3(Integer.valueOf(inputPrice3.getText().toString()));
+      skill.setPrice4(Integer.valueOf(inputPrice4.getText().toString()));
+      skill.setPrice5(Integer.valueOf(inputPrice5.getText().toString()));
 
-        String how = inputHow.getText().toString();
-        String fasility = inputHow.getText().toString();
-        boolean havepaket20 = paket20.isChecked();
-        boolean havepaket30 = paket30.isChecked();
+      String how = inputHow.getText().toString();
+      String fasility = inputFasility.getText().toString();
+      boolean havepaket20 = paket20.isChecked();
+      boolean havepaket30 = paket30.isChecked();
 
-        skill.setHave20(havepaket20);
-        skill.setHave30(havepaket30);
+      skill.setHave20(havepaket20);
+      skill.setHave30(havepaket30);
 
+   /*
+      if (TextUtils.isEmpty(inputPrice2.getText().toString())){
+        inputPrice2.setError(errRequiredMinimal);
+        cancel = true;
+        focusView = inputPrice2;
+        showLoading(false);
+      }
+      if (TextUtils.isEmpty(inputPrice3.getText().toString())){
+        inputPrice3.setError(errRequiredMinimal);
+        cancel = true;
+        focusView = inputPrice3;
+        showLoading(false);
+      }
+      if (TextUtils.isEmpty(inputPrice4.getText().toString())){
+        inputPrice4.setError(errRequiredMinimal);
+        cancel = true;
+        focusView = inputPrice4;
+        showLoading(false);
+      }
+      if (TextUtils.isEmpty(inputPrice5.getText().toString())){
+        inputPrice5.setError(errRequiredMinimal);
+        cancel = true;
+        focusView = inputPrice5;
+        showLoading(false);
+      }
+
+*/
         if (TextUtils.isEmpty(skill.getSkill())){
             cancel = true;
             Toast.makeText(this, "Pilih Pelajaran", Toast.LENGTH_SHORT).show();
@@ -401,23 +430,27 @@ public class AddSkillActivity extends BaseActivity {
             showLoading(false);
         }
 
-        if (skill.getPrice3() <= 40000){
-            inputPrice3.setError(errRequiredMinimal);
-            cancel = true;
-            focusView = inputPrice3;
-            showLoading(false);
+        if (skill.getPrice4() <= 40000){
+        inputPrice4.setError(errRequiredMinimal);
+        cancel = true;
+        focusView = inputPrice4;
+        showLoading(false);
         }
 
-        if (skill.getPrice4() <= 40000){
-            inputPrice4.setError(errRequiredMinimal);
+        if (skill.getPrice5() <= 40000){
+            inputPrice5.setError(errRequiredMinimal);
             cancel = true;
-            focusView = inputPrice4;
+            focusView = inputPrice5;
             showLoading(false);
         }
 
         if (cancel){
             focusView.requestFocus();
         }else{
+
+
+
+
             showLoading(true);
             String idSkill = listSubcategories.get(subcategoryVal).getId();
             String idLevel = listLevels.get(levelVal).getId();
