@@ -511,6 +511,7 @@ public class EditProfileActivity extends BaseActivity implements OnDateSetListen
     } else {
       Toast.makeText(this, "Data Tersimpan", Toast.LENGTH_SHORT).show();
       BaseApplication.get(this).createUserComponent(user);
+      finish();
     }
   }
 

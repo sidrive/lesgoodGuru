@@ -93,7 +93,7 @@ public class SettingActivity extends AppCompatPreferenceActivity {
 
     public void logingOut(){
         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         BaseApplication.get(this).releaseUserComponent();
         startActivity(intent);
     }

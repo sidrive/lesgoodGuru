@@ -36,7 +36,7 @@ public class FirebaseUserService {
 
     // for google
     private GoogleApiClient googleApiClient;
-
+    AuthCredential credential;
     // for facebook
     private CallbackManager callbackManager;
 
@@ -87,16 +87,35 @@ public class FirebaseUserService {
     }
 
     public Task<AuthResult> getAuthWithFacebook(AccessToken token) {
-        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        credential = FacebookAuthProvider.getCredential(token.getToken());
         return firebaseAuth.signInWithCredential(credential);
     }
 
     public void logOut(String provider) {
-        firebaseAuth.signOut();
+        Log.e("logOut", "FirebaseUserService  " + provider);
         if(provider.equals("facebook.com")) {
+            Log.e("logOut", "FirebaseUserService : " + "singout with facebook");
             FacebookSdk.sdkInitialize(application);
             LoginManager.getInstance().logOut();
-        } else if(provider.equals("google.com")) {
+        }else if (provider.equals("firebase")){
+            firebaseAuth.signOut();
+            Log.e("logOut", "googleApiClient " + googleApiClient);
+            if (googleApiClient!=null){
+                if(googleApiClient.isConnected()) {
+                    Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(
+                        status -> {
+                            if (status.isSuccess()) {
+                                Log.d("googlesignout", "user logout");
+                                Auth.CredentialsApi.disableAutoSignIn(googleApiClient);
+
+                            }
+                        });
+                }
+            }
+          Log.e("logOut", "FirebaseUserService : " + "singout with firebase");
+        }
+        else if(provider.equals("google.com")) {
+            Log.e("logOut", "FirebaseUserService : " + "singout with google");
             if (googleApiClient != null){
                 googleApiClient.connect();
                 googleApiClient.registerConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
@@ -105,14 +124,14 @@ public class FirebaseUserService {
 
                         FirebaseAuth.getInstance().signOut();
                         if(googleApiClient.isConnected()) {
-                            Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
-                                @Override
-                                public void onResult(@NonNull Status status) {
+                            Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(
+                                status -> {
                                     if (status.isSuccess()) {
                                         Log.d("googlesignout", "user logout");
+                                        Auth.CredentialsApi.disableAutoSignIn(googleApiClient);
+
                                     }
-                                }
-                            });
+                                });
                         }
                     }
 

@@ -104,6 +104,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Agama"
+
+                        android:maxLines="1"
                         android:id="@+id/input_religion"/>
                 </android.support.design.widget.TextInputLayout>
 

@@ -46,12 +46,8 @@ public class EditProfilePresenter implements BasePresenter {
     }
 
     public void updateProfile(final User user){
-        userService.updateUser(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                activity.successUpdateProfile(user);
-            }
-        });
+        userService.updateUser(user).addOnCompleteListener(
+            task -> activity.successUpdateProfile(user));
     }
 
 
@@ -81,20 +77,14 @@ public class EditProfilePresenter implements BasePresenter {
 // Register observers to listen for when the download is done or if it fails
 
 
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle unsuccessful uploads
-                System.out.print(exception);
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-                Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                activity.successUploadImage(downloadUrl.toString());
+        uploadTask.addOnFailureListener(exception -> {
+            // Handle unsuccessful uploads
+            System.out.print(exception);
+        }).addOnSuccessListener(taskSnapshot -> {
+            // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+            Uri downloadUrl = taskSnapshot.getDownloadUrl();
+            activity.successUploadImage(downloadUrl.toString());
 
-            }
         });
     }
 }
