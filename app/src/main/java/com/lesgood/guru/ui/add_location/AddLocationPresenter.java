@@ -112,17 +112,19 @@ public class AddLocationPresenter implements BasePresenter {
             .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(
                 responseGeomap -> {
                     activity.setLoadingProgress(false);
+                    Log.e("getAddressLocation", "AddLocationPresenter" + responseGeomap.getStatus());
+                    Log.e("getAddressLocation", "AddLocationPresenter" + responseGeomap.getResults().size());
                     if (responseGeomap.getStatus().equals("OK")){
                         user.setLatitude(latLng.latitude);
                         user.setLongitude(latLng.longitude);
                         user.setFullAddress(responseGeomap.getResults().get(0).getFormattedAddress());
-                        user.setLocation(responseGeomap.getResults().get(7).getFormattedAddress());
+                        user.setLocation(responseGeomap.getResults().get(5).getFormattedAddress());
                         locationService.updateUserLocation(user);
                         location.setAddress(responseGeomap.getResults().get(0).getFormattedAddress());
                         location.setAddress_2(responseGeomap.getResults().get(0).getFormattedAddress());
                         location.setLat(responseGeomap.getResults().get(0).getGeometry().getLocation().getLat());
                         location.setLng(responseGeomap.getResults().get(0).getGeometry().getLocation().getLng());
-                        location.setProvince_name(responseGeomap.getResults().get(7).getFormattedAddress());
+                        location.setProvince_name(responseGeomap.getResults().get(5).getFormattedAddress());
                         location.setUid(user.getUid());
                         createLocation(location);
                         BaseApplication.get(activity.getApplicationContext()).createUserComponent(user);
