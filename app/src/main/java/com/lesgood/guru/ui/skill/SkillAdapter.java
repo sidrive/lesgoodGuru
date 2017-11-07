@@ -4,14 +4,14 @@ import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.database.DatabaseReference;
 import com.lesgood.guru.R;
-import com.lesgood.guru.data.model.Order;
+
 import com.lesgood.guru.data.model.Skill;
-import com.lesgood.guru.ui.order.PlaceholderFragment;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,54 +36,43 @@ public class SkillAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
+        Skill skill = getSkill(position);
+
         ((SkillViewHolder)holder).bind(items.get(position));
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onItemClicked(items.get(position));
-            }
-        });
+        holder.itemView.setOnClickListener(v -> onItemClicked(items.get(position)));
 
-        ((SkillViewHolder) holder).btnMore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //creating a popup menu
-                PopupMenu popup = new PopupMenu(activity, ((SkillViewHolder) holder).btnMore);
-                //inflating menu from xml resource
-                popup.inflate(R.menu.edit_delete);
-                //adding click listener
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.menu_delete:
-                                onItemDeleteClicked(items.get(position));
-                                break;
-                        }
-                        return false;
-                    }
-                });
-
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.menu_edit:
-                                activity.startAddSkill(items.get(position));
-                                break;
-                        }
-                        return false;
-                    }
-                });
-                //displaying the popup
-                popup.show();
-            }
+        ((SkillViewHolder) holder).btnMore.setOnClickListener(v -> {
+            //creating a popup menu
+            PopupMenu popup = new PopupMenu(activity, ((SkillViewHolder) holder).btnMore);
+            //inflating menu from xml resource
+            popup.inflate(R.menu.edit_delete);
+            //adding click listener
+            popup.setOnMenuItemClickListener(item -> {
+                switch (item.getItemId()) {
+                    case R.id.menu_delete:
+                        Log.e("onBindViewHolder", "SkillAdapter" + position);
+                        //onItemDeleteClicked(items.get(position));
+                        onItemDeleteClicked(skill);
+                        Log.e("onBindViewHolder", "SkillAdapter" + skill.toString());
+                        break;
+                    case R.id.menu_edit:
+                        //activity.startAddSkill(items.get(position));
+                        activity.startAddSkill(skill);
+                        Log.e("onBindViewHolder", "SkillAdapter" + skill.toString());
+                        break;
+                }
+                return false;
+            });
+            //displaying the popup
+            popup.show();
         });
     }
 
     private void onItemClicked(Skill item) {
     }
-
+    private Skill getSkill(int pos){
+        return items.get(pos);
+    }
     private void onItemDeleteClicked(Skill item){
         activity.showDeleteItem(item);
     }

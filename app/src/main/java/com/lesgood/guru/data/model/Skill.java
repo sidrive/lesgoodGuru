@@ -174,4 +174,24 @@ public class Skill {
     public void setFasility(@Nullable String fasility) {
         this.fasility = fasility;
     }
+
+    @Override
+    public String toString() {
+        return "Skill{" +
+            "code='" + code + '\'' +
+            ", uid='" + uid + '\'' +
+            ", skill='" + skill + '\'' +
+            ", level='" + level + '\'' +
+            ", price1=" + price1 +
+            ", price2=" + price2 +
+            ", price3=" + price3 +
+            ", price4=" + price4 +
+            ", price5=" + price5 +
+            ", have20=" + have20 +
+            ", have30=" + have30 +
+            ", desc='" + desc + '\'' +
+            ", how='" + how + '\'' +
+            ", fasility='" + fasility + '\'' +
+            '}';
+    }
 }

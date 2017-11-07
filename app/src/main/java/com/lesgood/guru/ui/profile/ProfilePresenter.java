@@ -72,6 +72,7 @@ public class ProfilePresenter implements BasePresenter {
         userService.getTotalUserSkill(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
                 if (dataSnapshot.getValue()!=null){
                     fragment.setTotalSkillUser(Integer.valueOf(dataSnapshot.getValue().toString()));
                 }

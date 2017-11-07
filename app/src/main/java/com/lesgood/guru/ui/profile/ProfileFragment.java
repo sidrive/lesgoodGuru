@@ -202,7 +202,6 @@ public class ProfileFragment extends BaseFragment {
                     presenter.updateUserPrice(user.getUid(), startForm);
                 }
                 user.setTotalSkill(total);
-
                 setTotalSkillUser(total);
                 BaseApplication.get(activity).createUserComponent(user);
             }
@@ -210,7 +209,8 @@ public class ProfileFragment extends BaseFragment {
     }
 
     public void setTotalSkillUser(int total) {
-        txtSkills.setText(total+" Kemampuan mangajar");
+        txtSkills.setText(total +" Kemampuan mangajar");
+
     }
 
 
