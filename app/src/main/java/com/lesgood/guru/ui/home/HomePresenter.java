@@ -28,7 +28,8 @@ public class HomePresenter implements BasePresenter {
     }
 
     public void updaeStatus(String uid, boolean status){
-        userService.updateStatus(uid, status);
+        String stat = String.valueOf(status);
+        userService.updateStatus(uid, stat);
     }
 
 }

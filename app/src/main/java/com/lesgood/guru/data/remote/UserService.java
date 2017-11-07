@@ -46,6 +46,7 @@ public class UserService {
 
 
     public Task<Void> updateUser(User user) {
+        databaseRef.child("user-status").child(user.getUid()).child("active").setValue("false");
         return databaseRef.child("users").child(user.getUid()).setValue(user);
     }
 
@@ -168,8 +169,8 @@ public class UserService {
         databaseRef.child("partner-payment").child(partnerPayment.getUid()).setValue(partnerPayment);
     }
 
-    public void updateStatus(String uid, boolean status){
-        databaseRef.child("users").child(uid).child("active").setValue(status);
+    public void updateStatus(String uid, String status){
+        databaseRef.child("user-status").child(uid).child("active").setValue(status);
     }
 
 
