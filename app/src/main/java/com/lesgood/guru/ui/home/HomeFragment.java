@@ -27,6 +27,7 @@ import com.lesgood.guru.base.BaseFragment;
 import com.lesgood.guru.data.model.Category;
 import com.lesgood.guru.data.model.Event;
 import com.lesgood.guru.data.model.User;
+import com.lesgood.guru.data.remote.UserService;
 import com.lesgood.guru.ui.main.MainActivity;
 import com.lesgood.guru.util.GridSpacingItemDecoration;
 
@@ -151,6 +152,8 @@ public class HomeFragment extends BaseFragment implements WeekView.EventClickLis
     }
 
     public void init(){
+        /*String id = user.getUid();
+        String stat = UserService.getStatus(id);*/
         sStatus.setChecked(user.isActive());
 
         if (user.isActive()){

@@ -7,7 +7,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.lesgood.guru.data.model.EmailConfirmation;
-import com.lesgood.guru.data.model.OTPdata;
 import com.lesgood.guru.data.model.PartnerPayment;
 import com.lesgood.guru.data.model.Pengalaman;
 import com.lesgood.guru.data.model.Prestasi;
@@ -173,7 +172,11 @@ public class UserService {
 
     public void updateStatus(String uid, String status){
         databaseRef.child("user-status").child(uid).child("active").setValue(status);
+        boolean stat = Boolean.parseBoolean(status);
+        databaseRef.child("users").child(uid).child("active").setValue(stat);
     }
+
+
 
 
     public DatabaseReference getAcceptTOS(String uid){
