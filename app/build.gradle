@@ -116,6 +116,7 @@ dependencies {
     compile 'jp.wasabeef:richeditor-android:1.2.2'
     compile 'com.github.alamkanak:android-week-view:1.2.6'
     compile 'agency.tango.android:material-intro-screen:0.0.5'
+    compile 'com.muddzdev:styleabletoast:1.0.9'
 }
 
 apply plugin: 'com.google.gms.google-services'

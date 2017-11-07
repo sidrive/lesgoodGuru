@@ -26,6 +26,7 @@ import com.lesgood.guru.data.user.UserComponent;
 import com.lesgood.guru.data.user.UserModule;
 import com.lesgood.guru.ui.main.MainActivity;
 import com.lesgood.guru.ui.order_detail.OrderDetailActivity;
+import com.muddzdev.styleabletoastlibrary.StyleableToast;
 
 /**
  * Created by Agus on 4/16/17.
@@ -39,12 +40,13 @@ public class BaseApplication extends MultiDexApplication {
     private LocationComponent locationComponent;
     private OrderDetailComponent orderDetailComponent;
     private SkillComponent skillComponent;
-
+    private Context context;
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         ///FirebaseApp.initializeApp(base);
         defaultConfig = new DefaultConfig(base);
+        context =base;
         MultiDex.install(getBaseContext());
     }
 

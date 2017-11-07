@@ -61,14 +61,12 @@ public class FirebaseUserService {
     public Intent getUserWithGoogle(BaseActivity activity) {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(activity.getString(R.string.default_web_client_id))
+
                 .requestEmail()
                 .build();
 
         googleApiClient = new GoogleApiClient.Builder(activity)
-                .enableAutoManage(activity, new GoogleApiClient.OnConnectionFailedListener() {
-                    @Override
-                    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-                    }
+                .enableAutoManage(activity, connectionResult -> {
                 })
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();

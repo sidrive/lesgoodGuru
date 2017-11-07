@@ -134,21 +134,16 @@ public class PaymentDetailActivity extends BaseActivity {
         final CharSequence[] bank_ids = getResources().getStringArray(R.array.banks_id_array);
         final AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("Select Bank");
-        alert.setSingleChoiceItems(banks,bankVal, new DialogInterface.OnClickListener()
-        {
-            @Override
-            public void onClick(DialogInterface dialog, int which)
-            {
-                String whichIs = banks[which].toString();
-                inputSelectBank.setText(whichIs);
+        alert.setSingleChoiceItems(banks,bankVal, (dialog, which) -> {
+            String whichIs = banks[which].toString();
+            inputSelectBank.setText(whichIs);
 
-                inputSelectBank.setTextColor(colorBlack);
+            inputSelectBank.setTextColor(colorBlack);
 
-                bankVal = Integer.valueOf(bank_ids[which].toString());
+            bankVal = Integer.valueOf(bank_ids[which].toString());
 
-                dialog.dismiss();
+            dialog.dismiss();
 
-            }
         });
         alert.show();
     }

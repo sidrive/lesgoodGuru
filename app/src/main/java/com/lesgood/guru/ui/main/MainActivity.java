@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -26,6 +27,7 @@ import com.lesgood.guru.BuildConfig;
 import com.lesgood.guru.R;
 import com.lesgood.guru.base.BaseActivity;
 import com.lesgood.guru.base.BaseApplication;
+import com.lesgood.guru.data.helper.AppUtils;
 import com.lesgood.guru.data.model.User;
 import com.lesgood.guru.ui.home.HomeFragment;
 import com.lesgood.guru.ui.order.OrderFragment;
@@ -207,5 +209,18 @@ public class MainActivity extends BaseActivity {
                 .inject(this);
 
         BaseApplication.get(this).createMainComponent(this);
+    }
+    boolean doubleBackToExitPressedOnce = false;
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            finish();
+            return;
+        }
+        this.doubleBackToExitPressedOnce = true;
+        AppUtils.showToas(this,"Double tap to exit");
+        new Handler().postDelayed(() -> doubleBackToExitPressedOnce = false, 2000);
+
     }
 }
