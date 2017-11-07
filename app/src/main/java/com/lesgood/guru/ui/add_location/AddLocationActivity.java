@@ -360,4 +360,8 @@ public class AddLocationActivity extends BaseActivity implements OnMapReadyCallb
   public void onLocationChanged(android.location.Location location) {
 
   }
+
+  public void successAddLocation(Location location) {
+
+  }
 }

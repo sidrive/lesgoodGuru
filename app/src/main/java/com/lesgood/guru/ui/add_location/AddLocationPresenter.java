@@ -96,7 +96,7 @@ public class AddLocationPresenter implements BasePresenter {
         locationService.createLocation(location).addOnCompleteListener(task -> {
             if (task.isSuccessful()){
                 activity.setLoadingProgress(false);
-                //activity.successAddLocation(location);
+                activity.successAddLocation(location);
             }
         }).addOnFailureListener(e -> {
             e.printStackTrace();
@@ -107,7 +107,8 @@ public class AddLocationPresenter implements BasePresenter {
         activity.setLoadingProgress(true);
         String loc = latLng.latitude +","+latLng.longitude;
         defaultConfig.setApiUrl(Const.BASE_URL_MAP);
-        retrofit.create(com.lesgood.guru.data.remote.APIService.class).getAddress("AIzaSyCGimiNQYU3Sj9LECSPgpAGXoRdGMiqJZY",loc)
+        APIService/*.getAddress()
+        retrofit.create(com.lesgood.guru.data.remote.APIService.class)*/.getAddress("AIzaSyCGimiNQYU3Sj9LECSPgpAGXoRdGMiqJZY",loc)
             .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(
                 responseGeomap -> {
                     activity.setLoadingProgress(false);
@@ -125,11 +126,13 @@ public class AddLocationPresenter implements BasePresenter {
                         location.setUid(user.getUid());
                         createLocation(location);
                         BaseApplication.get(activity.getApplicationContext()).createUserComponent(user);
+                        updateUserLocation(user);
                         activity.setAddressMap(responseGeomap.getResults().get(0).getFormattedAddress());
                     }
                 },
                 throwable -> {
                     activity.setLoadingProgress(false);
+                    Log.e("getAddressLocation", "AddLocationPresenter" + throwable.getMessage());
                 }
         );
     }
