@@ -24,6 +24,7 @@ import com.bumptech.glide.request.target.Target;
 import com.lesgood.guru.R;
 import com.lesgood.guru.base.BaseApplication;
 import com.lesgood.guru.base.BaseFragment;
+import com.lesgood.guru.data.helper.Const;
 import com.lesgood.guru.data.model.Location;
 import com.lesgood.guru.data.model.User;
 import com.lesgood.guru.data.verification.VerificationActivity;
@@ -58,7 +59,7 @@ public class ProfileFragment extends BaseFragment {
     private static String TAG = "ProfileFragment";
     private static int REQUEST_CODE_ADD_BRIEF = 1054;
     private static int REQUEST_CODE_SKIL = 1059;
-
+    private static String TITILE = "Profil";
     @Bind(R.id.txt_name)
     TextView txtName;
 
@@ -169,11 +170,8 @@ public class ProfileFragment extends BaseFragment {
         //change R.layout.yourlayoutfilename for each of your fragments
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         ButterKnife.bind(this, view);
-
-        getActivity().setTitle("Profil");
-
+        getActivity().setTitle(TITILE);
         location = new Location(user.getUid());
-
         return view;
     }
 
@@ -183,7 +181,7 @@ public class ProfileFragment extends BaseFragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_ADD_BRIEF) {
             if (resultCode == RESULT_OK) {
-                String brief = data.getStringExtra("brief");
+                String brief = data.getStringExtra(Const.EXSTRA_BRIEF);
                 if (brief != null){
                     initAbout(brief);
                     presenter.updateUserAbout(user.getUid(),brief);
@@ -193,18 +191,26 @@ public class ProfileFragment extends BaseFragment {
 
         if (requestCode == REQUEST_CODE_SKIL){
             if (resultCode == RESULT_OK){
-                int total = data.getIntExtra("totalSkill", 0);
-                int startForm = data.getIntExtra("startForm",0);
+                int total = data.getIntExtra(Const.EXTRA_TOTAL_SKILL, 0);
+                int startForm = data.getIntExtra(Const.EXTRA_START_FROM,0);
+                Log.e("onActivityResult", "ProfileFragment" + total);
+                Log.e("onActivityResult", "ProfileFragment" + startForm);
+
                 if (startForm > 0){
                     BaseApplication.get(activity).createUserComponent(user);
                     initPrice(startForm);
                     presenter.updateUserPrice(user.getUid(), startForm);
                 }
                 user.setTotalSkill(total);
-                txtSkills.setText(user.getTotalSkill()+" Kemampuan mangajar");
+
+                setTotalSkillUser(total);
                 BaseApplication.get(activity).createUserComponent(user);
             }
         }
+    }
+
+    public void setTotalSkillUser(int total) {
+        txtSkills.setText(total+" Kemampuan mangajar");
     }
 
 

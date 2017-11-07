@@ -29,7 +29,7 @@ public class UserService {
         this.databaseRef = FirebaseDatabase.getInstance().getReference();
     }
 
-    ///user
+
 
     public void createUser(User user) {
         if(user.getPhoto_url() == null) {
@@ -88,7 +88,9 @@ public class UserService {
     public DatabaseReference getUserSkills(String uid){
             return databaseRef.child("user-skills").child(uid);
     }
-
+    public DatabaseReference getTotalUserSkill(String uid){
+        return databaseRef.child("users").child(uid).child("totalSkill");
+    }
     public void updateTotalSkill(String uid, int total){
         databaseRef.child("users").child(uid).child("totalSkill").setValue(total);
     }

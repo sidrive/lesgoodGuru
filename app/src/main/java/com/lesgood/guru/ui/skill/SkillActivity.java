@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import com.lesgood.guru.R;
 import com.lesgood.guru.base.BaseActivity;
 import com.lesgood.guru.base.BaseApplication;
+import com.lesgood.guru.data.helper.Const;
 import com.lesgood.guru.data.model.Skill;
 import com.lesgood.guru.data.model.User;
 import com.lesgood.guru.ui.add_skill.AddSkillActivity;
@@ -133,8 +134,8 @@ public class SkillActivity extends BaseActivity {
         Intent intent = new Intent(this, MainActivity.class);
         int totalSkill = adapter.getItemCount();
         int startForm = adapter.getMinRate();
-        intent.putExtra("totalSkill", totalSkill);
-        intent.putExtra("startForm", startForm);
+        intent.putExtra(Const.EXTRA_TOTAL_SKILL, totalSkill);
+        intent.putExtra(Const.EXTRA_START_FROM, startForm);
         setResult(RESULT_OK, intent);
         finish();
     }

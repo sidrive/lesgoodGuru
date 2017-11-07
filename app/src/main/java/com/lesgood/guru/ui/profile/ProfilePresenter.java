@@ -1,9 +1,13 @@
 package com.lesgood.guru.ui.profile;
 
+import android.util.Log;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.lesgood.guru.base.BasePresenter;
+import com.lesgood.guru.data.helper.AppUtils;
+import com.lesgood.guru.data.model.Skill;
 import com.lesgood.guru.data.model.User;
 import com.lesgood.guru.data.remote.UserService;
 
@@ -27,6 +31,7 @@ public class ProfilePresenter implements BasePresenter {
     public void subscribe() {
         if (user != null){
             getUserAbout(user.getUid());
+            getTotalSkillUsers(user.getUid());
         }
 
     }
@@ -47,7 +52,7 @@ public class ProfilePresenter implements BasePresenter {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                AppUtils.showToas(fragment.getContext(),databaseError.getMessage());
             }
         });
     }
@@ -62,5 +67,20 @@ public class ProfilePresenter implements BasePresenter {
 
     public void updateUserPrice(String uid, int price){
         userService.updateUserPrice(uid, price);
+    }
+    public void getTotalSkillUsers(String uid){
+        userService.getTotalUserSkill(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue()!=null){
+                    fragment.setTotalSkillUser(Integer.valueOf(dataSnapshot.getValue().toString()));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                AppUtils.showToas(fragment.getContext(),databaseError.getMessage());
+            }
+        });
     }
 }
