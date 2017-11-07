@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.InputFilter;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +21,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import butterknife.OnTextChanged;
+import butterknife.OnTextChanged.Callback;
 import com.google.android.gms.maps.model.LatLng;
 import com.lesgood.guru.R;
 import com.lesgood.guru.base.BaseActivity;
@@ -409,7 +412,7 @@ public class AddSkillActivity extends BaseActivity {
             Toast.makeText(this, "Pilih Tingkat Mengajar", Toast.LENGTH_SHORT).show();
         }
 
-        if (skill.getPrice1() <= 40000){
+        if (skill.getPrice1() < 40000){
             inputPrice1.setError(errRequiredMinimal);
             cancel = true;
             focusView = inputPrice1;
@@ -464,7 +467,21 @@ public class AddSkillActivity extends BaseActivity {
         }
 
     }
+    @OnTextChanged(value = R.id.input_price_1,callback = Callback.AFTER_TEXT_CHANGED)void setPrice(CharSequence s){
+        Log.e("setPrice", "AddSkillActivity" + s);
+        int minprice = 40000;
+        if (s.length()>3){
+            if (Integer.parseInt(s.toString()) < minprice){
+                inputPrice1.setError(errRequiredMinimal);
+            }else {
+                inputPrice2.setText(""+minprice*2);
+                inputPrice3.setText(""+minprice*3);
+                inputPrice4.setText(""+minprice*4);
+                inputPrice5.setText(""+minprice*5);
 
+            }
+        }
+    }
     public void successUpdateSkill(){
         Toast.makeText(this, "Data Tersimpan", Toast.LENGTH_SHORT).show();
         finish();

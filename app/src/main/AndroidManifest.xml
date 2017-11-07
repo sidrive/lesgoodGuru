@@ -38,7 +38,9 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".ui.edit_profile.EditProfileActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden"
+          />
 
         <activity
             android:name=".ui.main.MainActivity"
@@ -59,7 +61,7 @@
 
         <activity
             android:name=".ui.setting.SettingActivity"
-            android:label="Pengaturan"></activity>
+            android:label="Pengaturan"/>
 
         <activity
             android:name=".ui.order_detail.OrderDetailActivity"
