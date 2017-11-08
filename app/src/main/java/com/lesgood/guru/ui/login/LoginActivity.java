@@ -125,16 +125,23 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK){
+            // google
+            if(requestCode == REQUEST_SIGN_GOOGLE) {
+                GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+                Log.e("onActivityResult", "LoginActivity" + result.getSignInAccount().getEmail());
+                presenter.cekEmail(result);
+                showLoading(true);
+                //presenter.getAuthWithGoogle(result);
+            }
+            // facebook
+            else if(requestCode == CallbackManagerImpl.RequestCodeOffset.Login.toRequestCode()) {
+                callbackManager.onActivityResult(requestCode, resultCode, data);
+            }
+        }else {
+            finish();
+        }
 
-        // google
-        if(requestCode == REQUEST_SIGN_GOOGLE) {
-            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            presenter.getAuthWithGoogle(result);
-        }
-        // facebook
-        else if(requestCode == CallbackManagerImpl.RequestCodeOffset.Login.toRequestCode()) {
-            callbackManager.onActivityResult(requestCode, resultCode, data);
-        }
     }
 
 

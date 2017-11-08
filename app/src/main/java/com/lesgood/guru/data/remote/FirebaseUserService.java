@@ -25,6 +25,13 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.ProviderQueryResult;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.lesgood.guru.R;
 import com.lesgood.guru.base.BaseActivity;
 
@@ -39,10 +46,13 @@ public class FirebaseUserService {
     AuthCredential credential;
     // for facebook
     private CallbackManager callbackManager;
-
+    private DatabaseReference userRef;
+    private Query query;
     public FirebaseUserService(Application application) {
         this.application = application;
         this.firebaseAuth = FirebaseAuth.getInstance();
+        this.userRef = FirebaseDatabase.getInstance().getReference().child("users");
+        this.query = userRef.child("email");
     }
 
     public Task<AuthResult> getUserWithEmail(String email, String password) {
@@ -58,10 +68,10 @@ public class FirebaseUserService {
     }
 
 
+
     public Intent getUserWithGoogle(BaseActivity activity) {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(activity.getString(R.string.default_web_client_id))
-
                 .requestEmail()
                 .build();
 

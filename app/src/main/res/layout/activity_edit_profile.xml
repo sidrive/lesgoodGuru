@@ -59,6 +59,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Nama Lengkap"
+                          android:inputType="text"
+                          android:maxLines="1"
                         android:id="@+id/input_name"/>
                 </android.support.design.widget.TextInputLayout>
 
@@ -104,7 +106,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Agama"
-
+                        android:inputType="text"
                         android:maxLines="1"
                         android:id="@+id/input_religion"/>
                 </android.support.design.widget.TextInputLayout>
@@ -136,6 +138,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Program Studi"
+                      android:inputType="text"
+                      android:maxLines="1"
                         android:id="@+id/input_prodi"/>
                 </android.support.design.widget.TextInputLayout>
 
@@ -166,6 +170,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Nomer HP"
+                      android:inputType="phone"
+                      android:maxLines="1"
                         android:id="@+id/input_phone"/>
                 </android.support.design.widget.TextInputLayout>
 
@@ -176,6 +182,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Instagram"
+                      android:inputType="text"
+                      android:maxLines="1"
                         android:id="@+id/input_instagram"/>
                 </android.support.design.widget.TextInputLayout>
 
@@ -186,6 +194,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Facebook"
+                      android:inputType="text"
+                      android:maxLines="1"
                         android:id="@+id/input_facebook"/>
                 </android.support.design.widget.TextInputLayout>
 
@@ -223,6 +233,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/input_account_number"
+                      android:inputType="number"
+                      android:maxLines="1"
                         android:hint="Nomor Rekening" />
 
 
@@ -236,6 +248,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/input_account_name"
+                      android:inputType="text"
+                      android:maxLines="1"
                         android:hint="Atas Nama Rekening" />
 
                 </android.support.design.widget.TextInputLayout>

@@ -50,6 +50,7 @@ public class AddLocationPresenter implements BasePresenter {
     @Override
     public void subscribe() {
         getUserLocation();
+        defaultConfig.setApiUrl(Const.BASE_URL_MAP);
     }
 
     @Override

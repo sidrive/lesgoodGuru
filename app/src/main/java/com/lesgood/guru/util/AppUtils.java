@@ -23,9 +23,12 @@ public class AppUtils {
     StyleableToast.makeText(context,msg, Toast.LENGTH_SHORT, R.style.MyToast).show();
   }
   public static void setAvatar(Context context, String imgUrl, ImageView img){
-    if (!imgUrl.equalsIgnoreCase("NOT")){
-      Glide.with(context).load(imgUrl).placeholder(R.color.colorSoft).dontAnimate().into(img);
-      }else {
+    if (imgUrl.length()!=0){
+      if (!imgUrl.equalsIgnoreCase("NOT")){
+        Glide.with(context).load(imgUrl).placeholder(R.color.colorSoft).dontAnimate().into(img);
+      }
+    }
+    else {
       Glide.with(context).load(R.drawable.ic_account_circle_black).placeholder(R.color.colorSoft).dontAnimate().into(img);
     }
   }
