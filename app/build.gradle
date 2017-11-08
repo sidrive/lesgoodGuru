@@ -28,7 +28,7 @@ android {
         versionName "1.0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
-
+        buildConfigField "String", "USER_TYPE", "PENGAJAR"
     }
     buildTypes {
         release {
