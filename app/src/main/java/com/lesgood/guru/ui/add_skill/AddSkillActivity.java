@@ -210,50 +210,7 @@ public class AddSkillActivity extends BaseActivity {
         }
 
         if (id == R.id.menu_done){
-
-            View focusView1 = null;
-            boolean cancel = false;
-
-            if (skill.getSkill() == null){
-                cancel = true;
-                Toast.makeText(this, "Pilih Materi", Toast.LENGTH_SHORT).show();
-            } else if (skill.getLevel() == null){
-                cancel = true;
-                Toast.makeText(this, "Pilih Tingkat Mengajar", Toast.LENGTH_SHORT).show();
-            } else if (TextUtils.isEmpty(String.valueOf(inputPrice1.getText()))) {
-                inputPrice1.setError(errRequiredMinimal);
-                cancel = true;
-                focusView1 = inputPrice1;
-                showLoading(false);
-                focusView1.requestFocus();
-            }else if (TextUtils.isEmpty(String.valueOf(inputPrice2.getText()))) {
-                inputPrice2.setError(errRequiredMinimal);
-                cancel = true;
-                focusView1 = inputPrice2;
-                showLoading(false);
-                focusView1.requestFocus();
-            }else if (TextUtils.isEmpty(String.valueOf(inputPrice3.getText()))) {
-                inputPrice3.setError(errRequiredMinimal);
-                cancel = true;
-                focusView1 = inputPrice3;
-                showLoading(false);
-                focusView1.requestFocus();
-            }else if (TextUtils.isEmpty(String.valueOf(inputPrice4.getText()))) {
-                inputPrice4.setError(errRequiredMinimal);
-                cancel = true;
-                focusView1 = inputPrice4;
-                showLoading(false);
-                focusView1.requestFocus();
-            }else if (TextUtils.isEmpty(String.valueOf(inputPrice5.getText()))) {
-                inputPrice5.setError(errRequiredMinimal);
-                cancel = true;
-                focusView1 = inputPrice5;
-                showLoading(false);
-                focusView1.requestFocus();
-            }else {
-                showLoading(true);
-                validate();
-            }
+          validateEmptyForm();
         }
 
         return super.onOptionsItemSelected(item);
@@ -383,7 +340,51 @@ public class AddSkillActivity extends BaseActivity {
         txtLevel.setText(level);
         skill.setLevel(level);
     }
+    public void validateEmptyForm(){
+      View focusView1 = null;
+      boolean cancel = false;
 
+      if (skill.getSkill() == null){
+        cancel = true;
+        Toast.makeText(this, "Pilih Materi", Toast.LENGTH_SHORT).show();
+      } else if (skill.getLevel() == null){
+        cancel = true;
+        Toast.makeText(this, "Pilih Tingkat Mengajar", Toast.LENGTH_SHORT).show();
+      } else if (TextUtils.isEmpty(String.valueOf(inputPrice1.getText()))) {
+        inputPrice1.setError(errRequiredMinimal);
+        cancel = true;
+        focusView1 = inputPrice1;
+        showLoading(false);
+        focusView1.requestFocus();
+      }else if (TextUtils.isEmpty(String.valueOf(inputPrice2.getText()))) {
+        inputPrice2.setError(errRequiredMinimal);
+        cancel = true;
+        focusView1 = inputPrice2;
+        showLoading(false);
+        focusView1.requestFocus();
+      }else if (TextUtils.isEmpty(String.valueOf(inputPrice3.getText()))) {
+        inputPrice3.setError(errRequiredMinimal);
+        cancel = true;
+        focusView1 = inputPrice3;
+        showLoading(false);
+        focusView1.requestFocus();
+      }else if (TextUtils.isEmpty(String.valueOf(inputPrice4.getText()))) {
+        inputPrice4.setError(errRequiredMinimal);
+        cancel = true;
+        focusView1 = inputPrice4;
+        showLoading(false);
+        focusView1.requestFocus();
+      }else if (TextUtils.isEmpty(String.valueOf(inputPrice5.getText()))) {
+        inputPrice5.setError(errRequiredMinimal);
+        cancel = true;
+        focusView1 = inputPrice5;
+        showLoading(false);
+        focusView1.requestFocus();
+      }else {
+        showLoading(true);
+        validate();
+      }
+    }
     public void validate(){
         inputPrice1.setError(null);
         inputPrice2.setError(null);
