@@ -95,8 +95,7 @@ public class AddLocationPresenter implements BasePresenter {
         activity.setLoadingProgress(true);
         String loc = latLng.latitude +","+latLng.longitude;
         defaultConfig.setApiUrl(Const.BASE_URL_MAP);
-        APIService/*.getAddress()
-        retrofit.create(com.lesgood.guru.data.remote.APIService.class)*/.getAddress("AIzaSyCGimiNQYU3Sj9LECSPgpAGXoRdGMiqJZY",loc)
+        APIService.getAddress("AIzaSyCGimiNQYU3Sj9LECSPgpAGXoRdGMiqJZY",loc)
             .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(
                 responseGeomap -> {
                     activity.setLoadingProgress(false);
@@ -107,7 +106,7 @@ public class AddLocationPresenter implements BasePresenter {
                         user.setLongitude(latLng.longitude);
                         user.setFullAddress(responseGeomap.getResults().get(0).getFormattedAddress());
                         user.setLocation(responseGeomap.getResults().get(5).getFormattedAddress());
-                        locationService.updateUserLocation(user);
+
                         location.setAddress(responseGeomap.getResults().get(0).getFormattedAddress());
                         location.setAddress_2(responseGeomap.getResults().get(0).getFormattedAddress());
                         location.setLat(responseGeomap.getResults().get(0).getGeometry().getLocation().getLat());
@@ -118,6 +117,8 @@ public class AddLocationPresenter implements BasePresenter {
                         BaseApplication.get(activity.getApplicationContext()).createUserComponent(user);
                         updateUserLocation(user);
                         activity.setAddressMap(responseGeomap.getResults().get(0).getFormattedAddress());
+
+
                     }
                 },
                 throwable -> {
@@ -128,6 +129,7 @@ public class AddLocationPresenter implements BasePresenter {
     }
         public void updateUserLocation(User user){
         locationService.updateUserLocation(user);
+
     }
 
 }
