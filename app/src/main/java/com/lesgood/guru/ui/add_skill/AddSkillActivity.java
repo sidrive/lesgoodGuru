@@ -210,9 +210,50 @@ public class AddSkillActivity extends BaseActivity {
         }
 
         if (id == R.id.menu_done){
-            showLoading(true);
-            validate();
 
+            View focusView1 = null;
+            boolean cancel = false;
+
+            if (skill.getSkill() == null){
+                cancel = true;
+                Toast.makeText(this, "Pilih Materi", Toast.LENGTH_SHORT).show();
+            } else if (skill.getLevel() == null){
+                cancel = true;
+                Toast.makeText(this, "Pilih Tingkat Mengajar", Toast.LENGTH_SHORT).show();
+            } else if (TextUtils.isEmpty(String.valueOf(inputPrice1.getText()))) {
+                inputPrice1.setError(errRequiredMinimal);
+                cancel = true;
+                focusView1 = inputPrice1;
+                showLoading(false);
+                focusView1.requestFocus();
+            }else if (TextUtils.isEmpty(String.valueOf(inputPrice2.getText()))) {
+                inputPrice2.setError(errRequiredMinimal);
+                cancel = true;
+                focusView1 = inputPrice2;
+                showLoading(false);
+                focusView1.requestFocus();
+            }else if (TextUtils.isEmpty(String.valueOf(inputPrice3.getText()))) {
+                inputPrice3.setError(errRequiredMinimal);
+                cancel = true;
+                focusView1 = inputPrice3;
+                showLoading(false);
+                focusView1.requestFocus();
+            }else if (TextUtils.isEmpty(String.valueOf(inputPrice4.getText()))) {
+                inputPrice4.setError(errRequiredMinimal);
+                cancel = true;
+                focusView1 = inputPrice4;
+                showLoading(false);
+                focusView1.requestFocus();
+            }else if (TextUtils.isEmpty(String.valueOf(inputPrice5.getText()))) {
+                inputPrice5.setError(errRequiredMinimal);
+                cancel = true;
+                focusView1 = inputPrice5;
+                showLoading(false);
+                focusView1.requestFocus();
+            }else {
+                showLoading(true);
+                validate();
+            }
         }
 
         return super.onOptionsItemSelected(item);
@@ -352,11 +393,11 @@ public class AddSkillActivity extends BaseActivity {
         boolean cancel = false;
         View focusView = null;
 
-      skill.setPrice1(Integer.valueOf(inputPrice1.getText().toString()));
-      skill.setPrice2(Integer.valueOf(inputPrice2.getText().toString()));
-      skill.setPrice3(Integer.valueOf(inputPrice3.getText().toString()));
-      skill.setPrice4(Integer.valueOf(inputPrice4.getText().toString()));
-      skill.setPrice5(Integer.valueOf(inputPrice5.getText().toString()));
+            skill.setPrice1(Integer.valueOf(inputPrice1.getText().toString()));
+            skill.setPrice2(Integer.valueOf(inputPrice2.getText().toString()));
+            skill.setPrice3(Integer.valueOf(inputPrice3.getText().toString()));
+            skill.setPrice4(Integer.valueOf(inputPrice4.getText().toString()));
+            skill.setPrice5(Integer.valueOf(inputPrice5.getText().toString()));
 
       String how = inputHow.getText().toString();
       String fasility = inputFasility.getText().toString();
@@ -366,42 +407,6 @@ public class AddSkillActivity extends BaseActivity {
       skill.setHave20(havepaket20);
       skill.setHave30(havepaket30);
 
-   /*
-      if (TextUtils.isEmpty(inputPrice2.getText().toString())){
-        inputPrice2.setError(errRequiredMinimal);
-        cancel = true;
-        focusView = inputPrice2;
-        showLoading(false);
-      }
-      if (TextUtils.isEmpty(inputPrice3.getText().toString())){
-        inputPrice3.setError(errRequiredMinimal);
-        cancel = true;
-        focusView = inputPrice3;
-        showLoading(false);
-      }
-      if (TextUtils.isEmpty(inputPrice4.getText().toString())){
-        inputPrice4.setError(errRequiredMinimal);
-        cancel = true;
-        focusView = inputPrice4;
-        showLoading(false);
-      }
-      if (TextUtils.isEmpty(inputPrice5.getText().toString())){
-        inputPrice5.setError(errRequiredMinimal);
-        cancel = true;
-        focusView = inputPrice5;
-        showLoading(false);
-      }
-
-*/
-        if (TextUtils.isEmpty(skill.getSkill())){
-            cancel = true;
-            Toast.makeText(this, "Pilih Pelajaran", Toast.LENGTH_SHORT).show();
-        }
-
-        if (TextUtils.isEmpty(skill.getLevel())){
-            cancel = true;
-            Toast.makeText(this, "Pilih Tingkat Mengajar", Toast.LENGTH_SHORT).show();
-        }
 
         if (skill.getPrice1() < 40000){
             inputPrice1.setError(errRequiredMinimal);
