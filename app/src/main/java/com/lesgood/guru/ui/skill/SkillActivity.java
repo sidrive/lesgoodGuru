@@ -167,7 +167,7 @@ public class SkillActivity extends BaseActivity {
         presenter.deleteSkill(skill);
     }
 
-    @OnClick(R.id.fab_add_skill)
+    @OnClick(R.id.fab_add_skill) 
     void showAddSkill(){
         Skill skill = new Skill();
         skill.setPrice1(0);

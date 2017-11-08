@@ -14,6 +14,7 @@ import com.lesgood.guru.data.model.Prestasi;
 import com.lesgood.guru.data.model.Skill;
 import com.lesgood.guru.data.model.User;
 import com.lesgood.guru.data.remote.UserService;
+import com.lesgood.guru.util.AppUtils;
 
 /**
  * Created by Agus on 6/1/17.
@@ -78,27 +79,20 @@ public class PrestasiPresenter implements BasePresenter {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                AppUtils.showToas(activity.getApplicationContext(),databaseError.getMessage());
             }
         });
     }
 
     public void deletePrestasi(final Prestasi prestasi){
-        userService.removePrestasi(user.getUid(), prestasi).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                activity.showLoading(false);
-                activity.showRemovedItem(prestasi);
-            }
+        userService.removePrestasi(user.getUid(), prestasi).addOnCompleteListener(task -> {
+            activity.showLoading(false);
+            activity.showRemovedItem(prestasi);
         });
     }
 
     public void updatePrestasi(Prestasi prestasi){
-        userService.updatePrestasi(user.getUid(), prestasi).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                activity.showLoading(false);
-            }
-        });
+        userService.updatePrestasi(user.getUid(), prestasi).addOnCompleteListener(
+            task -> activity.showLoading(false));
     }
 }

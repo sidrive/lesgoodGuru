@@ -224,7 +224,6 @@ public class VerificationActivity extends BaseActivity implements DialogUploadOp
             if (resultCode == Activity.RESULT_OK) {
                 Uri uri = result.getUri();
                 imgOriginal = uri;
-
                 try {
                     Bitmap bitmap2 = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                     encodeBitmapAndSaveToFirebase(bitmap2);
@@ -262,10 +261,10 @@ public class VerificationActivity extends BaseActivity implements DialogUploadOp
             presenter.uploadSertifikat(user, imgSmall, imgOriginal);
         }else if (type.equalsIgnoreCase("ktm")){
             imgIjazah.setImageBitmap(bitmap);
-            presenter.uploadIjazah(user, imgSmall, imgOriginal);
+            presenter.uploadKtm(user, imgSmall, imgOriginal);
         }else{
             imgKtm.setImageBitmap(bitmap);
-            presenter.uploadKtm(user, imgSmall, imgOriginal);
+            presenter.uploadIjazah(user, imgSmall, imgOriginal);
         }
     }
 
@@ -335,6 +334,7 @@ public class VerificationActivity extends BaseActivity implements DialogUploadOp
     public void successUploadImage(String url){
         showLoading(false);
         Toast.makeText(this, "Data Tersimpan", Toast.LENGTH_SHORT).show();
+        init();
 
     }
 

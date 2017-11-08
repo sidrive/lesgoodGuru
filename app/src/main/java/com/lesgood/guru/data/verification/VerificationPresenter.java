@@ -11,6 +11,7 @@ import com.lesgood.guru.base.BasePresenter;
 import com.lesgood.guru.data.model.User;
 import com.lesgood.guru.data.remote.FirebaseImageService;
 import com.lesgood.guru.data.remote.UserService;
+import com.lesgood.guru.util.AppUtils;
 
 /**
  * Created by Agus on 5/31/17.
@@ -75,26 +76,17 @@ public class VerificationPresenter implements BasePresenter {
     }
 
     public void uploadimg(final User user, byte[] data, final Uri uri, StorageReference ref){
-
-
         UploadTask uploadTask = ref.putFile(uri);
-// Register observers to listen for when the download is done or if it fails
-
-
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle unsuccessful uploads
-                System.out.print(exception);
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-                Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                activity.successUploadImage(downloadUrl.toString());
-
-            }
+        // Register observers to listen for when the download is done or if it fails
+        uploadTask.addOnFailureListener(exception -> {
+            // Handle unsuccessful uploads
+            System.out.print(exception);
+            AppUtils.showToas(activity.getApplicationContext(),exception.getMessage());
+        }).addOnSuccessListener(taskSnapshot -> {
+            // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+            Uri downloadUrl = taskSnapshot.getDownloadUrl();
+            activity.successUploadImage(downloadUrl.toString());
+            AppUtils.showToas(activity.getApplicationContext(),taskSnapshot.toString());
         });
     }
 }

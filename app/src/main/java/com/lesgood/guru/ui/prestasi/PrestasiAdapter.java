@@ -33,20 +33,10 @@ public class PrestasiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         ((PrestasiViewHolder)holder).bind(items.get(position));
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onItemClicked(items.get(position));
-            }
-        });
+        holder.itemView.setOnClickListener(v -> onItemClicked(items.get(position)));
 
-        ((PrestasiViewHolder) holder).imgRemove.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                activity.showDeleteItem(items.get(position));
-
-            }
-        });
+        ((PrestasiViewHolder) holder).imgRemove.setOnClickListener(
+            v -> activity.showDeleteItem(items.get(position)));
     }
 
     private void onItemClicked(Prestasi item) {

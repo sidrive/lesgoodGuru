@@ -168,28 +168,20 @@ public class PrestasiActivity extends BaseActivity {
         Button btnPositif = (Button) dialog.findViewById(R.id.btn_positif);
         Button btnNegatif = (Button) dialog.findViewById(R.id.btn_negatif);
 
-        btnPositif.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final String name = inputPretasi.getText().toString();
-                if (TextUtils.isEmpty(name)){
-                    inputPretasi.setError(errRequired);
-                    inputPretasi.requestFocus();
-                }else{
-                    showLoading(true);
-                    Prestasi prestasi = new Prestasi(UUID.randomUUID().toString(), name);
-                    presenter.updatePrestasi(prestasi);
-                }
-                dialog.dismiss();
+        btnPositif.setOnClickListener(v -> {
+            final String name = inputPretasi.getText().toString();
+            if (TextUtils.isEmpty(name)){
+                inputPretasi.setError(errRequired);
+                inputPretasi.requestFocus();
+            }else{
+                showLoading(true);
+                Prestasi prestasi = new Prestasi(UUID.randomUUID().toString(), name);
+                presenter.updatePrestasi(prestasi);
             }
+            dialog.dismiss();
         });
 
-        btnNegatif.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
+        btnNegatif.setOnClickListener(v -> dialog.dismiss());
 
         dialog.show();
 
