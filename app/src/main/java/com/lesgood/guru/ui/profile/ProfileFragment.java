@@ -224,7 +224,7 @@ public class ProfileFragment extends BaseFragment {
         totalrating.setText(String.valueOf(ratings));
         rating.setRating(ratings);
         AppUtils.setAvatar(getContext(),user.getPhoto_url(),imgAvatar);
-       /* if (user.getPhoto_url() != null) {
+        /*if (user.getPhoto_url() != null) {
             if (!user.getPhoto_url().equalsIgnoreCase("NOT")){
                 Glide.with(this)
                         .load(user.getPhoto_url()).listener(new RequestListener<String, GlideDrawable>() {

@@ -42,16 +42,16 @@ dimanapun kapanpun"
     </LinearLayout>
 
     <Button
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:textColor="@color/colorAccent"
-        android:drawableLeft="@drawable/facebook"
-        android:text="Masuk Dengan Facbook"
-        android:visibility="gone"
-        android:id="@+id/btn_login_with_facebook"
-        android:layout_marginBottom="160dp"
-        android:background="@drawable/button_radius_white_selector"/>
+      android:id="@+id/btn_login_with_facebook"
+      android:layout_width="250dp"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="160dp"
+      android:layout_gravity="bottom"
+      android:background="@drawable/button_radius_white_selector"
+      android:drawableLeft="@drawable/facebook"
+      android:text="Masuk Dengan Facbook"
+      android:textColor="@color/colorAccent"
+      android:visibility="gone"/>
 
     <Button
         android:layout_width="250dp"

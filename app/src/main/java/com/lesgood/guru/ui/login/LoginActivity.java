@@ -1,5 +1,6 @@
 package com.lesgood.guru.ui.login;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +17,7 @@ import com.lesgood.guru.R;
 import com.lesgood.guru.base.BaseActivity;
 import com.lesgood.guru.base.BaseApplication;
 import com.lesgood.guru.data.model.User;
+import com.lesgood.guru.data.verification.VerificationActivity;
 import com.lesgood.guru.ui.edit_profile.EditProfileActivity;
 import com.lesgood.guru.ui.intro.IntroActivity;
 import com.lesgood.guru.ui.main.MainActivity;
@@ -103,9 +105,14 @@ public class LoginActivity extends BaseActivity {
     }
 
     public void showRegisterUser(User user){
-        EditProfileActivity.startWithUser(this, user, true);
+        IntroActivity.startWithUser(this, user);
+        /*EditProfileActivity.startWithUser(this, user, true);*/
         finish();
+    }
 
+    public void showVerified(User user){
+        VerificationActivity.startWithUser(this, user);
+        finish();
     }
 
     public void showLoading(boolean show){

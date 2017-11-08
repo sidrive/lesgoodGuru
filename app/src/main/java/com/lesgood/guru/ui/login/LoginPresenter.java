@@ -177,8 +177,9 @@ public class LoginPresenter implements BasePresenter {
                             }
                             activity.showRegisterUser(user);
                         } else {
-                            if (remoteUser.isAcceptTOS()) activity.showLoginSuccess(remoteUser);
-                            else activity.showIntroActivity(remoteUser);
+                            if (remoteUser.isAcceptTOS() & remoteUser.isVerified()) activity.showLoginSuccess(remoteUser);
+                            else if (remoteUser.isAcceptTOS()) activity.showVerified(remoteUser);
+                                else activity.showIntroActivity(remoteUser);
                         }
                     }
 

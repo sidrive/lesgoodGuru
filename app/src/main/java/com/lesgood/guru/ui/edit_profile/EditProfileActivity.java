@@ -39,6 +39,7 @@ import com.lesgood.guru.base.BaseActivity;
 import com.lesgood.guru.base.BaseApplication;
 import com.lesgood.guru.data.model.PartnerPayment;
 import com.lesgood.guru.data.model.User;
+import com.lesgood.guru.data.verification.VerificationActivity;
 import com.lesgood.guru.ui.dialog.DialogUploadOption;
 import com.lesgood.guru.ui.dialog.DialogUploadOption.OnDialogUploadOptionClickListener;
 import com.lesgood.guru.ui.intro.IntroActivity;
@@ -160,6 +161,13 @@ public class EditProfileActivity extends BaseActivity implements OnDateSetListen
     Intent intent = new Intent(activity, EditProfileActivity.class);
     intent.putExtra("register", register);
     BaseApplication.get(activity).createUserComponent(user);
+    activity.startActivity(intent);
+  }
+
+  public static void startWithUserIntro(IntroActivity activity, boolean register) {
+    Intent intent = new Intent(activity, EditProfileActivity.class);
+    intent.putExtra("register", register);
+    /*BaseApplication.get(activity).createUserComponent(user);*/
     activity.startActivity(intent);
   }
 
@@ -504,8 +512,9 @@ public class EditProfileActivity extends BaseActivity implements OnDateSetListen
     showLoading(false);
     if (register) {
       if (user.isAcceptTOS()) {
-        MainActivity.startWithUser(this, user);
+        VerificationActivity.startWithUser(this, user);
       } else {
+        /*VerificationActivity.startWithUser(this, user);*/
         IntroActivity.startWithUser(this, user);
       }
     } else {
@@ -594,6 +603,7 @@ public class EditProfileActivity extends BaseActivity implements OnDateSetListen
       focusView.requestFocus();
     } else {
 
+      user.setAcceptTOS(true);
       user.setFull_name(name);
       user.setEmail(email);
       user.setReligion(religion);

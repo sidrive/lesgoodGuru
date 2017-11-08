@@ -9,6 +9,7 @@ import com.lesgood.guru.R;
 import com.lesgood.guru.base.BaseActivity;
 import com.lesgood.guru.base.BaseApplication;
 import com.lesgood.guru.data.model.User;
+import com.lesgood.guru.data.verification.VerificationActivity;
 import com.lesgood.guru.ui.edit_profile.EditProfileActivity;
 import com.lesgood.guru.ui.intro.IntroActivity;
 import com.lesgood.guru.ui.login.LoginActivity;
@@ -58,6 +59,10 @@ public class SplashActivity extends BaseActivity {
 
     public void showIntroActivity(User user){
         IntroActivity.startWithUser(this, user);
+    }
+
+    public void showVerificationActivity(User user){
+        VerificationActivity.startWithUser(this, user);
     }
 
     @Override

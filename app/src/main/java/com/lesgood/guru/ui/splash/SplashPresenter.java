@@ -67,8 +67,8 @@ public class SplashPresenter implements BasePresenter {
 
                             activity.showRegisterActivity(user);
                         } else {
-                            if (remoteUser.isAcceptTOS()) activity.showMainActivity(remoteUser);
-                            else activity.showIntroActivity(remoteUser);
+                            if (remoteUser.isVerified()) activity.showMainActivity(remoteUser);
+                            else activity.showVerificationActivity(remoteUser);
 
                         }
                     }

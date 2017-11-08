@@ -4,9 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.lesgood.guru.base.BaseActivity;
 import com.lesgood.guru.base.BaseApplication;
 import com.lesgood.guru.data.model.User;
+import com.lesgood.guru.ui.edit_profile.EditProfileActivity;
 import com.lesgood.guru.ui.home.HomeFragmentModule;
 import com.lesgood.guru.ui.main.MainActivity;
 import com.lesgood.guru.ui.slide_fragment.KebijakanSlide;
@@ -59,10 +63,18 @@ public class IntroActivity extends MaterialIntroActivity {
         finish();
     }
 
+
+    public void showRegisterUser(){
+        EditProfileActivity.startWithUserIntro(this, true);
+        finish();
+
+    }
+
     @Override
     public void onFinish() {
         super.onFinish();
         presenter.save(user.getUid(), true);
     }
+
 
 }
