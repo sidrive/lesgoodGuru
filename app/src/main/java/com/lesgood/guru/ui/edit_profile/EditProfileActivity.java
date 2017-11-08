@@ -43,6 +43,7 @@ import com.lesgood.guru.ui.dialog.DialogUploadOption;
 import com.lesgood.guru.ui.dialog.DialogUploadOption.OnDialogUploadOptionClickListener;
 import com.lesgood.guru.ui.intro.IntroActivity;
 import com.lesgood.guru.ui.main.MainActivity;
+import com.lesgood.guru.util.Const;
 import com.lesgood.guru.util.DateFormatter;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImage.ActivityResult;
@@ -599,6 +600,7 @@ public class EditProfileActivity extends BaseActivity implements OnDateSetListen
       user.setReligion(religion);
       user.setPendidikan(pendidikan);
       user.setProdi(prodi);
+      user.setUserType(Const.USER_TYPE);
       if (!TextUtils.isEmpty(phone)) {
         user.setPhone(phone);
       }

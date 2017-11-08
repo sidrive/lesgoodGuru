@@ -1,27 +1,51 @@
 {
   "project_info": {
-    "project_number": "609560199245",
-    "firebase_url": "https://lesgood-dev-experiment.firebaseio.com",
-    "project_id": "lesgood-dev-experiment",
-    "storage_bucket": "lesgood-dev-experiment.appspot.com"
+    "project_number": "587589507868",
+    "firebase_url": "https://devlesgood-1ccdc.firebaseio.com",
+    "project_id": "devlesgood-1ccdc",
+    "storage_bucket": "devlesgood-1ccdc.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:609560199245:android:7ac2f9608fd17590",
+        "mobilesdk_app_id": "1:587589507868:android:8eb56107a8b42a9d",
         "android_client_info": {
-          "package_name": "com.lesgood.app"
+          "package_name": "com.lesgood.guru"
         }
       },
       "oauth_client": [
         {
-          "client_id": "609560199245-plnqdks26ed5pa20j8l6lbgigocv04f6.apps.googleusercontent.com",
+          "client_id": "587589507868-eic2o8vi1d5s5nmpcav82cjof9iqeks7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lesgood.guru",
+            "certificate_hash": "db5e86dafadbee9406537fa93a8edd245cc6aa07"
+          }
+        },
+        {
+          "client_id": "587589507868-2tl2f0um1gst4hlte5fer8pqdojds7ch.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lesgood.guru",
+            "certificate_hash": "d7d430dead94fdcfeb225b9d443f4bfd547ab65f"
+          }
+        },
+        {
+          "client_id": "587589507868-bal3v06uc9rc72q6mvimvfi0rd037oj7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lesgood.guru",
+            "certificate_hash": "02e257cc0c6e204b7d35ee381336edfd1b59988c"
+          }
+        },
+        {
+          "client_id": "587589507868-tqr11g4ra4co34s7qcbqknmvvv0abi9o.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDCB_fG1CH7b9wAce6ZjXyFYlh0kFiWDMc"
+          "current_key": "AIzaSyD_0xJa6SbHd0hVwGD-UY52odbN5UmUFw8"
         }
       ],
       "services": {
@@ -29,8 +53,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "587589507868-tqr11g4ra4co34s7qcbqknmvvv0abi9o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
@@ -39,20 +68,44 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:609560199245:android:8eb56107a8b42a9d",
+        "mobilesdk_app_id": "1:587589507868:android:7ac2f9608fd17590",
         "android_client_info": {
-          "package_name": "com.lesgood.guru"
+          "package_name": "com.lesgood.app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "609560199245-plnqdks26ed5pa20j8l6lbgigocv04f6.apps.googleusercontent.com",
+          "client_id": "587589507868-03tg3cq39a6msfmqalbh4osdkjdcirtk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lesgood.app",
+            "certificate_hash": "d7d430dead94fdcfeb225b9d443f4bfd547ab65f"
+          }
+        },
+        {
+          "client_id": "587589507868-a16cm4h56r5it851n82l2l75cfqibngp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lesgood.app",
+            "certificate_hash": "db5e86dafadbee9406537fa93a8edd245cc6aa07"
+          }
+        },
+        {
+          "client_id": "587589507868-7b4uduep872h9hi086f8p5al8kkns8ab.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lesgood.app",
+            "certificate_hash": "02e257cc0c6e204b7d35ee381336edfd1b59988c"
+          }
+        },
+        {
+          "client_id": "587589507868-tqr11g4ra4co34s7qcbqknmvvv0abi9o.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDCB_fG1CH7b9wAce6ZjXyFYlh0kFiWDMc"
+          "current_key": "AIzaSyD_0xJa6SbHd0hVwGD-UY52odbN5UmUFw8"
         }
       ],
       "services": {
@@ -60,8 +113,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "587589507868-tqr11g4ra4co34s7qcbqknmvvv0abi9o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

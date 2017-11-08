@@ -13,7 +13,7 @@ android {
         release {
             keyAlias 'lesgood'
             keyPassword 'doremi456'
-            storeFile file('/Users/Agus/Documents/Lesgood/keystores/lesgood-release-key.jks')
+            storeFile file('/Users/sim-x/WEB/lesgood/Keystore/lesgood-release-key.jks')
             storePassword 'doremi456'
         }
     }
@@ -28,7 +28,7 @@ android {
         versionName "1.0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
-        buildConfigField "String", "USER_TYPE", "PENGAJAR"
+
     }
     buildTypes {
         release {
