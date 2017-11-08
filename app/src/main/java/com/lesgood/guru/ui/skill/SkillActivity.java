@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 import com.lesgood.guru.R;
 import com.lesgood.guru.base.BaseActivity;
 import com.lesgood.guru.base.BaseApplication;
-import com.lesgood.guru.data.helper.Const;
+
 import com.lesgood.guru.data.model.Skill;
 import com.lesgood.guru.data.model.User;
 import com.lesgood.guru.ui.add_skill.AddSkillActivity;
@@ -21,6 +21,7 @@ import com.lesgood.guru.ui.brief.BriefActivity;
 import com.lesgood.guru.ui.brief.BriefPresenter;
 import com.lesgood.guru.ui.main.MainActivity;
 
+import com.lesgood.guru.util.Const;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -142,14 +143,17 @@ public class SkillActivity extends BaseActivity {
 
     public void showAddedItem(Skill item) {
         adapter.onItemAdded(item);
+        adapter.notifyDataSetChanged();
     }
 
     public void showChangedItem(Skill item) {
         adapter.onItemChanged(item);
+        adapter.notifyDataSetChanged();
     }
 
     public void showRemovedItem(Skill item){
         adapter.onItemRemoved(item);
+        adapter.notifyDataSetChanged();
     }
 
     public void showItems() {

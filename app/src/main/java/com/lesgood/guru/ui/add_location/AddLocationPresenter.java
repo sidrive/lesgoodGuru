@@ -1,38 +1,26 @@
 package com.lesgood.guru.ui.add_location;
-
-import android.Manifest;
-import android.content.Context;
-import android.content.pm.PackageManager;
-import android.location.LocationManager;
-import android.support.annotation.NonNull;
-
-import android.support.v4.app.ActivityCompat;
 import android.util.Log;
-import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
-import com.lesgood.guru.base.AppComponent;
+
 import com.lesgood.guru.base.BaseApplication;
 import com.lesgood.guru.base.BasePresenter;
 import com.lesgood.guru.base.config.DefaultConfig;
-import com.lesgood.guru.data.helper.Const;
+
 import com.lesgood.guru.data.model.Location;
-import com.lesgood.guru.data.model.Provinces;
+
 import com.lesgood.guru.data.model.User;
 import com.lesgood.guru.data.remote.APIService;
 import com.lesgood.guru.data.remote.LocationService;
 
 
+import com.lesgood.guru.util.Const;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+
 import retrofit2.Retrofit;
 
 /**

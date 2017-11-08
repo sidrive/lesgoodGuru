@@ -1,8 +1,6 @@
 package com.lesgood.guru.ui.profile;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Html;
@@ -24,7 +22,8 @@ import com.bumptech.glide.request.target.Target;
 import com.lesgood.guru.R;
 import com.lesgood.guru.base.BaseApplication;
 import com.lesgood.guru.base.BaseFragment;
-import com.lesgood.guru.data.helper.Const;
+import com.lesgood.guru.util.AppUtils;
+import com.lesgood.guru.util.Const;
 import com.lesgood.guru.data.model.Location;
 import com.lesgood.guru.data.model.User;
 import com.lesgood.guru.data.verification.VerificationActivity;
@@ -193,8 +192,6 @@ public class ProfileFragment extends BaseFragment {
             if (resultCode == RESULT_OK){
                 int total = data.getIntExtra(Const.EXTRA_TOTAL_SKILL, 0);
                 int startForm = data.getIntExtra(Const.EXTRA_START_FROM,0);
-                Log.e("onActivityResult", "ProfileFragment" + total);
-                Log.e("onActivityResult", "ProfileFragment" + startForm);
 
                 if (startForm > 0){
                     BaseApplication.get(activity).createUserComponent(user);
@@ -210,7 +207,6 @@ public class ProfileFragment extends BaseFragment {
 
     public void setTotalSkillUser(int total) {
         txtSkills.setText(total +" Kemampuan mangajar");
-
     }
 
 
@@ -227,8 +223,8 @@ public class ProfileFragment extends BaseFragment {
         float ratings = user.getReview() / 2;
         totalrating.setText(String.valueOf(ratings));
         rating.setRating(ratings);
-
-        if (user.getPhoto_url() != null) {
+        AppUtils.setAvatar(getContext(),user.getPhoto_url(),imgAvatar);
+       /* if (user.getPhoto_url() != null) {
             if (!user.getPhoto_url().equalsIgnoreCase("NOT")){
                 Glide.with(this)
                         .load(user.getPhoto_url()).listener(new RequestListener<String, GlideDrawable>() {
@@ -254,7 +250,7 @@ public class ProfileFragment extends BaseFragment {
                         .dontAnimate()
                         .into(imgAvatar);
             }
-        }
+        }*/
 
         if (user.getTotalSkill() > 0){
             txtSkills.setText(user.getTotalSkill()+" Kemampuan mangajar");

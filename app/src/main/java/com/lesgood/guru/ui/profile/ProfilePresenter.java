@@ -1,15 +1,11 @@
 package com.lesgood.guru.ui.profile;
-
-import android.util.Log;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.lesgood.guru.base.BasePresenter;
-import com.lesgood.guru.data.helper.AppUtils;
-import com.lesgood.guru.data.model.Skill;
 import com.lesgood.guru.data.model.User;
 import com.lesgood.guru.data.remote.UserService;
+import com.lesgood.guru.util.AppUtils;
 
 /**
  * Created by Agus on 2/28/17.

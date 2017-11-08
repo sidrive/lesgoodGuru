@@ -27,13 +27,14 @@ import com.lesgood.guru.BuildConfig;
 import com.lesgood.guru.R;
 import com.lesgood.guru.base.BaseActivity;
 import com.lesgood.guru.base.BaseApplication;
-import com.lesgood.guru.data.helper.AppUtils;
+
 import com.lesgood.guru.data.model.User;
 import com.lesgood.guru.ui.home.HomeFragment;
 import com.lesgood.guru.ui.order.OrderFragment;
 import com.lesgood.guru.ui.profile.ProfileFragment;
 import com.lesgood.guru.ui.update_information.UpdateInformationActivity;
 
+import com.lesgood.guru.util.AppUtils;
 import javax.inject.Inject;
 
 import butterknife.Bind;

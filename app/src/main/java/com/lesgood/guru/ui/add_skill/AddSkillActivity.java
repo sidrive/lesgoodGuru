@@ -2,6 +2,7 @@ package com.lesgood.guru.ui.add_skill;
 
 import static java.util.Objects.isNull;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -52,7 +53,7 @@ import butterknife.OnClick;
  */
 
 public class AddSkillActivity extends BaseActivity {
-
+    public static String EXTRA_EDIT = "edit";
     @BindString(R.string.error_field_required)
     String errRequired;
 

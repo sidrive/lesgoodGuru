@@ -107,12 +107,8 @@ public class AddSkillPresenter implements BasePresenter {
     }
 
     public void updateSkill(String uid, Skill skill){
-        userService.updateSkill(uid, skill).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                activity.successUpdateSkill();
-            }
-        });
+        userService.updateSkill(uid, skill).addOnCompleteListener(
+            task -> activity.successUpdateSkill());
     }
 
     public void updateTotalSkill(String uid, int total){

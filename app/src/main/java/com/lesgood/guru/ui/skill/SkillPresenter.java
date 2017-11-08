@@ -13,6 +13,7 @@ import com.lesgood.guru.base.BasePresenter;
 import com.lesgood.guru.data.model.Skill;
 import com.lesgood.guru.data.model.User;
 import com.lesgood.guru.data.remote.UserService;
+import com.lesgood.guru.util.AppUtils;
 
 /**
  * Created by Agus on 5/10/17.
@@ -55,6 +56,7 @@ public class SkillPresenter implements BasePresenter {
                 if (skill != null){
                     activity.showAddedItem(skill);
                 }
+
             }
 
             @Override
@@ -63,6 +65,7 @@ public class SkillPresenter implements BasePresenter {
                 if (skill != null){
                     activity.showChangedItem(skill);
                 }
+
             }
 
             @Override
@@ -71,6 +74,7 @@ public class SkillPresenter implements BasePresenter {
                 if (skill != null){
                     activity.showRemovedItem(skill);
                 }
+
             }
 
             @Override
@@ -80,7 +84,7 @@ public class SkillPresenter implements BasePresenter {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                AppUtils.showToas(activity.getApplicationContext(),databaseError.getMessage());
             }
         });
     }

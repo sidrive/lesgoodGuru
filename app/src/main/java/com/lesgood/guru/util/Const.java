@@ -1,4 +1,4 @@
-package com.lesgood.guru.data.helper;
+package com.lesgood.guru.util;
 
 /**
  * Created by sim-x on 11/1/17.
