@@ -82,7 +82,6 @@ public class LoginActivity extends BaseActivity {
 
     @OnClick(R.id.btn_login_with_google)
     public void loginwithgoogle(){
-        Log.d("loging","signinwithgoogle");
         Intent intent = presenter.loginWithGoogle();
         startActivityForResult(intent, REQUEST_SIGN_GOOGLE);
     }
@@ -129,7 +128,6 @@ public class LoginActivity extends BaseActivity {
             // google
             if(requestCode == REQUEST_SIGN_GOOGLE) {
                 GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-                Log.e("onActivityResult", "LoginActivity" + result.getSignInAccount().getEmail());
                 presenter.cekEmail(result);
                 showLoading(true);
                 //presenter.getAuthWithGoogle(result);
@@ -138,8 +136,8 @@ public class LoginActivity extends BaseActivity {
             else if(requestCode == CallbackManagerImpl.RequestCodeOffset.Login.toRequestCode()) {
                 callbackManager.onActivityResult(requestCode, resultCode, data);
             }
-        }else {
-            finish();
+        }if (resultCode == RESULT_CANCELED){
+            presenter.revoke();
         }
 
     }

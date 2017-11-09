@@ -194,15 +194,15 @@ public class LoginPresenter implements BasePresenter {
     public  void cekEmail(GoogleSignInResult result){
         firebaseUserService.checkEmail(result.getSignInAccount().getEmail()).addOnSuccessListener(providerQueryResult -> {
             if (providerQueryResult.getProviders().isEmpty()){
-                Log.e("cekEmail", "LoginPresenter is Empety" );
                 getAuthWithGoogle(result);
             }else{
                 activity.showLoading(false);
                 activity.showLoginFail("Email sudah digunakan oleh provider lain (Facebook atau Google)");
+                firebaseUserService.revokeTokenGoogle(activity);
             }
         }).addOnFailureListener(e -> {
             activity.showLoading(false);
-            activity.showLoginFail("Email sudah digunakan oleh provider lain (Facebook atau Google)");
+            activity.showLoginFail("Email sudah digunakan ");
         });
     }
     public void emailIsRegistered(final String email) {
@@ -222,5 +222,7 @@ public class LoginPresenter implements BasePresenter {
 
         });
     }
-
+    public void revoke(){
+        firebaseUserService.revokeTokenGoogle(activity);
+    }
 }

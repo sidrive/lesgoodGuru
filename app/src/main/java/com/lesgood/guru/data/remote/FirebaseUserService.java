@@ -16,6 +16,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.GoogleApiClient.Builder;
+import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.Task;
@@ -75,9 +77,8 @@ public class FirebaseUserService {
                 .requestEmail()
                 .build();
 
-        googleApiClient = new GoogleApiClient.Builder(activity)
-                .enableAutoManage(activity, connectionResult -> {
-                })
+        googleApiClient = new Builder(activity)
+                .enableAutoManage(activity, 0,connectionResult -> {})
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
@@ -85,7 +86,7 @@ public class FirebaseUserService {
     }
 
     public Task<AuthResult> getAuthWithGoogle(final BaseActivity activity, GoogleSignInAccount acct) {
-        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+        credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         googleApiClient.connect();
         return firebaseAuth.signInWithCredential(credential);
     }
@@ -100,32 +101,31 @@ public class FirebaseUserService {
         credential = FacebookAuthProvider.getCredential(token.getToken());
         return firebaseAuth.signInWithCredential(credential);
     }
+    public void revokeTokenGoogle(BaseActivity activity){
+        Auth.GoogleSignInApi.revokeAccess(googleApiClient);
+        googleApiClient.stopAutoManage(activity);
+        googleApiClient.disconnect();
 
+
+    }
     public void logOut(String provider) {
-        Log.e("logOut", "FirebaseUserService  " + provider);
         if(provider.equals("facebook.com")) {
-            Log.e("logOut", "FirebaseUserService : " + "singout with facebook");
             FacebookSdk.sdkInitialize(application);
             LoginManager.getInstance().logOut();
         }else if (provider.equals("firebase")){
             firebaseAuth.signOut();
-            Log.e("logOut", "googleApiClient " + googleApiClient);
             if (googleApiClient!=null){
                 if(googleApiClient.isConnected()) {
-                    Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(
+                    Auth.GoogleSignInApi.revokeAccess(googleApiClient).setResultCallback(
                         status -> {
                             if (status.isSuccess()) {
-                                Log.d("googlesignout", "user logout");
                                 Auth.CredentialsApi.disableAutoSignIn(googleApiClient);
-
                             }
                         });
                 }
             }
-          Log.e("logOut", "FirebaseUserService : " + "singout with firebase");
         }
         else if(provider.equals("google.com")) {
-            Log.e("logOut", "FirebaseUserService : " + "singout with google");
             if (googleApiClient != null){
                 googleApiClient.connect();
                 googleApiClient.registerConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
@@ -137,8 +137,10 @@ public class FirebaseUserService {
                             Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(
                                 status -> {
                                     if (status.isSuccess()) {
-                                        Log.d("googlesignout", "user logout");
                                         Auth.CredentialsApi.disableAutoSignIn(googleApiClient);
+                                        Auth.GoogleSignInApi.revokeAccess(googleApiClient).setResultCallback(status1 -> {
+                                            Log.e("onConnected", "FirebaseUserService" + status1.getStatusMessage());
+                                        });
 
                                     }
                                 });
