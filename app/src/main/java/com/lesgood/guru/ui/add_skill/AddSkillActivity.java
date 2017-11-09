@@ -342,41 +342,33 @@ public class AddSkillActivity extends BaseActivity {
     }
     public void validateEmptyForm(){
       View focusView1 = null;
-      boolean cancel = false;
 
       if (skill.getSkill() == null){
-        cancel = true;
         Toast.makeText(this, "Pilih Materi", Toast.LENGTH_SHORT).show();
       } else if (skill.getLevel() == null){
-        cancel = true;
         Toast.makeText(this, "Pilih Tingkat Mengajar", Toast.LENGTH_SHORT).show();
       } else if (TextUtils.isEmpty(String.valueOf(inputPrice1.getText()))) {
         inputPrice1.setError(errRequiredMinimal);
-        cancel = true;
         focusView1 = inputPrice1;
         showLoading(false);
         focusView1.requestFocus();
       }else if (TextUtils.isEmpty(String.valueOf(inputPrice2.getText()))) {
         inputPrice2.setError(errRequiredMinimal);
-        cancel = true;
         focusView1 = inputPrice2;
         showLoading(false);
         focusView1.requestFocus();
       }else if (TextUtils.isEmpty(String.valueOf(inputPrice3.getText()))) {
         inputPrice3.setError(errRequiredMinimal);
-        cancel = true;
         focusView1 = inputPrice3;
         showLoading(false);
         focusView1.requestFocus();
       }else if (TextUtils.isEmpty(String.valueOf(inputPrice4.getText()))) {
         inputPrice4.setError(errRequiredMinimal);
-        cancel = true;
         focusView1 = inputPrice4;
         showLoading(false);
         focusView1.requestFocus();
       }else if (TextUtils.isEmpty(String.valueOf(inputPrice5.getText()))) {
         inputPrice5.setError(errRequiredMinimal);
-        cancel = true;
         focusView1 = inputPrice5;
         showLoading(false);
         focusView1.requestFocus();
@@ -386,6 +378,7 @@ public class AddSkillActivity extends BaseActivity {
       }
     }
     public void validate(){
+
         inputPrice1.setError(null);
         inputPrice2.setError(null);
         inputPrice3.setError(null);
@@ -447,16 +440,31 @@ public class AddSkillActivity extends BaseActivity {
         if (cancel){
             focusView.requestFocus();
         }else{
-            showLoading(true);
-            String idSkill = listSubcategories.get(subcategoryVal).getId();
-            String idLevel = listLevels.get(levelVal).getId();
-            String code = idSkill+idLevel;
+            //showLoading(true);
+            if (skill.getSkill() == null){
 
-            if (!TextUtils.isEmpty(how)) skill.setHow(how);
-            if (!TextUtils.isEmpty(fasility)) skill.setFasility(fasility);
+                String idSkill = listSubcategories.get(subcategoryVal).getId();
+                String idLevel = listLevels.get(levelVal).getId();
+                String code = idSkill + idLevel;
 
-            skill.setCode(code);
-            presenter.updateSkill(user.getUid(), skill);
+                if (!TextUtils.isEmpty(how))
+                    skill.setHow(how);
+                if (!TextUtils.isEmpty(fasility))
+                    skill.setFasility(fasility);
+
+                skill.setCode(code);
+                presenter.updateSkill(user.getUid(), skill);
+            }else {
+                String code = skill.getCode();
+
+                if (!TextUtils.isEmpty(how))
+                    skill.setHow(how);
+                if (!TextUtils.isEmpty(fasility))
+                    skill.setFasility(fasility);
+
+                skill.setCode(code);
+                presenter.updateSkill(user.getUid(), skill);
+            }
         }
 
     }
