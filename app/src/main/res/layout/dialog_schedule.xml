@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="wrap_content"
+    android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:weightSum="2"
     android:padding="@dimen/activity_horizontal_margin">
 
     <Button
-        android:layout_width="wrap_content"
+      android:layout_weight="1"
+        android:gravity="center"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/Base.Widget.AppCompat.Button.Borderless"
         android:textSize="18sp"
@@ -14,5 +17,15 @@
         android:drawableLeft="@drawable/ic_settings_24_dark"
         android:text="Set JAdwal"
         />
-
+    <Button
+      android:layout_weight="1"
+      android:gravity="center"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      style="@style/Base.Widget.AppCompat.Button.Borderless"
+      android:textSize="18sp"
+      android:id="@+id/btn_hapus_jadwal"
+      android:drawableLeft="@drawable/ic_settings_24_dark"
+      android:text="Hapus JAdwal"
+      />
 </LinearLayout>

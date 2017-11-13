@@ -4,8 +4,11 @@ import android.app.Application;
 
 import com.alamkanak.weekview.WeekViewEvent;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.lesgood.guru.data.model.EmailConfirmation;
 import com.lesgood.guru.data.model.PartnerPayment;
 import com.lesgood.guru.data.model.Pengalaman;
@@ -150,7 +153,7 @@ public class UserService {
     }
 
     public Task<Void> removeUserSchedule(String uid, String date){
-        return databaseRef.child("user-pengalaman").child(uid).child(date).removeValue();
+        return databaseRef.child("user-schedules").child(uid).child(date).removeValue();
     }
     //userschedule
 

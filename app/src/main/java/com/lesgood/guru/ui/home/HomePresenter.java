@@ -9,8 +9,10 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.DatabaseReference.CompletionListener;
 import com.lesgood.guru.base.BasePresenter;
 import com.lesgood.guru.data.remote.UserService;
+import com.lesgood.guru.util.AppUtils;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -45,12 +47,12 @@ public class HomePresenter implements BasePresenter {
     public void createSchedule(long date){
         userService.createUserSchedule(mUser.getUid()).child(String.valueOf(date)).setValue(true)
             .addOnFailureListener(e -> {
-                getUserSchedule();
 
-            })
-            .addOnCompleteListener(task -> {
-                Log.e("createSchedule", "HomePresenter" + task.isComplete());
-            });
+                AppUtils.showToas(fragment.getContext(),e.getMessage());
+            }).addOnSuccessListener(aVoid -> {
+            getUserSchedule();
+            AppUtils.showToas(fragment.getContext(), "SUKSES MENAMBAH JADWAL");
+        });
     }
     public void getUserSchedule(){
         userService.getUserSchedule(mUser.getUid()).addChildEventListener(new ChildEventListener() {
@@ -58,14 +60,16 @@ public class HomePresenter implements BasePresenter {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 String date = dataSnapshot.getKey();
                 List<Event> eventList = new ArrayList<>();
-                eventList.add(new Event(Color.argb(252, 200, 64, 1),Long.parseLong(date),new Date(Long.parseLong(date))));
-                Log.e("onChildAdded", "HomePresenter" + eventList);
+                eventList.add(new Event(Color.argb(252, 200, 64, 1),Long.parseLong(date),"Aviable"+ new Date(Long.parseLong(date))));
                 fragment.addToScheduleToCalneder(eventList);
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
+                String date = dataSnapshot.getKey();
+                List<Event> eventList = new ArrayList<>();
+                eventList.add(new Event(Color.argb(252, 200, 64, 1),Long.parseLong(date),"Aviable"+new Date(Long.parseLong(date))));
+                fragment.addToScheduleToCalneder(eventList);
             }
 
             @Override
@@ -88,5 +92,9 @@ public class HomePresenter implements BasePresenter {
         String stat = String.valueOf(status);
         userService.updateStatus(uid, stat);
     }
-
+    public void deleteSchedule(long date){
+        userService.createUserSchedule(mUser.getUid()).child(String.valueOf(date)).removeValue((databaseError, databaseReference) -> {
+            getUserSchedule();
+        });
+    }
 }

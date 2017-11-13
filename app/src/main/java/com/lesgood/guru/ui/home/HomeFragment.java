@@ -66,10 +66,6 @@ public class HomeFragment extends BaseFragment {
   TypefacedTextView tvDateTitle;
 
 
-  private ArrayList<Event> eventList;
-  private List<WeekViewEvent> events;
-  private List<WeekViewEvent> matchedEvents;
-
   public static HomeFragment newInstance() {
     return new HomeFragment();
   }
@@ -121,29 +117,7 @@ public class HomeFragment extends BaseFragment {
 
     getActivity().setTitle("Lesgood Pengajar");
 
-    /*eventList = new ArrayList<>();
-    events = new ArrayList<WeekViewEvent>();
-    matchedEvents = new ArrayList<>();*/
-
-    //weekView.setOnEventClickListener(this);
-
-    // The week view has infinite scrolling horizontally. We have to provide the events of a
-    // month every time the month changes on the week view.
-    //weekView.setMonthChangeListener(this);
-
-    // Set long press listener for events.
-    ///weekView.setEventLongPressListener(this);
-
-    //Set empty view listener
-    //weekView.setEmptyViewClickListener(this);
-
-    //Set scroll listener
-    //weekView.setScrollListener(this);
-
-    //setupDateTimeInterpreter(true);
-
     init();
-    presenter.subscribe();
     return view;
   }
 
@@ -170,8 +144,6 @@ public class HomeFragment extends BaseFragment {
   };
 
   public void init() {
-        /*String id = user.getUid();
-        String stat = UserService.getStatus(id);*/
     sStatus.setChecked(user.isActive());
     initSchedule();
     if (user.isActive()) {
@@ -182,66 +154,6 @@ public class HomeFragment extends BaseFragment {
   }
 
 
-
-  /*@Override
-  public List<? extends WeekViewEvent> onMonthChange(int newYear, int newMonth) {
-    return matchedEvents;
-  }
-
-  @Override
-  public void onEmptyViewClicked(Calendar time) {
-    Toast.makeText(activity, "onEmptyViewClicked", Toast.LENGTH_SHORT).show();
-    WeekViewEvent event = new WeekViewEvent(0, "Tersedia", time, time);
-    event.setColor(R.color.colorAccentDark);
-    matchedEvents.add(event);
-  *//*  weekView.notifyDatasetChanged();*//*
-    Log.e("onEmptyViewClicked", "HomeFragment" + time);
-  }
-
-  @Override
-  public void onEventClick(WeekViewEvent event, RectF eventRect) {
-
-  }
-
-  @Override
-  public void onEventLongPress(WeekViewEvent event, RectF eventRect) {
-
-  }
-
-  @Override
-  public void onFirstVisibleDayChanged(Calendar newFirstVisibleDay, Calendar oldFirstVisibleDay) {
-
-  }*/
-
-  private void setupDateTimeInterpreter(final boolean shortDate) {
-    /*weekView.setDateTimeInterpreter(new DateTimeInterpreter() {
-      @Override
-      public String interpretDate(Calendar date) {
-        SimpleDateFormat weekdayNameFormat = new SimpleDateFormat("EEE");
-        String weekday = weekdayNameFormat.format(date.getTime());
-        SimpleDateFormat format = new SimpleDateFormat("d/MM");
-
-        // All android api level do not have a standard way of getting the first letter of
-        // the week day name. Hence we get the first char programmatically.
-        // Details: http://stackoverflow.com/questions/16959502/get-one-letter-abbreviation-of-week-day-of-a-date-in-java#answer-16959657
-        return weekday.toUpperCase() + " " + format.format(date.getTime());
-      }
-
-
-      @Override
-      public String interpretTime(int hour) {
-        if (hour == 24) {
-          hour = 0;
-        }
-        if (hour == 0) {
-          hour = 0;
-        }
-        return hour + ":00";
-      }
-
-
-    });*/
-  }
 
   @OnCheckedChanged(R.id.s_active)
   void onStatusChanged(boolean status) {
@@ -265,6 +177,7 @@ public class HomeFragment extends BaseFragment {
     View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_schedule,null,false);
     builder.setView(view);
     Button btn = (Button) view.findViewById(R.id.btn_jadwal);
+    Button btnHapus = (Button) view.findViewById(R.id.btn_hapus_jadwal);
 
     builder.setCancelable(true);
     Dialog dialog = builder.create();
@@ -272,10 +185,19 @@ public class HomeFragment extends BaseFragment {
       dialog.dismiss();
       presenter.createSchedule(date);
     });
+    btnHapus.setOnClickListener(v -> {
+      dialog.dismiss();
+      presenter.deleteSchedule(date);
+    });
     dialog.show();
   }
   public void addToScheduleToCalneder(List<Event> events){
     cvSchedule.addEvents(events);
   }
 
+  @Override
+  public void onStart() {
+    super.onStart();
+    presenter.getUserSchedule();
+  }
 }
