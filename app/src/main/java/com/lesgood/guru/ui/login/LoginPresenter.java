@@ -95,7 +95,7 @@ public class LoginPresenter implements BasePresenter {
             firebaseUserService.getAuthWithGoogle(activity, acct)
                     .addOnCompleteListener(activity, task -> {
                         if (task.isSuccessful()) {
-                            //activity.showLoading(false);
+                            activity.showLoading(false);
                             for(UserInfo profile : task.getResult().getUser().getProviderData()) {
                                 String providerId = profile.getProviderId();
                                 String uid = profile.getUid();
@@ -110,9 +110,7 @@ public class LoginPresenter implements BasePresenter {
                             activity.showLoading(false);
                             activity.showLoginFail("Gagal Masuk");
                         }
-                    }).addOnFailureListener(e -> {
-                activity.showLoginFail(e.getMessage());
-            });
+                    }).addOnFailureListener(e -> {activity.showLoginFail(e.getMessage());});
         } else {
             activity.showLoginFail("Gagal Masuk");
         }

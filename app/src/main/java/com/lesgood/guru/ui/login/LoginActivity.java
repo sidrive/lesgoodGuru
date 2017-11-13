@@ -128,9 +128,9 @@ public class LoginActivity extends BaseActivity {
             // google
             if(requestCode == REQUEST_SIGN_GOOGLE) {
                 GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-                presenter.cekEmail(result);
+                //presenter.cekEmail(result);
                 showLoading(true);
-                //presenter.getAuthWithGoogle(result);
+                presenter.getAuthWithGoogle(result);
             }
             // facebook
             else if(requestCode == CallbackManagerImpl.RequestCodeOffset.Login.toRequestCode()) {

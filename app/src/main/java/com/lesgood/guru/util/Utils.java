@@ -1,6 +1,8 @@
 package com.lesgood.guru.util;
 
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -13,5 +15,9 @@ public class Utils {
         NumberFormat rupiahFormat = NumberFormat.getInstance(Locale.GERMANY);
         String rupiah = rupiahFormat.format(Double.parseDouble(angka));
         return  "Rp."+rupiah;
+    }
+    public static String dateToString(Date date){
+        SimpleDateFormat format = new SimpleDateFormat("EEE, MMM d, ''yyyy");
+        return format.format(date);
     }
 }

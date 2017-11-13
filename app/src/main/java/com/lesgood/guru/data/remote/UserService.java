@@ -142,11 +142,16 @@ public class UserService {
     public DatabaseReference getUserSchedule(String uid){
         return databaseRef.child("user-shedules").child(uid);
     }
-
-    public void updateSchedule(String uid, WeekViewEvent weekViewEvent){
-        databaseRef.child("user-schedules").child(uid).child(Long.toString(weekViewEvent.getId())).setValue(weekViewEvent);
+    public DatabaseReference createUserSchedule(String uid){
+        return databaseRef.child("user-shedules").child(uid);
+    }
+    public void updateSchedule(String uid, String date){
+        databaseRef.child("user-schedules").child(uid).child(date).setValue(true);
     }
 
+    public Task<Void> removeUserSchedule(String uid, String date){
+        return databaseRef.child("user-pengalaman").child(uid).child(date).removeValue();
+    }
     //userschedule
 
     //Userlocation
@@ -161,7 +166,6 @@ public class UserService {
     }
 
     //update price
-
     public DatabaseReference getUserPayment(String uid){
         return databaseRef.child("partner-payment").child(uid);
     }
@@ -186,5 +190,6 @@ public class UserService {
     public void updateAcceptTOS(String uid, boolean status){
         databaseRef.child("users").child(uid).child("acceptTOS").setValue(status);
     }
+    // User Schedule
 
 }

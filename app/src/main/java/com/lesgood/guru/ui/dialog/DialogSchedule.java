@@ -4,47 +4,41 @@ import android.app.Dialog;
 import android.content.Context;
 import android.view.Window;
 import android.widget.Button;
-
-
-import com.lesgood.guru.R;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import com.lesgood.guru.R;
 
 /**
  * Created by Agus on 4/20/17.
  */
 
-public class DialogUploadOption extends Dialog {
-    OnDialogUploadOptionClickListener mCallBack;
+public class DialogSchedule extends Dialog {
+    OnDialogSchedluleClickListener mCallBack;
 
     private Context context;
 
-    @Bind(R.id.btn_gallery)
-    Button btnGallery;
+    @Bind(R.id.btn_jadwal)
+    Button btn_jadwal;
 
-    @Bind(R.id.btn_take_a_photo)
-    Button btnTakeAPhoto;
 
-    public interface OnDialogUploadOptionClickListener {
-        public void onGalleryClicked(Dialog dialog);
 
-        public void onCameraClicked(Dialog dialog);
+    public interface OnDialogSchedluleClickListener {
+        public void onCalenderClicked(Dialog dialog);
     }
 
-    public DialogUploadOption(Context context) {
+    public DialogSchedule(Context context) {
         super(context);
         this.context = context;
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.dialog_upload_option);
+        setContentView(R.layout.dialog_schedule);
         ButterKnife.bind(this);
         setCancelable(true);
 
         init();
 
         try {
-            mCallBack = (OnDialogUploadOptionClickListener) context;
+            mCallBack = (OnDialogSchedluleClickListener) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString()
                     + " must implement OnDialogSchedluleClickListener");
@@ -56,13 +50,8 @@ public class DialogUploadOption extends Dialog {
 
     }
 
-    @OnClick(R.id.btn_gallery)
+    @OnClick(R.id.btn_jadwal)
     void positifClicked() {
-        mCallBack.onGalleryClicked(this);
-    }
-
-    @OnClick(R.id.btn_take_a_photo)
-    void negatifClicked() {
-        mCallBack.onCameraClicked(this);
+        mCallBack.onCalenderClicked(this);
     }
 }

@@ -20,6 +20,7 @@ import com.lesgood.guru.data.model.User;
 public class LocationService {
     private DatabaseReference databaseRef;
     private GeoFire geoFire;
+    private GeoFire geoFire2;
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
     public LocationService(){
@@ -27,6 +28,7 @@ public class LocationService {
         this.mAuth = FirebaseAuth.getInstance();
         this.mUser = mAuth.getCurrentUser();
         this.geoFire = new GeoFire(databaseRef.child("users").child(mUser.getUid()));
+        this.geoFire2 = new GeoFire(databaseRef.child("user-geofire"));
     }
 
 
@@ -45,7 +47,8 @@ public class LocationService {
     public void updateUserLocation(User user){
         Log.e("updateUserLocation", "LocationService" + user.toString());
         databaseRef.child("users").child(user.getUid()).setValue(user);
-        geoFire.setLocation("geoFire", new GeoLocation(user.latitude,user.longitude));
+        //geoFire.setLocation("geoFire", new GeoLocation(user.latitude,user.longitude));
+        geoFire2.setLocation(user.getUid(), new GeoLocation(user.latitude,user.longitude));
     }
 
 }
