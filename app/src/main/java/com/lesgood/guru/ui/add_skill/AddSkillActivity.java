@@ -441,20 +441,20 @@ public class AddSkillActivity extends BaseActivity {
             focusView.requestFocus();
         }else{
             //showLoading(true);
-            if (skill.getSkill() == null){
+            if (skill.getCode() == null){
 
                 String idSkill = listSubcategories.get(subcategoryVal).getId();
                 String idLevel = listLevels.get(levelVal).getId();
-                String code = idSkill + idLevel;
+                String codeNew = idSkill + idLevel;
 
                 if (!TextUtils.isEmpty(how))
                     skill.setHow(how);
                 if (!TextUtils.isEmpty(fasility))
                     skill.setFasility(fasility);
 
-                skill.setCode(code);
+                skill.setCode(codeNew);
                 presenter.updateSkill(user.getUid(), skill);
-            }else {
+            } else {
                 String code = skill.getCode();
 
                 if (!TextUtils.isEmpty(how))
