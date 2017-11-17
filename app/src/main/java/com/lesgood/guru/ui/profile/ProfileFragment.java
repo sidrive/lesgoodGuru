@@ -223,8 +223,6 @@ public class ProfileFragment extends BaseFragment {
         float ratings = user.getReview() / 2;
         totalrating.setText(String.valueOf(ratings));
         rating.setRating(ratings);
-        //AppUtils.setAvatar(getContext(),user.getPhoto_url(),imgAvatar);
-        if (user.getPhoto_url() != null) {
             if (!user.getPhoto_url().equalsIgnoreCase("NOT")){
                 Glide.with(this)
                         .load(user.getPhoto_url()).listener(new RequestListener<String, GlideDrawable>() {
@@ -250,8 +248,6 @@ public class ProfileFragment extends BaseFragment {
                         .dontAnimate()
                         .into(imgAvatar);
             }
-        }
-
         if (user.getTotalSkill() > 0){
             txtSkills.setText(user.getTotalSkill()+" Kemampuan mangajar");
         }
@@ -269,7 +265,10 @@ public class ProfileFragment extends BaseFragment {
         }
 
         txtPrice.setText(Utils.getRupiah(user.getStartFrom())+"/per 100 menit");
-    }
+        }
+
+
+
 
     public void initAbout(String content){
         this.userAbout = content;
