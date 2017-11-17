@@ -10,4 +10,5 @@ public class Const {
   public static String EXSTRA_BRIEF= "brief";
   public static String EXTRA_TOTAL_SKILL= "totalSkill";
   public static String EXTRA_START_FROM= "startForm";
+  public static String USER_TYPE= "PENGAJAR";
 }

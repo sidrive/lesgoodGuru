@@ -23,4 +23,12 @@
         <item name="android:textStyle">normal</item>
         <item name="android:colorBackground">@color/colorPrimary</item>
     </style>
+    <style name="Widget.CalendarView.Custom" parent="android:Widget.CalendarView">
+        <item name="android:focusedMonthDateColor">@color/colorPrimary</item>
+        <item name="android:weekNumberColor">@color/colorBlack</item>
+        <item name="android:weekDayTextAppearance">@style/TextAppearance.AppCompat.Medium</item>
+        <item name="android:dateTextAppearance">@style/TextAppearance.AppCompat.Medium</item>
+        <item name="android:unfocusedMonthDateColor">@color/colorShadow2</item>
+        <item name="android:weekSeparatorLineColor">@color/colorGrey800</item>
+    </style>
 </resources>

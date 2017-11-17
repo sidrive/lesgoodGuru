@@ -28,6 +28,7 @@ import com.lesgood.guru.data.remote.FirebaseUserService;
 import com.lesgood.guru.data.remote.UserService;
 
 
+import com.lesgood.guru.util.AppUtils;
 import java.util.Arrays;
 
 /**
@@ -89,7 +90,6 @@ public class LoginPresenter implements BasePresenter {
     }
 
     protected void getAuthWithGoogle(GoogleSignInResult result) {
-        activity.showLoading(true);
         if(result.isSuccess()) {
             final GoogleSignInAccount acct = result.getSignInAccount();
             firebaseUserService.getAuthWithGoogle(activity, acct)
@@ -102,16 +102,15 @@ public class LoginPresenter implements BasePresenter {
                                 String name = profile.getDisplayName();
                                 String email = profile.getEmail();
                                 Uri photoUri = profile.getPhotoUrl();
-                                Log.d("fisache", providerId + " " + uid + " " + name + " " + email + " " + photoUri);
+                                Log.d("users  = ", providerId + " " + uid + " " + name + " " + email + " " + photoUri);
                             }
+                            Log.e("getAuthWithGoogle", "LoginPresenter" + task.getResult().getUser().getProviderData().toString());
                             processLogin(task.getResult().getUser(), task.getResult().getUser().getProviderData().get(1));
                         } else {
                             activity.showLoading(false);
                             activity.showLoginFail("Gagal Masuk");
                         }
-                    }).addOnFailureListener(e -> {
-                activity.showLoginFail(e.getMessage());
-            });
+                    }).addOnFailureListener(e -> {activity.showLoginFail(e.getMessage());});
         } else {
             activity.showLoginFail("Gagal Masuk");
         }
@@ -154,7 +153,7 @@ public class LoginPresenter implements BasePresenter {
                             Uri photoUri = profile.getPhotoUrl();
                             Log.d("fisache", providerId + " " + uid + " " + name + " " + email + " " + photoUri);
                         }
-                        processLogin(task.getResult().getUser(), task.getResult().getUser().getProviderData().get(1));
+                        //processLogin(task.getResult().getUser(), task.getResult().getUser().getProviderData().get(1));
                     } else {
                         activity.showLoading(false);
                         activity.showLoginFail("Oops, email sudah digunakan");
@@ -176,6 +175,7 @@ public class LoginPresenter implements BasePresenter {
                                 if (remoteUser.getPhone() != null) user.setPhone(remoteUser.getPhone());
                             }
                             activity.showRegisterUser(user);
+
                         } else {
                             if (remoteUser.isAcceptTOS() & remoteUser.isVerified()) activity.showLoginSuccess(remoteUser);
                             else if (remoteUser.isAcceptTOS()) activity.showVerified(remoteUser);
@@ -190,7 +190,20 @@ public class LoginPresenter implements BasePresenter {
                 }
         );
     }
-
+    public  void cekEmail(GoogleSignInResult result){
+        firebaseUserService.checkEmail(result.getSignInAccount().getEmail()).addOnSuccessListener(providerQueryResult -> {
+            if (providerQueryResult.getProviders().isEmpty()){
+                getAuthWithGoogle(result);
+            }else{
+                activity.showLoading(false);
+                activity.showLoginFail("Email sudah digunakan oleh provider lain (Facebook atau Google)");
+                firebaseUserService.revokeTokenGoogle(activity);
+            }
+        }).addOnFailureListener(e -> {
+            activity.showLoading(false);
+            activity.showLoginFail("Email sudah digunakan ");
+        });
+    }
     public void emailIsRegistered(final String email) {
         firebaseUserService.checkEmail(email).addOnCompleteListener(task -> {
             if (task.getResult().getProviders().size() > 0) {
@@ -203,11 +216,12 @@ public class LoginPresenter implements BasePresenter {
                 User user = new User();
                 user.setEmail(email);
                 user.setProvider("password");
-
                 activity.showRegisterUser(user);
             }
 
         });
     }
-
+    public void revoke(){
+        firebaseUserService.revokeTokenGoogle(activity);
+    }
 }

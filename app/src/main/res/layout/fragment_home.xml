@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -38,22 +38,27 @@
             android:layout_marginBottom="10dp"
             android:text="Jadwal Mengajar Anda"/>
 
-        <com.alamkanak.weekview.WeekView
-            android:id="@+id/weekView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:eventTextColor="@android:color/white"
-            app:textSize="12sp"
-            app:hourHeight="60dp"
-            app:headerColumnPadding="8dp"
-            app:headerColumnTextColor="#8f000000"
-            app:headerRowPadding="12dp"
-            app:columnGap="8dp"
-            app:noOfVisibleDays="3"
-            app:headerRowBackgroundColor="#ffefefef"
-            app:dayBackgroundColor="#05000000"
-            app:todayBackgroundColor="#1848adff"
-            app:headerColumnBackground="#ffffffff"/>
-    </LinearLayout>
 
-</android.support.design.widget.CoordinatorLayout>
+    </LinearLayout>
+    <com.lesgood.guru.util.TypefacedTextView
+      android:id="@+id/tvDateTitle"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:typeface="Roboto-Light.ttf"
+      android:textSize="16sp"
+      android:padding="@dimen/activity_horizontal_margin"/>
+    <com.github.sundeepk.compactcalendarview.CompactCalendarView
+      android:id="@+id/cv_schedule"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_margin="5dp"
+      android:theme="@style/Widget.CalendarView.Custom"
+      app:compactCalendarTargetHeight="300dp"
+      app:compactCalendarTextSize="16sp"
+      app:compactCalendarBackgroundColor="#424242"
+      app:compactCalendarTextColor="#fff"
+      app:compactCalendarCurrentSelectedDayBackgroundColor="#E57373"
+      app:compactCalendarCurrentDayBackgroundColor="#FCC840"
+      app:compactCalendarMultiEventIndicatorColor="#fff"/>
+
+</LinearLayout>

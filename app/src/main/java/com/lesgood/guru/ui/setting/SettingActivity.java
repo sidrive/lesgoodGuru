@@ -42,20 +42,15 @@ public class SettingActivity extends AppCompatPreferenceActivity {
         setupActionBar();
 
         Preference myPref = (Preference) findPreference("logout");
-        myPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            public boolean onPreferenceClick(Preference preference) {
-                presenter.logout();
-                return true;
-            }
+        myPref.setOnPreferenceClickListener(preference -> {
+            presenter.logout();
+            return true;
         });
 
         Preference paymentPref = (Preference) findPreference("payment_information");
-        paymentPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                startBankAccount();
-                return true;
-            }
+        paymentPref.setOnPreferenceClickListener(preference -> {
+            startBankAccount();
+            return true;
         });
 
 

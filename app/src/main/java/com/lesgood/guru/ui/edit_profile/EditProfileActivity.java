@@ -34,6 +34,8 @@ import butterknife.BindString;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.lesgood.guru.R;
 import com.lesgood.guru.base.BaseActivity;
 import com.lesgood.guru.base.BaseApplication;
@@ -44,6 +46,7 @@ import com.lesgood.guru.ui.dialog.DialogUploadOption;
 import com.lesgood.guru.ui.dialog.DialogUploadOption.OnDialogUploadOptionClickListener;
 import com.lesgood.guru.ui.intro.IntroActivity;
 import com.lesgood.guru.ui.main.MainActivity;
+import com.lesgood.guru.util.Const;
 import com.lesgood.guru.util.DateFormatter;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImage.ActivityResult;
@@ -146,7 +149,8 @@ public class EditProfileActivity extends BaseActivity implements OnDateSetListen
   User user;
 
   CharSequence[] charGenders;
-
+  private FirebaseAuth mAuth;
+  private FirebaseUser mUser;
   int genderVal = 3;
   long dateBirthDay = 0;
 
@@ -196,7 +200,8 @@ public class EditProfileActivity extends BaseActivity implements OnDateSetListen
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_edit_profile);
     ButterKnife.bind(this);
-
+    mAuth = FirebaseAuth.getInstance();
+    mUser = mAuth.getCurrentUser();
     setSupportActionBar(toolbar);
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -303,7 +308,8 @@ public class EditProfileActivity extends BaseActivity implements OnDateSetListen
   }
 
   private void init() {
-
+    inputEmail.setText(mUser.getEmail());
+    inputEmail.setEnabled(false);
     if (user.getUid() != null) {
       presenter.getPayment(user.getUid());
     }
@@ -317,9 +323,9 @@ public class EditProfileActivity extends BaseActivity implements OnDateSetListen
     if (user.getGender() != null) {
       initGender(user.getGender());
     }
-    if (user.getEmail() != null) {
+    /*if (user.getEmail() != null) {
       inputEmail.setText(user.getEmail());
-    }
+    }*/
     if (user.getPhone() != null) {
       inputPhone.setText(user.getPhone());
     }
@@ -609,6 +615,7 @@ public class EditProfileActivity extends BaseActivity implements OnDateSetListen
       user.setReligion(religion);
       user.setPendidikan(pendidikan);
       user.setProdi(prodi);
+      user.setUserType(Const.USER_TYPE);
       if (!TextUtils.isEmpty(phone)) {
         user.setPhone(phone);
       }

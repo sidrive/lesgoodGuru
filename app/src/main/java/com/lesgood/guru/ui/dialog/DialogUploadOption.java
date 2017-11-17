@@ -47,7 +47,7 @@ public class DialogUploadOption extends Dialog {
             mCallBack = (OnDialogUploadOptionClickListener) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString()
-                    + " must implement OnDialogUploadOptionClickListener");
+                    + " must implement OnDialogSchedluleClickListener");
         }
 
     }
