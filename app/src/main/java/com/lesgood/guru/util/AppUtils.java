@@ -12,6 +12,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.lesgood.guru.R;
 import com.lesgood.guru.base.BaseApplication;
 import com.muddzdev.styleabletoastlibrary.StyleableToast;
+import retrofit2.http.HEAD;
 
 /**
  * Created by sim-x on 11/7/17.
@@ -23,22 +24,15 @@ public class AppUtils {
     StyleableToast.makeText(context,msg, Toast.LENGTH_SHORT, R.style.MyToast).show();
   }
   public static void setAvatar(Context context, String imgUrl, ImageView img){
-<<<<<<< HEAD
+
     if(imgUrl!=null){
     if (!imgUrl.equalsIgnoreCase("NOT")){
       Glide.with(context).load(imgUrl).placeholder(R.color.colorSoft).dontAnimate().into(img);
       }
     }else {
-=======
-    if (imgUrl.length()!=0){
-      if (!imgUrl.equalsIgnoreCase("NOT")){
-        Glide.with(context).load(imgUrl).placeholder(R.color.colorSoft).dontAnimate().into(img);
-      }
-    }
-    else {
->>>>>>> dev-experiment
+
       Glide.with(context).load(R.drawable.ic_account_circle_black).placeholder(R.color.colorSoft).dontAnimate().into(img);
     }
   }
-//0895375436260
+
 }
