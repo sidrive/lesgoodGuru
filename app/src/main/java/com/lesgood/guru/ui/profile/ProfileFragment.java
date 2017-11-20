@@ -22,6 +22,7 @@ import com.bumptech.glide.request.target.Target;
 import com.lesgood.guru.R;
 import com.lesgood.guru.base.BaseApplication;
 import com.lesgood.guru.base.BaseFragment;
+import com.lesgood.guru.base.config.DefaultConfig;
 import com.lesgood.guru.util.AppUtils;
 import com.lesgood.guru.util.Const;
 import com.lesgood.guru.data.model.Location;
@@ -223,7 +224,7 @@ public class ProfileFragment extends BaseFragment {
         float ratings = user.getReview() / 2;
         totalrating.setText(String.valueOf(ratings));
         rating.setRating(ratings);
-            if (!user.getPhoto_url().equalsIgnoreCase("NOT")){
+           /* if (!user.getPhoto_url().equalsIgnoreCase("NOT")){
                 Glide.with(this)
                         .load(user.getPhoto_url()).listener(new RequestListener<String, GlideDrawable>() {
                     @Override
@@ -247,7 +248,7 @@ public class ProfileFragment extends BaseFragment {
                         .placeholder(R.color.colorSoft)
                         .dontAnimate()
                         .into(imgAvatar);
-            }
+            }*/
         if (user.getTotalSkill() > 0){
             txtSkills.setText(user.getTotalSkill()+" Kemampuan mangajar");
         }
@@ -303,6 +304,8 @@ public class ProfileFragment extends BaseFragment {
 
     @OnClick(R.id.lin_location)
     void showSetLocation(){
+        DefaultConfig defaultConfig = new DefaultConfig(getContext());
+        defaultConfig.setApiUrl(Const.BASE_URL_MAP);
         AddLocationActivity.startWithUser(activity);
     }
 

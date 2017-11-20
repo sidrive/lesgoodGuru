@@ -1,6 +1,7 @@
 package com.lesgood.guru.ui.home;
 
 import com.lesgood.guru.base.annotation.ActivityScope;
+import com.lesgood.guru.base.annotation.FragmentScope;
 import com.lesgood.guru.data.remote.UserService;
 
 import dagger.Module;
@@ -29,5 +30,13 @@ public class HomeFragmentModule {
     HomePresenter provideHomePresenter(UserService userService){
         return new HomePresenter(fragment, userService);
     }
+    @ActivityScope
+    @Provides
+    DaysAdapter provideDayAdapter(){
+        return new DaysAdapter(fragment);
+    }
 
+    @ActivityScope
+    @Provides
+    TimesAdapter provideTimeAdapter(){return new TimesAdapter(fragment);}
 }

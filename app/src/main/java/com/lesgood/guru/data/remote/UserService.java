@@ -8,6 +8,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.lesgood.guru.data.model.EmailConfirmation;
 import com.lesgood.guru.data.model.PartnerPayment;
@@ -155,6 +156,25 @@ public class UserService {
     public Task<Void> removeUserSchedule(String uid, String date){
         return databaseRef.child("user-schedules").child(uid).child(date).removeValue();
     }
+    public Query getDaySchedule(){
+        return databaseRef.child("hari-mengajar").orderByChild("id");
+    }
+    public DatabaseReference setTimeSchedule(String uid, String day){
+        return databaseRef.child("user_schedules").child(uid).child(uid+"_"+day);
+    }
+    public Task<Void> removeUserTimeSchedule(String uid,String day,String time){
+        return databaseRef.child("user_schedules").child(uid).child(uid+"_"+day).child(time).removeValue();
+    }
+    public Task<Void> updateTimeSchedule(String uid, String day, String time){
+        return databaseRef.child("user_schedules").child(uid).child(uid+"_"+day).setValue(time);
+    }
+    public DatabaseReference getUserTimeSchedule(String uid){
+        return databaseRef.child("user_schedules").child(uid);
+    }
+    public DatabaseReference getUserTimeSchedule(String uid, String day){
+        return databaseRef.child("user_schedules").child(uid).child(uid+"_"+day);
+    }
+
     //userschedule
 
     //Userlocation

@@ -5,11 +5,12 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_weight="1"
+        android:drawableLeft="@drawable/ic_time_primary"
         android:layout_height="wrap_content"
         android:padding="@dimen/activity_margin"
         android:text="apa init"
         android:drawablePadding="5dp"
-        android:gravity="center_vertical"
+        android:gravity="center|center_vertical"
         android:id="@+id/txt_name"/>
     <ImageView
         android:layout_width="wrap_content"

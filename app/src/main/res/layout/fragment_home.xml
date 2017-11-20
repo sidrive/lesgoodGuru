@@ -36,11 +36,12 @@
             app:typeface="Roboto-Light.ttf"
             android:textSize="16sp"
             android:layout_marginBottom="10dp"
-            android:text="Jadwal Mengajar Anda"/>
+            android:text="Tentukan Jadwal Mengajar Anda"/>
 
 
     </LinearLayout>
     <com.lesgood.guru.util.TypefacedTextView
+      android:visibility="gone"
       android:id="@+id/tvDateTitle"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -48,6 +49,7 @@
       android:textSize="16sp"
       android:padding="@dimen/activity_horizontal_margin"/>
     <com.github.sundeepk.compactcalendarview.CompactCalendarView
+      android:visibility="gone"
       android:id="@+id/cv_schedule"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -60,5 +62,18 @@
       app:compactCalendarCurrentSelectedDayBackgroundColor="#E57373"
       app:compactCalendarCurrentDayBackgroundColor="#FCC840"
       app:compactCalendarMultiEventIndicatorColor="#fff"/>
-
+    <LinearLayout
+      android:padding="@dimen/activity_horizontal_margin"
+      android:orientation="horizontal"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+          android:id="@+id/rcvDay"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"/>
+        <android.support.v7.widget.RecyclerView
+          android:id="@+id/rcvTime"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"/>
+    </LinearLayout>
 </LinearLayout>
