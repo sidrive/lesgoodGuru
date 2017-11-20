@@ -59,7 +59,6 @@ public class TimesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public void onItemAdded(String item) {
         items.add(item);
         notifyDataSetChanged();
-
     }
 
     public void onItemChanged(String item) {
