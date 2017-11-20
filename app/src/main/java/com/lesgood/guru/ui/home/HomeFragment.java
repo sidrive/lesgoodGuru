@@ -29,6 +29,7 @@ import com.lesgood.guru.R;
 import com.lesgood.guru.base.BaseApplication;
 import com.lesgood.guru.base.BaseFragment;
 import com.lesgood.guru.data.model.Days;
+import com.lesgood.guru.data.model.TimeSchedule;
 import com.lesgood.guru.data.model.User;
 import com.lesgood.guru.ui.main.MainActivity;
 import com.lesgood.guru.util.DateFormatter;
@@ -105,8 +106,9 @@ public class HomeFragment extends BaseFragment {
 
   @Override
   public void onResume() {
-    super.onResume();
     presenter.subscribe();
+    super.onResume();
+
   }
 
   @Override
@@ -165,7 +167,7 @@ public class HomeFragment extends BaseFragment {
 
   public void showItemsDays() {
     rcvDay.setAdapter(daysAdapter);
-    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
     rcvDay.setLayoutManager(linearLayoutManager);
   }
   @OnCheckedChanged(R.id.s_active)
@@ -214,13 +216,14 @@ public class HomeFragment extends BaseFragment {
    daysAdapter.onItemAdded(item);
     showItemsDays();
   }
-  public void addTimeToAdapter(String item){
+  public void addTimeToAdapter(TimeSchedule item){
     timesAdapter.onItemAdded(item);
     showtimeDetailSchedule();
   }
 
   private void showtimeDetailSchedule() {
     rcvTime.setAdapter(timesAdapter);
+    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
     GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),3);
     rcvTime.setLayoutManager(gridLayoutManager);
   }
@@ -231,6 +234,7 @@ public class HomeFragment extends BaseFragment {
         getContext(),
         (view, hourOfDay, minute) -> {
           String time = hourOfDay+":"+minute;
+
           presenter.setTimeSchedule(item.getName(),time);
         },
         cal.get(Calendar.HOUR),
@@ -240,7 +244,7 @@ public class HomeFragment extends BaseFragment {
   }
 
 
-  public void showDetailListSchedule(String name) {
-    presenter.showDetailScheduleByDay(name);
+  public void showDetailListSchedule() {
+    presenter.showDetailScheduleByDay();
   }
 }

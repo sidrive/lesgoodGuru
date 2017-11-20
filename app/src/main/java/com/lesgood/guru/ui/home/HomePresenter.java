@@ -13,6 +13,7 @@ import com.google.firebase.database.DatabaseReference.CompletionListener;
 import com.google.firebase.database.ValueEventListener;
 import com.lesgood.guru.base.BasePresenter;
 import com.lesgood.guru.data.model.Days;
+import com.lesgood.guru.data.model.TimeSchedule;
 import com.lesgood.guru.data.remote.UserService;
 import com.lesgood.guru.util.AppUtils;
 import java.util.ArrayList;
@@ -40,7 +41,8 @@ public class HomePresenter implements BasePresenter {
 
     @Override
     public void subscribe() {
-
+        showDetailScheduleByDay();
+        getUserSchedule();
     }
 
     @Override
@@ -140,35 +142,46 @@ public class HomePresenter implements BasePresenter {
         });
     }
     public void setTimeSchedule(String day,String time){
-        userService.setTimeSchedule(mUser.getUid(),day).push().setValue(time).addOnSuccessListener(aVoid -> {
+        TimeSchedule schedule = new TimeSchedule();
+        schedule.setTime(time);
+        schedule.setDay(day);
+        schedule.setId(mUser.getUid().toString());
+        schedule.setDay_uid(day+"_"+mUser.getUid().toString());
+        schedule.setDay_time(day+"_"+time);
+        userService.setTimeSchedule().push().setValue(schedule)
+            .addOnSuccessListener(aVoid -> {
 
-        }).addOnFailureListener(e -> {
+            })
 
-        });
+            .addOnFailureListener(e -> {
+
+            });
     }
-    public void showDetailScheduleByDay(String day){
-        userService.getUserTimeSchedule(mUser.getUid(),day).addChildEventListener(
+    public void showDetailScheduleByDay(){
+        userService.getUserTimeScheduleById(mUser.getUid()).addChildEventListener(
             new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                    Log.e("onChildAdded", "HomePresenter" + dataSnapshot.toString());
+                    TimeSchedule timeSchedule = dataSnapshot.getValue(TimeSchedule.class);
                     if (dataSnapshot.toString()!=null){
-                        fragment.addTimeToAdapter(dataSnapshot.getValue().toString());
+                        fragment.addTimeToAdapter(timeSchedule);
                     }
                 }
 
                 @Override
                 public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
+                    Log.e("onChildAdded", "HomePresenter" + dataSnapshot.toString());
                 }
 
                 @Override
                 public void onChildRemoved(DataSnapshot dataSnapshot) {
-
+                    Log.e("onChildAdded", "HomePresenter" + dataSnapshot.toString());
                 }
 
                 @Override
                 public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
+                    Log.e("onChildAdded", "HomePresenter" + dataSnapshot.toString());
                 }
 
                 @Override

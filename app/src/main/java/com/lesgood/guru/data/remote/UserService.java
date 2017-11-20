@@ -159,8 +159,8 @@ public class UserService {
     public Query getDaySchedule(){
         return databaseRef.child("hari-mengajar").orderByChild("id");
     }
-    public DatabaseReference setTimeSchedule(String uid, String day){
-        return databaseRef.child("user_schedules").child(uid).child(uid+"_"+day);
+    public DatabaseReference setTimeSchedule(){
+        return databaseRef.child("user_schedules");
     }
     public Task<Void> removeUserTimeSchedule(String uid,String day,String time){
         return databaseRef.child("user_schedules").child(uid).child(uid+"_"+day).child(time).removeValue();
@@ -171,8 +171,8 @@ public class UserService {
     public DatabaseReference getUserTimeSchedule(String uid){
         return databaseRef.child("user_schedules").child(uid);
     }
-    public DatabaseReference getUserTimeSchedule(String uid, String day){
-        return databaseRef.child("user_schedules").child(uid).child(uid+"_"+day);
+    public Query getUserTimeScheduleById(String uid){
+        return databaseRef.child("user_schedules").orderByChild("id").equalTo(uid);
     }
 
     //userschedule
