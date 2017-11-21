@@ -54,11 +54,13 @@
             android:name=".ui.add_skill.AddSkillActivity"
             android:theme="@style/AppTheme" />
 
-        <activity
+
+
+      <activity
             android:name=".ui.add_location.AddLocationActivity"
             android:theme="@style/AppTheme" />
 
-        <fragment
+        <activity
             android:name=".ui.setting.SettingActivity"
             android:label="Pengaturan"/>
 
@@ -68,7 +70,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
 
-        <fragment
+        <activity
             android:name=".ui.skill.SkillActivity"
             android:label="Kemampuan Mengajar"
             android:screenOrientation="portrait"

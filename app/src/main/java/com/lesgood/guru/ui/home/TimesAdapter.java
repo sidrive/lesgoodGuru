@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.lesgood.guru.R;
+import com.lesgood.guru.data.model.TimeSchedule;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class TimesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     private HomeFragment fragment;
 
-    private final List<String> items = new ArrayList<>();
+    private final List<TimeSchedule> items = new ArrayList<>();
 
     public TimesAdapter(HomeFragment fragment) {
         this.fragment = fragment;
@@ -42,8 +43,8 @@ public class TimesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         });*/
     }
 
-    private void onItemClicked(String item) {
-
+    private void onItemClicked(TimeSchedule item) {
+        Log.e("onItemClicked", "TimesAdapter" + item.getTime());
     }
 
     /*private void onItemDeleteClicked(String item){
@@ -56,12 +57,12 @@ public class TimesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
 
-    public void onItemAdded(String item) {
+    public void onItemAdded(TimeSchedule item) {
         items.add(item);
         notifyDataSetChanged();
     }
 
-    public void onItemChanged(String item) {
+    public void onItemChanged(TimeSchedule item) {
         int index = items.indexOf(item);
         if(index > -1) {
             items.set(index, item);

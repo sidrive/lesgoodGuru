@@ -39,7 +39,12 @@ public class DaysAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     private void onItemClicked(Days item) {
-        fragment.showDetailListSchedule(item.getName());
+        Log.e("onItemClicked", "DaysAdapter" + items.size());
+        if (items.size()>0){
+            items.clear();
+            fragment.showDetailListSchedule();
+        }
+
     }
 
     private void onshowTimePicker(Days item){

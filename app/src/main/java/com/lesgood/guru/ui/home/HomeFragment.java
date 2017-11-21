@@ -225,7 +225,7 @@ public class HomeFragment extends BaseFragment {
     rcvTime.setAdapter(timesAdapter);
     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
     GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),3);
-    rcvTime.setLayoutManager(gridLayoutManager);
+    rcvTime.setLayoutManager(gridLayoutManager );
   }
 
   public void showTimePicker(Days item) {
