@@ -106,9 +106,8 @@ public class HomeFragment extends BaseFragment {
 
   @Override
   public void onResume() {
-    presenter.subscribe();
     super.onResume();
-
+    presenter.subscribe();
   }
 
   @Override
@@ -139,8 +138,6 @@ public class HomeFragment extends BaseFragment {
     Date date = c.getTime();
     tvDateTitle.setText(Utils.dateToString(date));
     cvSchedule.setListener(compactCalendarViewListener);
-
-
   }
 
   public CompactCalendarViewListener compactCalendarViewListener = new CompactCalendarViewListener() {
