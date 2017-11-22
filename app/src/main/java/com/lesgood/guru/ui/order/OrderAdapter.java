@@ -34,12 +34,7 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         ((OrderViewHolder)holder).bind(orders.get(position));
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onUserItemClicked(orders.get(position));
-            }
-        });
+        holder.itemView.setOnClickListener(v -> onUserItemClicked(orders.get(position)));
     }
 
     private void onUserItemClicked(Order order) {

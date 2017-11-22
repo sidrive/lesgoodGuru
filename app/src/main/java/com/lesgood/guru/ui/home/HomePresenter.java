@@ -162,31 +162,36 @@ public class HomePresenter implements BasePresenter {
             new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                    Log.e("onChildAdded", "HomePresenter" + dataSnapshot.toString());
                     TimeSchedule timeSchedule = dataSnapshot.getValue(TimeSchedule.class);
-                    if (dataSnapshot.toString()!=null){
+                    if (dataSnapshot!=null){
                         fragment.addTimeToAdapter(timeSchedule);
                     }
                 }
 
                 @Override
                 public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                    Log.e("onChildAdded", "HomePresenter" + dataSnapshot.toString());
+                    if (dataSnapshot!=null){
+                        fragment.timesAdapter.notifyDataSetChanged();
+                    }
                 }
 
                 @Override
                 public void onChildRemoved(DataSnapshot dataSnapshot) {
-                    Log.e("onChildAdded", "HomePresenter" + dataSnapshot.toString());
+                    if (dataSnapshot!=null){
+                        fragment.timesAdapter.notifyDataSetChanged();
+                    }
                 }
 
                 @Override
                 public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-                    Log.e("onChildAdded", "HomePresenter" + dataSnapshot.toString());
+                    if (dataSnapshot!=null){
+                        fragment.timesAdapter.notifyDataSetChanged();
+                    }
                 }
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-
+                    Log.e("onCancelled", "HomePresenter" + databaseError.getMessage());
                 }
             });
     }

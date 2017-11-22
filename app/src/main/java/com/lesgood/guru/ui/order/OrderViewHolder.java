@@ -57,11 +57,18 @@ public class OrderViewHolder extends RecyclerView.ViewHolder {
 
         txtPertemuan.setText(String.valueOf(order.getTotalPertemuan())+" Pertemuan");
         txtSiswa.setText(String.valueOf(order.getTotalSiswa())+" Siswa");
-        txtStatus.setText(order.getStatus());
+
         txtPrice.setText("Rp."+toRupiah(total));
         txtDay.setText(DateFormatter.getDate(order.getPertemuanTime(), "dd"));
         txtMonth.setText(DateFormatter.getDate(order.getPertemuanTime(), "MMM"));
         txtOrderat.setText("ordered at "+DateFormatter.getDate(order.getOrdertime(), "dd-mm-yy, HH:mm"));
+        if (order.getStatus().equals("pending_guru")){
+            txtStatus.setText("Menunggu Konfirmasi Guru");
+        }else if (order.getStatus().equals("pending_murid")){
+            txtStatus.setText("Menunggu Pembayaran Siswa");
+        }else {
+           txtStatus.setText("SUCCESS");
+        }
     }
 
     private String toRupiah(int amount){

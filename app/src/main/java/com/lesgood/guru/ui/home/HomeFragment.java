@@ -130,6 +130,7 @@ public class HomeFragment extends BaseFragment {
     ButterKnife.bind(this, view);
     getActivity().setTitle("Lesgood Pengajar");
     presenter.getDaySchedule();
+    init();
     return view;
   }
 
@@ -153,8 +154,9 @@ public class HomeFragment extends BaseFragment {
   };
 
   public void init() {
+    Log.e("init", "HomeFragment" + user.isActive());
     sStatus.setChecked(user.isActive());
-    initSchedule();
+    //initSchedule();
     if (user.isActive()) {
       sStatus.setText("Status : Aktif");
     } else {
