@@ -221,10 +221,10 @@ public class ProfileFragment extends BaseFragment {
 
     private void init(){
         txtName.setText(user.getFull_name());
-        float ratings = user.getReview() / 2;
+        float ratings = user.getReview() / 10;
         totalrating.setText(String.valueOf(ratings));
         rating.setRating(ratings);
-           /* if (!user.getPhoto_url().equalsIgnoreCase("NOT")){
+            if (!user.getPhoto_url().equalsIgnoreCase("NOT")){
                 Glide.with(this)
                         .load(user.getPhoto_url()).listener(new RequestListener<String, GlideDrawable>() {
                     @Override
@@ -248,7 +248,7 @@ public class ProfileFragment extends BaseFragment {
                         .placeholder(R.color.colorSoft)
                         .dontAnimate()
                         .into(imgAvatar);
-            }*/
+            }
         if (user.getTotalSkill() > 0){
             txtSkills.setText(user.getTotalSkill()+" Kemampuan mangajar");
         }

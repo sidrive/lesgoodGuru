@@ -60,6 +60,7 @@ android {
 }
 
 dependencies {
+    compile 'com.google.firebase:firebase-auth:10.2.0'
     compile 'com.prolificinteractive:material-calendarview:1.4.3'
     compile 'com.github.sundeepk:compact-calendar-view:2.0.3-beta'
     compile fileTree(include: ['*.jar'], dir: 'libs')
@@ -70,10 +71,8 @@ dependencies {
     compile rootProject.ext.supprtCardView
     compile rootProject.ext.supportV4
     compile rootProject.ext.supportVectorDrawable
-
     apt rootProject.ext.daggerCompiler
     provided rootProject.ext.javax
-
     compile rootProject.ext.dagger
     compile rootProject.ext.timber
     compile rootProject.ext.guava
@@ -107,7 +106,6 @@ dependencies {
     // Android Testing Support Library's runner and rules
     androidTestCompile rootProject.ext.runner
     androidTestCompile rootProject.ext.rules
-
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.facebook.android:facebook-android-sdk:4.21.1'
     compile 'com.wdullaer:materialdatetimepicker:3.1.3'
