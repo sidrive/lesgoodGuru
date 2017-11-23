@@ -2,28 +2,26 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_margin="2dp"
-    android:background="@drawable/gradient_bg"
+    android:background="@drawable/circle_primary"
     android:weightSum="2"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <TextView
-
-      android:layout_width="wrap_content"
+      android:layout_width="match_parent"
       android:layout_weight="1"
       android:layout_height="wrap_content"
       android:padding="5dp"
       android:text="apa init"
-      android:drawablePadding="5dp"
-      android:gravity="center_vertical"
+      android:layout_gravity="center"
+      android:gravity="center"
       android:id="@+id/tvDay"/>
     <TextView
-      android:layout_width="wrap_content"
+      android:layout_width="match_parent"
       android:layout_weight="1"
       android:layout_height="wrap_content"
       android:padding="5dp"
       android:text="apa init"
-      android:drawablePadding="5dp"
-      android:gravity="center_vertical"
+      android:gravity="center"
       android:id="@+id/tvTime"/>
 
 </LinearLayout>

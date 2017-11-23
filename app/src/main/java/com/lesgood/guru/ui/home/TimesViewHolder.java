@@ -10,6 +10,7 @@ import butterknife.ButterKnife;
 import com.lesgood.guru.R;
 import com.lesgood.guru.data.model.Pengalaman;
 import com.lesgood.guru.data.model.TimeSchedule;
+import com.lesgood.guru.util.Utils;
 
 public class TimesViewHolder extends RecyclerView.ViewHolder {
 
@@ -28,7 +29,7 @@ public class TimesViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(TimeSchedule item) {
-        tvTime.setText(item.getTime());
+        tvTime.setText(Utils.longToString(item.getStartTime())+" - "+Utils.longToString(item.getEndTime()));
         tvDay.setText(item.getDay());
     }
 }

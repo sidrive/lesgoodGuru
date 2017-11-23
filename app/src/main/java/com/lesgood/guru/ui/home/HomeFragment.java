@@ -129,6 +129,7 @@ public class HomeFragment extends BaseFragment {
     ButterKnife.bind(this, view);
     getActivity().setTitle("Lesgood Pengajar");
     presenter.getDaySchedule();
+    presenter.showDetailScheduleByDay();
     init();
     return view;
   }
@@ -167,6 +168,7 @@ public class HomeFragment extends BaseFragment {
     rcvDay.setAdapter(daysAdapter);
     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
     rcvDay.setLayoutManager(linearLayoutManager);
+
   }
   @OnCheckedChanged(R.id.s_active)
   void onStatusChanged(boolean status) {
@@ -211,7 +213,7 @@ public class HomeFragment extends BaseFragment {
 
 
   public void showAddedItem(Days item) {
-   daysAdapter.onItemAdded(item);
+    daysAdapter.onItemAdded(item);
     showItemsDays();
   }
   public void addTimeToAdapter(TimeSchedule item){
@@ -221,7 +223,7 @@ public class HomeFragment extends BaseFragment {
 
   private void showtimeDetailSchedule() {
     rcvTime.setAdapter(timesAdapter);
-    GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),3);
+    GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),2);
     rcvTime.setLayoutManager(gridLayoutManager );
   }
 
@@ -230,14 +232,40 @@ public class HomeFragment extends BaseFragment {
     TimePickerDialog timePickerDialog =   new TimePickerDialog(
         getContext(),
         (view, hourOfDay, minute) -> {
-          String time = hourOfDay+":"+minute;
+          cal.set(Calendar.HOUR,hourOfDay);
+          cal.set(Calendar.MINUTE,minute);
 
-          presenter.setTimeSchedule(item.getName(),time);
         },
         cal.get(Calendar.HOUR),
         cal.get(Calendar.MINUTE), true);
     timePickerDialog.show();
+  }
+  public void showStarTimePicker(Days item) {
+    Calendar cal = Calendar.getInstance();
+    TimePickerDialog timePickerDialog =   new TimePickerDialog(
+        getContext(),
+        (view, hourOfDay, minute) -> {
+          cal.set(Calendar.HOUR,hourOfDay);
+          cal.set(Calendar.MINUTE,minute);
 
+          showEndTimePicker(item,cal.getTimeInMillis());
+        },
+        cal.get(Calendar.HOUR),
+        cal.get(Calendar.MINUTE), true);
+    timePickerDialog.show();
+  }
+  public void showEndTimePicker(Days item, long statTime) {
+    Calendar cal = Calendar.getInstance();
+    TimePickerDialog timePickerDialog =   new TimePickerDialog(
+        getContext(),
+        (view, hourOfDay, minute) -> {
+          cal.set(Calendar.HOUR,hourOfDay);
+          cal.set(Calendar.MINUTE,minute);
+          presenter.setTimeSchedule(item.getName(),statTime,cal.getTimeInMillis());
+        },
+        cal.get(Calendar.HOUR),
+        cal.get(Calendar.MINUTE), true);
+    timePickerDialog.show();
   }
 
 

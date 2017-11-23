@@ -34,21 +34,16 @@ public class DaysAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         ((DaysViewHolder)holder).bind(items.get(position));
         holder.itemView.setOnClickListener(v -> onItemClicked(items.get(position)));
 
-        ((DaysViewHolder) holder).imgRemove.setOnClickListener(
-            v -> onshowTimePicker(items.get(position)));
+        /*((DaysViewHolder) holder).imgRemove.setOnClickListener(
+            v -> onshowTimePicker(items.get(position)));*/
     }
 
     private void onItemClicked(Days item) {
-        Log.e("onItemClicked", "DaysAdapter" + items.size());
-        if (items.size()>0){
-            items.clear();
-            fragment.showDetailListSchedule();
-        }
-
+        fragment.showStarTimePicker(item);
     }
 
     private void onshowTimePicker(Days item){
-        fragment.showTimePicker(item);
+        fragment.showStarTimePicker(item);
     }
 
     @Override

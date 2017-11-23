@@ -14,10 +14,6 @@ public class DaysViewHolder extends RecyclerView.ViewHolder {
 
     @Bind(R.id.txt_name)
     TextView txtTitle;
-
-    @Bind(R.id.img_remove)
-    ImageView imgRemove;
-
     private View itemView;
 
     public DaysViewHolder(View itemView) {

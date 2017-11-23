@@ -125,14 +125,13 @@ public class MainActivity extends BaseActivity {
         fetchWelcome();
         String token = FirebaseInstanceId.getInstance().getToken();
         presenter.updateFCMToken(user.getUid(),token);
-        Log.e("onCreate", "MainActivity" + token);
+
     }
 
     BroadcastReceiver tokenReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             String token = intent.getStringExtra("token");
-            Log.e("onReceive", "MainActivity" + token);
             if(token != null)
             {
                 presenter.updateFCMToken(user.getUid(),token);
