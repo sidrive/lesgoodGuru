@@ -60,7 +60,7 @@ public class UserService {
     //users
 
     public void updateUserToken(String uid, String token){
-        databaseRef.child("users").child(uid).child("users-token").setValue(token);
+        databaseRef.child("users").child(uid).child("token").setValue(token);
     }
 
     public void sendEmailConfirmation(EmailConfirmation emailConfirmation){
