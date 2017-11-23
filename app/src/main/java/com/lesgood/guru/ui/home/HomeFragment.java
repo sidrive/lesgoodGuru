@@ -221,7 +221,6 @@ public class HomeFragment extends BaseFragment {
 
   private void showtimeDetailSchedule() {
     rcvTime.setAdapter(timesAdapter);
-    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
     GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),3);
     rcvTime.setLayoutManager(gridLayoutManager );
   }
