@@ -2,6 +2,7 @@ package com.lesgood.guru.ui.add_skill;
 
 import android.support.annotation.NonNull;
 
+import android.util.Log;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -61,7 +62,7 @@ public class AddSkillPresenter implements BasePresenter {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                Log.e("onCancelled", "AddSkillPresenter" + databaseError.getMessage());
             }
         });
     }
@@ -81,7 +82,7 @@ public class AddSkillPresenter implements BasePresenter {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                Log.e("onCancelled", "AddSkillPresenter" + databaseError.getMessage());
             }
         });
     }
@@ -101,7 +102,7 @@ public class AddSkillPresenter implements BasePresenter {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                Log.e("onCancelled", "AddSkillPresenter" + databaseError.getMessage());
             }
         });
     }

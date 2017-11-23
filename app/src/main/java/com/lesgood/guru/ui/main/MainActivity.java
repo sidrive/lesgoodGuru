@@ -21,6 +21,7 @@ import android.view.MenuItem;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.lesgood.guru.BuildConfig;
@@ -29,6 +30,7 @@ import com.lesgood.guru.base.BaseActivity;
 import com.lesgood.guru.base.BaseApplication;
 
 import com.lesgood.guru.data.model.User;
+import com.lesgood.guru.data.remote.FirebaseInstanceIDService;
 import com.lesgood.guru.ui.home.HomeFragment;
 import com.lesgood.guru.ui.order.OrderFragment;
 import com.lesgood.guru.ui.profile.ProfileFragment;
@@ -121,13 +123,16 @@ public class MainActivity extends BaseActivity {
         mFirebaseRemoteConfig.setDefaults(R.xml.remote_config_defaults);
 
         fetchWelcome();
-
+        String token = FirebaseInstanceId.getInstance().getToken();
+        presenter.updateFCMToken(user.getUid(),token);
+        Log.e("onCreate", "MainActivity" + token);
     }
 
     BroadcastReceiver tokenReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             String token = intent.getStringExtra("token");
+            Log.e("onReceive", "MainActivity" + token);
             if(token != null)
             {
                 presenter.updateFCMToken(user.getUid(),token);
