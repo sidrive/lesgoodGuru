@@ -160,19 +160,19 @@ public class UserService {
         return databaseRef.child("hari-mengajar").orderByChild("id");
     }
     public DatabaseReference setTimeSchedule(){
-        return databaseRef.child("user_schedules");
+        return databaseRef.child("user-schedules");
     }
     public Task<Void> removeUserTimeSchedule(String uid,String day,String time){
-        return databaseRef.child("user_schedules").child(uid).child(uid+"_"+day).child(time).removeValue();
+        return databaseRef.child("user-schedules").child(uid).child(uid+"_"+day).child(time).removeValue();
     }
     public Task<Void> updateTimeSchedule(String uid, String day, String time){
-        return databaseRef.child("user_schedules").child(uid).child(uid+"_"+day).setValue(time);
+        return databaseRef.child("user-schedules").child(uid).child(uid+"_"+day).setValue(time);
     }
     public DatabaseReference getUserTimeSchedule(String uid){
-        return databaseRef.child("user_schedules").child(uid);
+        return databaseRef.child("user-schedules").child(uid);
     }
     public Query getUserTimeScheduleById(String uid){
-        return databaseRef.child("user_schedules").orderByChild("id").equalTo(uid);
+        return databaseRef.child("user-schedules").orderByChild("id").equalTo(uid);
     }
 
     //userschedule

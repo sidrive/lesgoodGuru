@@ -41,7 +41,6 @@ public class HomePresenter implements BasePresenter {
 
     @Override
     public void subscribe() {
-        showDetailScheduleByDay();
         getUserSchedule();
     }
 
@@ -141,20 +140,20 @@ public class HomePresenter implements BasePresenter {
             getUserSchedule();
         });
     }
-    public void setTimeSchedule(String day,String time){
+    public void setTimeSchedule(String day,long statTime, long endTime){
         TimeSchedule schedule = new TimeSchedule();
-        schedule.setTime(time);
         schedule.setDay(day);
         schedule.setId(mUser.getUid().toString());
         schedule.setDay_uid(day+"_"+mUser.getUid().toString());
-        schedule.setDay_time(day+"_"+time);
+        schedule.setStartTime(statTime);
+        schedule.setEndTime(endTime);
         userService.setTimeSchedule().push().setValue(schedule)
             .addOnSuccessListener(aVoid -> {
-
+                Log.e("setTimeSchedule", "SUSSESS");
             })
 
             .addOnFailureListener(e -> {
-
+                Log.e("setTimeSchedule", "GAGAL");
             });
     }
     public void showDetailScheduleByDay(){

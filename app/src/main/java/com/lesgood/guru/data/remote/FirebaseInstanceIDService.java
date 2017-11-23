@@ -25,7 +25,7 @@ public class FirebaseInstanceIDService extends FirebaseInstanceIdService {
 
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
 
-        Log.d("FCN TOKEN GET", "Refreshed token: " + refreshedToken);
+        Log.e("FCN TOKEN GET", "Refreshed token: " + refreshedToken);
 
         final Intent intent = new Intent("tokenReceiver");
         // You can also include some extra data.
