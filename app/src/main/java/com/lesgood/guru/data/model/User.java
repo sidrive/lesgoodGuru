@@ -70,7 +70,7 @@ public class User implements Serializable {
     public String userType;
 
     @Nullable
-    public String tokenFcm;
+    public String token;
 
     public static User newInstance(FirebaseUser firebaseUser, UserInfo provider) {
         User user = new User(firebaseUser.getUid());
@@ -93,23 +93,23 @@ public class User implements Serializable {
         this.uid = uid;
     }
 
-    public User(String uid, String phone, String email, String provider, String photo_url, String full_name, String tokenFcm) {
+    public User(String uid, String phone, String email, String provider, String photo_url, String full_name, String token) {
         this.uid = uid;
         this.phone = phone;
         this.email = email;
         this.provider = provider;
         this.photo_url = photo_url;
         this.full_name = full_name;
-        this.tokenFcm = tokenFcm;
+        this.token = token;
     }
 
     @Nullable
-    public String getTokenFcm() {
-        return tokenFcm;
+    public String getToken() {
+        return token;
     }
 
-    public void setTokenFcm(@Nullable String tokenFcm) {
-        this.tokenFcm = tokenFcm;
+    public void setToken(@Nullable String token) {
+        this.token = token;
     }
 
     @NonNull
