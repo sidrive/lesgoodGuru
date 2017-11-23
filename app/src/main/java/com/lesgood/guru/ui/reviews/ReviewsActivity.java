@@ -2,6 +2,7 @@ package com.lesgood.guru.ui.reviews;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -10,6 +11,7 @@ import android.widget.LinearLayout;
 import com.lesgood.guru.R;
 import com.lesgood.guru.base.BaseActivity;
 import com.lesgood.guru.base.BaseApplication;
+import com.lesgood.guru.data.model.Reviews;
 import com.lesgood.guru.data.model.User;
 import com.lesgood.guru.ui.skill.SkillActivityModule;
 import com.lesgood.guru.ui.skill.SkillAdapter;
@@ -50,6 +52,9 @@ public class ReviewsActivity extends BaseActivity{
     @Inject
     ReviewsPresenter presenter;
 
+    @Inject
+    ReviewsAdapter adapter;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,6 +66,8 @@ public class ReviewsActivity extends BaseActivity{
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        showItems();
 
     }
 
@@ -75,12 +82,14 @@ public class ReviewsActivity extends BaseActivity{
     @Override
     protected void onResume() {
         super.onResume();
+        adapter.clearList();
         presenter.subscribe();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        adapter.clearList();
 
     }
 
@@ -102,5 +111,26 @@ public class ReviewsActivity extends BaseActivity{
             finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void showAddedItem(Reviews item) {
+        adapter.onItemAdded(item);
+        adapter.notifyDataSetChanged();
+    }
+
+    public void showChangedItem(Reviews item) {
+        adapter.onItemChanged(item);
+        adapter.notifyDataSetChanged();
+    }
+
+    public void showRemovedItem(Reviews item){
+        adapter.onItemRemoved(item);
+        adapter.notifyDataSetChanged();
+    }
+
+    public void showItems() {
+        rvItems.setAdapter(adapter);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        rvItems.setLayoutManager(linearLayoutManager);
     }
 }

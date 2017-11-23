@@ -29,4 +29,10 @@ public class ReviewsActivityModule {
     ReviewsPresenter provideReviewsPresenter(UserService userService, User user){
         return new ReviewsPresenter(activity, userService, user);
     }
+
+    @ActivityScope
+    @Provides
+    ReviewsAdapter provideReviewsAdapter(){
+        return new ReviewsAdapter(activity);
+    }
 }

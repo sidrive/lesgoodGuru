@@ -14,6 +14,7 @@ import com.lesgood.guru.data.model.EmailConfirmation;
 import com.lesgood.guru.data.model.PartnerPayment;
 import com.lesgood.guru.data.model.Pengalaman;
 import com.lesgood.guru.data.model.Prestasi;
+import com.lesgood.guru.data.model.Reviews;
 import com.lesgood.guru.data.model.Skill;
 import com.lesgood.guru.data.model.User;
 
@@ -176,6 +177,16 @@ public class UserService {
     }
 
     //userschedule
+
+    //userreviews
+    public DatabaseReference getUserReviews(String uid){
+        return databaseRef.child("user-reviews").child(uid).child("reviews");
+    }
+
+    public Task<Void> updateReviews(String gid, String uid, Reviews reviews){
+        return databaseRef.child("user-reviews").child(gid).child("reviews").child(reviews.getId()).setValue(reviews);
+    }
+    //userreview
 
     //Userlocation
     public DatabaseReference getUserLocation(String uid){
