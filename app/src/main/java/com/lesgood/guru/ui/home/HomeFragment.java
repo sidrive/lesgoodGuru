@@ -242,16 +242,16 @@ public class HomeFragment extends BaseFragment {
   }
   public void showStarTimePicker(Days item) {
     Calendar cal = Calendar.getInstance();
+
     TimePickerDialog timePickerDialog =   new TimePickerDialog(
         getContext(),
         (view, hourOfDay, minute) -> {
           cal.set(Calendar.HOUR,hourOfDay);
           cal.set(Calendar.MINUTE,minute);
-
           showEndTimePicker(item,cal.getTimeInMillis());
         },
         cal.get(Calendar.HOUR),
-        cal.get(Calendar.MINUTE), true);
+        cal.get(Calendar.MINUTE), false);
     timePickerDialog.show();
   }
   public void showEndTimePicker(Days item, long statTime) {
@@ -264,7 +264,7 @@ public class HomeFragment extends BaseFragment {
           presenter.setTimeSchedule(item.getName(),statTime,cal.getTimeInMillis());
         },
         cal.get(Calendar.HOUR),
-        cal.get(Calendar.MINUTE), true);
+        cal.get(Calendar.MINUTE), false);
     timePickerDialog.show();
   }
 
