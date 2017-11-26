@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "587589507868-d0ljnqe9v3hlf5km7sjiflqguc0pcfid.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lesgood.guru",
+            "certificate_hash": "3d334a06eafb17316c52367a6818304a3f5d7730"
+          }
+        },
+        {
+          "client_id": "587589507868-a0k36d8hfuf2pt0v8vk7t233rlbd5dmp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lesgood.guru",
+            "certificate_hash": "95cb0efa1b968154e719ed89351fad90fc6cc0a7"
+          }
+        },
+        {
           "client_id": "587589507868-eic2o8vi1d5s5nmpcav82cjof9iqeks7.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -74,6 +90,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "587589507868-itlborvcpbl3magss2l9qebqgreo604b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lesgood.app",
+            "certificate_hash": "95cb0efa1b968154e719ed89351fad90fc6cc0a7"
+          }
+        },
         {
           "client_id": "587589507868-03tg3cq39a6msfmqalbh4osdkjdcirtk.apps.googleusercontent.com",
           "client_type": 1,
