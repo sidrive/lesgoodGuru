@@ -102,8 +102,6 @@ public class AddSkillActivity extends BaseActivity {
     @Bind(R.id.paket20)
     CheckBox paket20;
 
-    @Bind(R.id.paket30)
-    CheckBox paket30;
 
     @Inject
     User user;
@@ -161,7 +159,7 @@ public class AddSkillActivity extends BaseActivity {
         if (skill.getLevel() != null) initLevel();
 
         paket20.setChecked(skill.isHave20());
-        paket30.setChecked(skill.isHave30());
+
     }
 
     public void initSubcategory(){
@@ -396,10 +394,10 @@ public class AddSkillActivity extends BaseActivity {
       String how = inputHow.getText().toString();
       String fasility = inputFasility.getText().toString();
       boolean havepaket20 = paket20.isChecked();
-      boolean havepaket30 = paket30.isChecked();
+
 
       skill.setHave20(havepaket20);
-      skill.setHave30(havepaket30);
+
 
 
         if (skill.getPrice1() < 40000){

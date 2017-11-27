@@ -299,12 +299,7 @@
                 android:layout_marginTop="@dimen/activity_margin"
                 android:text="Apakah anda mampu meberikan paket belajar 20 kali pertemuan ?"/>
 
-            <CheckBox
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/paket30"
-                android:layout_marginTop="@dimen/activity_margin"
-                android:text="Apakah anda mampu meberikan paket belajar 30 kali pertemuan ?"/>
+
 
         </LinearLayout>
 

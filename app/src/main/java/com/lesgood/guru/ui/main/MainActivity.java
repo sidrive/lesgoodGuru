@@ -132,7 +132,7 @@ public class MainActivity extends BaseActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             String token = intent.getStringExtra("token");
-            if(token != null).
+            if(token != null)
             {
                 presenter.updateFCMToken(user.getUid(),token);
             }
