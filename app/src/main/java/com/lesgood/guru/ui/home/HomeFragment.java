@@ -5,8 +5,13 @@ import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -132,7 +137,9 @@ public class HomeFragment extends BaseFragment {
     presenter.showDetailScheduleByDay();
     init();
     return view;
+
   }
+
 
   private void initSchedule() {
     Calendar c = Calendar.getInstance();
@@ -162,6 +169,7 @@ public class HomeFragment extends BaseFragment {
     } else {
       sStatus.setText("Status : Tidak Aktif");
     }
+
   }
 
   public void showItemsDays() {

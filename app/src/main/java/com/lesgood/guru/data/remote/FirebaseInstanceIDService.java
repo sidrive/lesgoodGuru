@@ -8,6 +8,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
+import com.lesgood.guru.data.model.User;
+
+import static com.lesgood.guru.data.remote.UserService.*;
 
 /**
  * Created by Agus on 3/2/17.
@@ -33,10 +36,16 @@ public class FirebaseInstanceIDService extends FirebaseInstanceIdService {
         intent.putExtra("token",refreshedToken);
         broadcastManager.sendBroadcast(intent);
 
+        sendRegistrationToServer(refreshedToken);
+
     }
     // [END refresh_token]
 
     private void sendRegistrationToServer(String token) {
+   /* User user = new User();
+
+
+    UserService.updateFirebaseToken(user.getUid(),token);*/
 
     }
 }

@@ -226,4 +226,9 @@ public class UserService {
     }
     // User Schedule
 
+
+    public void updateFirebaseToken(String uid, String token){
+        databaseRef.child("users").child(uid).child("userDeviceToken").setValue(token);
+    }
+
 }

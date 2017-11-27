@@ -1,8 +1,13 @@
 package com.lesgood.guru.ui.splash;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.LocalBroadcastManager;
+import android.widget.Toast;
 
 
 import com.lesgood.guru.R;
@@ -27,7 +32,24 @@ public class SplashActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        LocalBroadcastManager.getInstance(this).registerReceiver(tokenReceiver,
+                new IntentFilter("tokenReceiver"));
+
     }
+
+    BroadcastReceiver tokenReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String token = intent.getStringExtra("token");
+            Toast.makeText(context, "--------------", Toast.LENGTH_SHORT).show();
+            if(token != null)
+            {
+                presenter.updateFCMToken(token);
+            }
+
+
+        }
+    };
 
     @Override
     protected void onResume() {

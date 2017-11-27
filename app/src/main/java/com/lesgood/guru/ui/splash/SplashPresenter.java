@@ -67,7 +67,9 @@ public class SplashPresenter implements BasePresenter {
 
                             activity.showRegisterActivity(user);
                         } else {
-                            if (remoteUser.isVerified()) activity.showMainActivity(remoteUser);
+                            if (remoteUser.isVerified()) { activity.showMainActivity(remoteUser);
+                            sendUser(user.getUid());
+                            }
                             else activity.showVerificationActivity(remoteUser);
 
                         }
@@ -81,5 +83,13 @@ public class SplashPresenter implements BasePresenter {
         );
     }
 
+    public String sendUser(String uid){
+        return uid;
+    }
+
+    public void updateFCMToken(String token){
+        String uid = "hQg3kf6isfXDNsD3JuphFt79ffg2";
+        userService.updateUserToken(uid, token);
+    }
 
 }
