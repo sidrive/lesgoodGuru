@@ -139,7 +139,7 @@ public class HomePresenter implements BasePresenter {
     }
     public void deleteSchedule(String id){
         userService.removeUserTimeSchedule(id).addOnCompleteListener(task -> {
-            showDetailScheduleByDay();
+
         });
     }
     public void setTimeSchedule(String day,long statTime, long endTime){
