@@ -40,6 +40,7 @@ public class HomePresenter implements BasePresenter {
     @Override
     public void subscribe() {
         getUserSchedule();
+        fragment.showtimeDetailSchedule();
     }
 
     @Override
@@ -147,7 +148,7 @@ public class HomePresenter implements BasePresenter {
         schedule.setEndTime(endTime);
         userService.setTimeSchedule().push().setValue(schedule)
             .addOnSuccessListener(aVoid -> {
-                Log.e("setTimeSchedule", "SUSSESS");
+                fragment.showtimeDetailSchedule();
             })
 
             .addOnFailureListener(e -> {

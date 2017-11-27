@@ -187,7 +187,6 @@ public class HomeFragment extends BaseFragment {
     rcvDay.setAdapter(daysAdapter);
     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
     rcvDay.setLayoutManager(linearLayoutManager);
-
   }
   @OnCheckedChanged(R.id.s_active)
   void onStatusChanged(boolean status) {
@@ -204,7 +203,6 @@ public class HomeFragment extends BaseFragment {
     super.onDestroyView();
     ButterKnife.unbind(this);
   }
-
   public void showDialogSetJadwal(long date) {
     Builder builder = new Builder(getContext());
     View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_schedule, null, false);
@@ -237,10 +235,9 @@ public class HomeFragment extends BaseFragment {
   }
   public void addTimeToAdapter(TimeSchedule item){
     timesAdapter.onItemAdded(item);
-    showtimeDetailSchedule();
   }
 
-  private void showtimeDetailSchedule() {
+  public void showtimeDetailSchedule() {
     rcvTime.setAdapter(timesAdapter);
     GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),2);
     rcvTime.setLayoutManager(gridLayoutManager );
