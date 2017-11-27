@@ -24,6 +24,7 @@ import com.lesgood.guru.base.BaseApplication;
 import com.lesgood.guru.data.model.Order;
 import com.lesgood.guru.data.model.User;
 import com.lesgood.guru.ui.main.MainActivity;
+import com.lesgood.guru.ui.map.MapsActivity;
 import com.lesgood.guru.util.DateFormatter;
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -287,6 +288,7 @@ public class OrderDetailActivity extends BaseActivity {
 
 
   @OnClick(R.id.img_map)
-  public void onViewClicked() {
+  public void onMapCliked() {
+    MapsActivity.start(this);
   }
 }

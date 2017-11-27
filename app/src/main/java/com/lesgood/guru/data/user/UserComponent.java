@@ -21,6 +21,8 @@ import com.lesgood.guru.ui.intro.IntroActivityComponent;
 import com.lesgood.guru.ui.intro.IntroActivityModule;
 import com.lesgood.guru.ui.main.MainActivityComponent;
 import com.lesgood.guru.ui.main.MainActivityModule;
+import com.lesgood.guru.ui.map.MapActivityComponent;
+import com.lesgood.guru.ui.map.MapActivityModule;
 import com.lesgood.guru.ui.payment_detail.PaymentDetailActivityComponent;
 import com.lesgood.guru.ui.payment_detail.PaymentDetailActivityModule;
 import com.lesgood.guru.ui.pengalaman.PengalamanActivityComponent;
@@ -73,4 +75,6 @@ public interface UserComponent {
         VerificationActivityComponent plus(VerificationActivityModule activityModule);
 
         ReviewsActivityComponent plus(ReviewsActivityModule activityModule);
+
+        MapActivityComponent plus(MapActivityModule mapActivityModule);
 }

@@ -61,7 +61,6 @@ public class BaseApplication extends MultiDexApplication {
     }
 
     private void initAppComponent() {
-        Log.d("initappcomponent", " = "+defaultConfig.getApiUrl());
         appComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
                 .firebaseModule(new FirebaseModule())
