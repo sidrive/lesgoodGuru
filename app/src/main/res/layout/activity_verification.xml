@@ -114,6 +114,16 @@
 
             </RelativeLayout>
 
+            <Button
+                android:id="@+id/button_Save"
+                style="@style/ColoredButton"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/img_foto_ijazah"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:text="SAVE" />
+
 
         </LinearLayout>
     </ScrollView>

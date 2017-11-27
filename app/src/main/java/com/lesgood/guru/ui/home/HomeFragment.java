@@ -9,6 +9,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
@@ -77,6 +78,9 @@ public class HomeFragment extends BaseFragment {
 
   @Bind(R.id.cv_schedule)
   CompactCalendarView cvSchedule;
+
+  @Bind(R.id.tvStatusUser)
+  TypefacedTextView tvStsUser;
 
   @Bind(R.id.tvDateTitle)
   TypefacedTextView tvDateTitle;
@@ -168,6 +172,13 @@ public class HomeFragment extends BaseFragment {
       sStatus.setText("Status : Aktif");
     } else {
       sStatus.setText("Status : Tidak Aktif");
+    }
+
+    if (user.isVerified()) {
+      tvStsUser.setText("SELAMAT MENGAJAR");
+    } else {
+      tvStsUser.setText("Anda Belum Terverifikasi");
+      tvStsUser.setBackgroundColor(R.color.colorGrey800);
     }
 
   }
