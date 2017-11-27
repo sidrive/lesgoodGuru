@@ -40,32 +40,40 @@ public class OrderDetailPresenter implements BasePresenter {
 
 
     public void acceptOrder(final Order order){
-        orderService.approveOrder(order.getOid()).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                order.setStatus("pending_murid");
-                activity.successAction(order);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                activity.successAction(order);
-            }
-        });
+        orderService.approveOrder(order.getOid()).addOnCompleteListener(task -> {
+            order.setStatus("pending_murid");
+            activity.successAction(order);
+        }).addOnFailureListener(e -> activity.successAction(order));
     }
 
     public void declineOrder(final Order order){
-        orderService.declineOrder(order.getOid()).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
+        orderService.declineOrder(order.getOid()).addOnFailureListener(e -> {
 
-            }
-        }).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
+        }).addOnCompleteListener(task -> activity.successAction(order));
+    }
+    public void acceptOrderFromChangeTeacher(final  Order order){
+        order.setStatus("SUCCSES");
+
+        orderService.createOrderFromChangeTeacher(order).addOnCompleteListener(task -> {
+            if (task.isComplete()){
                 activity.successAction(order);
+                updateValueOrderId(order);
             }
+        });
+        orderService.changeOrderSuccess(order.getStatusPayment());
+    }
+    public void updateValueOrderId(Order order){
+        orderService.updateOrderFromChangeTeacher(order).addOnCompleteListener(task -> {
+            updateDataOrder(order);
+            updateOrderIdandStatus(order);
         });
     }
 
+    private void updateOrderIdandStatus(Order order) {
+        orderService.changeOrderSuccess(order.getOrderType());
+    }
+
+    private void updateDataOrder(Order order) {
+        orderService.removeOrderFromChangeTeacher(order.getOid());
+    }
 }

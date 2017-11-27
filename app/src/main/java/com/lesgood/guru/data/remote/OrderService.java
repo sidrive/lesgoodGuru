@@ -31,4 +31,16 @@ public class OrderService {
     public Task<Void> declineOrder(String oid){
         return databaseRef.child("orders").child(oid).child("status").setValue("cancel_guru");
     }
+    public Task<Void> changeOrderSuccess(String oid){
+        return databaseRef.child("orders").child(oid).child("status").setValue("SUCCESS");
+    }
+    public Task<Void> createOrderFromChangeTeacher(Order order){
+        return databaseRef.child("orders").child(order.getOrderType()).setValue(order);
+    }
+    public Task<Void> removeOrderFromChangeTeacher(String temOid){
+        return databaseRef.child("orders").child(temOid).removeValue();
+    }
+    public Task<Void> updateOrderFromChangeTeacher(Order order){
+        return databaseRef.child("orders").child(order.getOid()).child("oid").setValue(order.getOrderType());
+    }
 }

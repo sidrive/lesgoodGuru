@@ -259,7 +259,7 @@ public class HomeFragment extends BaseFragment {
           showEndTimePicker(item,cal.getTimeInMillis());
         },
         cal.get(Calendar.HOUR),
-        cal.get(Calendar.MINUTE), false);
+        cal.get(Calendar.MINUTE), true);
     timePickerDialog.show();
   }
   public void showEndTimePicker(Days item, long statTime) {
@@ -272,7 +272,7 @@ public class HomeFragment extends BaseFragment {
           presenter.setTimeSchedule(item.getName(),statTime,cal.getTimeInMillis());
         },
         cal.get(Calendar.HOUR),
-        cal.get(Calendar.MINUTE), false);
+        cal.get(Calendar.MINUTE), true);
     timePickerDialog.show();
   }
 

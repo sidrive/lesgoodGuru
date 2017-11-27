@@ -44,8 +44,10 @@ import com.google.maps.android.ui.IconGenerator;
 import com.lesgood.guru.R;
 import com.lesgood.guru.base.BaseActivity;
 import com.lesgood.guru.base.BaseApplication;
+import com.lesgood.guru.base.config.DefaultConfig;
 import com.lesgood.guru.data.model.Location;
 import com.lesgood.guru.data.model.User;
+import com.lesgood.guru.util.Const;
 import javax.inject.Inject;
 
 /**
@@ -88,6 +90,7 @@ public class AddLocationActivity extends BaseActivity implements OnMapReadyCallb
   private IconGenerator iconGenerator;
   private Marker markerNewLocation;
   private LocationManager lm;
+  DefaultConfig defaultConfig;
   public static void startWithUser(BaseActivity activity) {
     Intent intent = new Intent(activity, AddLocationActivity.class);
     activity.startActivity(intent);
@@ -103,6 +106,8 @@ public class AddLocationActivity extends BaseActivity implements OnMapReadyCallb
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     iconGenerator = new IconGenerator(this);
     iconGenerator.setStyle(IconGenerator.STYLE_BLUE);
+    defaultConfig = new DefaultConfig(this);
+    defaultConfig.setApiUrl(Const.BASE_URL_MAP);
     mGoogleApiClient = new Builder(getApplicationContext())
         .addConnectionCallbacks(this)
         .addOnConnectionFailedListener(this)

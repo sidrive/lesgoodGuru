@@ -66,6 +66,18 @@ public class Order {
     String guruPhone;
     @Nullable
     String guruName;
+    @Nullable
+    String reference;
+    @Nullable
+    String paymentUrl;
+    @Nullable
+    String statusPayment;
+
+    @Nullable
+    int tarif;
+
+    @Nullable
+    String orderType;
 
     public Order(){
 
@@ -90,6 +102,50 @@ public class Order {
         this.ordertime = ordertime;
     }
 
+    @Nullable
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(@Nullable String reference) {
+        this.reference = reference;
+    }
+
+    @Nullable
+    public String getPaymentUrl() {
+        return paymentUrl;
+    }
+
+    public void setPaymentUrl(@Nullable String paymentUrl) {
+        this.paymentUrl = paymentUrl;
+    }
+
+    @Nullable
+    public String getStatusPayment() {
+        return statusPayment;
+    }
+
+    public void setStatusPayment(@Nullable String statusPayment) {
+        this.statusPayment = statusPayment;
+    }
+
+    @Nullable
+    public int getTarif() {
+        return tarif;
+    }
+
+    public void setTarif(@Nullable int tarif) {
+        this.tarif = tarif;
+    }
+
+    @Nullable
+    public String getOrderType() {
+        return orderType;
+    }
+
+    public void setOrderType(@Nullable String orderType) {
+        this.orderType = orderType;
+    }
 
     @NonNull
     public String getGid() {
