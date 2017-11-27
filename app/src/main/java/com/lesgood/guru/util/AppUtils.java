@@ -1,6 +1,8 @@
 package com.lesgood.guru.util;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -20,7 +22,7 @@ import retrofit2.http.HEAD;
 
 public class AppUtils {
   private FirebaseUser muser;
-  public static void  showToas(Context context,String msg){
+  public static void showToast(Context context,String msg){
     StyleableToast.makeText(context,msg, Toast.LENGTH_SHORT, R.style.MyToast).show();
   }
   public static void setAvatar(Context context, String imgUrl, ImageView img){
@@ -33,6 +35,15 @@ public class AppUtils {
 
       Glide.with(context).load(R.drawable.ic_account_circle_black).placeholder(R.color.colorSoft).dontAnimate().into(img);
     }
+  }
+  public static void showDialogWithBtn(Context context,String titile, String msg, DialogInterface.OnClickListener postifi, DialogInterface.OnClickListener negatif ){
+    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+    builder.setTitle(titile);
+    builder.setMessage(msg);
+    builder.setPositiveButton("OK", postifi);
+    builder.setNegativeButton("NO",negatif);
+    AlertDialog dialog = builder.create();
+    dialog.show();
   }
 
 }

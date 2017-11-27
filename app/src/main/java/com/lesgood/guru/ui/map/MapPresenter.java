@@ -1,5 +1,11 @@
 package com.lesgood.guru.ui.map;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.LocationManager;
+import android.support.v4.app.ActivityCompat;
+import com.google.android.gms.location.LocationListener;
 import com.lesgood.guru.base.BasePresenter;
 import com.lesgood.guru.base.config.DefaultConfig;
 import com.lesgood.guru.data.model.Location;
@@ -19,14 +25,15 @@ public class MapPresenter implements BasePresenter {
   Location location;
   APIService apiService;
   DefaultConfig defaultConfig;
-  Retrofit retrofit;
+
 
   public MapPresenter(MapsActivity activity,
-      LocationService locationService, User user, Retrofit retrofit) {
+
+      LocationService locationService, User usert) {
     this.activity = activity;
     this.locationService = locationService;
     this.user = user;
-    this.retrofit = retrofit;
+
   }
 
   @Override
@@ -38,4 +45,10 @@ public class MapPresenter implements BasePresenter {
   public void unsubscribe() {
 
   }
+
+
+  public interface OnLocationListener {
+    void onLocationFetched(Location location);
+  }
+
 }

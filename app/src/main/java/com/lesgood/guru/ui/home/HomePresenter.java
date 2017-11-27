@@ -9,8 +9,6 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.DatabaseReference.CompletionListener;
-import com.google.firebase.database.ValueEventListener;
 import com.lesgood.guru.base.BasePresenter;
 import com.lesgood.guru.data.model.Days;
 import com.lesgood.guru.data.model.TimeSchedule;
@@ -91,10 +89,10 @@ public class HomePresenter implements BasePresenter {
         userService.createUserSchedule(mUser.getUid()).child(String.valueOf(date)).setValue(true)
             .addOnFailureListener(e -> {
 
-                AppUtils.showToas(fragment.getContext(),e.getMessage());
+                AppUtils.showToast(fragment.getContext(),e.getMessage());
             }).addOnSuccessListener(aVoid -> {
             getUserSchedule();
-            AppUtils.showToas(fragment.getContext(), "SUKSES MENAMBAH JADWAL");
+            AppUtils.showToast(fragment.getContext(), "SUKSES MENAMBAH JADWAL");
         });
     }
     public void getUserSchedule(){

@@ -25,6 +25,7 @@ import com.lesgood.guru.data.skill.SkillModule;
 import com.lesgood.guru.data.user.UserComponent;
 import com.lesgood.guru.data.user.UserModule;
 import com.lesgood.guru.ui.main.MainActivity;
+import com.lesgood.guru.ui.map.MapActivityComponent;
 import com.lesgood.guru.ui.order_detail.OrderDetailActivity;
 import com.muddzdev.styleabletoastlibrary.StyleableToast;
 
@@ -40,6 +41,7 @@ public class BaseApplication extends MultiDexApplication {
     private LocationComponent locationComponent;
     private OrderDetailComponent orderDetailComponent;
     private SkillComponent skillComponent;
+    private MapActivityComponent mapActivityComponent;
     private Context context;
     @Override
     protected void attachBaseContext(Context base) {
@@ -62,10 +64,10 @@ public class BaseApplication extends MultiDexApplication {
 
     private void initAppComponent() {
         appComponent = DaggerAppComponent.builder()
-                .appModule(new AppModule(this))
-                .firebaseModule(new FirebaseModule())
-                .networkModule(new NetworkModule(defaultConfig.getApiUrl()))
-                .build();
+            .appModule(new AppModule(this))
+            .firebaseModule(new FirebaseModule())
+            .networkModule(new NetworkModule(defaultConfig.getApiUrl()))
+            .build();
         FirebaseApp.initializeApp(getBaseContext());
     }
 
@@ -80,6 +82,10 @@ public class BaseApplication extends MultiDexApplication {
 
     public UserComponent getUserComponent() {
         return userComponent;
+    }
+
+    public MapActivityComponent getMapActivityComponent(){
+        return mapActivityComponent;
     }
 
     public void releaseUserComponent() {

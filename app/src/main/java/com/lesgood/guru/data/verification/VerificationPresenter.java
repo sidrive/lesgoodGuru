@@ -1,10 +1,7 @@
 package com.lesgood.guru.data.verification;
 
 import android.net.Uri;
-import android.support.annotation.NonNull;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.lesgood.guru.base.BasePresenter;
@@ -81,12 +78,12 @@ public class VerificationPresenter implements BasePresenter {
         uploadTask.addOnFailureListener(exception -> {
             // Handle unsuccessful uploads
             System.out.print(exception);
-            AppUtils.showToas(activity.getApplicationContext(),exception.getMessage());
+            AppUtils.showToast(activity.getApplicationContext(),exception.getMessage());
         }).addOnSuccessListener(taskSnapshot -> {
             // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
             Uri downloadUrl = taskSnapshot.getDownloadUrl();
             activity.successUploadImage(downloadUrl.toString());
-            AppUtils.showToas(activity.getApplicationContext(),taskSnapshot.toString());
+            AppUtils.showToast(activity.getApplicationContext(),taskSnapshot.toString());
         });
     }
 }

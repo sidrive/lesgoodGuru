@@ -1,9 +1,5 @@
 package com.lesgood.guru.ui.skill;
 
-import android.support.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -84,7 +80,7 @@ public class SkillPresenter implements BasePresenter {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                AppUtils.showToas(activity.getApplicationContext(),databaseError.getMessage());
+                AppUtils.showToast(activity.getApplicationContext(),databaseError.getMessage());
             }
         });
     }

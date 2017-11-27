@@ -1,5 +1,6 @@
 package com.lesgood.guru.ui.map;
 
+import com.google.android.gms.location.LocationListener;
 import com.lesgood.guru.base.annotation.ActivityScope;
 import com.lesgood.guru.data.model.User;
 import com.lesgood.guru.data.remote.LocationService;
@@ -24,7 +25,7 @@ public class MapActivityModule {
   }
   @ActivityScope
   @Provides
-  MapPresenter provideMapsPresenter(LocationService locationService, User user, Retrofit retrofit){
-    return new MapPresenter(activity,locationService,user,retrofit);
+  MapPresenter provideMapsPresenter(LocationService locationService, User user ){
+    return new MapPresenter(activity,locationService,user);
   }
 }

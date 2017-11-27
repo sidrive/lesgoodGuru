@@ -101,9 +101,7 @@ public class AddLocationActivity extends BaseActivity implements OnMapReadyCallb
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_add_location);
     ButterKnife.bind(this);
-    setSupportActionBar(toolbar);
-    getSupportActionBar().setDisplayShowHomeEnabled(true);
-    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    initActionbar();
     iconGenerator = new IconGenerator(this);
     iconGenerator.setStyle(IconGenerator.STYLE_BLUE);
     defaultConfig = new DefaultConfig(this);
@@ -128,6 +126,12 @@ public class AddLocationActivity extends BaseActivity implements OnMapReadyCallb
     location.setLng(0);
     Log.e("onCreate", "AddLocationActivity" + location.getLng());
     Log.e("onCreate", "AddLocationActivity" + location.getLat());
+  }
+
+  private void initActionbar() {
+    setSupportActionBar(toolbar);
+    getSupportActionBar().setDisplayShowHomeEnabled(true);
+    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
   }
 
   public void mapConnect() {
