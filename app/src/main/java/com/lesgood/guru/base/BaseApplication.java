@@ -124,6 +124,7 @@ public class BaseApplication extends MultiDexApplication {
         return orderDetailComponent;
     }
 
+
     public OrderDetailComponent getOrderDetailComponent(){
         return orderDetailComponent;
     }

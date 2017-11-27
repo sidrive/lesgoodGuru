@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -275,12 +276,10 @@ public class OrderDetailActivity extends BaseActivity {
         .setTitle(title)
         .setMessage(desc)
         .setCancelable(false)
-        .setPositiveButton("OK", new OnClickListener() {
-          public void onClick(DialogInterface dialog, int which) {
-            // continue with delete
-            dialog.dismiss();
-            startActivity(intent);
-          }
+        .setPositiveButton("OK", (dialog, which) -> {
+          // continue with delete
+          dialog.dismiss();
+          startActivity(intent);
         })
         .setIcon(icon)
         .show();
@@ -289,6 +288,8 @@ public class OrderDetailActivity extends BaseActivity {
 
   @OnClick(R.id.img_map)
   public void onMapCliked() {
-    MapsActivity.start(this);
+    Log.e("onMapCliked", "getLatitude" + order.getLatitude());
+    Log.e("onMapCliked", "getLongitude" + order.getLongitude());
+    MapsActivity.start(this,order.getLatitude(),order.getLongitude());
   }
 }

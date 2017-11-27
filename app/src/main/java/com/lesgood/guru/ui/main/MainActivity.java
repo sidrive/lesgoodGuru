@@ -155,7 +155,8 @@ public class MainActivity extends BaseActivity  implements EasyPermissions.Permi
                 || ActivityCompat.shouldShowRequestPermissionRationale(this, PERMISION[3])
                 || ActivityCompat.shouldShowRequestPermissionRationale(this, PERMISION[4])) {
             } else {
-                AppUtils.showDialogWithBtn(this,"Perizinan app","Aplikasi membutuhkan permsision",positifBtn,negativBtn);
+                //AppUtils.showDialogWithBtn(this,"Perizinan app","Aplikasi membutuhkan permsision",positifBtn,negativBtn);
+                ActivityCompat.requestPermissions(this,PERMISION,RC_ALL_PERMISSION);
             }
         } else {
 
