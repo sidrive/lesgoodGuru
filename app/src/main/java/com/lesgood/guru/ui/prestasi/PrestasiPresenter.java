@@ -1,9 +1,5 @@
 package com.lesgood.guru.ui.prestasi;
 
-import android.support.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -11,7 +7,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.lesgood.guru.base.BasePresenter;
 import com.lesgood.guru.data.model.Prestasi;
-import com.lesgood.guru.data.model.Skill;
 import com.lesgood.guru.data.model.User;
 import com.lesgood.guru.data.remote.UserService;
 import com.lesgood.guru.util.AppUtils;
@@ -79,7 +74,7 @@ public class PrestasiPresenter implements BasePresenter {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                AppUtils.showToas(activity.getApplicationContext(),databaseError.getMessage());
+                AppUtils.showToast(activity.getApplicationContext(),databaseError.getMessage());
             }
         });
     }

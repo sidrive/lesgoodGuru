@@ -48,7 +48,7 @@ public class ProfilePresenter implements BasePresenter {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                AppUtils.showToas(fragment.getContext(),databaseError.getMessage());
+                AppUtils.showToast(fragment.getContext(),databaseError.getMessage());
             }
         });
     }
@@ -76,7 +76,7 @@ public class ProfilePresenter implements BasePresenter {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                AppUtils.showToas(fragment.getContext(),databaseError.getMessage());
+                AppUtils.showToast(fragment.getContext(),databaseError.getMessage());
             }
         });
     }

@@ -1,22 +1,25 @@
 package com.lesgood.guru.ui.main;
 
+import android.Manifest.permission;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.MenuItem;
 
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -30,19 +33,20 @@ import com.lesgood.guru.base.BaseActivity;
 import com.lesgood.guru.base.BaseApplication;
 
 import com.lesgood.guru.data.model.User;
-import com.lesgood.guru.data.remote.FirebaseInstanceIDService;
 import com.lesgood.guru.ui.home.HomeFragment;
 import com.lesgood.guru.ui.order.OrderFragment;
 import com.lesgood.guru.ui.profile.ProfileFragment;
 import com.lesgood.guru.ui.update_information.UpdateInformationActivity;
 
 import com.lesgood.guru.util.AppUtils;
+import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import pub.devrel.easypermissions.EasyPermissions;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity  implements EasyPermissions.PermissionCallbacks{
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
@@ -57,38 +61,45 @@ public class MainActivity extends BaseActivity {
     User user;
 
     public FirebaseRemoteConfig mFirebaseRemoteConfig;
+    private static final int RC_LOCATION= 101;
+    private static final int RC_READCONTACT= 102;
+    private static final int RC_STORAGE= 103;
+    private static final int RC_CAMERA= 104;
+    private static final int RC_ALL_PERMISSION= 111;
 
+    private static final String[] PERMISION =
+        {permission.ACCESS_FINE_LOCATION,
+            permission.READ_CONTACTS,
+            permission.READ_EXTERNAL_STORAGE,
+            permission.WRITE_EXTERNAL_STORAGE,
+            permission.CAMERA
+        };
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+            = item -> {
 
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Fragment fragment = HomeFragment.newInstance();
 
-            Fragment fragment = HomeFragment.newInstance();
+                switch (item.getItemId()) {
+                    case R.id.navigation_home:
+                        fragment = HomeFragment.newInstance();
+                        break;
+                    case R.id.navigation_order:
+                        fragment = OrderFragment.newInstance();
+                        break;
+                    case R.id.navigation_profile:
+                        fragment = ProfileFragment.newInstance();
+                        break;
+                }
 
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    fragment = HomeFragment.newInstance();
-                    break;
-                case R.id.navigation_order:
-                    fragment = OrderFragment.newInstance();
-                    break;
-                case R.id.navigation_profile:
-                    fragment = ProfileFragment.newInstance();
-                    break;
-            }
+                if (fragment != null) {
+                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                    ft.replace(R.id.content_frame, fragment);
+                    ft.commit();
+                    return true;
+                }
 
-            if (fragment != null) {
-                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.content_frame, fragment);
-                ft.commit();
-                return true;
-            }
-
-            return false;
-        }
-
-    };
+                return false;
+            };
 
 
     public static void startWithUser(Activity activity, final User user) {
@@ -103,7 +114,10 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         LocalBroadcastManager.getInstance(this).registerReceiver(tokenReceiver,
                 new IntentFilter("tokenReceiver"));
-
+        if (android.os.Build.VERSION.SDK_INT >= VERSION_CODES.M) {
+            Log.e("onCreate", "MainActivity" );
+           requestPermissionForMvers();
+        }
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
@@ -125,6 +139,60 @@ public class MainActivity extends BaseActivity {
         fetchWelcome();
         String token = FirebaseInstanceId.getInstance().getToken();
         presenter.updateFCMToken(user.getUid(),token);
+
+    }
+
+    private void requestPermissionForMvers() {
+        if (
+            ActivityCompat.checkSelfPermission(this, PERMISION[0]) != PackageManager.PERMISSION_GRANTED
+            || ActivityCompat.checkSelfPermission(this, PERMISION[1]) != PackageManager.PERMISSION_GRANTED
+            || ActivityCompat.checkSelfPermission(this, PERMISION[2]) != PackageManager.PERMISSION_GRANTED
+            || ActivityCompat.checkSelfPermission(this, PERMISION[3]) != PackageManager.PERMISSION_GRANTED
+            || ActivityCompat.checkSelfPermission(this, PERMISION[4]) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, PERMISION[0])
+                || ActivityCompat.shouldShowRequestPermissionRationale(this, PERMISION[1])
+                || ActivityCompat.shouldShowRequestPermissionRationale(this, PERMISION[2])
+                || ActivityCompat.shouldShowRequestPermissionRationale(this, PERMISION[3])
+                || ActivityCompat.shouldShowRequestPermissionRationale(this, PERMISION[4])) {
+            } else {
+                //AppUtils.showDialogWithBtn(this,"Perizinan app","Aplikasi membutuhkan permsision",positifBtn,negativBtn);
+                ActivityCompat.requestPermissions(this,PERMISION,RC_ALL_PERMISSION);
+            }
+        } else {
+
+        }
+    }
+
+    public DialogInterface.OnClickListener positifBtn = (dialog, which) -> {
+      dialog.dismiss();
+      ActivityCompat.requestPermissions(this,PERMISION,RC_ALL_PERMISSION);
+    };
+
+    public DialogInterface.OnClickListener negativBtn = (dialog, which) -> {
+        dialog.dismiss();
+    };
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+        @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == RC_ALL_PERMISSION){
+            boolean allGrant = false;
+            for (int i = 0; i < grantResults.length; i++) {
+                if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+                    allGrant = true;
+                } else {
+                    allGrant = false;
+                }
+            }
+            if (allGrant) {
+               AppUtils.showToast(this,"GRANTED");
+            } else {
+                AppUtils.showToast(this,"DENIED");
+            }
+
+        }
 
     }
 
@@ -224,8 +292,18 @@ public class MainActivity extends BaseActivity {
             return;
         }
         this.doubleBackToExitPressedOnce = true;
-        AppUtils.showToas(this,"Double tap to exit");
+        AppUtils.showToast(this,"Double tap to exit");
         new Handler().postDelayed(() -> doubleBackToExitPressedOnce = false, 2000);
+
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> perms) {
+
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, List<String> perms) {
 
     }
 }
