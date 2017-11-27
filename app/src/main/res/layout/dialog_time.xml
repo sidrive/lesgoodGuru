@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+  <LinearLayout
+    android:orientation="horizontal"
+    android:weightSum="2"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <LinearLayout
+      android:orientation="vertical"
+      android:layout_weight="1"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+      <TextView
+        android:gravity="center"
+        android:text="Jam Mulai"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+      <TimePicker
+        android:id="@+id/tpMulai"
+        android:timePickerMode="spinner"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    </LinearLayout>
+    <LinearLayout
+      android:orientation="vertical"
+      android:layout_weight="1"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+      <TextView
+        android:gravity="center"
+        android:text="Jam Selesai"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+      <TimePicker
+        android:id="@+id/tpSelesai"
+        android:timePickerMode="spinner"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    </LinearLayout>
+  </LinearLayout>
+  <Button
+    android:id="@+id/btnSimpan"
+    android:text="SIMPAN"
+    android:layout_alignParentBottom="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
+</RelativeLayout>

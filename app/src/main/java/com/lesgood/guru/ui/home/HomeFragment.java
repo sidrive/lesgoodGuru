@@ -38,6 +38,7 @@ import com.lesgood.guru.data.model.Days;
 import com.lesgood.guru.data.model.TimeSchedule;
 import com.lesgood.guru.data.model.User;
 import com.lesgood.guru.ui.main.MainActivity;
+import com.lesgood.guru.util.CustomTimePiker;
 import com.lesgood.guru.util.TypefacedTextView;
 import com.lesgood.guru.util.Utils;
 import java.util.Calendar;
@@ -257,7 +258,11 @@ public class HomeFragment extends BaseFragment {
     timePickerDialog.show();
   }
   public void showStarTimePicker(Days item) {
-    Calendar cal = Calendar.getInstance();
+
+    CustomTimePiker timePiker = new CustomTimePiker(presenter,item.getName());
+    timePiker.show(getFragmentManager(),"timepicker");
+
+    /*Calendar cal = Calendar.getInstance();
 
     TimePickerDialog timePickerDialog =   new TimePickerDialog(
         getContext(),
@@ -268,7 +273,8 @@ public class HomeFragment extends BaseFragment {
         },
         cal.get(Calendar.HOUR),
         cal.get(Calendar.MINUTE), true);
-    timePickerDialog.show();
+    timePickerDialog.setTitle("Jam Mulai");
+    timePickerDialog.show();*/
   }
   public void showEndTimePicker(Days item, long statTime) {
     Calendar cal = Calendar.getInstance();
@@ -277,10 +283,13 @@ public class HomeFragment extends BaseFragment {
         (view, hourOfDay, minute) -> {
           cal.set(Calendar.HOUR,hourOfDay);
           cal.set(Calendar.MINUTE,minute);
+          cal.getTime();
+
           presenter.setTimeSchedule(item.getName(),statTime,cal.getTimeInMillis());
         },
         cal.get(Calendar.HOUR),
         cal.get(Calendar.MINUTE), true);
+    timePickerDialog.setTitle("Jam Selesai");
     timePickerDialog.show();
   }
 
