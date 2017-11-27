@@ -66,6 +66,10 @@ public class OrderViewHolder extends RecyclerView.ViewHolder {
             txtStatus.setText("Menunggu Konfirmasi Guru");
         }else if (order.getStatus().equals("pending_murid")){
             txtStatus.setText("Menunggu Pembayaran Siswa");
+        }else if (order.getStatus().equals("cancel_guru")){
+            txtStatus.setText("Dibatalkan Guru");
+        }else if (order.getStatus().equals("cancel_murid")){
+            txtStatus.setText("Dibatalkan Murid");
         }else {
            txtStatus.setText("SUCCESS");
         }

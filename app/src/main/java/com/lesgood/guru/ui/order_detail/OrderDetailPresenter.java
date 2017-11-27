@@ -47,10 +47,17 @@ public class OrderDetailPresenter implements BasePresenter {
     }
 
     public void declineOrder(final Order order){
+        orderService.declineOrder(order.getOid()).addOnCompleteListener(task -> {
+            order.setStatus("cancel_guru");
+            activity.successAction(order);
+        }).addOnFailureListener(e -> activity.successAction(order));
+    }
+
+    /*public void declineOrder(final Order order){
         orderService.declineOrder(order.getOid()).addOnFailureListener(e -> {
 
         }).addOnCompleteListener(task -> activity.successAction(order));
-    }
+    }*/
     public void acceptOrderFromChangeTeacher(final  Order order){
         order.setStatus("SUCCSES");
 
