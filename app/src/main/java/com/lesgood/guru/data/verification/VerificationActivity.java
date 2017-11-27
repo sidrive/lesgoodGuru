@@ -17,6 +17,7 @@ import android.util.SparseArray;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -92,6 +93,9 @@ public class VerificationActivity extends BaseActivity implements DialogUploadOp
 
     @Bind(R.id.img_foto_ijazah)
     ImageView imgIjazah;
+
+    @Bind(R.id.button_Save)
+    Button btnSave;
 
     @Inject
     VerificationPresenter presenter;
@@ -293,6 +297,12 @@ public class VerificationActivity extends BaseActivity implements DialogUploadOp
     void uploadKTM(){
         showDialog();
         type = "ktm";
+    }
+
+    @OnClick(R.id.button_Save)
+    void saveActivity(){
+        showLoading(true);
+        finish();
     }
 
     public void showDialog(){

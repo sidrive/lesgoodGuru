@@ -67,10 +67,10 @@ public class SplashPresenter implements BasePresenter {
 
                             activity.showRegisterActivity(user);
                         } else {
-                            if (remoteUser.isVerified()) { activity.showMainActivity(remoteUser);
+                            /*if (remoteUser.isVerified() == true) {*/ activity.showMainActivity(remoteUser);
                             sendUser(user.getUid());
-                            }
-                            else activity.showVerificationActivity(remoteUser);
+                           /* }
+                            else activity.showVerificationActivity(remoteUser);*/
 
                         }
                     }
