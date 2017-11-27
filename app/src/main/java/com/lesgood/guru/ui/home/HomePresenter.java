@@ -9,6 +9,7 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.lesgood.guru.base.BasePresenter;
 import com.lesgood.guru.data.model.Days;
 import com.lesgood.guru.data.model.TimeSchedule;
@@ -36,6 +37,7 @@ public class HomePresenter implements BasePresenter {
         this.userService = userService;
         this.mAuth = FirebaseAuth.getInstance();
         this.mUser = mAuth.getCurrentUser();
+        this.databaseRef = FirebaseDatabase.getInstance().getReference();
     }
 
     @Override
@@ -135,19 +137,21 @@ public class HomePresenter implements BasePresenter {
         String stat = String.valueOf(status);
         userService.updateStatus(uid, stat);
     }
-    public void deleteSchedule(long date){
-        userService.createUserSchedule(mUser.getUid()).child(String.valueOf(date)).removeValue((databaseError, databaseReference) -> {
-            getUserSchedule();
+    public void deleteSchedule(String id){
+        userService.removeUserTimeSchedule(id).addOnCompleteListener(task -> {
+            showDetailScheduleByDay();
         });
     }
     public void setTimeSchedule(String day,long statTime, long endTime){
         TimeSchedule schedule = new TimeSchedule();
+        String keypush = databaseRef.push().getKey();
         schedule.setDay(day);
+        schedule.setSchedule_id(keypush);
         schedule.setId(mUser.getUid().toString());
         schedule.setDay_uid(day+"_"+mUser.getUid().toString());
         schedule.setStartTime(statTime);
         schedule.setEndTime(endTime);
-        userService.setTimeSchedule().push().setValue(schedule)
+        userService.setTimeSchedule().child(keypush).setValue(schedule)
             .addOnSuccessListener(aVoid -> {
                 fragment.showtimeDetailSchedule();
             })
@@ -169,15 +173,17 @@ public class HomePresenter implements BasePresenter {
 
                 @Override
                 public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                    TimeSchedule timeSchedule = dataSnapshot.getValue(TimeSchedule.class);
                     if (dataSnapshot!=null){
-                        fragment.timesAdapter.notifyDataSetChanged();
+                        fragment.timesAdapter.onItemChanged(timeSchedule);
                     }
                 }
 
                 @Override
                 public void onChildRemoved(DataSnapshot dataSnapshot) {
+                    TimeSchedule timeSchedule = dataSnapshot.getValue(TimeSchedule.class);
                     if (dataSnapshot!=null){
-                        fragment.timesAdapter.notifyDataSetChanged();
+                        fragment.showtimeDetailSchedule();
                     }
                 }
 

@@ -78,8 +78,6 @@ public class CustomTimePiker extends DialogFragment {
 
   @OnClick(R.id.btnSimpan)
   public void onViewClicked() {
-    Log.e("onViewClicked", "CustomTimePiker" + Utils.longToString(startTime));
-    Log.e("onViewClicked", "CustomTimePiker" + Utils.longToString(endTime));
    presenter.setTimeSchedule(this.day,startTime,endTime);
     this.dismiss();
   }

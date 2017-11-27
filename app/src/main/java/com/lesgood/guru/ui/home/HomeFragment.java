@@ -156,7 +156,7 @@ public class HomeFragment extends BaseFragment {
   public CompactCalendarViewListener compactCalendarViewListener = new CompactCalendarViewListener() {
     @Override
     public void onDayClick(Date date) {
-      showDialogSetJadwal(date.getTime());
+
     }
 
     @Override
@@ -204,22 +204,18 @@ public class HomeFragment extends BaseFragment {
     super.onDestroyView();
     ButterKnife.unbind(this);
   }
-  public void showDialogSetJadwal(long date) {
+  public void showDeleteTimeSchedule(String id_schedule) {
     Builder builder = new Builder(getContext());
     View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_schedule, null, false);
     builder.setView(view);
-    Button btn = (Button) view.findViewById(R.id.btn_jadwal);
-    Button btnHapus = (Button) view.findViewById(R.id.btn_hapus_jadwal);
+    Button btn = (Button) view.findViewById(R.id.btn_hapus_jadwal);
 
     builder.setCancelable(true);
     Dialog dialog = builder.create();
+
     btn.setOnClickListener(v -> {
       dialog.dismiss();
-      presenter.createSchedule(date);
-    });
-    btnHapus.setOnClickListener(v -> {
-      dialog.dismiss();
-      presenter.deleteSchedule(date);
+      presenter.deleteSchedule(id_schedule);
     });
     dialog.show();
   }
@@ -234,6 +230,10 @@ public class HomeFragment extends BaseFragment {
     daysAdapter.onItemAdded(item);
     showItemsDays();
   }
+  public void showRemoveItem(Days item) {
+    daysAdapter.onItemRemoved(item);
+    showItemsDays();
+  }
   public void addTimeToAdapter(TimeSchedule item){
     timesAdapter.onItemAdded(item);
   }
@@ -244,57 +244,21 @@ public class HomeFragment extends BaseFragment {
     rcvTime.setLayoutManager(gridLayoutManager );
   }
 
-  public void showTimePicker(Days item) {
-    Calendar cal = Calendar.getInstance();
-    TimePickerDialog timePickerDialog =   new TimePickerDialog(
-        getContext(),
-        (view, hourOfDay, minute) -> {
-          cal.set(Calendar.HOUR,hourOfDay);
-          cal.set(Calendar.MINUTE,minute);
 
-        },
-        cal.get(Calendar.HOUR),
-        cal.get(Calendar.MINUTE), true);
-    timePickerDialog.show();
-  }
   public void showStarTimePicker(Days item) {
 
     CustomTimePiker timePiker = new CustomTimePiker(presenter,item.getName());
     timePiker.show(getFragmentManager(),"timepicker");
 
-    /*Calendar cal = Calendar.getInstance();
-
-    TimePickerDialog timePickerDialog =   new TimePickerDialog(
-        getContext(),
-        (view, hourOfDay, minute) -> {
-          cal.set(Calendar.HOUR,hourOfDay);
-          cal.set(Calendar.MINUTE,minute);
-          showEndTimePicker(item,cal.getTimeInMillis());
-        },
-        cal.get(Calendar.HOUR),
-        cal.get(Calendar.MINUTE), true);
-    timePickerDialog.setTitle("Jam Mulai");
-    timePickerDialog.show();*/
   }
-  public void showEndTimePicker(Days item, long statTime) {
-    Calendar cal = Calendar.getInstance();
-    TimePickerDialog timePickerDialog =   new TimePickerDialog(
-        getContext(),
-        (view, hourOfDay, minute) -> {
-          cal.set(Calendar.HOUR,hourOfDay);
-          cal.set(Calendar.MINUTE,minute);
-          cal.getTime();
 
-          presenter.setTimeSchedule(item.getName(),statTime,cal.getTimeInMillis());
-        },
-        cal.get(Calendar.HOUR),
-        cal.get(Calendar.MINUTE), true);
-    timePickerDialog.setTitle("Jam Selesai");
-    timePickerDialog.show();
-  }
 
 
   public void showDetailListSchedule() {
     presenter.showDetailScheduleByDay();
+  }
+
+  public void deleteTimeSchedule(String schedule_id) {
+    showDeleteTimeSchedule(schedule_id);
   }
 }

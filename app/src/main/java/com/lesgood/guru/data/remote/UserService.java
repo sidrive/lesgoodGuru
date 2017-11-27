@@ -163,8 +163,8 @@ public class UserService {
     public DatabaseReference setTimeSchedule(){
         return databaseRef.child("user-schedules");
     }
-    public Task<Void> removeUserTimeSchedule(String uid,String day,String time){
-        return databaseRef.child("user-schedules").child(uid).child(uid+"_"+day).child(time).removeValue();
+    public Task<Void> removeUserTimeSchedule(String id){
+        return databaseRef.child("user-schedules").child(id).removeValue();
     }
     public Task<Void> updateTimeSchedule(String uid, String day, String time){
         return databaseRef.child("user-schedules").child(uid).child(uid+"_"+day).setValue(time);

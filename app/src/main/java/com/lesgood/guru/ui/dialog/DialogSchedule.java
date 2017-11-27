@@ -18,11 +18,6 @@ public class DialogSchedule extends Dialog {
 
     private Context context;
 
-    @Bind(R.id.btn_jadwal)
-    Button btn_jadwal;
-
-
-
     public interface OnDialogSchedluleClickListener {
         public void onCalenderClicked(Dialog dialog);
     }
@@ -50,7 +45,7 @@ public class DialogSchedule extends Dialog {
 
     }
 
-    @OnClick(R.id.btn_jadwal)
+    @OnClick(R.id.btn_hapus_jadwal)
     void positifClicked() {
         mCallBack.onCalenderClicked(this);
     }

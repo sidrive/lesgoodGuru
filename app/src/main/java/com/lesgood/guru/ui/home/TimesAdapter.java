@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import com.google.firebase.database.DatabaseReference;
 import com.lesgood.guru.R;
 import com.lesgood.guru.data.model.TimeSchedule;
 import java.util.ArrayList;
@@ -34,22 +35,12 @@ public class TimesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         ((TimesViewHolder)holder).bind(items.get(position));
         holder.itemView.setOnClickListener(v -> onItemClicked(items.get(position)));
 
-       /* ((TimesViewHolder) holder).imgRemove.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fragment.showDeleteItem(items.get(position));
-
-            }
-        });*/
     }
 
     private void onItemClicked(TimeSchedule item) {
-        Log.e("onItemClicked", "TimesAdapter" + item.getTime());
+        fragment.deleteTimeSchedule(item.getSchedule_id());
     }
 
-    /*private void onItemDeleteClicked(String item){
-        fragment.showDeleteItem(item);
-    }*/
 
     @Override
     public int getItemCount() {
@@ -72,7 +63,7 @@ public class TimesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
     }
 
-    public void onItemRemoved(String item){
+    public void onItemRemoved(TimeSchedule item){
         items.remove(item);
         notifyDataSetChanged();
     }
