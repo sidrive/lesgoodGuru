@@ -85,6 +85,30 @@ public class OrderDetailActivity extends BaseActivity {
   @Bind(R.id.txt_distance)
   TextView txtDistance;
 
+  @Bind(R.id.txt_nama_siswa)
+  TextView txtNamaSiswa;
+
+  @Bind(R.id.txt_alamat_siswa)
+  TextView txtAlamatSiswa;
+
+  @Bind(R.id.txt_telp_siswa)
+  TextView txtTelpSiswa;
+
+  @Bind(R.id.txt_email_siswa)
+  TextView txtEmailSiswa;
+
+  @Bind(R.id.txt_nama_guru)
+  TextView txtGuru;
+
+  @Bind(R.id.txt_alamat_guru)
+  TextView txtAlamatGuru;
+
+  @Bind(R.id.txt_telp_guru)
+  TextView txtTelpGuru;
+
+  @Bind(R.id.txt_email_guru)
+  TextView txtEmailGuru;
+
   @Bind(R.id.lin_action)
   LinearLayout linAction;
 
@@ -191,6 +215,15 @@ public class OrderDetailActivity extends BaseActivity {
         txtFee.setText("Rp."+toRupiah(fee));
         txtTotal.setText("Rp."+toRupiah(total));
         */
+
+    txtNamaSiswa.setText(order.getCustomerName());
+    txtGuru.setText(order.getGuruName());
+    txtAlamatSiswa.setText(order.getDetailLocation());
+    txtAlamatGuru.setText(user.getFullAddress());
+    txtTelpSiswa.setText(order.getCustomerPhone());
+    txtTelpGuru.setText(order.getGuruPhone());
+    txtEmailSiswa.setText(order.getCustomerEmail());
+    txtEmailGuru.setText(order.getGuruEmail());
     handleStatus(order.getStatus());
 
   }

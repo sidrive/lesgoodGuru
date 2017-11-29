@@ -72,6 +72,8 @@ public class Order {
     String paymentUrl;
     @Nullable
     String statusPayment;
+    @Nullable
+    String guruAddres;
 
     @Nullable
     int tarif;
@@ -89,7 +91,8 @@ public class Order {
         this.title = title;
     }
 
-    public Order(String gid, String uid, String oid, String title, String status, int amount, List<Jadwal> pertemuan, long ordertime){
+    public Order(String gid, String uid, String oid, String title, String status, int amount, List<Jadwal> pertemuan, long ordertime,
+                 String guruAddres){
         this.gid = gid;
         this.uid = uid;
         this.oid = oid;
@@ -100,6 +103,7 @@ public class Order {
         this.total = amount+fee;
         this.pertemuan = pertemuan;
         this.ordertime = ordertime;
+        this.guruAddres = guruAddres;
     }
 
     @Nullable
@@ -398,5 +402,14 @@ public class Order {
 
     public void setCustomerEmail(@Nullable String customerEmail) {
         this.customerEmail = customerEmail;
+    }
+
+    @Nullable
+    public String getGuruAddres() {
+        return guruAddres;
+    }
+
+    public void setGuruAddres(@Nullable String guruAddres) {
+        this.guruAddres = guruAddres;
     }
 }

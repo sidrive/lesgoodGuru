@@ -16,8 +16,8 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
 import android.util.Log;
-import com.ahmadrosid.lib.drawroutemap.DrawMarker;
-import com.ahmadrosid.lib.drawroutemap.DrawRouteMaps;
+/*import com.ahmadrosid.lib.drawroutemap.DrawMarker;
+import com.ahmadrosid.lib.drawroutemap.DrawRouteMaps;*/
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.Builder;
@@ -175,8 +175,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     if (mlocation!=null && siswaLL!=null){
       LatLng origin = new LatLng(mlocation.getLatitude(),mlocation.getLongitude());
       LatLng dest = siswaLL;
-      DrawRouteMaps.getInstance(this)
-          .draw(origin, dest, mMap);
+      /*DrawRouteMaps.getInstance(this)
+          .draw(origin, dest, mMap);*/
 
       LatLngBounds bounds = new LatLngBounds.Builder()
           .include(origin)
