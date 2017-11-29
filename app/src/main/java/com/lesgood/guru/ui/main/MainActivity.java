@@ -20,6 +20,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.widget.Toast;
 
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -35,6 +36,7 @@ import com.lesgood.guru.base.BaseApplication;
 import com.lesgood.guru.data.model.User;
 import com.lesgood.guru.ui.home.HomeFragment;
 import com.lesgood.guru.ui.order.OrderFragment;
+import com.lesgood.guru.ui.order_detail.OrderDetailActivity;
 import com.lesgood.guru.ui.profile.ProfileFragment;
 import com.lesgood.guru.ui.update_information.UpdateInformationActivity;
 
@@ -135,6 +137,14 @@ public class MainActivity extends BaseActivity  implements EasyPermissions.Permi
         fetchWelcome();
         String token = FirebaseInstanceId.getInstance().getToken();
         presenter.updateFCMToken(user.getUid(),token);
+        /*if(getIntent().getExtras().getString("data") != null){
+            String orderID = getIntent().getExtras().getString("data");
+            Toast.makeText(this, ""+orderID, Toast.LENGTH_SHORT).show();
+
+        }*/
+
+
+
 
     }
 

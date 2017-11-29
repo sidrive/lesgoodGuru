@@ -7,18 +7,21 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.widget.Toast;
 
 
 import com.lesgood.guru.R;
 import com.lesgood.guru.base.BaseActivity;
 import com.lesgood.guru.base.BaseApplication;
+import com.lesgood.guru.data.model.Order;
 import com.lesgood.guru.data.model.User;
 import com.lesgood.guru.data.verification.VerificationActivity;
 import com.lesgood.guru.ui.edit_profile.EditProfileActivity;
 import com.lesgood.guru.ui.intro.IntroActivity;
 import com.lesgood.guru.ui.login.LoginActivity;
 import com.lesgood.guru.ui.main.MainActivity;
+import com.lesgood.guru.ui.order_detail.OrderDetailActivity;
 
 import javax.inject.Inject;
 
@@ -34,6 +37,20 @@ public class SplashActivity extends BaseActivity {
         setContentView(R.layout.activity_splash);
         LocalBroadcastManager.getInstance(this).registerReceiver(tokenReceiver,
                 new IntentFilter("tokenReceiver"));
+
+        if (getIntent().getExtras() != null) {
+
+            for (String key : getIntent().getExtras().keySet()) {
+                String value = getIntent().getExtras().getString(key);
+                /*Toast.makeText(this, key+" : "+value, Toast.LENGTH_SHORT).show();*/
+                if (key.equals("orderid") && (value != null)) {
+                    /*OrderDetailActivity.starFromNotif(this,value);*/
+                    Log.e("SplashActivity", "onCreate: " + value);
+                    finish();
+                }
+
+            }
+        }
 
     }
 

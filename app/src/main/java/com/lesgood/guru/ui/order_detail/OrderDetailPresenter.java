@@ -1,6 +1,7 @@
 package com.lesgood.guru.ui.order_detail;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -8,6 +9,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+import com.lesgood.guru.base.BaseApplication;
 import com.lesgood.guru.base.BasePresenter;
 import com.lesgood.guru.data.model.Order;
 import com.lesgood.guru.data.remote.OrderService;
@@ -82,5 +84,26 @@ public class OrderDetailPresenter implements BasePresenter {
 
     private void updateDataOrder(Order order) {
         orderService.removeOrderFromChangeTeacher(order.getOid());
+    }
+
+    public void viewDetailOrder(String param){
+        Log.e("OrderDetailPresenter", "viewDetailOrder: " + param);
+        orderService.getOrdersById(param).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Order order =  dataSnapshot.getValue(Order.class);
+                if(dataSnapshot != null){
+                    BaseApplication.get(activity).createOrderDetailComponent(order);
+                  /*  activity.updateUI(order);*/
+                    Log.e("OrderDetailPresenter", "onDataChange: " + dataSnapshot.toString());
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 }

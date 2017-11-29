@@ -2,8 +2,9 @@ package com.lesgood.guru.base.config;
 
 import android.util.Log;
 
+import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import com.lesgood.guru.data.remote.FirebaseMessagingService;
+
 
 /**
  * Created by ikun on 22/11/17.

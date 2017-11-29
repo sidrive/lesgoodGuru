@@ -20,6 +20,10 @@ public class OrderService {
         return databaseRef.child("orders");
     }
 
+    public DatabaseReference getOrdersById(String param){
+        return databaseRef.child("orders").child(param);
+    }
+
     public DatabaseReference getOrderItems(String oid){
         return databaseRef.child("order-items").child(oid);
     }

@@ -128,17 +128,32 @@ public class OrderDetailActivity extends BaseActivity {
     activity.startActivity(intent);
 
   }
+  public static String KEY_PARAM_NOTIF = "Notif";
+  public static void starFromNotif(BaseActivity activity, String order) {
+    Intent intent = new Intent(activity, OrderDetailActivity.class);
+    intent.putExtra(KEY_PARAM_NOTIF,order);
+    activity.startActivity(intent);
+
+
+  }
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_order_detail);
     ButterKnife.bind(this);
+    Bundle extra = getIntent().getExtras();
+    if(extra != null){
+      String param = extra.getString(KEY_PARAM_NOTIF);
+      Log.e("OrderDetailActivity", "onCreate: " + param);
+      presenter.viewDetailOrder(param);
+
+    }
 
     setSupportActionBar(toolbar);
     getSupportActionBar().setDisplayShowHomeEnabled(true);
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    init();
+   /* init();*/
   }
 
   @Override
@@ -324,5 +339,11 @@ public class OrderDetailActivity extends BaseActivity {
     Log.e("onMapCliked", "getLatitude" + order.getLatitude());
     Log.e("onMapCliked", "getLongitude" + order.getLongitude());
     MapsActivity.start(this,order.getLatitude(),order.getLongitude());
+  }
+
+  public void updateUI(Order order) {
+    /*BaseApplication.get(this).createOrderDetailComponent(order);*/
+    order = order;
+    Log.e("OrderDetailActivity", "updateUI: " + order);
   }
 }
