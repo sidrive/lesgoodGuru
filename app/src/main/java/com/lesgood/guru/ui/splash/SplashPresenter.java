@@ -2,14 +2,18 @@ package com.lesgood.guru.ui.splash;
 
 import android.support.annotation.NonNull;
 
+import android.util.Log;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.lesgood.guru.base.BasePresenter;
+import com.lesgood.guru.data.model.Order;
 import com.lesgood.guru.data.model.User;
+import com.lesgood.guru.data.remote.OrderService;
 import com.lesgood.guru.data.remote.UserService;
+import javax.inject.Inject;
 
 
 public class SplashPresenter implements BasePresenter {
@@ -19,10 +23,12 @@ public class SplashPresenter implements BasePresenter {
     private FirebaseAuth.AuthStateListener authListener;
     private UserService userService;
 
+
     public SplashPresenter(SplashActivity activity, UserService userService) {
         this.activity = activity;
         this.userService = userService;
         this.firebaseAuth = FirebaseAuth.getInstance();
+
     }
 
     @Override

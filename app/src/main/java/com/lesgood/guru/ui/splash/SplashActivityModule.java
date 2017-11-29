@@ -3,6 +3,7 @@ package com.lesgood.guru.ui.splash;
 
 
 import com.lesgood.guru.base.annotation.ActivityScope;
+import com.lesgood.guru.data.remote.OrderService;
 import com.lesgood.guru.data.remote.UserService;
 
 import dagger.Module;

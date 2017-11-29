@@ -4,6 +4,7 @@ package com.lesgood.guru.ui.order;
 import com.lesgood.guru.base.annotation.FragmentScope;
 import com.lesgood.guru.data.model.User;
 
+import com.lesgood.guru.data.remote.OrderService;
 import dagger.Module;
 import dagger.Provides;
 
@@ -27,7 +28,7 @@ public class OrderFragmentModule {
 
     @FragmentScope
     @Provides
-    OrderPresenter provideOrderPresenter(User user){
-        return new OrderPresenter(fragment, user);
+    OrderPresenter provideOrderPresenter(User user,OrderService orderService){
+        return new OrderPresenter(fragment, user,orderService);
     }
 }

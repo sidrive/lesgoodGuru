@@ -99,6 +99,14 @@ public class HomeFragment extends BaseFragment {
     // Required empty public constructor
   }
 
+  public static HomeFragment newInstance(String param) {
+
+    Bundle args = new Bundle();
+    args.putString("param",param);
+    HomeFragment fragment = new HomeFragment();
+    fragment.setArguments(args);
+    return fragment;
+  }
   @Override
   protected void setupFragmentComponent() {
     BaseApplication.get(getActivity())
@@ -129,6 +137,11 @@ public class HomeFragment extends BaseFragment {
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setHasOptionsMenu(true);
+    Bundle ex = getArguments();
+    if (ex!=null){
+      String param = ex.getString("param");
+      Log.e("onCreate", "HomeFragment " + param);
+    }
   }
 
   @Nullable
@@ -166,7 +179,7 @@ public class HomeFragment extends BaseFragment {
   };
 
   public void init() {
-    Log.e("init", "HomeFragment" + user.isActive());
+
     sStatus.setChecked(user.isActive());
     //initSchedule();
     if (user.isActive()) {

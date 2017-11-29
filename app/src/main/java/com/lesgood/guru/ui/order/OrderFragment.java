@@ -14,13 +14,16 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 
+import com.google.android.gms.location.DetectedActivity;
 import com.lesgood.guru.R;
 import com.lesgood.guru.base.BaseActivity;
 import com.lesgood.guru.base.BaseApplication;
 import com.lesgood.guru.base.BaseFragment;
+import com.lesgood.guru.data.model.Order;
 import com.lesgood.guru.data.model.User;
 import com.lesgood.guru.ui.main.MainActivity;
 
+import com.lesgood.guru.ui.order_detail.OrderDetailActivity;
 import javax.inject.Inject;
 
 import butterknife.Bind;
@@ -64,6 +67,13 @@ public class OrderFragment extends BaseFragment {
         return new OrderFragment();
     }
 
+    public static OrderFragment newInstanceParam(String param) {
+        Bundle args = new Bundle();
+        args.putString("param",param);
+        OrderFragment fragment = new OrderFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
     public OrderFragment() {
         // Required empty public constructor
     }
@@ -75,6 +85,15 @@ public class OrderFragment extends BaseFragment {
                 .plus(new OrderFragmentModule(this))
                 .inject(this);
     }
+    String oid;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle ex = getArguments();
+        if (ex!=null){
+            oid = ex.getString("param");
+        }
+    }
 
     @Nullable
     @Override
@@ -83,8 +102,9 @@ public class OrderFragment extends BaseFragment {
         //change R.layout.yourlayoutfilename for each of your fragments
         View view = inflater.inflate(R.layout.fragment_orders, container, false);
         ButterKnife.bind(this, view);
-
-
+        if (oid!=null){
+            presenter.openOrderdetail(oid);
+        }
         return view;
     }
 
@@ -99,7 +119,6 @@ public class OrderFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         //you can set the title for your toolbar here for different fragments different titles
         getActivity().setTitle("Orders");
-
         mSectionsPagerAdapter = new SectionsPagerAdapter(getChildFragmentManager());
         mViewPager.setAdapter(mSectionsPagerAdapter);
         tabLayout.setupWithViewPager(mViewPager);
@@ -107,4 +126,7 @@ public class OrderFragment extends BaseFragment {
     }
 
 
+    public void openDetailOrder(Order order) {
+        OrderDetailActivity.startWithOrder(activity,order);
+    }
 }

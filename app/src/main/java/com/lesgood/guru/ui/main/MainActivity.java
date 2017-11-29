@@ -103,10 +103,16 @@ public class MainActivity extends BaseActivity  implements EasyPermissions.Permi
 
     public static void startWithUser(Activity activity, final User user) {
         Intent intent = new Intent(activity, MainActivity.class);
+
         BaseApplication.get(activity).createUserComponent(user);
         activity.startActivity(intent);
     }
-
+    public static void startWithUserParam(Activity activity, final User user,String param) {
+        Intent intent = new Intent(activity, MainActivity.class);
+        intent.putExtra("param",param);
+        BaseApplication.get(activity).createUserComponent(user);
+        activity.startActivity(intent);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,15 +123,11 @@ public class MainActivity extends BaseActivity  implements EasyPermissions.Permi
            requestPermissionForMvers();
         }
         ButterKnife.bind(this);
-
         setSupportActionBar(toolbar);
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        Fragment fragment = HomeFragment.newInstance();
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.content_frame, fragment);
-        ft.commit();
+
 
         mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
         FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
@@ -137,14 +139,19 @@ public class MainActivity extends BaseActivity  implements EasyPermissions.Permi
         fetchWelcome();
         String token = FirebaseInstanceId.getInstance().getToken();
         presenter.updateFCMToken(user.getUid(),token);
-        /*if(getIntent().getExtras().getString("data") != null){
-            String orderID = getIntent().getExtras().getString("data");
-            Toast.makeText(this, ""+orderID, Toast.LENGTH_SHORT).show();
-
-        }*/
-
-
-
+        Bundle extra = getIntent().getExtras();
+        if (extra!=null){
+            String orderID = extra.getString("param");
+            Fragment fragment = OrderFragment.newInstanceParam(orderID);
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.content_frame, fragment);
+            ft.commit();
+        }else {
+            Fragment fragment = new HomeFragment();
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.content_frame, fragment);
+            ft.commit();
+        }
 
     }
 

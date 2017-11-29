@@ -27,26 +27,26 @@ import javax.inject.Inject;
 
 
 public class SplashActivity extends BaseActivity {
-
     @Inject
     SplashPresenter presenter;
-
+    String oid;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         LocalBroadcastManager.getInstance(this).registerReceiver(tokenReceiver,
                 new IntentFilter("tokenReceiver"));
+        Bundle extra = getIntent().getExtras();
 
-        if (getIntent().getExtras() != null) {
+       /* oid = "51561";*/
+        if (extra != null) {
+            for (String key : extra.keySet()) {
+                String value = extra.getString(key);
 
-            for (String key : getIntent().getExtras().keySet()) {
-                String value = getIntent().getExtras().getString(key);
-                /*Toast.makeText(this, key+" : "+value, Toast.LENGTH_SHORT).show();*/
                 if (key.equals("orderid") && (value != null)) {
                     /*OrderDetailActivity.starFromNotif(this,value);*/
                     Log.e("SplashActivity", "onCreate: " + value);
-                    finish();
+                    oid = value.replaceAll("\\s+","");
                 }
 
             }
@@ -93,7 +93,15 @@ public class SplashActivity extends BaseActivity {
     }
 
     public void showMainActivity(User user){
-        MainActivity.startWithUser(this, user);
+        if (oid!=null){
+            Log.e("showMainActivity", "SplashActivity" + oid.length());
+            MainActivity.startWithUserParam(this,user,oid);
+            finish();
+        }else {
+            MainActivity.startWithUser(this, user);
+            finish();
+        }
+
     }
 
     public void showIntroActivity(User user){

@@ -153,7 +153,7 @@ public class OrderDetailActivity extends BaseActivity {
     setSupportActionBar(toolbar);
     getSupportActionBar().setDisplayShowHomeEnabled(true);
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-   /* init();*/
+    init();
   }
 
   @Override
