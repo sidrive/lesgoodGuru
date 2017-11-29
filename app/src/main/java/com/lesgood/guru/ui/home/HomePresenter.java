@@ -15,6 +15,7 @@ import com.lesgood.guru.data.model.Days;
 import com.lesgood.guru.data.model.TimeSchedule;
 import com.lesgood.guru.data.remote.UserService;
 import com.lesgood.guru.util.AppUtils;
+import com.lesgood.guru.util.Utils;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -145,7 +146,9 @@ public class HomePresenter implements BasePresenter {
     public void setTimeSchedule(String day,long statTime, long endTime){
         TimeSchedule schedule = new TimeSchedule();
         String keypush = databaseRef.push().getKey();
+        String dayFormated = Utils.dayFormated(day);
         schedule.setDay(day);
+        schedule.setDayFormated(dayFormated);
         schedule.setSchedule_id(keypush);
         schedule.setId(mUser.getUid().toString());
         schedule.setDay_uid(day+"_"+mUser.getUid().toString());

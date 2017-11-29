@@ -9,14 +9,14 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    /*signingConfigs {
+    signingConfigs {
         release {
             keyAlias 'lesgood'
             keyPassword 'doremi456'
             storeFile file('/Users/sim-x/WEB/lesgood/Keystore/lesgood-release-key.jks')
             storePassword 'doremi456'
         }
-    }*/
+    }
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     defaultConfig {
@@ -32,7 +32,7 @@ android {
     }
     buildTypes {
         release {
-            /* signingConfig signingConfigs.release*/
+             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             zipAlignEnabled true
             debuggable false
@@ -50,7 +50,7 @@ android {
         releaseConfig {
             minSdkVersion 17
             applicationId 'com.lesgood.guru'
-            /*  signingConfig signingConfigs.release*/
+              signingConfig signingConfigs.release
             targetSdkVersion 25
             versionCode 5
             versionName '1.0.1'

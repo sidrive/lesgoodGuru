@@ -61,10 +61,7 @@ public class MainActivity extends BaseActivity  implements EasyPermissions.Permi
     User user;
 
     public FirebaseRemoteConfig mFirebaseRemoteConfig;
-    private static final int RC_LOCATION= 101;
-    private static final int RC_READCONTACT= 102;
-    private static final int RC_STORAGE= 103;
-    private static final int RC_CAMERA= 104;
+
     private static final int RC_ALL_PERMISSION= 111;
 
     private static final String[] PERMISION =
@@ -115,7 +112,6 @@ public class MainActivity extends BaseActivity  implements EasyPermissions.Permi
         LocalBroadcastManager.getInstance(this).registerReceiver(tokenReceiver,
                 new IntentFilter("tokenReceiver"));
         if (android.os.Build.VERSION.SDK_INT >= VERSION_CODES.M) {
-            Log.e("onCreate", "MainActivity" );
            requestPermissionForMvers();
         }
         ButterKnife.bind(this);
@@ -155,11 +151,8 @@ public class MainActivity extends BaseActivity  implements EasyPermissions.Permi
                 || ActivityCompat.shouldShowRequestPermissionRationale(this, PERMISION[3])
                 || ActivityCompat.shouldShowRequestPermissionRationale(this, PERMISION[4])) {
             } else {
-                //AppUtils.showDialogWithBtn(this,"Perizinan app","Aplikasi membutuhkan permsision",positifBtn,negativBtn);
                 ActivityCompat.requestPermissions(this,PERMISION,RC_ALL_PERMISSION);
             }
-        } else {
-
         }
     }
 
@@ -280,22 +273,22 @@ public class MainActivity extends BaseActivity  implements EasyPermissions.Permi
         BaseApplication.get(this).getUserComponent()
                 .plus(new MainActivityModule(this))
                 .inject(this);
-
         BaseApplication.get(this).createMainComponent(this);
     }
     boolean doubleBackToExitPressedOnce = false;
-    @Override
+   /* @Override
     public void onBackPressed() {
-        if (doubleBackToExitPressedOnce) {
-            super.onBackPressed();
+        System.exit(1);
+        *//*if (doubleBackToExitPressedOnce) {
+
             finish();
             return;
         }
         this.doubleBackToExitPressedOnce = true;
         AppUtils.showToast(this,"Double tap to exit");
-        new Handler().postDelayed(() -> doubleBackToExitPressedOnce = false, 2000);
-
-    }
+        new Handler().postDelayed(() -> doubleBackToExitPressedOnce = true, 2000);*//*
+        return;
+    }*/
 
     @Override
     public void onPermissionsGranted(int requestCode, List<String> perms) {

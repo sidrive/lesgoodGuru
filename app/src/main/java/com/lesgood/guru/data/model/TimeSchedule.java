@@ -19,6 +19,9 @@ public class TimeSchedule {
   String day;
 
   @Nullable
+  String dayFormated;
+
+  @Nullable
   String key;
 
   @Nullable
@@ -35,11 +38,13 @@ public class TimeSchedule {
   public TimeSchedule(){}
 
   public TimeSchedule(@NonNull String id, @NonNull String schedule_id, String time,
-      String day, String key, String day_time, String day_uid, long startTime, long endTime) {
+      String day, String dayFormated, String key, String day_time, String day_uid, long startTime,
+      long endTime) {
     this.id = id;
     this.schedule_id = schedule_id;
     this.time = time;
     this.day = day;
+    this.dayFormated = dayFormated;
     this.key = key;
     this.day_time = day_time;
     this.day_uid = day_uid;
@@ -81,6 +86,15 @@ public class TimeSchedule {
 
   public void setDay(@Nullable String day) {
     this.day = day;
+  }
+
+  @Nullable
+  public String getDayFormated() {
+    return dayFormated;
+  }
+
+  public void setDayFormated(@Nullable String dayFormated) {
+    this.dayFormated = dayFormated;
   }
 
   @Nullable

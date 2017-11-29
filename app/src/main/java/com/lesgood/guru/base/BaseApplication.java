@@ -46,10 +46,11 @@ public class BaseApplication extends MultiDexApplication {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-        ///FirebaseApp.initializeApp(base);
+        //FirebaseApp.initializeApp(base);
         defaultConfig = new DefaultConfig(base);
         context =base;
         MultiDex.install(getBaseContext());
+        //FirebaseApp.initializeApp(getBaseContext());
     }
 
     public static BaseApplication get(Context context) {
