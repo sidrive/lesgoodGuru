@@ -36,6 +36,8 @@ import com.lesgood.guru.ui.setting.SettingActivityModule;
 import com.lesgood.guru.ui.skill.SkillActivityComponent;
 import com.lesgood.guru.ui.skill.SkillActivityModule;
 
+import com.lesgood.guru.ui.wallet.WalletActivityComponent;
+import com.lesgood.guru.ui.wallet.WalletActivityModule;
 import dagger.Subcomponent;
 
 @UserScope
@@ -77,4 +79,5 @@ public interface UserComponent {
         ReviewsActivityComponent plus(ReviewsActivityModule activityModule);
 
         MapActivityComponent plus(MapActivityModule mapActivityModule);
+        WalletActivityComponent plus (WalletActivityModule walletActivityModule);
 }

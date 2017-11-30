@@ -124,8 +124,6 @@ public class AddLocationActivity extends BaseActivity implements OnMapReadyCallb
     location = new Location(user.getUid());
     location.setLat(0);
     location.setLng(0);
-    Log.e("onCreate", "AddLocationActivity" + location.getLng());
-    Log.e("onCreate", "AddLocationActivity" + location.getLat());
   }
 
   private void initActionbar() {
@@ -165,12 +163,11 @@ public class AddLocationActivity extends BaseActivity implements OnMapReadyCallb
   public void init(Location location) {
     this.location = location;
     mapConnect();
-    Log.e("init", "AddLocationActivity" + location.getAddress());
     if (location.getAddress().length() != 0) {
       latitude = location.getLat();
       longitude = location.getLng();
       LatLng latLng = new LatLng(latitude, longitude);
-      Log.e("init", "AddLocationActivity" + latLng);
+
       handleNewLatLng(latLng);
       markUserLocation(latLng,"Here");
     }
@@ -220,7 +217,7 @@ public class AddLocationActivity extends BaseActivity implements OnMapReadyCallb
     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userCurrentLocation, 16));
     mMap.setOnCameraIdleListener(this);
     mMap.setMyLocationEnabled(true);
-    mMap.setOnMapClickListener(onMapClickListener);
+    //mMap.setOnMapClickListener(onMapClickListener);
   }
   private void handleNewLatLng(LatLng pos) {
     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(pos,16));
@@ -245,6 +242,8 @@ public class AddLocationActivity extends BaseActivity implements OnMapReadyCallb
 
   private void saveMap() {
     LatLng latLng = mMap.getCameraPosition().target;
+    Log.e("saveMap", "AddLocationActivity" + latLng);
+    presenter.getAddress(latLng);
     latitude = latLng.latitude;
     longitude = latLng.longitude;
     finish();

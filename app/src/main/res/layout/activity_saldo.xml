@@ -28,6 +28,7 @@
                 android:textColor="@color/colorWhite"/>
 
             <com.lesgood.guru.util.TypefacedTextView
+              android:id="@+id/tvSaldo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="35dp"
@@ -41,6 +42,7 @@
         </LinearLayout>
 
         <android.support.v7.widget.CardView
+          android:id="@+id/cvTarikDana"
             android:layout_width="match_parent"
             android:layout_marginTop="@dimen/activity_horizontal_margin"
             android:layout_height="wrap_content">
@@ -70,6 +72,7 @@
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
+          android:id="@+id/cvRiwayat"
             android:layout_width="match_parent"
             android:layout_marginTop="@dimen/activity_horizontal_margin"
             android:layout_height="wrap_content">

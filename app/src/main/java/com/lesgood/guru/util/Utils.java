@@ -15,7 +15,7 @@ public class Utils {
         String angka = Integer.toString(amount);
         NumberFormat rupiahFormat = NumberFormat.getInstance(Locale.GERMANY);
         String rupiah = rupiahFormat.format(Double.parseDouble(angka));
-        return  "Rp."+rupiah;
+        return  "Rp. "+rupiah;
     }
     public static String dateToString(Date date){
         SimpleDateFormat format = new SimpleDateFormat("EEE, MMM d, ''yyyy");

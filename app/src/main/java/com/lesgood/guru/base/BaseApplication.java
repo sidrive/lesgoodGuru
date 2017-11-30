@@ -27,6 +27,9 @@ import com.lesgood.guru.data.user.UserModule;
 import com.lesgood.guru.ui.main.MainActivity;
 import com.lesgood.guru.ui.map.MapActivityComponent;
 import com.lesgood.guru.ui.order_detail.OrderDetailActivity;
+import com.lesgood.guru.ui.wallet.WalletActivity;
+import com.lesgood.guru.ui.wallet.WalletActivityComponent;
+import com.lesgood.guru.ui.wallet.WalletActivityModule;
 import com.muddzdev.styleabletoastlibrary.StyleableToast;
 
 /**
@@ -41,6 +44,7 @@ public class BaseApplication extends MultiDexApplication {
     private LocationComponent locationComponent;
     private OrderDetailComponent orderDetailComponent;
     private SkillComponent skillComponent;
+    private WalletActivityComponent walletActivityComponent;
     private MapActivityComponent mapActivityComponent;
     private Context context;
     @Override
@@ -146,5 +150,6 @@ public class BaseApplication extends MultiDexApplication {
     public void releaseSkillComponent(){
         skillComponent = null;
     }
+
 
 }

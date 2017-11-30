@@ -62,8 +62,8 @@ public class SplashPresenter implements BasePresenter {
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot != null){
                         User remoteUser = dataSnapshot.getValue(User.class);
-
                         if(remoteUser == null || remoteUser.getFull_name() == null || remoteUser.getEmail() == null) {
                             if (remoteUser != null){
                                 if (remoteUser.getFull_name() != null) user.setFull_name(remoteUser.getFull_name());
@@ -78,6 +78,7 @@ public class SplashPresenter implements BasePresenter {
                            /* }
                             else activity.showVerificationActivity(remoteUser);*/
 
+                        }
                         }
                     }
 

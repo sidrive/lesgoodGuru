@@ -71,7 +71,8 @@ public class User implements Serializable {
 
     @Nullable
     public String token;
-
+    @Nullable
+    public int saldo;
     public static User newInstance(FirebaseUser firebaseUser, UserInfo provider) {
         User user = new User(firebaseUser.getUid());
         user.setProvider(provider.getProviderId());
@@ -101,6 +102,15 @@ public class User implements Serializable {
         this.photo_url = photo_url;
         this.full_name = full_name;
         this.token = token;
+    }
+
+    @Nullable
+    public int getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(@Nullable int saldo) {
+        this.saldo = saldo;
     }
 
     @Nullable
