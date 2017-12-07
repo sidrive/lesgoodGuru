@@ -45,9 +45,7 @@ public class LocationService {
     }
 
     public void updateUserLocation(User user){
-        Log.e("updateUserLocation", "LocationService" + user.toString());
         databaseRef.child("users").child(user.getUid()).setValue(user);
-        //geoFire.setLocation("geoFire", new GeoLocation(user.latitude,user.longitude));
         geoFire2.setLocation(user.getUid(), new GeoLocation(user.latitude,user.longitude));
     }
 

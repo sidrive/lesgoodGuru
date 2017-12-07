@@ -157,9 +157,7 @@ public class HomePresenter implements BasePresenter {
         userService.setTimeSchedule().child(keypush).setValue(schedule)
             .addOnSuccessListener(aVoid -> {
                 fragment.showtimeDetailSchedule();
-            })
-
-            .addOnFailureListener(e -> {
+            }).addOnFailureListener(e -> {
                 Log.e("setTimeSchedule", "GAGAL");
             });
     }
@@ -186,7 +184,7 @@ public class HomePresenter implements BasePresenter {
                 public void onChildRemoved(DataSnapshot dataSnapshot) {
                     TimeSchedule timeSchedule = dataSnapshot.getValue(TimeSchedule.class);
                     if (dataSnapshot!=null){
-                        fragment.showtimeDetailSchedule();
+                        fragment.timesAdapter.notifyDataSetChanged();
                     }
                 }
 
