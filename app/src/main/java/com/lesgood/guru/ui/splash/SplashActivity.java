@@ -58,7 +58,7 @@ public class SplashActivity extends BaseActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             String token = intent.getStringExtra("token");
-            Toast.makeText(context, "--------------", Toast.LENGTH_SHORT).show();
+            Log.e("SplashActivity", "onReceive: " + token);
             if(token != null)
             {
                 presenter.updateFCMToken(token);

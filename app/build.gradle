@@ -32,7 +32,7 @@ android {
     }
     buildTypes {
         release {
-             signingConfig signingConfigs.release
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             zipAlignEnabled true
             debuggable false
@@ -50,7 +50,7 @@ android {
         releaseConfig {
             minSdkVersion 17
             applicationId 'com.lesgood.guru'
-              signingConfig signingConfigs.release
+            signingConfig signingConfigs.release
             targetSdkVersion 25
             versionCode 5
             versionName '1.0.1'
@@ -60,6 +60,7 @@ android {
 }
 
 dependencies {
+
 
     compile 'com.prolificinteractive:material-calendarview:1.4.3'
     compile 'com.github.sundeepk:compact-calendar-view:2.0.3-beta'
@@ -101,6 +102,7 @@ dependencies {
     compile rootProject.ext.fbstorage
     compile rootProject.ext.fbcrash
     compile rootProject.ext.fbconfig
+    compile rootProject.ext.fbinvites
     // Test dependencies
     testCompile rootProject.ext.junit
     testCompile rootProject.ext.supportAnnotations

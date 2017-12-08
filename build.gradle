@@ -89,6 +89,7 @@ ext {
     fbmsg = "com.google.firebase:firebase-messaging:${FIREBASE_VERSION}"
     fbcrash = "com.google.firebase:firebase-crash:${FIREBASE_VERSION}"
     fbconfig = "com.google.firebase:firebase-config:${FIREBASE_VERSION}"
+    fbinvites = "com.google.firebase:firebase-invites:${FIREBASE_VERSION}"
 
     gplus = "com.google.android.gms:play-services-plus:${FIREBASE_VERSION}"
     gauth = "com.google.android.gms:play-services-auth:${FIREBASE_VERSION}"

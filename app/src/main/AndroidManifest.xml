@@ -27,6 +27,13 @@
 
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
+        <data android:host="lesgood.com" android:scheme="http"/>
+        <data android:host="lesgood.com" android:scheme="https"/>
+      </intent-filter>
     </activity>
 
     <meta-data
@@ -126,6 +133,8 @@
       android:label="@string/title_activity_maps"
       android:name=".ui.map.MapsActivity">
     </activity>
+
+
   </application>
 
 </manifest>
