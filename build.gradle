@@ -68,9 +68,12 @@ ext {
     final GLIDE_VERSION = '3.7.0'
     final RETROFIT_VERSION = '2.3.0'
     final LOGGING_VERSION = '3.4.1'
-    final FIREBASE_VERSION = '10.2.0'
-    final FIREBASE_UI_VERSION = '1.2.0'
+    final FIREBASE_VERSION = '11.0.1'
+    final FIREBASE_UI_VERSION = '2.0.1'
     final MAP_UTILS_VERSION = '0.5+'
+
+    glide ="com.github.bumptech.glide:glide:${GLIDE_VERSION}"
+    glideAno = "com.github.bumptech.glide:compiler:${GLIDE_VERSION}"
 
     sqlbrite = "com.squareup.sqlbrite:sqlbrite:${SQLBRITE_VERSION}"
     picasso = "com.squareup.picasso:picasso:${PICASSO_VERSION}"
@@ -120,4 +123,6 @@ ext {
     espressoidle = "com.android.support.test.espresso:espresso-idling-resource:${ESPRESSO_VERSION}"
     testRunner = "com.android.support.test:runner:$RUNNER_VERSION"
     testRule = "com.android.support.test:rules:$RUNNER_VERSION"
+
+
 }

@@ -3,16 +3,10 @@ package com.lesgood.guru.ui.home;
 
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
-import android.app.TimePickerDialog;
-import android.app.TimePickerDialog.OnTimeSetListener;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.graphics.drawable.Drawable;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.content.LocalBroadcastManager;
+
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,14 +16,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TimePicker;
+
 import butterknife.Bind;
 import butterknife.BindColor;
 import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
-import com.github.sundeepk.compactcalendarview.CompactCalendarView;
-import com.github.sundeepk.compactcalendarview.CompactCalendarView.CompactCalendarViewListener;
-import com.github.sundeepk.compactcalendarview.domain.Event;
+
 
 import com.lesgood.guru.R;
 import com.lesgood.guru.base.BaseApplication;
@@ -77,8 +69,7 @@ public class HomeFragment extends BaseFragment {
   @Inject
   MainActivity activity;
 
-  @Bind(R.id.cv_schedule)
-  CompactCalendarView cvSchedule;
+
 
   @Bind(R.id.tvStatusUser)
   TypefacedTextView tvStsUser;
@@ -163,20 +154,10 @@ public class HomeFragment extends BaseFragment {
     Calendar c = Calendar.getInstance();
     Date date = c.getTime();
     tvDateTitle.setText(Utils.dateToString(date));
-    cvSchedule.setListener(compactCalendarViewListener);
+
   }
 
-  public CompactCalendarViewListener compactCalendarViewListener = new CompactCalendarViewListener() {
-    @Override
-    public void onDayClick(Date date) {
 
-    }
-
-    @Override
-    public void onMonthScroll(Date date) {
-      tvDateTitle.setText(Utils.dateToString(date));
-    }
-  };
 
   public void init() {
 
@@ -233,9 +214,6 @@ public class HomeFragment extends BaseFragment {
     dialog.show();
   }
 
-  public void addToScheduleToCalneder(List<Event> events) {
-    cvSchedule.addEvents(events);
-  }
 
 
 

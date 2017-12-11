@@ -2,7 +2,7 @@ package com.lesgood.guru.ui.home;
 
 import android.graphics.Color;
 import android.util.Log;
-import com.github.sundeepk.compactcalendarview.domain.Event;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -105,17 +105,13 @@ public class HomePresenter implements BasePresenter {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 String date = dataSnapshot.getKey();
-                List<Event> eventList = new ArrayList<>();
-                eventList.add(new Event(Color.argb(252, 200, 64, 1),Long.parseLong(date),"Aviable"+ new Date(Long.parseLong(date))));
-                fragment.addToScheduleToCalneder(eventList);
+
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 String date = dataSnapshot.getKey();
-                List<Event> eventList = new ArrayList<>();
-                eventList.add(new Event(Color.argb(252, 200, 64, 1),Long.parseLong(date),"Aviable"+new Date(Long.parseLong(date))));
-                fragment.addToScheduleToCalneder(eventList);
+
             }
 
             @Override

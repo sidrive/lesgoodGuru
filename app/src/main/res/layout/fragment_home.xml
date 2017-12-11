@@ -49,20 +49,7 @@
       app:typeface="Roboto-Light.ttf"
       android:textSize="16sp"
       android:padding="@dimen/activity_horizontal_margin"/>
-    <com.github.sundeepk.compactcalendarview.CompactCalendarView
-      android:visibility="gone"
-      android:id="@+id/cv_schedule"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_margin="5dp"
-      android:theme="@style/Widget.CalendarView.Custom"
-      app:compactCalendarTargetHeight="300dp"
-      app:compactCalendarTextSize="16sp"
-      app:compactCalendarBackgroundColor="#424242"
-      app:compactCalendarTextColor="#fff"
-      app:compactCalendarCurrentSelectedDayBackgroundColor="#E57373"
-      app:compactCalendarCurrentDayBackgroundColor="#FCC840"
-      app:compactCalendarMultiEventIndicatorColor="#fff"/>
+
     <LinearLayout
       android:padding="@dimen/activity_horizontal_margin"
       android:orientation="vertical"
