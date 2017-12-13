@@ -24,4 +24,5 @@
     <color name="percentageUnfilledColor">#E4E6EA</color>
     <color name="percentageTextBackground">#fff</color>
     <color name="percentageTextColor">#424242</color>
+    <color name="colorRouteLine">#FF4081</color>
 </resources>
