@@ -9,6 +9,7 @@ import butterknife.ButterKnife;
 import com.lesgood.guru.R;
 import com.lesgood.guru.data.model.Days;
 import com.lesgood.guru.data.model.Pengalaman;
+import com.lesgood.guru.util.Utils;
 
 public class DaysViewHolder extends RecyclerView.ViewHolder {
 
@@ -23,7 +24,7 @@ public class DaysViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(Days item) {
-        txtTitle.setText(item.getName());
+        txtTitle.setText(Utils.dayFormated(item.getName()));
     }
 }
 
