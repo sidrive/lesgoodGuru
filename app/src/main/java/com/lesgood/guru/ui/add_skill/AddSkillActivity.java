@@ -400,35 +400,35 @@ public class AddSkillActivity extends BaseActivity {
 
 
 
-        if (skill.getPrice1() < 40000){
+        if (skill.getPrice1() < 30000){
             inputPrice1.setError(errRequiredMinimal);
             cancel = true;
             focusView = inputPrice1;
             showLoading(false);
         }
 
-        if (skill.getPrice2() <= 40000){
+        if (skill.getPrice2() <= 30000){
             inputPrice2.setError(errRequiredMinimal);
             cancel = true;
             focusView = inputPrice2;
             showLoading(false);
         }
 
-        if (skill.getPrice3() <= 40000){
+        if (skill.getPrice3() <= 30000){
             inputPrice3.setError(errRequiredMinimal);
             cancel = true;
             focusView = inputPrice3;
             showLoading(false);
         }
 
-        if (skill.getPrice4() <= 40000){
+        if (skill.getPrice4() <= 30000){
         inputPrice4.setError(errRequiredMinimal);
         cancel = true;
         focusView = inputPrice4;
         showLoading(false);
         }
 
-        if (skill.getPrice5() <= 40000){
+        if (skill.getPrice5() <= 30000){
             inputPrice5.setError(errRequiredMinimal);
             cancel = true;
             focusView = inputPrice5;
@@ -468,7 +468,7 @@ public class AddSkillActivity extends BaseActivity {
     }
     @OnTextChanged(value = R.id.input_price_1,callback = Callback.AFTER_TEXT_CHANGED)void setPrice(CharSequence s){
         Log.e("setPrice", "AddSkillActivity" + s);
-        int minprice = 40000;
+        int minprice = 30000;
         if (s.length()>3){
             if (Integer.parseInt(s.toString()) < minprice){
                 inputPrice1.setError(errRequiredMinimal);

@@ -46,6 +46,8 @@ public class VerificationPresenter implements BasePresenter {
         reference.getDownloadUrl().addOnSuccessListener(uri -> {
             activity.setImageKTP(uri);
             activity.showLoading(false);
+        }).addOnFailureListener(e -> {
+            activity.showLoading(false);
         });
     }
     public  void getUriKTM(String uid){
@@ -53,6 +55,8 @@ public class VerificationPresenter implements BasePresenter {
         StorageReference reference = firebaseImageService.getUserProofKTMThumb(uid);
         reference.getDownloadUrl().addOnSuccessListener(uri -> {
             activity.setImageKTM(uri);
+            activity.showLoading(false);
+        }).addOnFailureListener(e -> {
             activity.showLoading(false);
         });
     }
@@ -62,6 +66,8 @@ public class VerificationPresenter implements BasePresenter {
         reference.getDownloadUrl().addOnSuccessListener(uri -> {
             activity.setImageIjazah(uri);
             activity.showLoading(false);
+        }).addOnFailureListener(e -> {
+            activity.showLoading(false);
         });
     }
     public  void getUriSertifikat(String uid){
@@ -69,6 +75,8 @@ public class VerificationPresenter implements BasePresenter {
         StorageReference reference = firebaseImageService.getUserProofSertifikatThumb(uid);
         reference.getDownloadUrl().addOnSuccessListener(uri -> {
             activity.setImageSertifikat(uri);
+            activity.showLoading(false);
+        }).addOnFailureListener(e -> {
             activity.showLoading(false);
         });
     }
