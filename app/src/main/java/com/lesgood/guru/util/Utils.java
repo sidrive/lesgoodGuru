@@ -1,5 +1,9 @@
 package com.lesgood.guru.util;
 
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.content.Context;
+import android.content.DialogInterface;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -50,5 +54,15 @@ public class Utils {
             dayFormated = "Sabtu";
         }
         return dayFormated;
+    }
+    public static  void  showDialog(Context context,String msg, DialogInterface.OnClickListener listener){
+        AlertDialog.Builder builder = new Builder(context);
+        builder.setMessage(msg);
+        builder.setNegativeButton("TIDAK", (dialog, which) -> {
+            dialog.dismiss();
+        });
+        builder.setPositiveButton("YA", listener);
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }

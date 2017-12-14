@@ -1,5 +1,9 @@
 package com.lesgood.guru.ui.home;
 
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.util.Log;
 
@@ -14,6 +18,7 @@ import com.lesgood.guru.base.BasePresenter;
 import com.lesgood.guru.data.model.Days;
 import com.lesgood.guru.data.model.TimeSchedule;
 import com.lesgood.guru.data.remote.UserService;
+import com.lesgood.guru.data.verification.VerificationActivity;
 import com.lesgood.guru.util.AppUtils;
 import com.lesgood.guru.util.Utils;
 import java.util.ArrayList;

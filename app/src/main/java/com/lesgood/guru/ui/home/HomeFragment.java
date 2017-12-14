@@ -1,6 +1,7 @@
 package com.lesgood.guru.ui.home;
 
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 
@@ -29,6 +30,7 @@ import com.lesgood.guru.base.BaseFragment;
 import com.lesgood.guru.data.model.Days;
 import com.lesgood.guru.data.model.TimeSchedule;
 import com.lesgood.guru.data.model.User;
+import com.lesgood.guru.data.verification.VerificationActivity;
 import com.lesgood.guru.ui.main.MainActivity;
 import com.lesgood.guru.util.CustomTimePiker;
 import com.lesgood.guru.util.TypefacedTextView;
@@ -159,6 +161,7 @@ public class HomeFragment extends BaseFragment {
 
 
 
+  @SuppressLint("ResourceAsColor")
   public void init() {
 
     sStatus.setChecked(user.isActive());
@@ -252,4 +255,6 @@ public class HomeFragment extends BaseFragment {
   public void deleteTimeSchedule(String schedule_id) {
     showDeleteTimeSchedule(schedule_id);
   }
+
+
 }

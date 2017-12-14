@@ -34,6 +34,7 @@ import com.lesgood.guru.base.BaseActivity;
 import com.lesgood.guru.base.BaseApplication;
 
 import com.lesgood.guru.data.model.User;
+import com.lesgood.guru.data.verification.VerificationActivity;
 import com.lesgood.guru.ui.home.HomeFragment;
 import com.lesgood.guru.ui.order.OrderFragment;
 import com.lesgood.guru.ui.order_detail.OrderDetailActivity;
@@ -41,6 +42,7 @@ import com.lesgood.guru.ui.profile.ProfileFragment;
 import com.lesgood.guru.ui.update_information.UpdateInformationActivity;
 
 import com.lesgood.guru.util.AppUtils;
+import com.lesgood.guru.util.Utils;
 import java.util.List;
 import javax.inject.Inject;
 
@@ -127,8 +129,6 @@ public class MainActivity extends BaseActivity  implements EasyPermissions.Permi
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-
-
         mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
         FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
                 .setDeveloperModeEnabled(BuildConfig.DEBUG)
@@ -152,9 +152,14 @@ public class MainActivity extends BaseActivity  implements EasyPermissions.Permi
             ft.replace(R.id.content_frame, fragment);
             ft.commit();
         }
-
+        if (!user.isVerified()){
+            Utils.showDialog(this,"Akun anda belum terverifikasi atau dokumen verifikasi belum lengkap, lengkapi data sekarang ?",listener);
+        }
     }
-
+    public DialogInterface.OnClickListener listener = (dialog, which) -> {
+        dialog.dismiss();
+        openVerification();
+    };
     private void requestPermissionForMvers() {
         if (
             ActivityCompat.checkSelfPermission(this, PERMISION[0]) != PackageManager.PERMISSION_GRANTED
@@ -315,5 +320,9 @@ public class MainActivity extends BaseActivity  implements EasyPermissions.Permi
     @Override
     public void onPermissionsDenied(int requestCode, List<String> perms) {
 
+    }
+
+    public void openVerification() {
+        VerificationActivity.startWithUser(this,user);
     }
 }
