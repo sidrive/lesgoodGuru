@@ -238,7 +238,8 @@ public class EditProfileActivity extends BaseActivity implements OnDateSetListen
     int id = item.getItemId();
 
     if (id == android.R.id.home) {
-      finish();
+      /*finish();*/
+      MainActivity.startWithUser(this, user);
     }
 
     if (id == R.id.menu_done) {

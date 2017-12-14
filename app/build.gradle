@@ -13,7 +13,7 @@ android {
         release {
             keyAlias 'lesgood'
             keyPassword 'doremi456'
-            storeFile file('/Users/sim-x/WEB/lesgood/Keystore/lesgood-release-key.jks')
+            storeFile file('/home/ikun/GeekGarden/Keystore/lesgood-release-key.jks')
             storePassword 'doremi456'
         }
     }
