@@ -2,6 +2,7 @@ package com.lesgood.guru.data.verification;
 
 import android.net.Uri;
 
+import android.util.Log;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.lesgood.guru.base.BasePresenter;
@@ -38,6 +39,38 @@ public class VerificationPresenter implements BasePresenter {
 
     public StorageReference getKtpRef(String uid){
         return firebaseImageService.getUserProofKtpThumb(uid);
+    }
+    public  void getUriKTP(String uid){
+        activity.showLoading(true);
+        StorageReference reference = firebaseImageService.getUserProofKtpThumb(uid);
+        reference.getDownloadUrl().addOnSuccessListener(uri -> {
+            activity.setImageKTP(uri);
+            activity.showLoading(false);
+        });
+    }
+    public  void getUriKTM(String uid){
+        activity.showLoading(true);
+        StorageReference reference = firebaseImageService.getUserProofKTMThumb(uid);
+        reference.getDownloadUrl().addOnSuccessListener(uri -> {
+            activity.setImageKTM(uri);
+            activity.showLoading(false);
+        });
+    }
+    public  void getUriIjazah(String uid){
+        activity.showLoading(true);
+        StorageReference reference = firebaseImageService.getUserProofIjazahThumb(uid);
+        reference.getDownloadUrl().addOnSuccessListener(uri -> {
+            activity.setImageIjazah(uri);
+            activity.showLoading(false);
+        });
+    }
+    public  void getUriSertifikat(String uid){
+        activity.showLoading(true);
+        StorageReference reference = firebaseImageService.getUserProofSertifikatThumb(uid);
+        reference.getDownloadUrl().addOnSuccessListener(uri -> {
+            activity.setImageSertifikat(uri);
+            activity.showLoading(false);
+        });
     }
 
     public StorageReference getSertifikatRef(String uid){
@@ -77,13 +110,15 @@ public class VerificationPresenter implements BasePresenter {
         // Register observers to listen for when the download is done or if it fails
         uploadTask.addOnFailureListener(exception -> {
             // Handle unsuccessful uploads
-            System.out.print(exception);
+            Log.e("uploadimg fail", "VerificationPresenter" + exception.getMessage());
             AppUtils.showToast(activity.getApplicationContext(),exception.getMessage());
         }).addOnSuccessListener(taskSnapshot -> {
             // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
             Uri downloadUrl = taskSnapshot.getDownloadUrl();
-            activity.successUploadImage(downloadUrl.toString());
-            AppUtils.showToast(activity.getApplicationContext(),taskSnapshot.toString());
+            activity.showLoading(false);
+            /*AppUtils.showToast(activity.getApplicationContext(),taskSnapshot.toString());*/
+            Log.e("uploadimg success", "VerificationPresenter" + taskSnapshot.getError());
         });
+
     }
 }
