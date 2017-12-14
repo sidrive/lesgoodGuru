@@ -32,6 +32,7 @@ import com.lesgood.guru.base.BaseActivity;
 import com.lesgood.guru.base.BaseApplication;
 import com.lesgood.guru.data.model.User;
 import com.lesgood.guru.ui.dialog.DialogUploadOption;
+import com.lesgood.guru.ui.main.MainActivity;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -302,6 +303,7 @@ public class VerificationActivity extends BaseActivity implements DialogUploadOp
     @OnClick(R.id.button_Save)
     void saveActivity(){
         showLoading(true);
+        MainActivity.startWithUser(this,user);
         finish();
     }
 

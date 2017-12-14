@@ -78,7 +78,7 @@ public class FirebaseUserService {
                 .build();
 
         googleApiClient = new Builder(activity)
-                .enableAutoManage(activity, 0,connectionResult -> {})
+
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
@@ -137,7 +137,7 @@ public class FirebaseUserService {
                             Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(
                                 status -> {
                                     if (status.isSuccess()) {
-                                        Auth.CredentialsApi.disableAutoSignIn(googleApiClient);
+
                                         Auth.GoogleSignInApi.revokeAccess(googleApiClient).setResultCallback(status1 -> {
                                             Log.e("onConnected", "FirebaseUserService" + status1.getStatusMessage());
                                         });
@@ -157,8 +157,5 @@ public class FirebaseUserService {
     }
 
 
-    public void deleteUser(String uid) {
-
-    }
 
 }
