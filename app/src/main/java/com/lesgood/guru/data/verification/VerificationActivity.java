@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,12 +12,9 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.util.SparseArray;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -32,6 +28,7 @@ import com.lesgood.guru.base.BaseActivity;
 import com.lesgood.guru.base.BaseApplication;
 import com.lesgood.guru.data.model.User;
 import com.lesgood.guru.ui.dialog.DialogUploadOption;
+import com.lesgood.guru.ui.main.MainActivity;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -144,31 +141,16 @@ public class VerificationActivity extends BaseActivity implements DialogUploadOp
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         setTitle("Verifikasi Data");
-
         init();
 
     }
 
     public void init(){
-        Glide.with(this /* context */)
-                .using(new FirebaseImageLoader())
-                .load(presenter.getKtpRef(user.getUid()))
-                .into(imgKtp);
+        presenter.getUriKTP(user.getUid());
+        presenter.getUriKTM(user.getUid());
+        presenter.getUriIjazah(user.getUid());
+        presenter.getUriSertifikat(user.getUid());
 
-        Glide.with(this /* context */)
-                .using(new FirebaseImageLoader())
-                .load(presenter.getSertifikatRef(user.getUid()))
-                .into(imgKeahlian);
-
-        Glide.with(this /* context */)
-                .using(new FirebaseImageLoader())
-                .load(presenter.getIjazah(user.getUid()))
-                .into(imgIjazah);
-
-        Glide.with(this /* context */)
-                .using(new FirebaseImageLoader())
-                .load(presenter.getKTMRef(user.getUid()))
-                .into(imgKtm);
     }
 
     @Override
@@ -264,10 +246,10 @@ public class VerificationActivity extends BaseActivity implements DialogUploadOp
             imgKeahlian.setImageBitmap(bitmap);
             presenter.uploadSertifikat(user, imgSmall, imgOriginal);
         }else if (type.equalsIgnoreCase("ktm")){
-            imgIjazah.setImageBitmap(bitmap);
+            imgKtm.setImageBitmap(bitmap);
             presenter.uploadKtm(user, imgSmall, imgOriginal);
         }else{
-            imgKtm.setImageBitmap(bitmap);
+            imgIjazah.setImageBitmap(bitmap);
             presenter.uploadIjazah(user, imgSmall, imgOriginal);
         }
     }
@@ -302,6 +284,7 @@ public class VerificationActivity extends BaseActivity implements DialogUploadOp
     @OnClick(R.id.button_Save)
     void saveActivity(){
         showLoading(true);
+        MainActivity.startWithUser(this,user);
         finish();
     }
 
@@ -343,8 +326,8 @@ public class VerificationActivity extends BaseActivity implements DialogUploadOp
 
     public void successUploadImage(String url){
         showLoading(false);
-        Toast.makeText(this, "Data Tersimpan", Toast.LENGTH_SHORT).show();
         init();
+        Toast.makeText(this, "Data Tersimpan", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -424,5 +407,27 @@ public class VerificationActivity extends BaseActivity implements DialogUploadOp
     }
 
 
+    public void setImageKTP(Uri uri) {
+        Glide.with(this /* context */)
+            .load(uri)
+            .into(imgKtp);
+    }
 
+    public void setImageKTM(Uri uri) {
+        Glide.with(this /* context */)
+            .load(uri)
+            .into(imgKtm);
+    }
+
+    public void setImageIjazah(Uri uri) {
+        Glide.with(this /* context */)
+            .load(uri)
+            .into(imgIjazah);
+    }
+
+    public void setImageSertifikat(Uri uri) {
+        Glide.with(this /* context */)
+            .load(uri)
+            .into(imgKeahlian);
+    }
 }

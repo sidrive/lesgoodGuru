@@ -40,9 +40,7 @@ public class DialogUploadOption extends Dialog {
         setContentView(R.layout.dialog_upload_option);
         ButterKnife.bind(this);
         setCancelable(true);
-
         init();
-
         try {
             mCallBack = (OnDialogUploadOptionClickListener) context;
         } catch (ClassCastException e) {

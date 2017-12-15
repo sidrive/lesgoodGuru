@@ -1,6 +1,8 @@
 package com.lesgood.guru.ui.skill;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.nsd.NsdManager.DiscoveryListener;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,12 +18,14 @@ import com.lesgood.guru.base.BaseApplication;
 
 import com.lesgood.guru.data.model.Skill;
 import com.lesgood.guru.data.model.User;
+import com.lesgood.guru.data.verification.VerificationActivity;
 import com.lesgood.guru.ui.add_skill.AddSkillActivity;
 import com.lesgood.guru.ui.brief.BriefActivity;
 import com.lesgood.guru.ui.brief.BriefPresenter;
 import com.lesgood.guru.ui.main.MainActivity;
 
 import com.lesgood.guru.util.Const;
+import com.lesgood.guru.util.Utils;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -180,7 +184,15 @@ public class SkillActivity extends BaseActivity {
     }
 
     public void startAddSkill(Skill skill){
-        AddSkillActivity.startWithData(this, skill);
-    }
+        if (!user.isVerified()){
+            Utils.showDialog(this,"Akun anda belum terverifikasi atau dokumen verifikasi belum lengkap, lengkapi data sekarang ?",listener);
+        }else {
+            AddSkillActivity.startWithData(this, skill);
+        }
 
+    }
+    private DialogInterface.OnClickListener listener = (dialog, which) -> {
+        dialog.dismiss();
+        VerificationActivity.startWithUser(this,user);
+    };
 }

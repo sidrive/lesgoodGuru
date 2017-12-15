@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/Base.Widget.AppCompat.Button.Borderless"
-        android:textSize="18sp"
+        android:textSize="12sp"
         android:id="@+id/btn_gallery"
         android:drawableLeft="@drawable/ic_stack_of_photos_24_dark"
         android:text="Galeri Foto"
@@ -36,7 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/Base.Widget.AppCompat.Button.Borderless"
-        android:textSize="18sp"
+        android:textSize="12sp"
         android:id="@+id/btn_take_a_photo"
         android:drawableLeft="@drawable/ic_add_camera_24_dark"
         android:text="Ambil Foto"/>
