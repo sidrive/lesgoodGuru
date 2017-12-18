@@ -5,7 +5,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.lesgood.guru.base.BasePresenter;
+import com.lesgood.guru.data.model.PartnerPayment;
 import com.lesgood.guru.data.model.User;
+import com.lesgood.guru.data.model.Withdraw;
 import com.lesgood.guru.data.remote.UserService;
 
 /**
@@ -37,7 +39,6 @@ public class WalletPresenter implements BasePresenter {
   }
 
   public void getDetailUser(String uid) {
-    Log.e("getDetailUser", "WalletPresenter" + uid);
     userService.getUser(uid).addValueEventListener(new ValueEventListener() {
       @Override
       public void onDataChange(DataSnapshot dataSnapshot) {
@@ -52,5 +53,39 @@ public class WalletPresenter implements BasePresenter {
 
       }
     });
+  }
+  public void requestWitdraw(Withdraw  withdraw){
+    userService.createRequestWithdraw(withdraw)
+        .addOnFailureListener(e -> {
+          activity.showLoading(false);
+          Log.e("requestWitdraw", "WalletPresenter" + e.getMessage());
+        })
+        .addOnCompleteListener(task -> {
+          activity.showLoading(false);
+          userService.updateSaldoUser(withdraw.getUid());
+        });
+  }
+  public void chekPaymentPartner(String uid){
+    final boolean[] isDataExist = {false};
+    activity.showLoading(true);
+    userService.getUserPayment(uid).child("bank").addListenerForSingleValueEvent(
+        new ValueEventListener() {
+          @Override
+          public void onDataChange(DataSnapshot dataSnapshot) {
+            if (dataSnapshot.getValue()!=null){
+              Log.e("onDataChange", "WalletPresenter" + dataSnapshot.getValue());
+              activity.prosesWithdraw();
+            }else {
+              activity.showLoading(false);
+              activity.showDiloagDataPayment(uid);
+            }
+          }
+
+          @Override
+          public void onCancelled(DatabaseError databaseError) {
+            activity.showLoading(false);
+          }
+        });
+
   }
 }

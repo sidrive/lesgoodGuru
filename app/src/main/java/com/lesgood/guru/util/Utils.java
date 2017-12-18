@@ -65,4 +65,14 @@ public class Utils {
         AlertDialog dialog = builder.create();
         dialog.show();
     }
+    public static  void  showDialogWithTitle(Context context,String title,String msg, DialogInterface.OnClickListener listener){
+        AlertDialog.Builder builder = new Builder(context);
+        builder.setMessage(msg);
+        builder.setNegativeButton("TIDAK", (dialog, which) -> {
+            dialog.dismiss();
+        });
+        builder.setPositiveButton("YA", listener);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
 }

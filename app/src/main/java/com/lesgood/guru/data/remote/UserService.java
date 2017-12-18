@@ -2,6 +2,7 @@ package com.lesgood.guru.data.remote;
 
 import android.app.Application;
 
+import android.util.Log;
 import com.alamkanak.weekview.WeekViewEvent;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -17,6 +18,8 @@ import com.lesgood.guru.data.model.Prestasi;
 import com.lesgood.guru.data.model.Reviews;
 import com.lesgood.guru.data.model.Skill;
 import com.lesgood.guru.data.model.User;
+import com.lesgood.guru.data.model.Withdraw;
+import com.lesgood.guru.util.Utils;
 
 
 /**
@@ -229,6 +232,16 @@ public class UserService {
 
     public void updateFirebaseToken(String uid, String token){
         databaseRef.child("users").child(uid).child("userDeviceToken").setValue(token);
+    }
+    /*=============================================================================================================================
+                                                                Withdraw Saldo
+      =============================================================================================================================*/
+    public void updateSaldoUser(String uid){
+        databaseRef.child("users").child(uid).child("saldo").setValue(0);
+    }
+
+    public Task<Void> createRequestWithdraw(Withdraw  withdraw){
+      return   databaseRef.child("withdraw").child(withdraw.getUid()).push().setValue(withdraw);
     }
 
 }

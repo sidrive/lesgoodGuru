@@ -1,12 +1,15 @@
 package com.lesgood.guru.ui.wallet;
 
 import android.content.Context;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -14,6 +17,8 @@ import com.lesgood.guru.R;
 import com.lesgood.guru.base.BaseActivity;
 import com.lesgood.guru.base.BaseApplication;
 import com.lesgood.guru.data.model.User;
+import com.lesgood.guru.data.model.Withdraw;
+import com.lesgood.guru.ui.edit_profile.EditProfileActivity;
 import com.lesgood.guru.util.TypefacedTextView;
 import com.lesgood.guru.util.Utils;
 import javax.inject.Inject;
@@ -37,6 +42,8 @@ public class WalletActivity extends BaseActivity {
 
   @Bind(R.id.tvSaldo)
   TypefacedTextView tvSaldo;
+  @Bind(R.id.view_progress)
+  LinearLayout viewProgress;
 
   private String uid;
 
@@ -57,7 +64,6 @@ public class WalletActivity extends BaseActivity {
     Bundle extra = getIntent().getExtras();
     if (extra != null) {
       uid = extra.getString(KEY_UID);
-
       presenter.getDetailUser(uid);
     }
   }
@@ -84,11 +90,66 @@ public class WalletActivity extends BaseActivity {
     tvSaldo.setText(Utils.getRupiah(user.getSaldo()));
   }
 
-  @OnClick(R.id.cvTarikDana)
+  /*@OnClick(R.id.cvTarikDana)
   public void onCvTarikDanaClicked() {
+    Log.e("onCvTarikDanaClicked", "WalletActivity");
+    String saldo = Utils.getRupiah(user.getSaldo());
+    Utils.showDialogWithTitle(this, "Penarikan Dana",
+        "Penarikan Dana sebesar ", listener);
+  }*/
+
+ /* @OnClick(R.id.cvRiwayat)
+  public void onCvRiwayatClicked() {
+    Log.e("onCvRiwayatClicked", "WalletActivity");
+  }*/
+
+  private OnClickListener listener = (dialog, which) -> {
+    presenter.chekPaymentPartner(user.getUid());
+  };
+
+  public void prosesWithdraw() {
+    Withdraw withdraw = new Withdraw();
+    withdraw.setUid(user.getUid());
+    withdraw.setSaldo(user.getSaldo());
+    withdraw.setStatus("request");
+    withdraw.setPaymetId(user.getUid());
+    presenter.requestWitdraw(withdraw);
   }
 
-  @OnClick(R.id.cvRiwayat)
-  public void onCvRiwayatClicked() {
+  public void showDiloagDataPayment(String uid) {
+    Utils.showDialog(this,
+        "Data bank anda belum lengkap, lengkapi data bank sebelum melakuakan penarikan dana.",
+        listenerDataPayment);
+  }
+
+  private OnClickListener listenerDataPayment = (dialog, which) -> {
+    EditProfileActivity.startWithUser(this, user, false);
+  };
+
+  public void showLoading(boolean show) {
+    if (show) {
+      viewProgress.setVisibility(View.VISIBLE);
+    } else {
+      viewProgress.setVisibility(View.GONE);
+    }
+  }
+
+  @OnClick({R.id.lin_tarikdana, R.id.lin_riwayat})
+  public void onViewClicked(View view) {
+    switch (view.getId()) {
+      case R.id.lin_tarikdana:
+        if (user.getSaldo()!=0){
+          String saldo = Utils.getRupiah(user.getSaldo());
+          Utils.showDialogWithTitle(this, "Penarikan Dana",
+              "Penarikan Dana sebesar "+saldo, listener);
+        }
+        else {
+          Utils.showDialog(this,"Anda tidak bisa melakukan permintaan penarikan dana dikarenakan saldo anda Rp. 0 ",null);
+        }
+        break;
+      case R.id.lin_riwayat:
+        Log.e("onViewClicked", "lin_riwayat");
+        break;
+    }
   }
 }
