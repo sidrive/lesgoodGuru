@@ -99,8 +99,10 @@ public class WalletActivity extends BaseActivity {
     return super.onOptionsItemSelected(item);
   }
 
-  public void updateUi(User user) {
-    tvSaldo.setText(Utils.getRupiah(user.getSaldo()));
+  public void updateUi(User userData) {
+    BaseApplication.get(this).createUserComponent(userData);
+    user = userData;
+    tvSaldo.setText(Utils.getRupiah(userData.getSaldo()));
   }
 
 
@@ -112,7 +114,7 @@ public class WalletActivity extends BaseActivity {
     Calendar cal = Calendar.getInstance();
     cal.getTimeInMillis();
     Withdraw withdraw = new Withdraw();
-    withdraw.setCreatAt(cal.getTimeInMillis());
+    withdraw.setCreateAt(cal.getTimeInMillis());
     withdraw.setUid(user.getUid());
     withdraw.setSaldo(user.getSaldo());
     withdraw.setStatus("request");
@@ -124,8 +126,14 @@ public class WalletActivity extends BaseActivity {
     Utils.showDialog(this,
         "Data bank anda belum lengkap, lengkapi data bank sebelum melakuakan penarikan dana.",
         listenerDataPayment);
-  }
 
+  }
+  public void showDiloagRequentWithdraw(String uid) {
+    Utils.showDialog(this,
+        "Data bank anda belum lengkap, lengkapi data bank sebelum melakuakan penarikan dana.",
+        listenerDataPayment);
+
+  }
   private OnClickListener listenerDataPayment = (dialog, which) -> {
     EditProfileActivity.startWithUser(this, user, false);
   };
@@ -143,9 +151,7 @@ public class WalletActivity extends BaseActivity {
     switch (view.getId()) {
       case R.id.lin_tarikdana:
         if (user.getSaldo() != 0) {
-          String saldo = Utils.getRupiah(user.getSaldo());
-          Utils.showDialogWithTitle(this, "Penarikan Dana",
-              "Penarikan Dana sebesar " + saldo, listener);
+          presenter.chekPaymentPartner(user.getUid());
         } else {
           Utils.showDialog(this,
               "Anda tidak bisa melakukan permintaan penarikan dana dikarenakan saldo anda Rp. 0 ",
@@ -159,5 +165,9 @@ public class WalletActivity extends BaseActivity {
   public void startAddWithdraw(Withdraw withdraw) {
     adapter.onItemAdded(withdraw);
     adapter.notifyDataSetChanged();
+  }
+
+  public void showDialogSuccessRequest() {
+    Utils.showDialog(this,"Permintaan penarikan dana berhasil",null);
   }
 }

@@ -6,9 +6,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.lesgood.guru.base.BasePresenter;
+import com.lesgood.guru.data.model.PartnerPayment;
 import com.lesgood.guru.data.model.User;
 import com.lesgood.guru.data.model.Withdraw;
 import com.lesgood.guru.data.remote.UserService;
+import com.lesgood.guru.util.Utils;
 
 /**
  * Created by sim-x on 11/30/17.
@@ -58,7 +60,7 @@ public class WalletPresenter implements BasePresenter {
     userService.createRequestWithdraw(withdraw)
         .addOnFailureListener(e -> {
           activity.showLoading(false);
-          Log.e("requestWitdraw", "WalletPresenter" + e.getMessage());
+          activity.showDialogSuccessRequest();
         })
         .addOnCompleteListener(task -> {
           activity.showLoading(false);
@@ -66,26 +68,29 @@ public class WalletPresenter implements BasePresenter {
         });
   }
   public void chekPaymentPartner(String uid){
-    final boolean[] isDataExist = {false};
     activity.showLoading(true);
-    userService.getUserPayment(uid).child("bank").addListenerForSingleValueEvent(
-        new ValueEventListener() {
-          @Override
-          public void onDataChange(DataSnapshot dataSnapshot) {
-            if (dataSnapshot.getValue()!=null){
-              Log.e("onDataChange", "WalletPresenter" + dataSnapshot.getValue());
-              activity.prosesWithdraw();
-            }else {
-              activity.showLoading(false);
-              activity.showDiloagDataPayment(uid);
-            }
-          }
 
-          @Override
-          public void onCancelled(DatabaseError databaseError) {
-            activity.showLoading(false);
-          }
-        });
+   userService.getUserPayment(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+     @Override
+     public void onDataChange(DataSnapshot dataSnapshot) {
+       Log.e("onDataChange", "WalletPresenter" + dataSnapshot.toString());
+       if (dataSnapshot.getValue()!=null){
+         PartnerPayment partnerPayment = dataSnapshot.getValue(PartnerPayment.class);
+         if (partnerPayment.getAccount().length()!=0){
+           activity.prosesWithdraw();
+           getDetailUser(uid);
+         }else {
+           activity.showLoading(false);
+           activity.showDiloagDataPayment(uid);
+         }
+       }
+     }
+
+     @Override
+     public void onCancelled(DatabaseError databaseError) {
+       Utils.showDialog(activity,databaseError.getMessage().toString(),null);
+     }
+   });
   }
   public void getWithdeawList(){
     userService.getWithdrawList(user.getUid()).addChildEventListener(new ChildEventListener() {
