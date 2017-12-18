@@ -31,6 +31,12 @@ public class Utils {
         SimpleDateFormat format = new SimpleDateFormat("kk:mm");
         return format.format(date);
     }
+    public static String longToDateFormat(long date){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(date);
+        SimpleDateFormat format = new SimpleDateFormat("EEE, MMM d, ''yyyy");
+        return format.format(date);
+    }
     public static String dayFormated(String day){
         String dayFormated;
         if (day.equals("Sun")){

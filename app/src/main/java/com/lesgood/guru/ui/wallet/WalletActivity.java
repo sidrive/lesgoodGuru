@@ -5,8 +5,9 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -21,6 +22,7 @@ import com.lesgood.guru.data.model.Withdraw;
 import com.lesgood.guru.ui.edit_profile.EditProfileActivity;
 import com.lesgood.guru.util.TypefacedTextView;
 import com.lesgood.guru.util.Utils;
+import java.util.Calendar;
 import javax.inject.Inject;
 
 /**
@@ -38,12 +40,16 @@ public class WalletActivity extends BaseActivity {
   @Inject
   WalletPresenter presenter;
 
+  @Inject
+  WithdrawAdapter adapter;
   public static String KEY_UID = "uid";
 
   @Bind(R.id.tvSaldo)
   TypefacedTextView tvSaldo;
   @Bind(R.id.view_progress)
   LinearLayout viewProgress;
+  @Bind(R.id.rcvRiwayat)
+  RecyclerView rcvRiwayat;
 
   private String uid;
 
@@ -66,6 +72,13 @@ public class WalletActivity extends BaseActivity {
       uid = extra.getString(KEY_UID);
       presenter.getDetailUser(uid);
     }
+    showWithdrawList();
+  }
+
+  private void showWithdrawList() {
+    presenter.subscribe();
+    rcvRiwayat.setAdapter(adapter);
+    rcvRiwayat.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
   }
 
   @Override
@@ -90,25 +103,16 @@ public class WalletActivity extends BaseActivity {
     tvSaldo.setText(Utils.getRupiah(user.getSaldo()));
   }
 
-  /*@OnClick(R.id.cvTarikDana)
-  public void onCvTarikDanaClicked() {
-    Log.e("onCvTarikDanaClicked", "WalletActivity");
-    String saldo = Utils.getRupiah(user.getSaldo());
-    Utils.showDialogWithTitle(this, "Penarikan Dana",
-        "Penarikan Dana sebesar ", listener);
-  }*/
-
- /* @OnClick(R.id.cvRiwayat)
-  public void onCvRiwayatClicked() {
-    Log.e("onCvRiwayatClicked", "WalletActivity");
-  }*/
 
   private OnClickListener listener = (dialog, which) -> {
     presenter.chekPaymentPartner(user.getUid());
   };
 
   public void prosesWithdraw() {
+    Calendar cal = Calendar.getInstance();
+    cal.getTimeInMillis();
     Withdraw withdraw = new Withdraw();
+    withdraw.setCreatAt(cal.getTimeInMillis());
     withdraw.setUid(user.getUid());
     withdraw.setSaldo(user.getSaldo());
     withdraw.setStatus("request");
@@ -138,18 +142,22 @@ public class WalletActivity extends BaseActivity {
   public void onViewClicked(View view) {
     switch (view.getId()) {
       case R.id.lin_tarikdana:
-        if (user.getSaldo()!=0){
+        if (user.getSaldo() != 0) {
           String saldo = Utils.getRupiah(user.getSaldo());
           Utils.showDialogWithTitle(this, "Penarikan Dana",
-              "Penarikan Dana sebesar "+saldo, listener);
-        }
-        else {
-          Utils.showDialog(this,"Anda tidak bisa melakukan permintaan penarikan dana dikarenakan saldo anda Rp. 0 ",null);
+              "Penarikan Dana sebesar " + saldo, listener);
+        } else {
+          Utils.showDialog(this,
+              "Anda tidak bisa melakukan permintaan penarikan dana dikarenakan saldo anda Rp. 0 ",
+              null);
         }
         break;
-      case R.id.lin_riwayat:
-        Log.e("onViewClicked", "lin_riwayat");
-        break;
+
     }
+  }
+
+  public void startAddWithdraw(Withdraw withdraw) {
+    adapter.onItemAdded(withdraw);
+    adapter.notifyDataSetChanged();
   }
 }

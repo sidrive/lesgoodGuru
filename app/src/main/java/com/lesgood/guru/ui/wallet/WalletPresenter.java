@@ -1,11 +1,11 @@
 package com.lesgood.guru.ui.wallet;
 
 import android.util.Log;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.lesgood.guru.base.BasePresenter;
-import com.lesgood.guru.data.model.PartnerPayment;
 import com.lesgood.guru.data.model.User;
 import com.lesgood.guru.data.model.Withdraw;
 import com.lesgood.guru.data.remote.UserService;
@@ -28,7 +28,7 @@ public class WalletPresenter implements BasePresenter {
 
   @Override
   public void subscribe() {
-
+  getWithdeawList();
   }
 
 
@@ -86,6 +86,36 @@ public class WalletPresenter implements BasePresenter {
             activity.showLoading(false);
           }
         });
+  }
+  public void getWithdeawList(){
+    userService.getWithdrawList(user.getUid()).addChildEventListener(new ChildEventListener() {
+      @Override
+      public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+        if (dataSnapshot!=null){
+          Withdraw withdraw = dataSnapshot.getValue(Withdraw.class);
+          activity.startAddWithdraw(withdraw);
+        }
+      }
 
+      @Override
+      public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+      }
+
+      @Override
+      public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+      }
+
+      @Override
+      public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+      }
+
+      @Override
+      public void onCancelled(DatabaseError databaseError) {
+        Log.e("onCancelled", "WalletPresenter" + databaseError.getMessage());
+      }
+    });
   }
 }

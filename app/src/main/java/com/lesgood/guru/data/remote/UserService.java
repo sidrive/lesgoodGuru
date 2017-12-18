@@ -243,5 +243,8 @@ public class UserService {
     public Task<Void> createRequestWithdraw(Withdraw  withdraw){
       return   databaseRef.child("withdraw").child(withdraw.getUid()).push().setValue(withdraw);
     }
+    public DatabaseReference getWithdrawList(String uid){
+        return databaseRef.child("withdraw").child(uid);
+    }
 
 }

@@ -13,7 +13,7 @@ public class Withdraw  {
   private String uid;
 
   @Nullable
-  private String creatAt;
+  private long creatAt;
 
   @Nullable
   String status;
@@ -24,7 +24,7 @@ public class Withdraw  {
   @Nullable
   private String paymetId;
 
-  public Withdraw(String uid, String creatAt, String status, int saldo, String paymetId) {
+  public Withdraw(String uid, long creatAt, String status, int saldo, String paymetId) {
     this.uid = uid;
     this.creatAt = creatAt;
     this.status = status;
@@ -42,11 +42,11 @@ public class Withdraw  {
   }
 
   @Nullable
-  public String getCreatAt() {
+  public long getCreatAt() {
     return creatAt;
   }
 
-  public void setCreatAt(@Nullable String creatAt) {
+  public void setCreatAt(@Nullable long creatAt) {
     this.creatAt = creatAt;
   }
 

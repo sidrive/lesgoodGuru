@@ -26,4 +26,10 @@ public class WalletActivityModule {
   WalletPresenter provideWalletPresenter(UserService userService,User user){
     return new WalletPresenter(activity,userService,user);
   }
+
+  @ActivityScope
+  @Provides
+  WithdrawAdapter provideWithdrawAdapter(){
+    return new WithdrawAdapter(activity);
+  };
 }
