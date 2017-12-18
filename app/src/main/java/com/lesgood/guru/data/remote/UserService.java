@@ -241,10 +241,10 @@ public class UserService {
     }
 
     public Task<Void> createRequestWithdraw(Withdraw  withdraw){
-      return   databaseRef.child("withdraw").child(withdraw.getUid()).push().setValue(withdraw);
+      return   databaseRef.child("withdraw").child(withdraw.getWid()).setValue(withdraw);
     }
-    public DatabaseReference getWithdrawList(String uid){
-        return databaseRef.child("withdraw").child(uid);
+    public Query getWithdrawList(String uid){
+        return databaseRef.child("withdraw").orderByChild("uid").equalTo(uid);
     }
 
 }

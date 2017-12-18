@@ -73,11 +73,12 @@ public class WalletPresenter implements BasePresenter {
    userService.getUserPayment(uid).addListenerForSingleValueEvent(new ValueEventListener() {
      @Override
      public void onDataChange(DataSnapshot dataSnapshot) {
-       Log.e("onDataChange", "WalletPresenter" + dataSnapshot.toString());
+
        if (dataSnapshot.getValue()!=null){
          PartnerPayment partnerPayment = dataSnapshot.getValue(PartnerPayment.class);
          if (partnerPayment.getAccount().length()!=0){
-           activity.prosesWithdraw();
+           //activity.prosesWithdraw();
+           activity.showDiloagRequentWithdraw(uid);
            getDetailUser(uid);
          }else {
            activity.showLoading(false);
@@ -104,12 +105,18 @@ public class WalletPresenter implements BasePresenter {
 
       @Override
       public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
+        if (dataSnapshot!=null){
+          Withdraw withdraw = dataSnapshot.getValue(Withdraw.class);
+          activity.adapter.onItemChanged(withdraw);
+        }
       }
 
       @Override
       public void onChildRemoved(DataSnapshot dataSnapshot) {
-
+        if (dataSnapshot!=null){
+          Withdraw withdraw = dataSnapshot.getValue(Withdraw.class);
+          activity.adapter.onItemRemoved(withdraw);
+        }
       }
 
       @Override
@@ -119,7 +126,7 @@ public class WalletPresenter implements BasePresenter {
 
       @Override
       public void onCancelled(DatabaseError databaseError) {
-        Log.e("onCancelled", "WalletPresenter" + databaseError.getMessage());
+
       }
     });
   }

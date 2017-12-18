@@ -80,4 +80,21 @@ public class ProfilePresenter implements BasePresenter {
             }
         });
     }
+    public void updateDetailUser(){
+        userService.getUser(user.getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue()!=null){
+                    User userUpdate = dataSnapshot.getValue(User.class);
+                    fragment.initUsers(userUpdate);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 }

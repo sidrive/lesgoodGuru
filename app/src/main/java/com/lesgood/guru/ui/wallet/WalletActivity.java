@@ -107,7 +107,7 @@ public class WalletActivity extends BaseActivity {
 
 
   private OnClickListener listener = (dialog, which) -> {
-    presenter.chekPaymentPartner(user.getUid());
+    prosesWithdraw();
   };
 
   public void prosesWithdraw() {
@@ -118,7 +118,8 @@ public class WalletActivity extends BaseActivity {
     withdraw.setUid(user.getUid());
     withdraw.setSaldo(user.getSaldo());
     withdraw.setStatus("request");
-    withdraw.setPaymetId(user.getUid());
+    withdraw.setPaymentId(user.getUid());
+    withdraw.setWid(user.getUid()+"_"+user.getSaldo());
     presenter.requestWitdraw(withdraw);
   }
 
@@ -130,8 +131,8 @@ public class WalletActivity extends BaseActivity {
   }
   public void showDiloagRequentWithdraw(String uid) {
     Utils.showDialog(this,
-        "Data bank anda belum lengkap, lengkapi data bank sebelum melakuakan penarikan dana.",
-        listenerDataPayment);
+        "Permintaan penarikan dana sebesar "+ user.getSaldo(),
+        listener);
 
   }
   private OnClickListener listenerDataPayment = (dialog, which) -> {

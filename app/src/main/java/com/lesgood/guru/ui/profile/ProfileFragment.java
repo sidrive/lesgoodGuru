@@ -353,4 +353,8 @@ public class ProfileFragment extends BaseFragment {
     super.onDestroyView();
     ButterKnife.unbind(this);
   }
+
+  public void initUsers(User userUpdate) {
+    user = userUpdate;
+  }
 }
