@@ -56,7 +56,7 @@ public class SkillAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                         Log.e("onBindViewHolder", "SkillAdapter" + skill.toString());
                         break;
                     case R.id.menu_edit:
-                        //activity.startAddSkill(items.get(position));
+                        //activity.startAddWithdraw(items.get(position));
                         activity.startAddSkill(skill);
                         Log.e("onBindViewHolder", "SkillAdapter" + skill.toString());
                         break;

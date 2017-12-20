@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/activity_margin">
+            <com.lesgood.guru.util.TypefacedTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:typeface="Roboto-Regular.ttf"
+                android:text="Bahasa Indonesia"
+                android:textSize="16sp"
+                android:id="@+id/txt_skill"/>
+
+            <com.lesgood.guru.util.TypefacedTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:typeface="Roboto-Light.ttf"
+                android:layout_marginTop="5dp"
+                android:text="SMP"
+                android:textSize="16sp"
+                android:id="@+id/txt_level"/>
+
+            <com.lesgood.guru.util.TypefacedTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:typeface="Roboto-Regular.ttf"
+                android:layout_marginTop="5dp"
+                android:text="Rp. 65.000/per 100 menit"
+                android:textSize="16sp"
+                android:id="@+id/txt_price"/>
+        </LinearLayout>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:alpha=".5"
+        android:background="@color/colorShadow2"/>
+
+</LinearLayout>

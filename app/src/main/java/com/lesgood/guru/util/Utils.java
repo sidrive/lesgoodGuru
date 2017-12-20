@@ -31,6 +31,12 @@ public class Utils {
         SimpleDateFormat format = new SimpleDateFormat("kk:mm");
         return format.format(date);
     }
+    public static String longToDateFormat(long date){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(date);
+        SimpleDateFormat format = new SimpleDateFormat("EEE, MMM d, ''yyyy");
+        return format.format(date);
+    }
     public static String dayFormated(String day){
         String dayFormated;
         if (day.equals("Sun")){
@@ -56,6 +62,16 @@ public class Utils {
         return dayFormated;
     }
     public static  void  showDialog(Context context,String msg, DialogInterface.OnClickListener listener){
+        AlertDialog.Builder builder = new Builder(context);
+        builder.setMessage(msg);
+        builder.setNegativeButton("TIDAK", (dialog, which) -> {
+            dialog.dismiss();
+        });
+        builder.setPositiveButton("YA", listener);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+    public static  void  showDialogWithTitle(Context context,String title,String msg, DialogInterface.OnClickListener listener){
         AlertDialog.Builder builder = new Builder(context);
         builder.setMessage(msg);
         builder.setNegativeButton("TIDAK", (dialog, which) -> {
