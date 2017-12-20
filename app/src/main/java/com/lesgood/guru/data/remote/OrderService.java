@@ -15,7 +15,9 @@ public class OrderService {
     public OrderService(){
         this.databaseRef = FirebaseDatabase.getInstance().getReference();
     }
-
+    /*=============================================================================================================================
+                                                                    ORDER
+     =============================================================================================================================*/
     public DatabaseReference getOrders(){
         return databaseRef.child("orders");
     }
@@ -38,13 +40,26 @@ public class OrderService {
     public Task<Void> changeOrderSuccess(String oid){
         return databaseRef.child("orders").child(oid).child("status").setValue("SUCCESS");
     }
-    public Task<Void> createOrderFromChangeTeacher(Order order){
-        return databaseRef.child("orders").child(order.getOrderType()).setValue(order);
+
+    /*=============================================================================================================================
+                                                                CHANGE THEACER
+      =============================================================================================================================*/
+
+    public Task<Void> changeStatusPergantianGuru(String oid, String status){
+        return databaseRef.child("orders").child(oid).child("statusGantiGuru").setValue(status);
     }
-    public Task<Void> removeOrderFromChangeTeacher(String temOid){
-        return databaseRef.child("orders").child(temOid).removeValue();
+    public Task<Void> changeDataGidOrder(String gid, String oid){
+        return databaseRef.child("orders").child(oid).child("gid").setValue(gid);
     }
-    public Task<Void> updateOrderFromChangeTeacher(Order order){
-        return databaseRef.child("orders").child(order.getOid()).child("oid").setValue(order.getOrderType());
+    /*=============================================================================================================================
+                                                                INVOICE
+      =============================================================================================================================*/
+    public DatabaseReference getInvoce(String iid){
+        return databaseRef.child("invoices").child(iid);
     }
+    public DatabaseReference getUsers(String gid){
+        return databaseRef.child("users").child(gid);
+    }
+
+
 }

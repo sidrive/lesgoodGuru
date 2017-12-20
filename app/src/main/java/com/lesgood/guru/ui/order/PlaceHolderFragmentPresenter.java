@@ -1,5 +1,6 @@
 package com.lesgood.guru.ui.order;
 
+import android.util.Log;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -45,16 +46,25 @@ public class PlaceHolderFragmentPresenter implements BasePresenter {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Order order =dataSnapshot.getValue(Order.class);
+                Log.e("onChildAdded", "PlaceHolderFragmentPresenter" + order.getStatusGantiGuru());
+                Log.e("onChildAdded", "PlaceHolderFragmentPresenter" + order.getStatus());
                 if (order != null) {
-                    if (status.equalsIgnoreCase("waiting")){
-                        if (order.getStatus().equalsIgnoreCase("pending_guru") || order.getStatus().equalsIgnoreCase("pending_murid") || order.getStatus().equalsIgnoreCase("pending")|| order.getStatus().equalsIgnoreCase("change_guru")){
-                            fragment.showAddedOrder(order);
-                        }
+                    if (order.getStatus()!=null){
+                        if (status.equalsIgnoreCase("waiting")){
+                            if (order.getStatus().equalsIgnoreCase("pending_guru") || order.getStatus().equalsIgnoreCase("pending_murid") || order.getStatus().equalsIgnoreCase("pending")|| order.getStatus().equalsIgnoreCase("change_guru")){
+                                fragment.showAddedOrder(order);
+                            }
 
-                    }
-                    if (status.equalsIgnoreCase("complete")){
-                        if (order.getStatus().equalsIgnoreCase("success")){
-                            fragment.showAddedOrder(order);
+                        }
+                        if (status.equalsIgnoreCase("complete")){
+                            if (order.getStatus().equalsIgnoreCase("success")  ){
+                                fragment.showAddedOrder(order);
+                            }
+                        }
+                        if (status.equalsIgnoreCase("oper order")){
+                            if (order.getStatusGantiGuru().equalsIgnoreCase("request")){
+                                fragment.showAddedOrder(order);
+                            }
                         }
                     }
                 }
@@ -63,7 +73,26 @@ public class PlaceHolderFragmentPresenter implements BasePresenter {
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 Order order =dataSnapshot.getValue(Order.class);
-                if (order != null) if (order.getStatus().equals(status)) fragment.showChangedOrder(order);
+                if (order != null) {
+                    if (order.getStatus()!=null){
+                        if (status.equalsIgnoreCase("waiting")){
+                            if (order.getStatus().equalsIgnoreCase("pending_guru") || order.getStatus().equalsIgnoreCase("pending_murid") || order.getStatus().equalsIgnoreCase("pending")|| order.getStatus().equalsIgnoreCase("change_guru")){
+                                fragment.showChangedOrder(order);
+                            }
+
+                        }
+                        if (status.equalsIgnoreCase("complete")){
+                            if (order.getStatus().equalsIgnoreCase("success") || order.getStatusGantiGuru().equalsIgnoreCase("none")){
+                                fragment.showAddedOrder(order);
+                            }
+                        }
+                        if (status.equalsIgnoreCase("oper order")){
+                            if (order.getStatusGantiGuru().equalsIgnoreCase("request")){
+                                fragment.showChangedOrder(order);
+                            }
+                        }
+                    }
+                }
             }
 
             @Override

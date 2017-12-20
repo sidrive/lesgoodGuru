@@ -89,6 +89,9 @@ public class PlaceholderFragment extends BaseFragment {
         if (sectionNumber == 2){
             presenter.getOrders("complete");
         }
+        if (sectionNumber == 3){
+            presenter.getOrders("oper order");
+        }
     }
 
     @Override

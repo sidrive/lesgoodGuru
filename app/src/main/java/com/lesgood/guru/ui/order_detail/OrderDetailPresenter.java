@@ -1,17 +1,15 @@
 package com.lesgood.guru.ui.order_detail;
 
-import android.support.annotation.NonNull;
-import android.util.Log;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
+import android.util.Log;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.lesgood.guru.base.BaseApplication;
 import com.lesgood.guru.base.BasePresenter;
+import com.lesgood.guru.data.model.Invoices;
 import com.lesgood.guru.data.model.Order;
+import com.lesgood.guru.data.model.User;
 import com.lesgood.guru.data.remote.OrderService;
 
 /**
@@ -55,39 +53,77 @@ public class OrderDetailPresenter implements BasePresenter {
         }).addOnFailureListener(e -> activity.successAction(order));
     }
 
-    /*public void declineOrder(final Order order){
-        orderService.declineOrder(order.getOid()).addOnFailureListener(e -> {
+    /*=============================================================================================================================
+                                                                FROM CHANGE THEACER
+      =============================================================================================================================*/
+    // TODO: 12/20/17 Accept pergantian guru, update gui order dengan gui baru, delete order pergantian  guru sesuai dengan oid
+    public void acceptChangeTeacher(Order order,String status){
+        orderService.changeStatusPergantianGuru(order.getOldOid(),status)
+            .addOnCompleteListener(task -> {
+                // TODO: 12/20/17 jika status task is true update data order
+                if (task.isSuccessful()){
+                    if (status.equalsIgnoreCase("accept")){
+                        updateDataOrderWithNewData(order);
+                    }else if (status.equalsIgnoreCase("decline")){
+                        updateOldOrderId(order);
+                        updateOrder(order);
+                    }
+                }
+            })
+            .addOnFailureListener(e -> {
 
-        }).addOnCompleteListener(task -> activity.successAction(order));
-    }*/
-    public void acceptOrderFromChangeTeacher(final  Order order){
-        order.setStatus("SUCCSES");
+            });
+    }
 
-        orderService.createOrderFromChangeTeacher(order).addOnCompleteListener(task -> {
-            if (task.isComplete()){
-                activity.successAction(order);
-                updateValueOrderId(order);
+    public void updateOrder(Order order) {
+        Log.e("updateOrder", "OrderDetailPresenter" + order.getOid());
+        orderService.changeStatusPergantianGuru(order.getOid(),"decline").addOnCompleteListener(task -> {
+            if (task.isSuccessful()){
+                activity.showProgress(false);
             }
         });
-        orderService.changeOrderSuccess(order.getStatusPayment());
-    }
-    public void updateValueOrderId(Order order){
-        orderService.updateOrderFromChangeTeacher(order).addOnCompleteListener(task -> {
-            updateDataOrder(order);
-            updateOrderIdandStatus(order);
+        orderService.declineOrder(order.getOid()).addOnCompleteListener(task -> {
+            if (task.isSuccessful()){
+                activity.showProgress(false);
+            }
         });
     }
 
-    private void updateOrderIdandStatus(Order order) {
-        orderService.changeOrderSuccess(order.getOrderType());
+    private void updateOldOrderId(Order order) {
+        Log.e("updateOrder", "OrderDetailPresenter" + order.getOid());
+        orderService.changeStatusPergantianGuru(order.getOldOid(),"none").addOnCompleteListener(task -> {
+            if (task.isSuccessful()){
+                activity.showProgress(false);
+            }
+        });
     }
 
-    private void updateDataOrder(Order order) {
-        orderService.removeOrderFromChangeTeacher(order.getOid());
+    public void updateDataOrderWithNewData(Order order){
+        orderService.changeDataGidOrder(order.getGid(),order.getOldOid())
+            .addOnCompleteListener(task -> {
+                if (task.isSuccessful()){
+                    BaseApplication.get(activity).createOrderDetailComponent(order);
+                    updateStatusOrderRequestGantiGuru(order.getOid());
+                }
+            })
+            .addOnFailureListener(e -> {
+                activity.showProgress(false);
+                Log.e("updateDataOrder", "OrderDetailPresenter" + e.getMessage());
+            });
     }
+
+    private void updateStatusOrderRequestGantiGuru(String oid) {
+        orderService.declineOrder(oid).addOnCompleteListener(task -> {
+            if (task.isSuccessful()){
+                activity.showProgress(false);
+                activity.successAction(order);
+            }
+        });
+
+    }
+
 
     public void viewDetailOrder(String param){
-        Log.e("OrderDetailPresenter", "viewDetailOrder: " + param);
         orderService.getOrdersById(param).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -95,7 +131,23 @@ public class OrderDetailPresenter implements BasePresenter {
                 if(dataSnapshot != null){
                     BaseApplication.get(activity).createOrderDetailComponent(order);
                   /*  activity.updateUI(order);*/
-                    Log.e("OrderDetailPresenter", "onDataChange: " + dataSnapshot.toString());
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("onCancelled", "OrderDetailPresenter" + databaseError.getMessage());
+            }
+        });
+    }
+    public void getGuru(String gid){
+        orderService.getUsers(gid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue()!=null){
+                    User user = dataSnapshot.getValue(User.class);
+                    activity.initDetailGuru(user);
                 }
             }
 
@@ -104,6 +156,37 @@ public class OrderDetailPresenter implements BasePresenter {
 
             }
         });
+    }
+    public void getSiswa(String uid){
+        orderService.getUsers(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue()!=null){
+                    User user = dataSnapshot.getValue(User.class);
+                    activity.initDetailSiswa(user);
+                }
+            }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+    public void getInvoice(String iid){
+        orderService.getInvoce(iid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue()!=null){
+                    Invoices invoices = dataSnapshot.getValue(Invoices.class);
+                    activity.initDetailInvoice(invoices);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 }
