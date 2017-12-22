@@ -28,7 +28,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         // Show 3 total pages.
-        return 2;
+        return 3;
     }
 
     @Override
@@ -38,6 +38,8 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                 return "WAITING";
             case 1:
                 return "COMPLETE";
+            case 2:
+                return "OPER ORDER";
         }
         return null;
     }

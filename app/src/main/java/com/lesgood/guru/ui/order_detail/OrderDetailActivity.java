@@ -1,11 +1,8 @@
 package com.lesgood.guru.ui.order_detail;
 
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -19,9 +16,11 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.bumptech.glide.Glide;
+import com.google.android.gms.maps.model.LatLng;
 import com.lesgood.guru.R;
 import com.lesgood.guru.base.BaseActivity;
 import com.lesgood.guru.base.BaseApplication;
+import com.lesgood.guru.data.model.Invoices;
 import com.lesgood.guru.data.model.Order;
 import com.lesgood.guru.data.model.User;
 import com.lesgood.guru.ui.main.MainActivity;
@@ -67,15 +66,6 @@ public class OrderDetailActivity extends BaseActivity {
   @Bind(R.id.txt_tarif)
   TextView txtTarif;
 
-  /* @Bind(R.id.txt_amount)
-   TextView txtAmount;
-
-   @Bind(R.id.txt_fee)
-   TextView txtFee;
-
-   @Bind(R.id.txt_total)
-   TextView txtTotal;
-*/
   @Bind(R.id.img_map)
   ImageView imgMap;
 
@@ -121,6 +111,7 @@ public class OrderDetailActivity extends BaseActivity {
   @Inject
   OrderDetailPresenter presenter;
 
+  private LatLng latLng;
 
   public static void startWithOrder(BaseActivity activity, Order order) {
     Intent intent = new Intent(activity, OrderDetailActivity.class);
@@ -145,7 +136,6 @@ public class OrderDetailActivity extends BaseActivity {
     Bundle extra = getIntent().getExtras();
     if(extra != null){
       String param = extra.getString(KEY_PARAM_NOTIF);
-      Log.e("OrderDetailActivity", "onCreate: " + param);
       presenter.viewDetailOrder(param);
 
     }
@@ -153,6 +143,7 @@ public class OrderDetailActivity extends BaseActivity {
     setSupportActionBar(toolbar);
     getSupportActionBar().setDisplayShowHomeEnabled(true);
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     init();
   }
 
@@ -197,6 +188,7 @@ public class OrderDetailActivity extends BaseActivity {
 
   public void init() {
     txtOrderId.setText("#" + order.getOid());
+    txtDetailLokasi.setText(order.getDetailLocation());
     String status = order.getStatus();
     if (status.equalsIgnoreCase("pending_murid")) {
       txtStatus.setText("Menunggu Pembayaran Murid");
@@ -204,52 +196,28 @@ public class OrderDetailActivity extends BaseActivity {
       txtStatus.setText("Menunggu Konfirmasi Pengajar");
     }
 
-    txtCustomerName.setText(order.getCustomerName());
     txtDate.setText(DateFormatter.getDate(order.getPertemuanTime(), "EEE, dd MMM yyyy, HH:mm"));
     txtProduct.setText(order.getTitle());
-    txtSiswa.setText(String.valueOf(order.getTotalSiswa()));
-    txtPertemuan.setText(String.valueOf(order.getTotalPertemuan()) + " kali");
-    txtDetailLokasi.setText(order.getDetailLocation());
-
-    String url =
-        "http://maps.googleapis.com/maps/api/staticmap?zoom=16&size=800x400&maptype=roadmap%20&markers=color:red%7Clabel:S%7C"
-            + order.getLatitude() + "," + order.getLongitude() + "+&sensor=false";
-
-    Glide.with(this)
-        .load(url)
-        .placeholder(R.color.colorGrey400)
-        .centerCrop()
-        .dontAnimate()
-        .into(imgMap);
 
     int fee = (int) (order.getFee() + 0.5d);
     int total = (int) (order.getTotal() + 0.5d);
-
     txtTarif.setText("Rp." + toRupiah(user.getStartFrom()));
-        /*txtAmount.setText("Rp."+toRupiah(order.getAmount()));
-        txtFee.setText("Rp."+toRupiah(fee));
-        txtTotal.setText("Rp."+toRupiah(total));
-        */
 
-    txtNamaSiswa.setText(order.getCustomerName());
-    txtGuru.setText(order.getGuruName());
-    txtAlamatSiswa.setText(order.getDetailLocation());
-    txtAlamatGuru.setText(user.getFullAddress());
-    txtTelpSiswa.setText(order.getCustomerPhone());
-    txtTelpGuru.setText(order.getGuruPhone());
-    txtEmailSiswa.setText(order.getCustomerEmail());
-    txtEmailGuru.setText(order.getGuruEmail());
-    handleStatus(order.getStatus());
+    presenter.getGuru(order.getGid());
+    presenter.getSiswa(order.getUid());
+    presenter.getInvoice(order.getOid()+""+order.getCode());
+    handleStatus(order.getStatus(),order.getStatusGantiGuru());
 
   }
 
-  public void handleStatus(String status) {
+  public void handleStatus(String status, String statusGantiGuru) {
     if (status.equalsIgnoreCase("pending_guru")) {
       linAction.setVisibility(View.VISIBLE);
     } else if (status.equalsIgnoreCase("change_guru")) {
 
     } else {
-      linAction.setVisibility(View.GONE);
+      linAction.setVisibility(View.VISIBLE);
+
     }
 
     if (status.equalsIgnoreCase("cancel_murid")) {
@@ -257,6 +225,11 @@ public class OrderDetailActivity extends BaseActivity {
       String desc = "Pesanan telah dibatalkan oleh murid";
       int icon = R.drawable.ic_appointment_24dp_primary;
       showAlertDialog(title, desc, icon);
+    }
+    if (statusGantiGuru.equalsIgnoreCase("request")){
+      linAction.setVisibility(View.VISIBLE);
+    }else {
+      linAction.setVisibility(View.GONE);
     }
   }
 
@@ -279,8 +252,9 @@ public class OrderDetailActivity extends BaseActivity {
   @OnClick(R.id.btn_positif)
   void accept() {
     showProgress(true);
-    if (order.getStatus().equalsIgnoreCase("change_guru")) {
-      presenter.acceptOrderFromChangeTeacher(order);
+    Log.e("accept", "OrderDetailActivity" + order.getStatusGantiGuru());
+    if (order.getStatusGantiGuru().equalsIgnoreCase("request")) {
+      presenter.acceptChangeTeacher(order,"accept");
     } else {
       presenter.acceptOrder(order);
     }
@@ -290,7 +264,11 @@ public class OrderDetailActivity extends BaseActivity {
   @OnClick(R.id.btn_negatif)
   void decline() {
     showProgress(true);
-    presenter.declineOrder(order);
+    if (order.getStatusGantiGuru().equalsIgnoreCase("request")) {
+      presenter.acceptChangeTeacher(order,"decline");
+    } else {
+      presenter.declineOrder(order);
+    }
   }
 
   public void successAction(Order order) {
@@ -305,13 +283,13 @@ public class OrderDetailActivity extends BaseActivity {
       String desc = "Pesanan telah dibatalkan";
       int icon = R.drawable.ic_appointment_24dp_primary;
       showAlertDialog(title, desc, icon);
+      presenter.updateOrder(order);
     } else if (order.getStatus().equalsIgnoreCase("change_guru")) {
       String title = "Penggatian guru";
       String desc = "Pesanan telah diterima";
       int icon = R.drawable.ic_appointment_24dp_primary;
       showAlertDialog(title, desc, icon);
     } else {
-
       showProgress(false);
       Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show();
     }
@@ -336,14 +314,44 @@ public class OrderDetailActivity extends BaseActivity {
 
   @OnClick(R.id.img_map)
   public void onMapCliked() {
-    Log.e("onMapCliked", "getLatitude" + order.getLatitude());
-    Log.e("onMapCliked", "getLongitude" + order.getLongitude());
-    MapsActivity.start(this,order.getLatitude(),order.getLongitude());
+    MapsActivity.start(this,latLng.latitude,latLng.longitude);
   }
 
   public void updateUI(Order order) {
     /*BaseApplication.get(this).createOrderDetailComponent(order);*/
     order = order;
     Log.e("OrderDetailActivity", "updateUI: " + order);
+  }
+
+  public void initDetailGuru(User user) {
+    txtGuru.setText(user.getFull_name());
+    txtAlamatGuru.setText(user.getFullAddress());
+    txtTelpGuru.setText(user.getPhone());
+    txtEmailGuru.setText(user.getEmail());
+  }
+
+  public void initDetailSiswa(User user) {
+    txtCustomerName.setText(user.getFull_name());
+    txtNamaSiswa.setText(user.getFull_name());
+    txtEmailSiswa.setText(user.getEmail());
+    txtTelpSiswa.setText(user.getPhone());
+    txtAlamatSiswa.setText(user.getFullAddress());
+    latLng = new LatLng(user.getLatitude(),user.getLongitude());
+    String url =
+        "http://maps.googleapis.com/maps/api/staticmap?zoom=16&size=800x400&maptype=roadmap%20&markers=color:red%7Clabel:S%7C"
+            + user.getLatitude() + "," + user.getLongitude() + "+&sensor=false";
+
+    Glide.with(this)
+        .load(url)
+        .placeholder(R.color.colorGrey400)
+        .centerCrop()
+        .dontAnimate()
+        .into(imgMap);
+  }
+
+  public void initDetailInvoice(Invoices invoices) {
+    txtSiswa.setText(String.valueOf(invoices.getTotalSiswa()));
+    txtOrderId.setText("#" + invoices.getOid());
+    txtPertemuan.setText(String.valueOf(invoices.getTotalPertemuan()) + " kali");
   }
 }
