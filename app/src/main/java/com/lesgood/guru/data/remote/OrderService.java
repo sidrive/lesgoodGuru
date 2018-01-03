@@ -62,4 +62,9 @@ public class OrderService {
     }
 
 
+    public DatabaseReference getStatusOrdersById(String oid){
+        return databaseRef.child("orders").child(oid).child("status");
+    }
+
+
 }

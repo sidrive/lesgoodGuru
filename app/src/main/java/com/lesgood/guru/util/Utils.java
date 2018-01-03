@@ -4,6 +4,9 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
+
+import com.lesgood.guru.ui.order.OrderViewHolder;
+
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -81,4 +84,5 @@ public class Utils {
         AlertDialog dialog = builder.create();
         dialog.show();
     }
+
 }

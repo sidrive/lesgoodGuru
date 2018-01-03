@@ -1,5 +1,8 @@
 package com.lesgood.guru.ui.order;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
@@ -8,6 +11,8 @@ import android.widget.TextView;
 import com.lesgood.guru.R;
 import com.lesgood.guru.data.model.Order;
 import com.lesgood.guru.util.DateFormatter;
+import com.lesgood.guru.util.Utils;
+import android.content.Context;
 
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -73,7 +78,9 @@ public class OrderViewHolder extends RecyclerView.ViewHolder {
         }else {
            txtStatus.setText("SUCCESS");
         }
+
     }
+
 
     private String toRupiah(int amount){
         String angka = Integer.toString(amount);

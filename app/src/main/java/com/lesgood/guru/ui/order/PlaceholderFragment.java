@@ -1,6 +1,8 @@
 package com.lesgood.guru.ui.order;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -126,6 +128,14 @@ public class PlaceholderFragment extends BaseFragment {
 
     public void showAddedOrder(Order order) {
         orderAdapter.onOrderAdded(order);
+        if (order.getStatusPayment() != null){
+            if(order.getStatus().equalsIgnoreCase("SUCCESS")|| order.getStatusPayment().equalsIgnoreCase("SUCCESS")){
+                dialogBox();
+            }
+        }
+        if(order.getStatus().equalsIgnoreCase("SUCCESS")){
+            dialogBox();
+        }
     }
 
     public void showChangedOrder(Order order) {
@@ -136,9 +146,25 @@ public class PlaceholderFragment extends BaseFragment {
         rvOrder.setAdapter(orderAdapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         rvOrder.setLayoutManager(linearLayoutManager);
+
     }
 
     public void showDetailOrder(Order order){
         OrderDetailActivity.startWithOrder(activity, order);
+    }
+
+    public void dialogBox() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+        alertDialogBuilder.setMessage("Murid Telah Menyelesaikan Pembayaran, Silahkan menghubungi murid untuk memperkenalkan diri");
+        alertDialogBuilder.setPositiveButton("Ok",
+                new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                    }
+                });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 }
