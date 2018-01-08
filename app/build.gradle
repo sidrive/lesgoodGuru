@@ -13,7 +13,7 @@ android {
         release {
             keyAlias 'lesgood'
             keyPassword 'doremi456'
-            storeFile file('/home/ikun/GeekGarden/Keystore/lesgood-release-key.jks')
+            storeFile file('/Volumes/DATA/Lesgood/Lesgood/Keystore/lesgood-release-key.jks')
             storePassword 'doremi456'
         }
     }
@@ -30,6 +30,13 @@ android {
         vectorDrawables.useSupportLibrary = true
 
     }
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def newApkName = "lesgood-guru-${variant.buildType.name}-${variant.versionName}.apk";
+            output.outputFile = new File(output.outputFile.parentFile, newApkName);
+        }
+    }
+
     buildTypes {
         release {
             signingConfig signingConfigs.release
@@ -43,8 +50,6 @@ android {
             force rootProject.ext.supportAnnotations
         }
     }
-
-
 
     productFlavors {
         releaseConfig {
@@ -60,8 +65,6 @@ android {
 }
 
 dependencies {
-
-    //implementation 'com.google.firebase:firebase-auth:11.0.4'
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile rootProject.ext.supportV7
     compile rootProject.ext.supportDesign
@@ -70,7 +73,6 @@ dependencies {
     compile rootProject.ext.supprtCardView
     compile rootProject.ext.supportV4
     compile rootProject.ext.supportVectorDrawable
-
     apt rootProject.ext.daggerCompiler
     provided rootProject.ext.javax
     compile rootProject.ext.dagger
@@ -83,9 +85,7 @@ dependencies {
     compile rootProject.ext.okhttp
     compile rootProject.ext.adapterrx
     compile rootProject.ext.rxandroid
-
     compile rootProject.ext.glide
-
     // gms dependencies
     compile rootProject.ext.gcore
     compile rootProject.ext.gplus
@@ -94,7 +94,6 @@ dependencies {
     compile rootProject.ext.glocation
     compile rootProject.ext.gmap
     compile rootProject.ext.gmapUtil
-
     // Firebase dependencies
     compile rootProject.ext.fbcore
     compile rootProject.ext.fbauth
@@ -104,17 +103,14 @@ dependencies {
     compile rootProject.ext.fbcrash
     compile rootProject.ext.fbconfig
     compile rootProject.ext.fbinvites
-
     // Data dependencies
     compile rootProject.ext.fbuistorage
     // Test dependencies
     testCompile rootProject.ext.junit
     testCompile rootProject.ext.supportAnnotations
-
     // Android Testing Support Library's runner and rules
     androidTestCompile rootProject.ext.runner
     androidTestCompile rootProject.ext.rules
-
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.facebook.android:facebook-android-sdk:4.21.1'
     compile 'com.wdullaer:materialdatetimepicker:3.1.3'

@@ -15,31 +15,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "587589507868-itlborvcpbl3magss2l9qebqgreo604b.apps.googleusercontent.com",
+          "client_id": "587589507868-268uq3hjicppseufidl6q1ioaojq1fcd.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.lesgood.app",
-            "certificate_hash": "95cb0efa1b968154e719ed89351fad90fc6cc0a7"
+            "certificate_hash": "67fff2efbf9f5cbdef6575a16e8890926cbe50ee"
           }
         },
         {
-          "client_id": "587589507868-03tg3cq39a6msfmqalbh4osdkjdcirtk.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.lesgood.app",
-            "certificate_hash": "d7d430dead94fdcfeb225b9d443f4bfd547ab65f"
-          }
-        },
-        {
-          "client_id": "587589507868-a16cm4h56r5it851n82l2l75cfqibngp.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.lesgood.app",
-            "certificate_hash": "db5e86dafadbee9406537fa93a8edd245cc6aa07"
-          }
-        },
-        {
-          "client_id": "587589507868-7b4uduep872h9hi086f8p5al8kkns8ab.apps.googleusercontent.com",
+          "client_id": "587589507868-vsuk254otq90acqvm2go3nufncn0cl81.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.lesgood.app",

@@ -46,8 +46,7 @@ public class PlaceHolderFragmentPresenter implements BasePresenter {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Order order =dataSnapshot.getValue(Order.class);
-                Log.e("onChildAdded", "PlaceHolderFragmentPresenter" + order.getStatusGantiGuru());
-                Log.e("onChildAdded", "PlaceHolderFragmentPresenter" + order.getStatus());
+
                 if (order != null) {
                     if (order.getStatus()!=null){
                         if (status.equalsIgnoreCase("waiting")){
