@@ -214,7 +214,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
       //move map camera
       mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, displaySize.x, 250, 30));
 
-
     }
 
     mMap.setOnCameraIdleListener(this);

@@ -1,6 +1,7 @@
 package com.lesgood.guru.ui.order_detail;
 
 import android.content.Intent;
+import android.location.Address;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog.Builder;
@@ -137,13 +138,10 @@ public class OrderDetailActivity extends BaseActivity {
     if(extra != null){
       String param = extra.getString(KEY_PARAM_NOTIF);
       presenter.viewDetailOrder(param);
-
     }
-
     setSupportActionBar(toolbar);
     getSupportActionBar().setDisplayShowHomeEnabled(true);
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
     init();
   }
 
@@ -205,6 +203,7 @@ public class OrderDetailActivity extends BaseActivity {
 
     presenter.getGuru(order.getGid());
     presenter.getSiswa(order.getUid());
+    presenter.viewDetailOrder(order.getOid());
     presenter.getInvoice(order.getOid()+""+order.getCode());
     handleStatus(order.getStatus(),order.getStatusGantiGuru());
 
@@ -321,6 +320,18 @@ public class OrderDetailActivity extends BaseActivity {
     /*BaseApplication.get(this).createOrderDetailComponent(order);*/
     order = order;
     Log.e("OrderDetailActivity", "updateUI: " + order);
+    latLng = new LatLng(order.getLat(),order.getLng());
+    Log.e("initDetailSiswa", "OrderDetailActivity" + latLng);
+    String url =
+        "http://maps.googleapis.com/maps/api/staticmap?zoom=16&size=800x400&maptype=roadmap%20&markers=color:red%7Clabel:S%7C"
+            + order.getLat() + "," + order.getLng() + "+&sensor=false";
+    presenter.getAlamatOrder(latLng);
+    Glide.with(this)
+        .load(url)
+        .placeholder(R.color.colorGrey400)
+        .centerCrop()
+        .dontAnimate()
+        .into(imgMap);
   }
 
   public void initDetailGuru(User user) {
@@ -335,23 +346,18 @@ public class OrderDetailActivity extends BaseActivity {
     txtNamaSiswa.setText(user.getFull_name());
     txtEmailSiswa.setText(user.getEmail());
     txtTelpSiswa.setText(user.getPhone());
-    txtAlamatSiswa.setText(user.getFullAddress());
-    latLng = new LatLng(user.getLatitude(),user.getLongitude());
-    String url =
-        "http://maps.googleapis.com/maps/api/staticmap?zoom=16&size=800x400&maptype=roadmap%20&markers=color:red%7Clabel:S%7C"
-            + user.getLatitude() + "," + user.getLongitude() + "+&sensor=false";
+    //txtAlamatSiswa.setText(user.getFullAddress());
 
-    Glide.with(this)
-        .load(url)
-        .placeholder(R.color.colorGrey400)
-        .centerCrop()
-        .dontAnimate()
-        .into(imgMap);
   }
 
   public void initDetailInvoice(Invoices invoices) {
     txtSiswa.setText(String.valueOf(invoices.getTotalSiswa()));
     txtOrderId.setText("#" + invoices.getOid());
     txtPertemuan.setText(String.valueOf(invoices.getTotalPertemuan()) + " kali");
+  }
+
+  public void updateAlamatSiswa(String address) {
+    txtAlamatSiswa.setText(address);
+    Log.e("updateAlamatSiswa", "OrderDetailActivity" + address);
   }
 }

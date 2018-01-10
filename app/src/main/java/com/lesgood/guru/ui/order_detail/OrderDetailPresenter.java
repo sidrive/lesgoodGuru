@@ -1,7 +1,10 @@
 package com.lesgood.guru.ui.order_detail;
 
 
+import android.location.Address;
+import android.location.Geocoder;
 import android.util.Log;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -11,6 +14,9 @@ import com.lesgood.guru.data.model.Invoices;
 import com.lesgood.guru.data.model.Order;
 import com.lesgood.guru.data.model.User;
 import com.lesgood.guru.data.remote.OrderService;
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Agus on 5/3/17.
@@ -128,9 +134,10 @@ public class OrderDetailPresenter implements BasePresenter {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Order order =  dataSnapshot.getValue(Order.class);
+                Log.e("onDataChange", "OrderDetailPresenter" + order);
                 if(dataSnapshot != null){
                     BaseApplication.get(activity).createOrderDetailComponent(order);
-                  /*  activity.updateUI(order);*/
+                    activity.updateUI(order);
 
                 }
             }
@@ -188,5 +195,20 @@ public class OrderDetailPresenter implements BasePresenter {
 
             }
         });
+    }
+
+    public void getAlamatOrder(LatLng latLng) {
+        Geocoder geocoder = new Geocoder(activity, new Locale("in"));
+        List<Address> addresses = null;
+        try {
+            addresses = geocoder.getFromLocation(latLng.latitude,latLng.longitude,2);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (addresses !=null && addresses.size() != 0){
+            Log.e("getAlamatOrder", "OrderDetailPresenter" + addresses.get(0));
+            activity.updateAlamatSiswa(addresses.get(0).getAddressLine(0));
+        }
     }
 }

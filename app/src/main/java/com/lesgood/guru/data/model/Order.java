@@ -72,7 +72,10 @@ public class Order {
 
     @Nullable
     private String orderType;
-
+    @Nullable
+    private Double lat;
+    @Nullable
+    private Double lng;
 
     public Order(){}
 
@@ -80,6 +83,24 @@ public class Order {
         this.oid = oid;
         this.code = code;
         this.title = title;
+    }
+
+    @Nullable
+    public Double getLat() {
+        return lat;
+    }
+
+    public void setLat(@Nullable Double lat) {
+        this.lat = lat;
+    }
+
+    @Nullable
+    public Double getLng() {
+        return lng;
+    }
+
+    public void setLng(@Nullable Double lng) {
+        this.lng = lng;
     }
 
     @NonNull
