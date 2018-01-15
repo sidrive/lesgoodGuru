@@ -142,7 +142,7 @@ public class MainActivity extends BaseActivity  implements EasyPermissions.Permi
         Bundle extra = getIntent().getExtras();
         if (extra!=null){
             String orderID = extra.getString("param");
-            Fragment fragment = OrderFragment.newInstanceParam(orderID);
+            Fragment fragment = OrderFragment.newInstanceParam();
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.content_frame, fragment);
             ft.commit();
@@ -323,4 +323,11 @@ public class MainActivity extends BaseActivity  implements EasyPermissions.Permi
     public void openVerification() {
         VerificationActivity.startWithUser(this,user);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.e("onActivityResult", "rewww" + requestCode );
+    }
+
 }

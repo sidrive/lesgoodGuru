@@ -74,6 +74,10 @@ public class OrderFragment extends BaseFragment {
         fragment.setArguments(args);
         return fragment;
     }
+    public static OrderFragment newInstanceParam() {
+        OrderFragment fragment = new OrderFragment();
+        return fragment;
+    }
     public OrderFragment() {
         // Required empty public constructor
     }
@@ -111,7 +115,7 @@ public class OrderFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        presenter.subscribe();
+        //presenter.subscribe();
     }
 
     @Override
