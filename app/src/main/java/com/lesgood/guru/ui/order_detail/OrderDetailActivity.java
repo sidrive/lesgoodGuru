@@ -212,11 +212,8 @@ public class OrderDetailActivity extends BaseActivity {
   public void handleStatus(String status, String statusGantiGuru) {
     if (status.equalsIgnoreCase("pending_guru")) {
       linAction.setVisibility(View.VISIBLE);
-    } else if (status.equalsIgnoreCase("change_guru")) {
-
     } else {
       linAction.setVisibility(View.VISIBLE);
-
     }
 
     if (status.equalsIgnoreCase("cancel_murid")) {
@@ -225,11 +222,11 @@ public class OrderDetailActivity extends BaseActivity {
       int icon = R.drawable.ic_appointment_24dp_primary;
       showAlertDialog(title, desc, icon);
     }
-    if (statusGantiGuru.equalsIgnoreCase("request")){
+    /*if (statusGantiGuru.equalsIgnoreCase("request")){
       linAction.setVisibility(View.VISIBLE);
     }else {
       linAction.setVisibility(View.GONE);
-    }
+    }*/
   }
 
   public void showProgress(boolean show) {

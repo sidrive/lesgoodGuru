@@ -211,12 +211,19 @@ public class UserService {
         databaseRef.child("partner-payment").child(partnerPayment.getUid()).setValue(partnerPayment);
     }
 
-    public void updateStatus(String uid, String status){
-        databaseRef.child("user-status").child(uid).child("active").setValue(status);
-        boolean stat = Boolean.parseBoolean(status);
-        databaseRef.child("users").child(uid).child("active").setValue(stat);
+    public DatabaseReference updateStatus(String uid, String status){
+        return databaseRef.child("user-status").child(uid).child("active");
+       /* boolean stat = Boolean.parseBoolean(status);
+        databaseRef.child("users").child(uid).child("active").setValue(stat);*/
     }
-
+    public DatabaseReference updateStatusActiveUser(String uid){
+        return databaseRef.child("users").child(uid).child("active");
+       /* boolean stat = Boolean.parseBoolean(status);
+        databaseRef.child("users").child(uid).child("active").setValue(stat);*/
+    }
+    public DatabaseReference getStatusActive(String uid){
+        return databaseRef.child("user-status").child(uid).child("active");
+    }
 
 
 

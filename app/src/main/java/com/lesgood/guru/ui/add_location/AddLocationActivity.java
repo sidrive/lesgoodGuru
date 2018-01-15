@@ -201,7 +201,17 @@ public class AddLocationActivity extends BaseActivity implements OnMapReadyCallb
         != PackageManager.PERMISSION_GRANTED) {
       return;
     }
-    LatLng userCurrentLocation = new LatLng(mlocation.getLatitude(),mlocation.getLongitude());
+    if (mlocation!=null){
+      LatLng userCurrentLocation = new LatLng(mlocation.getLatitude(),mlocation.getLongitude());
+      mMap.setMapType(MAP_TYPE_NORMAL);
+      mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userCurrentLocation, 16));
+      mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userCurrentLocation, 16));
+      mMap.setOnCameraIdleListener(this);
+      mMap.setMyLocationEnabled(true);
+    }else {
+
+    }
+
     /*if (location.getLat() != 0 && location.getLng() != 0) {
       userCurrentLocation = new LatLng(location.getLat(), location.getLng());
       latitude = location.getLat();
@@ -212,11 +222,7 @@ public class AddLocationActivity extends BaseActivity implements OnMapReadyCallb
 
     }
 */
-    mMap.setMapType(MAP_TYPE_NORMAL);
-    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userCurrentLocation, 16));
-    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userCurrentLocation, 16));
-    mMap.setOnCameraIdleListener(this);
-    mMap.setMyLocationEnabled(true);
+
     //mMap.setOnMapClickListener(onMapClickListener);
   }
   private void handleNewLatLng(LatLng pos) {

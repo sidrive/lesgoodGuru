@@ -164,7 +164,7 @@ public class HomeFragment extends BaseFragment {
   @SuppressLint("ResourceAsColor")
   public void init() {
 
-    sStatus.setChecked(user.isActive());
+    //sStatus.setChecked(user.isActive());
     //initSchedule();
     if (user.isActive()) {
       sStatus.setText("Status : Aktif");
@@ -189,11 +189,11 @@ public class HomeFragment extends BaseFragment {
   @OnCheckedChanged(R.id.s_active)
   void onStatusChanged(boolean status) {
     presenter.updaeStatus(user.getUid(), status);
-    if (status) {
+    /*if (status) {
       sStatus.setText("Status : Aktif");
     } else {
       sStatus.setText("Status : Tidak Aktif");
-    }
+    }*/
   }
 
   @Override
@@ -257,4 +257,13 @@ public class HomeFragment extends BaseFragment {
   }
 
 
+  public void updateStatus(boolean isActive) {
+    Log.e("updateStatus", "isActive  " + isActive);
+    sStatus.setChecked(isActive);
+    if (isActive) {
+      sStatus.setText("Status : Aktif");
+    } else {
+      sStatus.setText("Status : Tidak Aktif");
+    }
+  }
 }

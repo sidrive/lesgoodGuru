@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.util.Log;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -14,6 +15,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.lesgood.guru.base.BasePresenter;
 import com.lesgood.guru.data.model.Days;
 import com.lesgood.guru.data.model.TimeSchedule;
@@ -49,12 +51,16 @@ public class HomePresenter implements BasePresenter {
     @Override
     public void subscribe() {
         getUserSchedule();
+        getStatus();
         fragment.showtimeDetailSchedule();
+
     }
 
     @Override
     public void unsubscribe() {
     }
+
+
     public void getDaySchedule(){
         userService.getDaySchedule().addChildEventListener(new ChildEventListener() {
             @Override
@@ -135,10 +141,38 @@ public class HomePresenter implements BasePresenter {
             }
         });
     }
+
     public void updaeStatus(String uid, boolean status){
         String stat = String.valueOf(status);
-        userService.updateStatus(uid, stat);
+        userService.updateStatus(uid, stat).setValue(status).addOnCompleteListener(task -> {
+            if (task.isComplete()){
+                userService.updateStatusActiveUser(uid).setValue(status);
+                fragment.updateStatus(status);
+            }
+        });
     }
+
+    public void getStatus(){
+        userService.getStatusActive(mUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot !=null ){
+                    Log.e("onDataChange", "HomePresenter" + dataSnapshot.getValue());
+                    if (dataSnapshot.getValue()!=null){
+                        boolean isActive = dataSnapshot.getValue(Boolean.class);
+                        Log.e("onDataChange", "HomePresenter isActive " + isActive);
+                        fragment.updateStatus(isActive);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     public void deleteSchedule(String id){
         userService.removeUserTimeSchedule(id).addOnCompleteListener(task -> {
 

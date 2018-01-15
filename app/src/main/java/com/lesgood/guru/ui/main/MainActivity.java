@@ -203,9 +203,9 @@ public class MainActivity extends BaseActivity  implements EasyPermissions.Permi
                 }
             }
             if (allGrant) {
-               AppUtils.showToast(this,"GRANTED");
+               /*AppUtils.showToast(this,"GRANTED");*/
             } else {
-                AppUtils.showToast(this,"DENIED");
+                /*AppUtils.showToast(this,"DENIED");*/
             }
 
         }
@@ -239,23 +239,20 @@ public class MainActivity extends BaseActivity  implements EasyPermissions.Permi
         // more than cacheExpiration seconds ago. Thus the next fetch would go to the server unless
         // throttling is in progress. The default expiration duration is 43200 (12 hours).
         mFirebaseRemoteConfig.fetch(cacheExpiration)
-                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Log.d("REMOTECONFIG", "FETCH SUCCEEDED");
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        Log.d("REMOTECONFIG", "FETCH SUCCEEDED");
 
-                            // Once the config is successfully fetched it must be activated before newly fetched
-                            // values are returned.
-                            mFirebaseRemoteConfig.activateFetched();
-                        } else {
+                        // Once the config is successfully fetched it must be activated before newly fetched
+                        // values are returned.
+                        mFirebaseRemoteConfig.activateFetched();
+                    } else {
 
-
-                        }
-
-                        setConfig();
 
                     }
+
+                    setConfig();
+
                 });
         // [END fetch_config_with_callback]
     }

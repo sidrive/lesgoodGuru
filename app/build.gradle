@@ -13,8 +13,8 @@ android {
         release {
             keyAlias 'lesgood'
             keyPassword 'doremi456'
-            //storeFile file('/Volumes/DATA/Lesgood/Lesgood/Keystore/lesgood-release-key.jks')
-            storeFile file('/home/ikun/GeekGarden/Keystore/lesgood-release-key.jks')
+            storeFile file('/Volumes/DATA/Lesgood/Lesgood/Keystore/lesgood-release-key.jks')
+            //storeFile file('/home/ikun/GeekGarden/Keystore/lesgood-release-key.jks')
             storePassword 'doremi456'
         }
     }
