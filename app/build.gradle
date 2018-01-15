@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'me.tatarka.retrolambda'
-
+apply from: "$project.rootDir/tools/script-git-version.gradle"
 
 
 android {
@@ -25,8 +25,8 @@ android {
         minSdkVersion 17
         targetSdkVersion 25
         multiDexEnabled true
-        versionCode 5
-        versionName "2.0.1"
+        versionCode gitVersionCode
+        versionName gitVersionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
 
