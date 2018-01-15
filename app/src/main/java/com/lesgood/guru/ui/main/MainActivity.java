@@ -153,7 +153,8 @@ public class MainActivity extends BaseActivity  implements EasyPermissions.Permi
             ft.commit();
         }
         if (!user.isVerified()){
-            Utils.showDialog(this,"Akun anda belum terverifikasi atau dokumen verifikasi belum lengkap, lengkapi data sekarang ?",listener);
+            Utils.showDialog(this,"Silahkan menunggu, akun anda sedang kami verifikasi.\n" +
+                    "Jika berkas anda belum lengkap silahkan lengkapi sekarang",listener);
         }
     }
     public DialogInterface.OnClickListener listener = (dialog, which) -> {
