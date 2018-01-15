@@ -1,6 +1,8 @@
 package com.lesgood.guru.ui.order_detail;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog.Builder;
@@ -385,5 +387,18 @@ public class OrderDetailActivity extends BaseActivity {
 
   public void showPustakaLesgood(Pustaka pustaka) {
     pustakaAdapter.onAddPustaka(pustaka);
+  }
+
+  public void viewPustaka(Pustaka p) {
+    Intent intent = new Intent(Intent.ACTION_VIEW);
+    intent.setDataAndType(Uri.parse(p.getUrl()), "application/pdf");
+    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    Intent newIntent = Intent.createChooser(intent, "Open File");
+    try {
+      startActivity(newIntent);
+    } catch (ActivityNotFoundException e) {
+      // Instruct the user to install a PDF reader here, or something
+    }
+
   }
 }

@@ -48,7 +48,7 @@ public class PustakaAdapter extends Adapter<Holder> {
     Log.e("onBindViewHolder", "PustakaAdapter" + p.getName());
     holder.tvTitle.setText(p.getName());
     holder.itemView.setOnClickListener(v -> {
-      Log.e("onBindViewHolder", "PustakaAdapter" + pustakas.toString());
+      activity.viewPustaka(p);
     });
   }
 
