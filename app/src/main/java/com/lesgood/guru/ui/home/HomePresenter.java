@@ -19,6 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.lesgood.guru.base.BasePresenter;
 import com.lesgood.guru.data.model.Days;
 import com.lesgood.guru.data.model.TimeSchedule;
+import com.lesgood.guru.data.model.User;
 import com.lesgood.guru.data.remote.UserService;
 import com.lesgood.guru.data.verification.VerificationActivity;
 import com.lesgood.guru.util.AppUtils;
@@ -157,11 +158,10 @@ public class HomePresenter implements BasePresenter {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot !=null ){
-                    Log.e("onDataChange", "HomePresenter" + dataSnapshot.getValue());
                     if (dataSnapshot.getValue()!=null){
-                        boolean isActive = dataSnapshot.getValue(Boolean.class);
-                        Log.e("onDataChange", "HomePresenter isActive " + isActive);
-                        fragment.updateStatus(isActive);
+                        User user = dataSnapshot.getValue(User.class);
+                        Log.e("onDataChange", "HomePresenter" + user.isActive());
+                        fragment.updateStatus(user.isActive());
                     }
                 }
             }

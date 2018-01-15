@@ -222,7 +222,7 @@ public class UserService {
         databaseRef.child("users").child(uid).child("active").setValue(stat);*/
     }
     public DatabaseReference getStatusActive(String uid){
-        return databaseRef.child("user-status").child(uid).child("active");
+        return databaseRef.child("user-status").child(uid);
     }
 
 

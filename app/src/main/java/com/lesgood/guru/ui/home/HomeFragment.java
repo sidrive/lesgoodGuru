@@ -30,14 +30,12 @@ import com.lesgood.guru.base.BaseFragment;
 import com.lesgood.guru.data.model.Days;
 import com.lesgood.guru.data.model.TimeSchedule;
 import com.lesgood.guru.data.model.User;
-import com.lesgood.guru.data.verification.VerificationActivity;
 import com.lesgood.guru.ui.main.MainActivity;
 import com.lesgood.guru.util.CustomTimePiker;
 import com.lesgood.guru.util.TypefacedTextView;
 import com.lesgood.guru.util.Utils;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import javax.inject.Inject;
 
 /**
@@ -258,11 +256,11 @@ public class HomeFragment extends BaseFragment {
 
 
   public void updateStatus(boolean isActive) {
-    Log.e("updateStatus", "isActive  " + isActive);
-    sStatus.setChecked(isActive);
     if (isActive) {
       sStatus.setText("Status : Aktif");
+      sStatus.setChecked(true);
     } else {
+      sStatus.setChecked(false);
       sStatus.setText("Status : Tidak Aktif");
     }
   }
