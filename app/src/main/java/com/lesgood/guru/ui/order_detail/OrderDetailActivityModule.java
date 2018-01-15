@@ -31,5 +31,12 @@ public class OrderDetailActivityModule {
     OrderDetailPresenter provideOrderDetailPresenter(OrderService orderService, Order order){
         return new OrderDetailPresenter(activity, orderService, order);
     }
+    @ActivityScope
+    @Provides
+    PustakaAdapter providePustaka(OrderService orderService){
+        return new PustakaAdapter(activity,orderService);
+
+    }
+
 
 }

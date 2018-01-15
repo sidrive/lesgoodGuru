@@ -1,10 +1,12 @@
 package com.lesgood.guru.ui.order_detail;
 
 import android.content.Intent;
-import android.location.Address;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog.Builder;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -23,6 +25,7 @@ import com.lesgood.guru.base.BaseActivity;
 import com.lesgood.guru.base.BaseApplication;
 import com.lesgood.guru.data.model.Invoices;
 import com.lesgood.guru.data.model.Order;
+import com.lesgood.guru.data.model.Pustaka;
 import com.lesgood.guru.data.model.User;
 import com.lesgood.guru.ui.main.MainActivity;
 import com.lesgood.guru.ui.map.MapsActivity;
@@ -112,6 +115,13 @@ public class OrderDetailActivity extends BaseActivity {
   @Inject
   OrderDetailPresenter presenter;
 
+  @Inject
+  PustakaAdapter pustakaAdapter;
+  @Bind(R.id.rcvPustaka)
+  RecyclerView rcvPustaka;
+  @Bind(R.id.lytPustaka)
+  LinearLayout lytPustaka;
+
   private LatLng latLng;
 
   public static void startWithOrder(BaseActivity activity, Order order) {
@@ -120,10 +130,12 @@ public class OrderDetailActivity extends BaseActivity {
     activity.startActivity(intent);
 
   }
+
   public static String KEY_PARAM_NOTIF = "Notif";
+
   public static void starFromNotif(BaseActivity activity, String order) {
     Intent intent = new Intent(activity, OrderDetailActivity.class);
-    intent.putExtra(KEY_PARAM_NOTIF,order);
+    intent.putExtra(KEY_PARAM_NOTIF, order);
     activity.startActivity(intent);
 
 
@@ -135,9 +147,10 @@ public class OrderDetailActivity extends BaseActivity {
     setContentView(R.layout.activity_order_detail);
     ButterKnife.bind(this);
     Bundle extra = getIntent().getExtras();
-    if(extra != null){
+    if (extra != null) {
       String param = extra.getString(KEY_PARAM_NOTIF);
       presenter.viewDetailOrder(param);
+
     }
     setSupportActionBar(toolbar);
     getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -204,8 +217,20 @@ public class OrderDetailActivity extends BaseActivity {
     presenter.getGuru(order.getGid());
     presenter.getSiswa(order.getUid());
     presenter.viewDetailOrder(order.getOid());
-    presenter.getInvoice(order.getOid()+""+order.getCode());
-    handleStatus(order.getStatus(),order.getStatusGantiGuru());
+    presenter.getInvoice(order.getOid() + "" + order.getCode());
+    handleStatus(order.getStatus(), order.getStatusGantiGuru());
+    if (order.getStatus().equalsIgnoreCase("SUCCESS")) {
+      presenter.getPustaka(order.getCode());
+      lytPustaka.setVisibility(View.VISIBLE);
+    }
+    initPustaka();
+  }
+
+  private void initPustaka() {
+    rcvPustaka.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+    rcvPustaka.setHasFixedSize(true);
+    rcvPustaka.setItemAnimator(new DefaultItemAnimator());
+    rcvPustaka.setAdapter(pustakaAdapter);
 
   }
 
@@ -250,7 +275,7 @@ public class OrderDetailActivity extends BaseActivity {
     showProgress(true);
     Log.e("accept", "OrderDetailActivity" + order.getStatusGantiGuru());
     if (order.getStatusGantiGuru().equalsIgnoreCase("request")) {
-      presenter.acceptChangeTeacher(order,"accept");
+      presenter.acceptChangeTeacher(order, "accept");
     } else {
       presenter.acceptOrder(order);
     }
@@ -261,7 +286,7 @@ public class OrderDetailActivity extends BaseActivity {
   void decline() {
     showProgress(true);
     if (order.getStatusGantiGuru().equalsIgnoreCase("request")) {
-      presenter.acceptChangeTeacher(order,"decline");
+      presenter.acceptChangeTeacher(order, "decline");
     } else {
       presenter.declineOrder(order);
     }
@@ -310,14 +335,14 @@ public class OrderDetailActivity extends BaseActivity {
 
   @OnClick(R.id.img_map)
   public void onMapCliked() {
-    MapsActivity.start(this,latLng.latitude,latLng.longitude);
+    MapsActivity.start(this, latLng.latitude, latLng.longitude);
   }
 
   public void updateUI(Order order) {
     /*BaseApplication.get(this).createOrderDetailComponent(order);*/
     order = order;
     Log.e("OrderDetailActivity", "updateUI: " + order);
-    latLng = new LatLng(order.getLat(),order.getLng());
+    latLng = new LatLng(order.getLat(), order.getLng());
     Log.e("initDetailSiswa", "OrderDetailActivity" + latLng);
     String url =
         "http://maps.googleapis.com/maps/api/staticmap?zoom=16&size=800x400&maptype=roadmap%20&markers=color:red%7Clabel:S%7C"
@@ -356,5 +381,9 @@ public class OrderDetailActivity extends BaseActivity {
   public void updateAlamatSiswa(String address) {
     txtAlamatSiswa.setText(address);
     Log.e("updateAlamatSiswa", "OrderDetailActivity" + address);
+  }
+
+  public void showPustakaLesgood(Pustaka pustaka) {
+    pustakaAdapter.onAddPustaka(pustaka);
   }
 }

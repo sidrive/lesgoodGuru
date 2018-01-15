@@ -541,7 +541,29 @@
                     android:layout_marginTop="@dimen/activity_half_margin"/>
 
             </LinearLayout>
+            <LinearLayout
+              android:id="@+id/lytPustaka"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/colorWhite"
+              android:layout_marginTop="@dimen/activity_margin"
+              android:padding="@dimen/activity_margin"
+              android:visibility="gone"
+              android:orientation="vertical">
 
+                <com.lesgood.guru.util.TypefacedTextView
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_marginBottom="10dp"
+                  app:typeface="Roboto-Medium.ttf"
+                  android:text="Daftar Pustaka"/>
+                <android.support.v7.widget.RecyclerView
+                  android:id="@+id/rcvPustaka"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"/>
+
+
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
     <!--Button terima/tolak-->

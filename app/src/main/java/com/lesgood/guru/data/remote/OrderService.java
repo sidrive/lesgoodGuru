@@ -3,6 +3,7 @@ package com.lesgood.guru.data.remote;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.lesgood.guru.data.model.Order;
 
 /**
@@ -50,6 +51,14 @@ public class OrderService {
     }
     public Task<Void> changeDataGidOrder(String gid, String oid){
         return databaseRef.child("orders").child(oid).child("gid").setValue(gid);
+    }
+
+    /*=============================================================================================================================
+                                                                PUSTAKA
+      =============================================================================================================================*/
+    //pustaka
+    public Query getPusataka(String code){
+        return databaseRef.child("pustaka-pdf").orderByChild("code").equalTo(code);
     }
     /*=============================================================================================================================
                                                                 INVOICE

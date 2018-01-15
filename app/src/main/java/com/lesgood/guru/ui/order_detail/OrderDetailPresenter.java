@@ -5,6 +5,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.util.Log;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -12,6 +13,7 @@ import com.lesgood.guru.base.BaseApplication;
 import com.lesgood.guru.base.BasePresenter;
 import com.lesgood.guru.data.model.Invoices;
 import com.lesgood.guru.data.model.Order;
+import com.lesgood.guru.data.model.Pustaka;
 import com.lesgood.guru.data.model.User;
 import com.lesgood.guru.data.remote.OrderService;
 import java.io.IOException;
@@ -211,4 +213,41 @@ public class OrderDetailPresenter implements BasePresenter {
             activity.updateAlamatSiswa(addresses.get(0).getAddressLine(0));
         }
     }
+    public void getPustaka(String code){
+        orderService.getPusataka(code).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+                if (dataSnapshot!=null){
+                    Pustaka pustaka = dataSnapshot.getValue(Pustaka.class);
+                    activity.showPustakaLesgood(pustaka);
+
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                Pustaka pustaka = dataSnapshot.getValue(Pustaka.class);
+                if (dataSnapshot!=null){
+                    //activity.showOnChangePustakaLesgood(pustaka);
+                }
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
 }
