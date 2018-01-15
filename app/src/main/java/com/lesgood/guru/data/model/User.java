@@ -31,7 +31,7 @@ public class User implements Serializable {
     @Nullable
     public long birthday;
     @Nullable
-    public boolean verified;
+    public Boolean verified;
     @Nullable
     public double latitude;
     @Nullable
@@ -51,7 +51,7 @@ public class User implements Serializable {
     @Nullable
     public String prodi;
     @Nullable
-    public boolean active;
+    public Boolean active;
     @Nullable
     public String instagram;
     @Nullable
@@ -65,7 +65,7 @@ public class User implements Serializable {
     @Nullable
     public String about;
     @Nullable
-    public boolean acceptTOS;
+    public Boolean acceptTOS;
     @Nullable
     public String userType;
 
@@ -73,13 +73,12 @@ public class User implements Serializable {
     public String token;
     @Nullable
     public int saldo;
+
     public static User newInstance(FirebaseUser firebaseUser, UserInfo provider) {
         User user = new User(firebaseUser.getUid());
         user.setProvider(provider.getProviderId());
-        // TODO : refactoring
         if (provider.getProviderId().equals("password")) {
             user.setEmail(firebaseUser.getEmail());
-
         } else {
 
         }
@@ -104,24 +103,6 @@ public class User implements Serializable {
         this.token = token;
     }
 
-    @Nullable
-    public int getSaldo() {
-        return saldo;
-    }
-
-    public void setSaldo(@Nullable int saldo) {
-        this.saldo = saldo;
-    }
-
-    @Nullable
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(@Nullable String token) {
-        this.token = token;
-    }
-
     @NonNull
     public String getUid() {
         return uid;
@@ -132,12 +113,30 @@ public class User implements Serializable {
     }
 
     @Nullable
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(@Nullable String phone) {
+        this.phone = phone;
+    }
+
+    @Nullable
     public String getEmail() {
         return email;
     }
 
     public void setEmail(@Nullable String email) {
         this.email = email;
+    }
+
+    @Nullable
+    public String getProvider() {
+        return provider;
+    }
+
+    public void setProvider(@Nullable String provider) {
+        this.provider = provider;
     }
 
     @Nullable
@@ -159,24 +158,6 @@ public class User implements Serializable {
     }
 
     @Nullable
-    public String getProvider() {
-        return provider;
-    }
-
-    public void setProvider(@Nullable String provider) {
-        this.provider = provider;
-    }
-
-    @Nullable
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(@Nullable String phone) {
-        this.phone = phone;
-    }
-
-    @Nullable
     public String getGender() {
         return gender;
     }
@@ -195,11 +176,11 @@ public class User implements Serializable {
     }
 
     @Nullable
-    public boolean isVerified() {
+    public Boolean getVerified() {
         return verified;
     }
 
-    public void setVerified(@Nullable boolean verified) {
+    public void setVerified(@Nullable Boolean verified) {
         this.verified = verified;
     }
 
@@ -284,13 +265,13 @@ public class User implements Serializable {
         this.prodi = prodi;
     }
 
-    public void setActive(@Nullable boolean active) {
-        this.active = active;
+    @Nullable
+    public Boolean getActive() {
+        return active;
     }
 
-    @Nullable
-    public boolean isActive() {
-        return active;
+    public void setActive(@Nullable Boolean active) {
+        this.active = active;
     }
 
     @Nullable
@@ -348,11 +329,11 @@ public class User implements Serializable {
     }
 
     @Nullable
-    public boolean isAcceptTOS() {
+    public Boolean getAcceptTOS() {
         return acceptTOS;
     }
 
-    public void setAcceptTOS(@Nullable boolean acceptTOS) {
+    public void setAcceptTOS(@Nullable Boolean acceptTOS) {
         this.acceptTOS = acceptTOS;
     }
 
@@ -365,36 +346,21 @@ public class User implements Serializable {
         this.userType = userType;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-            "uid='" + uid + '\'' +
-            ", phone='" + phone + '\'' +
-            ", email='" + email + '\'' +
-            ", provider='" + provider + '\'' +
-            ", photo_url='" + photo_url + '\'' +
-            ", full_name='" + full_name + '\'' +
-            ", gender='" + gender + '\'' +
-            ", birthday=" + birthday +
-            ", verified=" + verified +
-            ", latitude=" + latitude +
-            ", longitude=" + longitude +
-            ", fullAddress='" + fullAddress + '\'' +
-            ", totalSkill=" + totalSkill +
-            ", review=" + review +
-            ", startFrom=" + startFrom +
-            ", religion='" + religion + '\'' +
-            ", pendidikan='" + pendidikan + '\'' +
-            ", prodi='" + prodi + '\'' +
-            ", active=" + active +
-            ", instagram='" + instagram + '\'' +
-            ", facebook='" + facebook + '\'' +
-            ", createdAt=" + createdAt +
-            ", updateAt=" + updateAt +
-            ", location='" + location + '\'' +
-            ", about='" + about + '\'' +
-            ", acceptTOS=" + acceptTOS +
-            ", userType='" + userType + '\'' +
-            '}';
+    @Nullable
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(@Nullable String token) {
+        this.token = token;
+    }
+
+    @Nullable
+    public int getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(@Nullable int saldo) {
+        this.saldo = saldo;
     }
 }

@@ -161,6 +161,7 @@ public class AddLocationPresenter implements BasePresenter {
             .subscribe(
                 addresses -> {
                     activity.setLoadingProgress(false);
+                    Log.e("getAddress", "AddLocationPresenter" + addresses.toString());
                     Log.e("getAddress", "AddLocationPresenter" + addresses.get(0));
                     user.setLatitude(latLng.latitude);
                     user.setLongitude(latLng.longitude);

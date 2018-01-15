@@ -152,9 +152,12 @@ public class MainActivity extends BaseActivity  implements EasyPermissions.Permi
             ft.replace(R.id.content_frame, fragment);
             ft.commit();
         }
-        if (!user.isVerified()){
-            Utils.showDialog(this,"Silahkan menunggu, akun anda sedang kami verifikasi.\n" +
+        if (user.getVerified()!=null){
+            if (!user.getVerified()){
+                Utils.showDialog(this,"Silahkan menunggu, akun anda sedang kami verifikasi.\n" +
                     "Jika berkas anda belum lengkap silahkan lengkapi sekarang",listener);
+            }
+
         }
     }
     public DialogInterface.OnClickListener listener = (dialog, which) -> {

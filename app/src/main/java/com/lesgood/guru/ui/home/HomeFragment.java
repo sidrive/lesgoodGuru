@@ -18,6 +18,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import butterknife.Bind;
 import butterknife.BindColor;
 import butterknife.ButterKnife;
@@ -48,15 +50,10 @@ public class HomeFragment extends BaseFragment {
   @BindColor(R.color.colorAccentDark)
   int colorGreen;
 
-  /*@Bind(R.id.weekView)
-  WeekView weekView;*/
-
   @Bind(R.id.s_active)
   SwitchCompat sStatus;
-
   @Inject
   HomePresenter presenter;
-
   @Inject
   User user;
 
@@ -68,8 +65,6 @@ public class HomeFragment extends BaseFragment {
 
   @Inject
   MainActivity activity;
-
-
 
   @Bind(R.id.tvStatusUser)
   TypefacedTextView tvStsUser;
@@ -142,8 +137,8 @@ public class HomeFragment extends BaseFragment {
     View view = inflater.inflate(R.layout.fragment_home, container, false);
     ButterKnife.bind(this, view);
     getActivity().setTitle("Lesgood Pengajar");
-    presenter.getDaySchedule();
-    presenter.showDetailScheduleByDay();
+    //presenter.getDaySchedule();
+    //presenter.showDetailScheduleByDay();
     init();
     return view;
 
@@ -161,21 +156,25 @@ public class HomeFragment extends BaseFragment {
 
   @SuppressLint("ResourceAsColor")
   public void init() {
+    if (user.getActive()!=null){
+      if (user.getActive()) {
+        sStatus.setText("Status : Aktif");
+      } else {
+        sStatus.setText("Status : Tidak Aktif");
+      }
+    }
+    //sStatus.setChecked(user.getActive());
+    initSchedule();
+    if (user.getVerified()!=null){
+      if (user.getVerified()) {
+        tvStsUser.setText("SELAMAT MENGAJAR");
+      } else {
+        tvStsUser.setText("Anda Belum Terverifikasi");
+        tvStsUser.setBackgroundColor(R.color.colorGrey800);
+      }
 
-    //sStatus.setChecked(user.isActive());
-    //initSchedule();
-    if (user.isActive()) {
-      sStatus.setText("Status : Aktif");
-    } else {
-      sStatus.setText("Status : Tidak Aktif");
     }
 
-    if (user.isVerified()) {
-      tvStsUser.setText("SELAMAT MENGAJAR");
-    } else {
-      tvStsUser.setText("Anda Belum Terverifikasi");
-      tvStsUser.setBackgroundColor(R.color.colorGrey800);
-    }
 
   }
 
@@ -184,14 +183,16 @@ public class HomeFragment extends BaseFragment {
     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
     rcvDay.setLayoutManager(linearLayoutManager);
   }
-  @OnCheckedChanged(R.id.s_active)
+  @OnCheckedChanged(R.id.s_active )
   void onStatusChanged(boolean status) {
+    Log.e("onStatusChanged", "HomeFragment" + status);
+
     presenter.updaeStatus(user.getUid(), status);
-    /*if (status) {
+    if (status) {
       sStatus.setText("Status : Aktif");
     } else {
       sStatus.setText("Status : Tidak Aktif");
-    }*/
+    }
   }
 
   @Override

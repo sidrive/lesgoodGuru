@@ -40,7 +40,6 @@ public class HomePresenter implements BasePresenter {
     DatabaseReference databaseRef;
     FirebaseAuth mAuth;
     FirebaseUser mUser;
-
     public HomePresenter(HomeFragment fragment, UserService userService){
         this.fragment = fragment;
         this.userService = userService;
@@ -143,9 +142,8 @@ public class HomePresenter implements BasePresenter {
         });
     }
 
-    public void updaeStatus(String uid, boolean status){
-        String stat = String.valueOf(status);
-        userService.updateStatus(uid, stat).setValue(status).addOnCompleteListener(task -> {
+    public void updaeStatus(String uid, Boolean status){
+        userService.updateStatus(uid).setValue(status).addOnCompleteListener(task -> {
             if (task.isComplete()){
                 userService.updateStatusActiveUser(uid).setValue(status);
                 fragment.updateStatus(status);
@@ -154,16 +152,10 @@ public class HomePresenter implements BasePresenter {
     }
 
     public void getStatus(){
-        userService.getStatusActive(mUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+        userService.getStatusActive(mUser.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot !=null ){
-                    if (dataSnapshot.getValue()!=null){
-                        User user = dataSnapshot.getValue(User.class);
-                        Log.e("onDataChange", "HomePresenter" + user.isActive());
-                        fragment.updateStatus(user.isActive());
-                    }
-                }
+
             }
 
             @Override
@@ -193,8 +185,8 @@ public class HomePresenter implements BasePresenter {
             .addOnSuccessListener(aVoid -> {
                 fragment.showtimeDetailSchedule();
             }).addOnFailureListener(e -> {
-                Log.e("setTimeSchedule", "GAGAL");
-            });
+            Log.e("setTimeSchedule", "GAGAL");
+        });
     }
     public void showDetailScheduleByDay(){
         userService.getUserTimeScheduleById(mUser.getUid()).addChildEventListener(

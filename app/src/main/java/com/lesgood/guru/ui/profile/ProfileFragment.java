@@ -276,7 +276,7 @@ public class ProfileFragment extends BaseFragment {
       txtPendidikan.setText(user.getPendidikan());
     }
 
-    if (user.isVerified()) {
+    if (user.getVerified()!=null && user.getVerified()) {
       txtVerified.setText("Status : Terverifikasi");
     }
 

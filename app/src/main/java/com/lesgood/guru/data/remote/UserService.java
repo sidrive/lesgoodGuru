@@ -211,7 +211,7 @@ public class UserService {
         databaseRef.child("partner-payment").child(partnerPayment.getUid()).setValue(partnerPayment);
     }
 
-    public DatabaseReference updateStatus(String uid, String status){
+    public DatabaseReference updateStatus(String uid){
         return databaseRef.child("user-status").child(uid).child("active");
        /* boolean stat = Boolean.parseBoolean(status);
         databaseRef.child("users").child(uid).child("active").setValue(stat);*/
@@ -222,7 +222,7 @@ public class UserService {
         databaseRef.child("users").child(uid).child("active").setValue(stat);*/
     }
     public DatabaseReference getStatusActive(String uid){
-        return databaseRef.child("user-status").child(uid);
+        return databaseRef.child("user-status").child(uid).child("active");
     }
 
 

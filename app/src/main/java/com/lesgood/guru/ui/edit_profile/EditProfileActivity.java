@@ -519,7 +519,7 @@ public class EditProfileActivity extends BaseActivity implements OnDateSetListen
   public void successUpdateProfile(User user) {
     showLoading(false);
     if (register) {
-      if (user.isAcceptTOS()) {
+      if (user.getAcceptTOS()) {
         VerificationActivity.startWithUser(this, user);
       } else {
         /*VerificationActivity.startWithUser(this, user);*/
@@ -612,6 +612,8 @@ public class EditProfileActivity extends BaseActivity implements OnDateSetListen
     } else {
 
       user.setAcceptTOS(true);
+      user.setVerified(false);
+      user.setActive(false);
       user.setFull_name(name);
       user.setEmail(email);
       user.setReligion(religion);

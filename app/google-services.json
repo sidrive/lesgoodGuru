@@ -1,73 +1,21 @@
 {
   "project_info": {
-    "project_number": "587589507868",
-    "firebase_url": "https://devlesgood-1ccdc.firebaseio.com",
-    "project_id": "devlesgood-1ccdc",
-    "storage_bucket": "devlesgood-1ccdc.appspot.com"
+    "project_number": "338377856929",
+    "firebase_url": "https://lesgood-production.firebaseio.com",
+    "project_id": "lesgood-production",
+    "storage_bucket": "lesgood-production.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:587589507868:android:7ac2f9608fd17590",
-        "android_client_info": {
-          "package_name": "com.lesgood.app"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "587589507868-268uq3hjicppseufidl6q1ioaojq1fcd.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.lesgood.app",
-            "certificate_hash": "67fff2efbf9f5cbdef6575a16e8890926cbe50ee"
-          }
-        },
-        {
-          "client_id": "587589507868-vsuk254otq90acqvm2go3nufncn0cl81.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.lesgood.app",
-            "certificate_hash": "02e257cc0c6e204b7d35ee381336edfd1b59988c"
-          }
-        },
-        {
-          "client_id": "587589507868-tqr11g4ra4co34s7qcbqknmvvv0abi9o.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyD_0xJa6SbHd0hVwGD-UY52odbN5UmUFw8"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 1
-        },
-        "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "587589507868-tqr11g4ra4co34s7qcbqknmvvv0abi9o.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        },
-        "ads_service": {
-          "status": 2
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:587589507868:android:8eb56107a8b42a9d",
+        "mobilesdk_app_id": "1:338377856929:android:8eb56107a8b42a9d",
         "android_client_info": {
           "package_name": "com.lesgood.guru"
         }
       },
       "oauth_client": [
         {
-          "client_id": "587589507868-lt2iiskb5a48k0e8ii5215lerhdgm4mn.apps.googleusercontent.com",
+          "client_id": "338377856929-ppaggcj9umiil314bkct9i1s8uehltan.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.lesgood.guru",
@@ -75,13 +23,13 @@
           }
         },
         {
-          "client_id": "587589507868-tqr11g4ra4co34s7qcbqknmvvv0abi9o.apps.googleusercontent.com",
+          "client_id": "338377856929-nb3qrl69splrdef7j3eopm4322dnqm8c.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyD_0xJa6SbHd0hVwGD-UY52odbN5UmUFw8"
+          "current_key": "AIzaSyC9qT930-F_pQdQlUJ0FmWOGwJoZg7Fpok"
         }
       ],
       "services": {
@@ -92,7 +40,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "587589507868-tqr11g4ra4co34s7qcbqknmvvv0abi9o.apps.googleusercontent.com",
+              "client_id": "338377856929-nb3qrl69splrdef7j3eopm4322dnqm8c.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
