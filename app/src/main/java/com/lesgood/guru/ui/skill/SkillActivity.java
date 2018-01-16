@@ -185,7 +185,8 @@ public class SkillActivity extends BaseActivity {
 
     public void startAddSkill(Skill skill){
         if (!user.getVerified()){
-            Utils.showDialog(this,"Akun anda belum terverifikasi atau dokumen verifikasi belum lengkap, lengkapi data sekarang ?",listener);
+            Utils.showDialog(this,"Silahkan menunggu, akun anda sedang kami verifikasi.\n" +
+                "Jika berkas anda belum lengkap silahkan lengkapi sekarang",listener);
         }else {
             AddSkillActivity.startWithData(this, skill);
         }
