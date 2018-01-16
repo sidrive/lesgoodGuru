@@ -31,7 +31,6 @@ android {
         vectorDrawables.useSupportLibrary = true
 
     }
-
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
             def newApkName = "lesgood-guru-${variant.buildType.name}-${variant.versionName}-${variant.versionCode}.apk";
