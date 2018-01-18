@@ -156,6 +156,7 @@ public class HomeFragment extends BaseFragment {
 
   @SuppressLint("ResourceAsColor")
   public void init() {
+
     if (user.getActive()!=null){
       if (user.getActive()) {
         sStatus.setText("Status : Aktif");
@@ -163,7 +164,7 @@ public class HomeFragment extends BaseFragment {
         sStatus.setText("Status : Tidak Aktif");
       }
     }
-    //sStatus.setChecked(user.getActive());
+    sStatus.setChecked(user.getActive());
     initSchedule();
     if (user.getVerified()!=null){
       if (user.getVerified()) {
@@ -174,7 +175,7 @@ public class HomeFragment extends BaseFragment {
       }
 
     }
-
+    Log.e("Home","status "+user.getActive());
 
   }
 
@@ -183,6 +184,7 @@ public class HomeFragment extends BaseFragment {
     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
     rcvDay.setLayoutManager(linearLayoutManager);
   }
+
   @OnCheckedChanged(R.id.s_active )
   void onStatusChanged(boolean status) {
     Log.e("onStatusChanged", "HomeFragment" + status);
@@ -193,6 +195,7 @@ public class HomeFragment extends BaseFragment {
     } else {
       sStatus.setText("Status : Tidak Aktif");
     }
+    user.setActive(status);
   }
 
   @Override
@@ -257,12 +260,16 @@ public class HomeFragment extends BaseFragment {
 
 
   public void updateStatus(boolean isActive) {
+    Log.e("UpdateStatus","status "+isActive);
     if (isActive) {
       sStatus.setText("Status : Aktif");
-      sStatus.setChecked(true);
+//      sStatus.setChecked(true);
     } else {
-      sStatus.setChecked(false);
+//      sStatus.setChecked(false);
       sStatus.setText("Status : Tidak Aktif");
     }
   }
+
+
+
 }

@@ -51,7 +51,7 @@ public class HomePresenter implements BasePresenter {
     @Override
     public void subscribe() {
         getUserSchedule();
-        getStatus();
+//        getStatus();
         fragment.showtimeDetailSchedule();
 
     }
@@ -146,7 +146,7 @@ public class HomePresenter implements BasePresenter {
         userService.updateStatus(uid).setValue(status).addOnCompleteListener(task -> {
             if (task.isComplete()){
                 userService.updateStatusActiveUser(uid).setValue(status);
-                fragment.updateStatus(status);
+//                fragment.updateStatus(status);
             }
         });
     }
@@ -155,6 +155,12 @@ public class HomePresenter implements BasePresenter {
         userService.getStatusActive(mUser.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot !=null ){
+                    Log.e("Datasnapshot","data "+dataSnapshot.getValue());
+
+                        fragment.updateStatus((Boolean) dataSnapshot.getValue());
+
+                }
 
             }
 
