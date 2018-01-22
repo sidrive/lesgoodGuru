@@ -51,6 +51,7 @@ android {
         }
     }
 
+
     productFlavors {
         releaseConfig {
             minSdkVersion 17
