@@ -137,8 +137,8 @@ public class HomeFragment extends BaseFragment {
     View view = inflater.inflate(R.layout.fragment_home, container, false);
     ButterKnife.bind(this, view);
     getActivity().setTitle("Lesgood Pengajar");
-    //presenter.getDaySchedule();
-    //presenter.showDetailScheduleByDay();
+    presenter.getDaySchedule();
+    presenter.showDetailScheduleByDay();
     init();
     return view;
 
@@ -149,14 +149,12 @@ public class HomeFragment extends BaseFragment {
     Calendar c = Calendar.getInstance();
     Date date = c.getTime();
     tvDateTitle.setText(Utils.dateToString(date));
-
   }
 
 
 
   @SuppressLint("ResourceAsColor")
   public void init() {
-
     if (user.getActive()!=null){
       if (user.getActive()) {
         sStatus.setText("Status : Aktif");
@@ -242,10 +240,8 @@ public class HomeFragment extends BaseFragment {
 
 
   public void showStarTimePicker(Days item) {
-
     CustomTimePiker timePiker = new CustomTimePiker(presenter,item.getName());
     timePiker.show(getFragmentManager(),"timepicker");
-
   }
 
 
@@ -269,7 +265,4 @@ public class HomeFragment extends BaseFragment {
       sStatus.setText("Status : Tidak Aktif");
     }
   }
-
-
-
 }
