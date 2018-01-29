@@ -90,6 +90,7 @@ ext {
     okhttp = "com.squareup.okhttp3:okhttp:${LOGGING_VERSION}"
 
     fbuistorage = "com.firebaseui:firebase-ui-storage:${FIREBASE_UI_VERSION}"
+    fbuidatabase = "com.firebaseui:firebase-ui-database:${FIREBASE_UI_VERSION}"
 
     fbcore = "com.google.firebase:firebase-core:${FIREBASE_VERSION}"
     fbauth = "com.google.firebase:firebase-auth:${FIREBASE_VERSION}"

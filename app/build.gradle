@@ -107,6 +107,8 @@ dependencies {
     compile rootProject.ext.fbinvites
     // Data dependencies
     compile rootProject.ext.fbuistorage
+    compile rootProject.ext.fbuidatabase
+
     // Test dependencies
     testCompile rootProject.ext.junit
     testCompile rootProject.ext.supportAnnotations

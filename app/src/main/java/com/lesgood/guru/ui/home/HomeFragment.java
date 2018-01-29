@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,12 +21,18 @@ import android.widget.Button;
 
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.BindColor;
 import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 
 
+import com.firebase.ui.database.FirebaseIndexRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.lesgood.guru.R;
 import com.lesgood.guru.base.BaseApplication;
 import com.lesgood.guru.base.BaseFragment;
@@ -36,8 +43,10 @@ import com.lesgood.guru.ui.main.MainActivity;
 import com.lesgood.guru.util.CustomTimePiker;
 import com.lesgood.guru.util.TypefacedTextView;
 import com.lesgood.guru.util.Utils;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import javax.inject.Inject;
 
 /**
@@ -60,8 +69,7 @@ public class HomeFragment extends BaseFragment {
   @Inject
   DaysAdapter daysAdapter;
 
-  @Inject
-  TimesAdapter timesAdapter;
+
 
   @Inject
   MainActivity activity;
@@ -75,24 +83,15 @@ public class HomeFragment extends BaseFragment {
   RecyclerView rcvDay;
   @Bind(R.id.rcvTime)
   RecyclerView rcvTime;
-
+  private FirebaseTimeScheduleAdapter firebaseTimeScheduleAdapter;
+  private Query queryTimeSchedule;
 
   public static HomeFragment newInstance() {
     return new HomeFragment();
   }
 
-  public HomeFragment() {
-    // Required empty public constructor
-  }
+  public HomeFragment() {}
 
-  public static HomeFragment newInstance(String param) {
-
-    Bundle args = new Bundle();
-    args.putString("param",param);
-    HomeFragment fragment = new HomeFragment();
-    fragment.setArguments(args);
-    return fragment;
-  }
   @Override
   protected void setupFragmentComponent() {
     BaseApplication.get(getActivity())
@@ -126,7 +125,6 @@ public class HomeFragment extends BaseFragment {
     Bundle ex = getArguments();
     if (ex!=null){
       String param = ex.getString("param");
-      Log.e("onCreate", "HomeFragment " + param);
     }
   }
 
@@ -137,13 +135,20 @@ public class HomeFragment extends BaseFragment {
     View view = inflater.inflate(R.layout.fragment_home, container, false);
     ButterKnife.bind(this, view);
     getActivity().setTitle("Lesgood Pengajar");
-    presenter.getDaySchedule();
-    presenter.showDetailScheduleByDay();
-    init();
     return view;
-
   }
 
+  @Override
+  public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
+    queryTimeSchedule = FirebaseDatabase.getInstance().getReference().child("user-schedules").orderByChild("id").equalTo(user.getUid());
+    firebaseTimeScheduleAdapter =  new FirebaseTimeScheduleAdapter(
+        TimeSchedule.class,
+        R.layout.list_item_time,
+        TimesViewHolder.class,
+        queryTimeSchedule,this);
+    init();
+  }
 
   private void initSchedule() {
     Calendar c = Calendar.getInstance();
@@ -163,7 +168,7 @@ public class HomeFragment extends BaseFragment {
       }
     }
     sStatus.setChecked(user.getActive());
-    initSchedule();
+
     if (user.getVerified()!=null){
       if (user.getVerified()) {
         tvStsUser.setText("SELAMAT MENGAJAR");
@@ -173,8 +178,9 @@ public class HomeFragment extends BaseFragment {
       }
 
     }
-    Log.e("Home","status "+user.getActive());
-
+    presenter.getDaySchedule();
+    presenter.showDetailScheduleByDay();
+    initSchedule();
   }
 
   public void showItemsDays() {
@@ -206,36 +212,24 @@ public class HomeFragment extends BaseFragment {
     View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_schedule, null, false);
     builder.setView(view);
     Button btn = (Button) view.findViewById(R.id.btn_hapus_jadwal);
-
     builder.setCancelable(true);
     Dialog dialog = builder.create();
-
     btn.setOnClickListener(v -> {
       dialog.dismiss();
       presenter.deleteSchedule(id_schedule);
     });
     dialog.show();
   }
-
-
-
-
   public void showAddedItem(Days item) {
     daysAdapter.onItemAdded(item);
     showItemsDays();
   }
-  public void showRemoveItem(Days item) {
-    daysAdapter.onItemRemoved(item);
-    showItemsDays();
-  }
-  public void addTimeToAdapter(TimeSchedule item){
-    timesAdapter.onItemAdded(item);
-  }
+
 
   public void showtimeDetailSchedule() {
-    rcvTime.setAdapter(timesAdapter);
     GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),2);
     rcvTime.setLayoutManager(gridLayoutManager );
+    rcvTime.setAdapter(firebaseTimeScheduleAdapter);
   }
 
 
@@ -245,24 +239,34 @@ public class HomeFragment extends BaseFragment {
   }
 
 
-
-  public void showDetailListSchedule() {
-    presenter.showDetailScheduleByDay();
-  }
-
   public void deleteTimeSchedule(String schedule_id) {
     showDeleteTimeSchedule(schedule_id);
   }
 
 
   public void updateStatus(boolean isActive) {
-    Log.e("UpdateStatus","status "+isActive);
     if (isActive) {
       sStatus.setText("Status : Aktif");
-//      sStatus.setChecked(true);
     } else {
-//      sStatus.setChecked(false);
       sStatus.setText("Status : Tidak Aktif");
     }
+  }
+
+
+  public void showError(String message) {
+    Toast.makeText(getContext(),message,Toast.LENGTH_SHORT).show();
+  }
+
+
+
+  public void OnTimeScheduleListener(ChildEventListener childEventListener) {
+    queryTimeSchedule.addChildEventListener(childEventListener);
+    GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),2);
+    rcvTime.setLayoutManager(gridLayoutManager );
+    rcvTime.setAdapter(firebaseTimeScheduleAdapter);
+  }
+
+  public void notifDataChange() {
+    firebaseTimeScheduleAdapter.notifyDataSetChanged();
   }
 }

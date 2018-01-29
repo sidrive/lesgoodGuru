@@ -18,19 +18,9 @@ public class TimesViewHolder extends RecyclerView.ViewHolder {
     TextView tvTime;
     @Bind(R.id.tvDay)
     TextView tvDay;
-
-
-    private View itemView;
-
     public TimesViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
-        this.itemView = itemView;
-    }
-
-    public void bind(TimeSchedule item) {
-        tvTime.setText(Utils.longToString(item.getStartTime())+" - "+Utils.longToString(item.getEndTime()));
-        tvDay.setText(Utils.dayFormated(item.getDay()));
     }
 }
 

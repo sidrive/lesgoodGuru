@@ -35,8 +35,4 @@ public class HomeFragmentModule {
     DaysAdapter provideDayAdapter(){
         return new DaysAdapter(fragment);
     }
-
-    @ActivityScope
-    @Provides
-    TimesAdapter provideTimeAdapter(){return new TimesAdapter(fragment);}
 }

@@ -15,6 +15,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.lesgood.guru.base.BasePresenter;
 import com.lesgood.guru.data.model.Days;
@@ -40,19 +41,20 @@ public class HomePresenter implements BasePresenter {
     DatabaseReference databaseRef;
     FirebaseAuth mAuth;
     FirebaseUser mUser;
+    List<TimeSchedule> timeSchedules;
     public HomePresenter(HomeFragment fragment, UserService userService){
         this.fragment = fragment;
         this.userService = userService;
         this.mAuth = FirebaseAuth.getInstance();
         this.mUser = mAuth.getCurrentUser();
         this.databaseRef = FirebaseDatabase.getInstance().getReference();
+        this.timeSchedules = new ArrayList<>();
     }
 
     @Override
     public void subscribe() {
         getUserSchedule();
-//        getStatus();
-        fragment.showtimeDetailSchedule();
+        showDetailScheduleByDay();
 
     }
 
@@ -104,7 +106,6 @@ public class HomePresenter implements BasePresenter {
     public void createSchedule(long date){
         userService.createUserSchedule(mUser.getUid()).child(String.valueOf(date)).setValue(true)
             .addOnFailureListener(e -> {
-
                 AppUtils.showToast(fragment.getContext(),e.getMessage());
             }).addOnSuccessListener(aVoid -> {
             getUserSchedule();
@@ -173,7 +174,7 @@ public class HomePresenter implements BasePresenter {
 
     public void deleteSchedule(String id){
         userService.removeUserTimeSchedule(id).addOnCompleteListener(task -> {
-
+            fragment.showtimeDetailSchedule();
         });
     }
     public void setTimeSchedule(String day,long statTime, long endTime){
@@ -195,27 +196,64 @@ public class HomePresenter implements BasePresenter {
         });
     }
     public void showDetailScheduleByDay(){
-        userService.getUserTimeScheduleById(mUser.getUid()).addChildEventListener(
+        ChildEventListener childEventListener = userService.getUserTimeScheduleById(mUser.getUid()).addChildEventListener(
             new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                     TimeSchedule timeSchedule = dataSnapshot.getValue(TimeSchedule.class);
-                    if (dataSnapshot!=null){
-                        fragment.addTimeToAdapter(timeSchedule);
-                    }
+                    fragment.notifDataChange();
                 }
 
                 @Override
                 public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                     TimeSchedule timeSchedule = dataSnapshot.getValue(TimeSchedule.class);
-                    if (dataSnapshot!=null){
-                        fragment.timesAdapter.onItemChanged(timeSchedule);
-                    }
+                    fragment.notifDataChange();
                 }
 
                 @Override
                 public void onChildRemoved(DataSnapshot dataSnapshot) {
                     TimeSchedule timeSchedule = dataSnapshot.getValue(TimeSchedule.class);
+                    fragment.notifDataChange();
+                }
+
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                    TimeSchedule timeSchedule = dataSnapshot.getValue(TimeSchedule.class);
+                    fragment.notifDataChange();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    fragment.showError(databaseError.getMessage());
+                }
+            });
+        fragment.OnTimeScheduleListener(childEventListener);
+        /*userService.getUserTimeScheduleById(mUser.getUid()).addChildEventListener(
+            new ChildEventListener() {
+                @Override
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                    Log.e("onChildAdded", "HomePresenter");
+                    TimeSchedule timeSchedule = dataSnapshot.getValue(TimeSchedule.class);
+                    if (dataSnapshot!=null){
+                        timeSchedules.add(timeSchedule);
+                        fragment.addTimeToAdapter(timeSchedules);
+                    }
+                }
+
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                    Log.e("onChildChanged", "HomePresenter" );
+                    TimeSchedule timeSchedule = dataSnapshot.getValue(TimeSchedule.class);
+                    if (dataSnapshot!=null){
+                        fragment.showtimeDetailSchedule();
+                    }
+                }
+
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+                    Log.e("onChildRemoved", "HomePresenter" );
+                    TimeSchedule timeSchedule = dataSnapshot.getValue(TimeSchedule.class);
+                    Log.e("onChildRemoved", "HomePresenter" + timeSchedule);
                     if (dataSnapshot!=null){
                         fragment.timesAdapter.notifyDataSetChanged();
                     }
@@ -223,16 +261,19 @@ public class HomePresenter implements BasePresenter {
 
                 @Override
                 public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                    Log.e("onChildMoved", "HomePresenter" );
+                    TimeSchedule timeSchedule = dataSnapshot.getValue(TimeSchedule.class);
                     if (dataSnapshot!=null){
-                        fragment.timesAdapter.notifyDataSetChanged();
+                        timeSchedules.add(timeSchedule);
+                        fragment.onTimeScheduleChange(timeSchedules);
                     }
                 }
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-                    Log.e("onCancelled", "HomePresenter" + databaseError.getMessage());
+                    fragment.showError(databaseError.getMessage());
                 }
-            });
+            });*/
     }
 
 

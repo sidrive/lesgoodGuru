@@ -141,4 +141,20 @@ public class TimeSchedule {
   public void setEndTime(@Nullable long endTime) {
     this.endTime = endTime;
   }
+
+  @Override
+  public String toString() {
+    return "TimeSchedule{" +
+        "id='" + id + '\'' +
+        ", schedule_id='" + schedule_id + '\'' +
+        ", time='" + time + '\'' +
+        ", day='" + day + '\'' +
+        ", dayFormated='" + dayFormated + '\'' +
+        ", key='" + key + '\'' +
+        ", day_time='" + day_time + '\'' +
+        ", day_uid='" + day_uid + '\'' +
+        ", startTime=" + startTime +
+        ", endTime=" + endTime +
+        '}';
+  }
 }
