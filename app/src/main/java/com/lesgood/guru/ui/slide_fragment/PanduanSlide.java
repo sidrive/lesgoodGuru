@@ -47,7 +47,7 @@ public class PanduanSlide extends SlideFragment {
             + "<li>Setelah murid melakukan pembayaran silahkan menghubungi murid baik melalui telepon atau pesan text untuk memperkenalkan diri.</li> "
             + "<li>Mintalah murid memberikan penilaian pada anda berupa bintang dan review. Penilaian ini akan sangat membantu reputasi mengajar anda.</li> "
             + "<li>Sebelum pertemuan persiapkan materi ajar anda. Anda dapat mempelajari materi ajar anda dengan mendownload buku ajar di pustaka Lesgood.</li> "
-            + "<li>11. Saat mengajar bawalah fasilitas mengajar yang telah anda janjikan untuk diberikan pada murid.</li> </ol>";
+            + "<li>Saat mengajar bawalah fasilitas mengajar yang telah anda janjikan untuk diberikan pada murid.</li> </ol>";
 
         WebSettings settings = webView.getSettings();
         settings.setDefaultTextEncodingName("utf-8");
